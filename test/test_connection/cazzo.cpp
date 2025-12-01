@@ -1,5 +1,5 @@
 
-#include "../../includes/ether.h"
+#include "../../includes/ether.hpp"
 #include <signal.h>
 #include <stdio.h>
 

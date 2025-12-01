@@ -1,6 +1,7 @@
 
 #include "hpp/Server.hpp"
 #include "../includes/ether.hpp"
+#include <signal.h>
 
 static void	print_fd(struct pollfd *p, int size)
 {
@@ -19,21 +20,9 @@ static void	print_fd(struct pollfd *p, int size)
 	++count;
 }
 
-/*
-https://stackoverflow.com/questions/25147181/pollhup-vs-pollnval-or-what-is-pollhup
 
-POLLHUP, on the other hand, indicates that your file descriptor is valid, but that it's in a state where:
 
-A device has been disconnected, or a pipe or FIFO has been closed by the last process that had it open
- for writing. Once set, the hangup state of a FIFO shall persist until some process opens the FIFO for
-  writing or until all read-only file descriptors for the FIFO are closed. 
-  This event and POLLOUT are mutually-exclusive; a stream can never be 
-  writable if a hangup has occurred. However, this event and POLLIN,
-   POLLRDNORM, POLLRDBAND, or POLLPRI are not mutually-exclusive. 
-   This flag is only valid in the revents bitmask; it shall be ignored in the events member.
-*/
 
-#include <signal.h>
 int	times = 10;
 
 void	ctrl_c(int sig)
@@ -58,7 +47,8 @@ int main() //da aggiungere ac e av
 			print_fd(server.getAddrs(), server.getAddrSize());
 			if (ready < 0)
 				std::cout << "Mannaggia alla madonna poll non va\n";
-			// std::cout << "ARRIBA ANDALE ANDALE" << std::endl;
+			if (ready > 0)
+				std::cout << "ready: " << ready << std::endl;
 			if (server.getAddrs()[0].revents & POLLIN)//FIXME - revents torna sempre 16 (=POLLHUP).
 			{											// dovrebbe tornare POLLIN (=1)
 				server.addSocket(); // aggiunge al vector il nuovo socket del client

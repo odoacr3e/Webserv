@@ -18,6 +18,8 @@ Server::Server()
 	address.sin_port = htons(8080); //LINK: da cambiare e settare in base al config file
 	if (bind(_server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
 		throw std::runtime_error("\033[31mBind ha fallito.\033[0m");
+	if (listen(_server_fd, MAX_CONNECTION) != 0)
+		throw std::runtime_error("\033[31mIl server ha le orecchie tappate.\033[0m");
 	srv.fd = _server_fd;
 	srv.events = POLLIN;
 	srv.revents = 0;
@@ -48,11 +50,10 @@ static struct pollfd	setupPollFd(int client)
 //stampa finche non si blocca
 void	Server::addSocket()
 {
-	int client = accept(this->_addrs[0].fd, NULL, NULL);
+	std::cout << "server fd: " << this->_server_fd << ", addr[0].fd: " << this->_addrs[0].fd << std::endl;
+	int client = accept(this->_server_fd, NULL, NULL);
 	if (client == -1)
-	{
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
-	}
 	std::cout << "connessione trovata, client: " << client << std::endl;
 	this->_addrs.push_back(setupPollFd(client));
 }
@@ -75,7 +76,7 @@ std::string	create_html(std::string body)
 	html += std::to_string(body.length() + 1);
 	html += "\r\n\r\n";
 	html += body + "\n";
-	std::cout << html << std::endl;
+	// std::cout << html << std::endl;
 	return (html + "\n");
 }
 

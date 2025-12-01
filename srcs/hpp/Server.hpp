@@ -17,6 +17,10 @@
 # include <cstdlib>
 # include <exception>
 
+# ifndef MAX_CONNECTION
+#  define MAX_CONNECTION 420
+# endif
+
 class Server
 {
 	private:

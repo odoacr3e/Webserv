@@ -81,24 +81,25 @@ void	Server::checkForConnection() //checkare tutti i socket per vedere se c'e st
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + 1; it != this->_addrs.end(); ++it)
 	{
-		if ((*it).fd != -1 && ((*it).revents & (POLLIN) || ((*it).revents & (POLLOUT)))) 		{
+		if ((*it).fd != -1 && ((*it).revents & POLLIN))
+		{
 			char buffer[256];
-			int bytes = read((*it).fd, buffer, sizeof(buffer));
+			int bytes = recv((*it).fd, buffer, sizeof(buffer), 0);
 			if (bytes <= 0)
 			{
-				printf("Client %d disconnesso\n", (*it).fd);
-				close((*it).fd); //si, va pullato
-				(*it).fd = -1;
-			}
-			else
-			{
-				// Rispondo
-				std::cout << " ----Sent message----" << std::endl;
-				std::string	html = create_html("mega gay");
-				send((*it).fd, html.c_str(), html.length(), 0);
 				close((*it).fd);
 				(*it).fd = -1;
 			}
+			else
+				(*it).events = POLLOUT;
+		}
+		else if ((*it).fd != -1 && ((*it).revents & POLLOUT))
+		{
+			// Rispondo
+			std::cout << " ----Sent message----" << std::endl;
+			std::string	html = create_html("mega gay");
+			send((*it).fd, html.c_str(), html.length(), 0);
+			(*it).events = POLLIN;
 		}
 	}
 }

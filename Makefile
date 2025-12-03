@@ -2,9 +2,11 @@ NAME = webserv
 
 CC = c++
 FLAGS = -Wall -Wextra -Werror -g
-CPPFLAGS = 
+CPPFLAGS = -std=c++98
 
-SRCS = $(addprefix srcs/, main.cpp cpp/Server.cpp)
+
+SRCS = $(addprefix srcs/, main.cpp $(CPP))
+CPP = $(addprefix cpp/, Server.cpp)
 
 all: $(NAME)
 

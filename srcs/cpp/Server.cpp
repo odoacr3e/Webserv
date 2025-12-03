@@ -9,14 +9,15 @@ Server::Server()
 	struct pollfd		srv;
 
 	std::cout << "\033[32mserver constructor!\033[0m" << std::endl;
-	// DBG_MSG("Server constructor called");
 	this->_server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (this->_server_fd < 0)
 		throw std::runtime_error("\033[31mSocket ha fallito.\033[0m");
 	address.sin_family = AF_INET;
+	//TODO: da aggiungere indirizzo ip in base a quelli richiesti dal config file
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(8080); //LINK: da cambiare e settare in base al config file
-	if (bind(_server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
+	//TODO: da cambiare e settare in base al config file le porte in ascolto
+	address.sin_port = htons(8080);
+	if (bind(this->_server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
 		throw std::runtime_error("\033[31mBind ha fallito.\033[0m");
 	if (listen(_server_fd, MAX_CONNECTION) != 0)
 		throw std::runtime_error("\033[31mIl server ha le orecchie tappate.\033[0m");

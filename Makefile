@@ -2,7 +2,7 @@ NAME = webserv
 
 CC = c++
 FLAGS = -Wall -Wextra -Werror -g
-# CPPFLAGS = -std=c++98
+CPPFLAGS = -std=c++98
 
 
 SRCS = $(addprefix srcs/, main.cpp $(CPP))

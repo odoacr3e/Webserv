@@ -11,6 +11,7 @@
 # include <netinet/in.h>
 # include <unistd.h>
 # include <vector>
+# include <map>
 # include <cstring>
 # include <cstdlib>
 # include <sstream>

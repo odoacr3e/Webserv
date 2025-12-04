@@ -21,7 +21,6 @@ static struct pollfd	setupPollFd(int client);
 	4)	Fare un solo poll, passandogli il vector.
 		A poll frega un cazzo di dove gli arriva la roba.
 */
-#include <fcntl.h>
 
 static struct pollfd	createServerSock(int port_n) //successivamente prendera una reference a un oggetto Config con tutti i parametri passati dal config file
 {
@@ -85,6 +84,9 @@ void	Server::addSocket()
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
 	std::cout << "connessione trovata, client: " << client << std::endl;
 	this->_addrs.push_back(setupPollFd(client));
+	//creiamo oggetto client e lo aggiungiano alla std::map
+	this->_clients[client] = new Client(client);
+	std::cout << &this->_clients[client] << std::endl;
 }
 
 struct pollfd *Server::getAddrs(void)
@@ -120,14 +122,17 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + 1; it != this->_addrs.end(); ++it)
 	{
+		std::cout << "Client pointer: " << &this->_clients[(*it).fd] << std::endl;
 		if ((*it).fd != -1 && ((*it).revents & POLLIN))
 		{
 			char buffer[1024] = {0};
 			int bytes = recv((*it).fd, buffer, sizeof(buffer), 0);
 			if (bytes <= 0)
-			{
+			{//da mettere in una funzione a parte
 				std::cout << "chiudo" << std::endl;
 				close((*it).fd);
+				delete this->_clients[(*it).fd];
+				this->_clients.erase((*it).fd);
 				it = this->_addrs.erase(it) - 1;
 			}
 			else

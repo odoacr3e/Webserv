@@ -29,9 +29,9 @@ contiene:
 ##	POST / HTTP/1.1
 ##	Host: localhost:8080
 ##	User-Agent: curl/8.17.1-DEV
-Accept: */*
-Content-Length: 10
-Content-Type: application/x-www-form-urlencoded
+##  Accept: */*
+##  Content-Length: 10
+##  Content-Type: application/x-www-form-urlencoded
 `REQUEST` --> 	{
 descrizione:	(quello che ora prendiamo con recv)
 contiene:
@@ -42,6 +42,11 @@ contiene:
 - location
 }
 
-ANSWER -->  	{
+`ANSWER` -->  	{
 descrizione:	(attuale create_http)
+}
+
+`CONF` --> 	{
+descrizione:	una classe/struct che contiene i dati presi dal config
+contiene:
 }

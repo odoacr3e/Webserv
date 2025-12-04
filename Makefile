@@ -1,12 +1,12 @@
 NAME = webserv
 
 CC = c++
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG
 CPPFLAGS = -std=c++98
 
 
 SRCS = $(addprefix srcs/, main.cpp $(CPP))
-CPP = $(addprefix cpp/, Server.cpp)
+CPP = $(addprefix cpp/, Server.cpp Client.cpp)
 
 all: $(NAME)
 

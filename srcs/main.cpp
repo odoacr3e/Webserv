@@ -41,7 +41,7 @@ int main() //da aggiungere ac e av
 		while (times--)
 		{
 			ready = poll(server.getAddrs(), server.getAddrSize(), -1);
-			if (ready < 0)
+			if (ready < 0 && times != 0)
 				throw std::runtime_error("\033[31mPoll ha fallito.\n\033[0m");
 			if (server.getAddrs()[0].revents & POLLIN)
 				server.addSocket(); // aggiunge al vector il nuovo socket del client

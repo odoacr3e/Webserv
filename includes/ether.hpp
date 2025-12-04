@@ -1,6 +1,9 @@
 #ifndef ETHER_HPP
 # define ETHER_HPP
 # include <iostream>
+# include <fstream>
+# include <ostream>
+# include <sstream>
 # include <string>
 # include <poll.h>
 # include <sys/unistd.h>

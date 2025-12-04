@@ -1,5 +1,6 @@
 
 #include "../hpp/Server.hpp"
+#include <fstream>
 
 static struct pollfd	setupPollFd(int client);
 
@@ -138,6 +139,9 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			else
 			{
 				std::cout << buffer << std::endl; //leggo la richiesta inviata dal client
+				std::ofstream wrfile("pippo.txt");
+				wrfile << buffer;
+				// std::ofstream wrfile(filename.append(".replace").c_str());
 				std::cout << "POLLOUT CLIENT" << std::endl;
 				(*it).events = POLLOUT;
 			}

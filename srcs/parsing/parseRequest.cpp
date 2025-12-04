@@ -1,0 +1,59 @@
+
+#include "../../includes/ether.hpp"
+#include "../hpp/Client.hpp"
+#include "../hpp/Request.hpp"
+
+static int	errorParsing(int err, std::string s)
+{
+	std::cerr << s << std::endl;
+	return (err);
+}
+
+int	lineParsing(Request &request, std::string line)
+{
+	std::string	method;
+	int			i;
+
+	method = line.substr(0, line.find(' '));
+	for (i = 0; i < request.getMethNum(); i++)
+		if (method == VALID_METHODS[i])
+			request.setMethod(i);
+	if (i == request.getMethNum())
+		return (errorParsing(400, "Bad post\n")); // ERROR : METODO NON RICONOSCIUTO
+	request.setUrl(line.substr(method.length() + 1, line.find(' ')));
+	//controlli sulla url
+	if (request.getUrl().empty() == true)
+		return (errorParsing(400, "Empty request\n"));
+	request.setHttpVersion(line.substr(method.length() + \
+	request.getUrl().length() + 1, line.find('\n')));
+	//controlli sul http version
+	if (request.getHttpVersion().empty() == true)
+		return (errorParsing(400, "Empty request\n"));
+}
+
+// int	headerParsing(Request &request, std::istringstream header);
+
+//	METHOD URL VERSIONE_HTTP\r\n
+int	requestParsing(Request &request, std::string input)
+{
+	std::string			lines;
+	std::istringstream	s(input);
+	int					err;
+
+	std::getline(s, lines, '\n');
+	err = lineParsing(request, lines);
+	if (err)
+		return (err);
+}
+
+
+// POST /api/v1/messages HTTP/1.1\r\nHost: esempio.com\nUser-Agent: curl/8.5.0\nAccept: */*\nContent-Type: application/json\nContent-Length: 63
+
+// POST /api/v1/messages HTTP/1.1\r\n
+// Host: esempio.com\r\n
+// User-Agent: curl/8.5.0\r\n
+// Accept: */*\r\n
+// Content-Type: application/json\r\n
+// Content-Length: 63\r\n
+// \r\n
+// {"to":"+391234567890","from":"MAGICO","text":"Messaggio test"}

@@ -28,4 +28,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void			checkForConnection();
 };
 
+
+
 #endif

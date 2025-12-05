@@ -25,12 +25,14 @@ int	lineParsing(Request &request, std::string line)
 	std::cout << "i: " << i << std::endl;
 	if (request.getMethod() == UNDEFINED)
 		return (errorParsing(400, "Bad post\n")); // ERROR : METODO NON RICONOSCIUTO
-	request.setUrl(line.substr(method.length() + 1, line.find(' ')));
+	std::cout << "Line find space: " << line.find(' ', method.length() + 1) - (method.length() + 1) << std::endl;
+	std::cout << "line index start url: " << method.length() + 1 << std::endl;
+	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
 	//controlli sulla url
 	if (request.getUrl().empty() == true)
 		return (errorParsing(400, "Empty request\n"));
-	request.setHttpVersion(line.substr(method.length() + \
-	request.getUrl().length(), line.find('\n')));
+	request.setHttpVersion(line.substr(method.length() + 1 + \
+	request.getUrl().length() + 1, line.find('\n')));
 	//controlli sul http version
 	if (!request.getHttpVersion().compare("HTTP/1.1\r"))
 		return (errorParsing(400, "Empty request\n"));

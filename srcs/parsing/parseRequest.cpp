@@ -21,21 +21,17 @@ int	lineParsing(Request &request, std::string line)
 		if (method == request.getValidMethod(i))
 			request.setMethod(i);
 	}
-	std::cout << "METODO: " << request.getMethod() << std::endl;
-	std::cout << "i: " << i << std::endl;
 	if (request.getMethod() == UNDEFINED)
 		return (errorParsing(400, "Bad post\n")); // ERROR : METODO NON RICONOSCIUTO
-	std::cout << "Line find space: " << line.find(' ', method.length() + 1) - (method.length() + 1) << std::endl;
-	std::cout << "line index start url: " << method.length() + 1 << std::endl;
 	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
-	//controlli sulla url
 	if (request.getUrl().empty() == true)
-		return (errorParsing(400, "Empty request\n"));
+		return (errorParsing(400, "Error in URL\n"));
 	request.setHttpVersion(line.substr(method.length() + 1 + \
-	request.getUrl().length() + 1, line.find('\n')));
+	request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
+	request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
 	//controlli sul http version
-	if (!request.getHttpVersion().compare("HTTP/1.1\r"))
-		return (errorParsing(400, "Empty request\n"));
+	if (request.getHttpVersion().compare("HTTP/1.1\r") != 0)
+		return (errorParsing(400, "Error i HTTP Version\n"));
 	return (0);
 }
 

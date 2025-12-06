@@ -27,8 +27,8 @@ int	lineParsing(Request &request, std::string line)
 	if (request.getUrl().empty() == true)
 		return (errorParsing(400, "Error in URL\n"));
 	request.setHttpVersion(line.substr(method.length() + 1 + \
-	request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
-	request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
+		request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
+		request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
 	//controlli sul http version
 	if (request.getHttpVersion().compare("HTTP/1.1\r") != 0)
 		return (errorParsing(400, "Error i HTTP Version\n"));

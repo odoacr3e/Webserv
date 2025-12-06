@@ -132,7 +132,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			char buffer[1024] = {0};
 			int bytes = recv((*it).fd, buffer, sizeof(buffer), 0);
 			if (bytes <= 0)
-			{//da mettere in una funzione a parte
+			{
+				//da mettere in una funzione a parte
 				std::cout << "chiudo" << std::endl;
 				close((*it).fd);
 				delete this->_clients[(*it).fd];

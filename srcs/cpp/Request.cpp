@@ -57,9 +57,13 @@ void	Request::resetRequest(void)
 	this->_header["Content-Length"] = "";
 	this->_header["Content-Type"] = "";
 	this->_header["Connection"] = "";
+	this->_header["Transfer-Encoding"] = "unchunked";
 }
 
-bool	Request::checkHeader(void)
+// FIXME Quetsa funzione controlla che se uno dei membri richiesti è assente 
+// restituisce l'errore di corrispondeznza e questa cosa va gestita, per ora resituiamo
+// true e false
+int	Request::checkHeader(void)
 {
 	if (!this->checkVal("Host") || \
 		!this->checkVal("Accept") || \
@@ -74,7 +78,7 @@ bool	Request::checkHeader(void)
 	return (false);
 }
 
-bool	Request::_checkPost(void)
+int	Request::_checkPost(void)
 {
 	if (!this->checkVal("Content-Length") || \
 		!this->checkVal("Content-Type"))
@@ -82,12 +86,12 @@ bool	Request::_checkPost(void)
 	return (true);
 }
 
-bool	Request::_checkGet(void)
+int	Request::_checkGet(void)
 {
 	return (true);
 }
 
-bool	Request::_checkDelete(void)
+int	Request::_checkDelete(void)
 {
 	return (true);
 }

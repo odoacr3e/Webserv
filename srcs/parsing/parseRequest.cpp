@@ -9,7 +9,11 @@ static int	errorParsing(int err, std::string s)
 	return (err);
 }
 
-//GET /index.html HTTP/1.1
+// REVIEW Questa funzione va a prendere la prima riga dell'header per stabilire il tipo di 
+// connessione e ricava il metodo, l'url dell'oggetto della connessione e la 
+// versione http. Questo perchè in base al metodo si va a stabilire il tipo
+// di richiesta e quindi i membri che ci aspettiamo di trovare.
+
 int	lineParsing(Request &request, std::string line)
 {
 	std::string	method;
@@ -34,22 +38,15 @@ int	lineParsing(Request &request, std::string line)
 	return (0);
 }
 
-// #define GAY std::string request.getHeader()[line.substr(0, ':')]
-
-/*
-Host: localhost:8080
-User-Agent: curl/8.17.1-DEV
-Accept: /
-Content-Length: 10 (SOLO POST)
-Content-Type: application/x-www-form-urlencoded (SOLO POST)
-*/
+// REVIEW - Questa funzione va a controllare il formato dell'header della 
+// richiesta di connessione e si assicura che ci siano tutti i membri necessari in
+// in base ai metodi che dobbiamo gestire -GET -POST -DELETE 
 int	headerParsing(Request &request, std::istringstream &header)
 {
 	std::string	line;
 	std::string	key;
 
 	request.resetRequest();
-	request.printHeader();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
 	{
 		key = line.substr(0, line.find(':'));
@@ -63,7 +60,10 @@ int	headerParsing(Request &request, std::istringstream &header)
 		else
 			return (errorParsing(104, (std::string)"Campo header illegale: " + key));
 	}
-	return (request.checkHeader());
+	request.printHeader();
+	if (request.checkHeader() == false)
+		return (false);
+	return (1);
 }
 
 // GET METH REQUESTED FIELDS
@@ -92,7 +92,7 @@ int	requestParsing(Request &request, std::string input)
 	if ((err = lineParsing(request, lines)) != 0)
 		return (err);
 	std::cout << request << std::endl;
-	if ((err = headerParsing(request, s)) != 0)
+	if ((err = headerParsing(request, s)) == false)
 		return (err);
 	return (0);
 }

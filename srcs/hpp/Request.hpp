@@ -47,9 +47,9 @@ class Request
 		std::string 						_url; // LINE
 		std::string 						_http_version; // LINE
 		std::string							_body;
-		bool								_checkPost(void);
-		bool								_checkGet(void);
-		bool								_checkDelete(void);
+		int									_checkPost(void);
+		int									_checkGet(void);
+		int									_checkDelete(void);
 
 	public:
 		Request();
@@ -75,7 +75,7 @@ class Request
 		void								setHeaderVal(std::string key, std::string val);
 		bool								checkVal(std::string key);
 		bool								checkKey(std::string key);
-		bool								checkHeader(void);
+		int									checkHeader(void);
 
 		void								resetRequest(void);
 		void								printHeader(void);

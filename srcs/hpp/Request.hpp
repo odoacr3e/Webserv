@@ -50,8 +50,9 @@ private:
 	std::string 						_url; // LINE
 	std::string 						_http_version; // LINE
 	std::string							_body;
-
-	bool		_checkSingleVal(std::string key);
+	bool	_checkPost(void);
+	bool	_checkGet(void);
+	bool	_checkDelete(void);
 public:
 
 	Request();
@@ -77,8 +78,9 @@ public:
 	void 		setUrl(std::string);
 	void		setBody(std::string);
 	void		setHeaderVal(std::string key, std::string val);
-	bool		checkVal(int n, ...);
+	bool		checkVal(std::string key);
 	bool		checkKey(std::string key);
+	bool		checkHeader(void);
 
 	void	printHeader(void);
 

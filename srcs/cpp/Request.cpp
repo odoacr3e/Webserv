@@ -59,6 +59,40 @@ void	Request::reset_request(void)
 	_header["Connection"] = "";
 }
 
+bool	Request::checkHeader(void)
+{
+	if (!request.checkVal("Host") || \
+		!request.checkVal("Accept") || \
+		!request.checkVal("User-Agent"))
+		return (errorParsing(104, "Una flag obbligatoria non e definita.\n"));	
+	if (this->_method == "POST")
+		return (this->_checkPost());
+	else if (this->_method == "GET")
+		return (this->_checkGet());
+	else if (this->_method == "DELETE")
+		return (this->_checkDelete());
+	return (false);
+}
+
+bool	Request::_checkPost(void)
+{
+	else if (request.getMethod() == "POST")
+	{
+		if (!request.checkVal("Content-Length") || \
+		!request.checkVal("Content-Type"))
+			return (errorParsing(104, "Una flag obbligatoria POST non e definita.\n"));
+}
+
+bool	Request::_checkGet(void)
+{
+
+}
+
+bool	Request::_checkDelete(void)
+{
+
+}
+
 std::string	Request::getValidMethod(int idx) const
 {
 	return (this->_validmethods[idx]);
@@ -139,7 +173,7 @@ bool	Request::checkKey(std::string key)
 	return (true);
 }
 
-bool	Request::_checkSingleVal(std::string key)
+bool	Request::checkVal(std::string key)
 {
 	std::cout << "\033[33mChecking key:\t" + key + "\033[0m\n";
 	if (checkKey(key) == false)

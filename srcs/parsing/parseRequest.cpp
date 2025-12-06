@@ -64,16 +64,16 @@ int	headerParsing(Request &request, std::istringstream &header)
 		else
 			return (errorParsing(104, (std::string)"Campo header illegale: " + key));
 	}
-	// if (!request.checkVal("Host") || \
-	// 	!request.checkVal("Accept") || \
-	// 	!request.checkVal("User-Agent"))
-	// 	return (errorParsing(104, "Una flag obbligatoria non e definita.\n"));	
-	// else if (request.getMethod() == "POST")
-	// {
-	// 	if (!request.checkVal("Content-Length") || \
-	// 	!request.checkVal("Content-Type"))
-	// 		return (errorParsing(104, "Una flag obbligatoria POST non e definita.\n"));
-	// }
+	if (!request.checkVal("Host") || \
+		!request.checkVal("Accept") || \
+		!request.checkVal("User-Agent"))
+		return (errorParsing(104, "Una flag obbligatoria non e definita.\n"));	
+	else if (request.getMethod() == "POST")
+	{
+		if (!request.checkVal("Content-Length") || \
+		!request.checkVal("Content-Type"))
+			return (errorParsing(104, "Una flag obbligatoria POST non e definita.\n"));
+	}
 	return (0);
 }
 

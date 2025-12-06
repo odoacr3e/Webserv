@@ -24,23 +24,20 @@ int	times = 1000;
 
 void	ctrl_c(int sig)
 {
-	std::cout << "\nBro stai calmo\n" << std::endl;
+	std::cout << "\nPER LA LIBERTÀ\n" << std::endl;
 	(void)sig, times = 0;
 }
 
 int main() //da aggiungere ac e av
 {
-	int ready;
-
 	signal(SIGINT, ctrl_c);
 	std::cout << "\033[32mIl server si spegnerà tra " << times << " secondi.\n\033[0m";
-	(void)ready;
 	try
 	{
 		Server server;
 		while (times--)
 		{
-			ready = poll(server.getAddrs(), server.getAddrSize(), -1);
+			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);
 			if (ready < 0 && times != 0)
 				throw std::runtime_error("\033[31mPoll ha fallito.\n\033[0m");
 			if (server.getAddrs()[0].revents & POLLIN)

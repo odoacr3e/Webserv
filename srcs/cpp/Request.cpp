@@ -51,20 +51,20 @@ Request&	Request::operator=(const Request &other)
 
 void	Request::reset_request(void)
 {
-	_header["Host"] = "";
-	_header["User-Agent"] = "";
-	_header["Accept"] = "";
-	_header["Content-Length"] = "";
-	_header["Content-type"] = "";
-	_header["Connection"] = "";
+	this->_header["Host"] = "";
+	this->_header["User-Agent"] = "";
+	this->_header["Accept"] = "";
+	this->_header["Content-Length"] = "";
+	this->_header["Content-Type"] = "";
+	this->_header["Connection"] = "";
 }
 
 bool	Request::checkHeader(void)
 {
-	if (!request.checkVal("Host") || \
-		!request.checkVal("Accept") || \
-		!request.checkVal("User-Agent"))
-		return (errorParsing(104, "Una flag obbligatoria non e definita.\n"));	
+	if (!this->checkVal("Host") || \
+		!this->checkVal("Accept") || \
+		!this->checkVal("User-Agent"))
+		return (false);
 	if (this->_method == "POST")
 		return (this->_checkPost());
 	else if (this->_method == "GET")
@@ -76,21 +76,20 @@ bool	Request::checkHeader(void)
 
 bool	Request::_checkPost(void)
 {
-	else if (request.getMethod() == "POST")
-	{
-		if (!request.checkVal("Content-Length") || \
-		!request.checkVal("Content-Type"))
-			return (errorParsing(104, "Una flag obbligatoria POST non e definita.\n"));
+	if (!this->checkVal("Content-Length") || \
+		!this->checkVal("Content-Type"))
+			return (false);
+	return (true);
 }
 
 bool	Request::_checkGet(void)
 {
-
+	return (true);
 }
 
 bool	Request::_checkDelete(void)
 {
-
+	return (true);
 }
 
 std::string	Request::getValidMethod(int idx) const

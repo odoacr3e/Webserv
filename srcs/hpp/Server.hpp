@@ -18,16 +18,15 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 	private:
 		std::vector<struct pollfd> _addrs; //pollfd per poll(), una struct per ogni ip:porta in ascolto
 		std::map<int, Client *>	_clients;
+	
 	public:
 		Server();
 		~Server();
-		
+
 		void 			addSocket();
 		struct pollfd	*getAddrs(void);
 		size_t			getAddrSize(void) const;
 		void			checkForConnection();
 };
-
-
 
 #endif

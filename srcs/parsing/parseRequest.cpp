@@ -29,7 +29,6 @@ int	lineParsing(Request &request, std::string line)
 	request.setHttpVersion(line.substr(method.length() + 1 + \
 		request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
 		request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
-	//controlli sul http version
 	if (request.getHttpVersion().compare("HTTP/1.1\r") != 0)
 		return (errorParsing(400, "Error in HTTP Version\n"));
 	return (0);
@@ -51,30 +50,20 @@ int	headerParsing(Request &request, std::istringstream &header)
 
 	request.reset_request();
 	request.printHeader();
-	while (std::getline(header, line) && line != "\r")
+	while (std::getline(header, line) && line != "\r") // da trimmare \r
 	{
 		key = line.substr(0, line.find(':'));
 		if (request.getHeader().find(key) != request.getHeader().end())
 		{
 			request.getHeader()[key] = line.substr(key.length() + 2);
-			std::cout << "\033[32m";
-			std::cout << key << ": " << request.getHeader()[key] << std::endl;
-			std::cout << "\033[0m";
+			// std::cout << "\033[32m";
+			// std::cout << key << ": " << request.getHeader()[key] << std::endl;
+			// std::cout << "\033[0m";
 		}
 		else
 			return (errorParsing(104, (std::string)"Campo header illegale: " + key));
 	}
-	if (!request.checkVal("Host") || \
-		!request.checkVal("Accept") || \
-		!request.checkVal("User-Agent"))
-		return (errorParsing(104, "Una flag obbligatoria non e definita.\n"));	
-	else if (request.getMethod() == "POST")
-	{
-		if (!request.checkVal("Content-Length") || \
-		!request.checkVal("Content-Type"))
-			return (errorParsing(104, "Una flag obbligatoria POST non e definita.\n"));
-	}
-	return (0);
+	return (request.checkHeader());
 }
 
 // GET METH REQUESTED FIELDS
@@ -100,9 +89,9 @@ int	requestParsing(Request &request, std::string input)
 	int					err;
 
 	std::getline(s, lines, '\n');
-	std::cout << request << std::endl;
 	if ((err = lineParsing(request, lines)) != 0)
 		return (err);
+	std::cout << request << std::endl;
 	if ((err = headerParsing(request, s)) != 0)
 		return (err);
 	return (0);

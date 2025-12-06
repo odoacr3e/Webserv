@@ -2,6 +2,7 @@
 #define REQUEST_HPP
 
 # include "../../includes/ether.hpp"
+# include <map>
 
 # define UNDEFINED ""
 
@@ -39,53 +40,45 @@ _uri:		/
 // FIXME - gestire transfer-encoding
 class Request
 {
-
+	// typedef std::map<std::string, std::string> strmap;
+	
 private:
-	static const std::string	_validmethods[METH_NUM];
-	std::string					_method;
-	std::string 				_url;
-	std::string 				_http_version;
-	std::string 				_host;
-	int 						_contentlength;
-	std::string 				_contenttype;
-	std::string 				_connection;
-	std::string 				_encoding;
-	int 						_port;
-	std::string 				_body;
-
-	// void		fill_checks(void);
+	
+	static const std::string			_validmethods[METH_NUM];
+	std::map<std::string, std::string>	_header;
+	std::string							_method; // LINE
+	std::string 						_url; // LINE
+	std::string 						_http_version; // LINE
+	std::string							_body;
 
 public:
+
 	Request();
 	~Request();
 	Request(const Request &other);
 	Request &operator=(const Request &other);
 
+	void			reset_request(void);
+
 	//getters
-	std::string		getValidMethod(int idx) const;
-	int				getMethNum() const;
-	std::string		getMethod() const;
-	std::string 	getUrl() const;
-	std::string 	getHttpVersion() const;
-	std::string 	getHost() const;
-	int 			getContentLenght() const;
-	std::string 	getContentType() const;
-	std::string 	getConnection() const;
-	std::string 	getEncoding() const;
-	int 			getPort() const;
-	std::string 	getBody() const;
-	
+	std::string							getValidMethod(int idx) const;
+	int									getMethNum() const;
+	std::string							getMethod() const;
+	std::string 						getUrl() const;
+	std::string 						getHttpVersion() const;
+	std::string 						getBody() const;
+	std::map<std::string, std::string>	getHeader() const;
+	std::string							getHeaderVal(std::string key);
+
 	//setters
-	void	setMethod(int method);
-	void 	setUrl(std::string);
-	void 	setHttpVersion(std::string);
-	void 	setHost(std::string);
-	void	setContentLength(int);
-	void	setContentType(std::string);
-	void	setConnection(std::string);
-	void 	setEncoding(std::string);
-	void 	setPort(int);
-	void	setBody(std::string);
+	void		setMethod(int method);
+	void		setHttpVersion(std::string version);
+	void 		setUrl(std::string);
+	void		setBody(std::string);
+	void		setHeaderVal(std::string key, std::string val);
+	bool		checkVal(std::string key);
+	bool		checkKey(std::string key);
+	
 };
 
 std::ostream &operator<<(std::ostream &os, Request &obj);

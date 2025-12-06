@@ -35,20 +35,68 @@ int	lineParsing(Request &request, std::string line)
 	return (0);
 }
 
-// int	headerParsing(Request &request, std::istringstream header)
-// {
-// 	//parsing e si riempe la mappa
-// 	//se ci sono le chiavi obbligatorie, si riempie request, senno vaffanculo
-// 	//svuotare mappa
-// }
-
+// #define GAY std::string request.getHeader()[line.substr(0, ':')]
 
 /*
 Host: localhost:8080
 User-Agent: curl/8.17.1-DEV
 Accept: /
-Content-Length: 10
-Content-Type: application/x-www-form-urlencoded
+Content-Length: 10 (SOLO POST)
+Content-Type: application/x-www-form-urlencoded (SOLO POST)
+*/
+int	headerParsing(Request &request, std::istringstream &header)
+{
+	std::string	line;
+	std::string	key;
+
+	request.reset_request();
+	while (std::getline(header, line))
+	{
+		if (request.getHeader().find(line.substr(0, ':')) != request.getHeader().end())
+		{
+			key = line.substr(0, ':');
+			std::cout << key << ":OK!\n";
+			request.getHeader()[key] = line.substr(key.length() + 2);
+			std::cout << request.getHeader()[line.substr(0, ':')] << std::endl;
+		}
+		else
+			return (errorParsing(104, (std::string)"Campo header illegale: " + line.substr(0, ':')));
+	}
+	if (!request.checkVal("Host") || \
+	!request.checkVal("Accept") || \
+	!request.checkVal("User-Agent"))
+		return (errorParsing(104, "Una flag obbligatoria in non e definita.\n"));
+	if (request.getMethod() == "GET")
+	{
+
+	}
+	else if (request.getMethod() == "POST")
+	{
+		if (!request.checkVal("Host") || \
+		!request.checkVal("Accept") || \
+		!request.checkVal("Content-Length") || \
+		!request.checkVal("Content-Type") || \
+		!request.checkVal("User-Agent"))
+			return (errorParsing(104, "Una flag obbligatoria in POST non e definita.\n"));
+	}
+	// else if (request.getMethod() == "DELETE")
+	// {
+	// 
+	// }
+}
+
+// GET METH REQUESTED FIELDS
+// GET /contact HTTP/1.1
+// Host: example.com
+// User-Agent: curl/8.6.0
+// Accept: */*
+
+/*
+Host: localhost:8080
+User-Agent: curl/8.17.1-DEV
+Accept: /
+Content-Length: 10 (SOLO POST)
+Content-Type: application/x-www-form-urlencoded (SOLO POST)
 
 
 */
@@ -60,10 +108,12 @@ int	requestParsing(Request &request, std::string input)
 	int					err;
 
 	std::getline(s, lines, '\n');
-	err = lineParsing(request, lines);
 	std::cout << request << std::endl;
-	if (err)
+	if ((err = lineParsing(request, lines)) != 0)
 		return (err);
+	if ((err = headerParsing(request, s)) != 0)
+		return (err);
+	
 	return (0);
 }
 

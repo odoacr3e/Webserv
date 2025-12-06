@@ -7,22 +7,30 @@ const std::string Request::_validmethods[METH_NUM] = {
     "DELETE"
 };
 
+/*
+Host: localhost:8080
+User-Agent: curl/8.17.1-DEV
+Accept: /
+Content-Length: 10 (SOLO POST)
+Content-Type: application/x-www-form-urlencoded (SOLO POST)
+
+
+*/
 Request::Request()
 {
 	this->_method = "GET";
-	this->_connection = UNDEFINED;
-	this->_port = -1;
+	reset_request();
 }
 
 /* void	Request::fill_checks(void)
 {
 	for (int i = 0; i < METH_NUM; i++)
-		this->_validmethods[i] = VALID_METHODS[i]; spread democracy non morirà così facilmente
+		this->_validmethods[i] = VALID_METHODS[i];
 } */
 
 Request::~Request()
 {
-
+	
 }
 
 Request::Request(const Request &other)
@@ -37,14 +45,18 @@ Request&	Request::operator=(const Request &other)
 	this->_method = other._method;
 	this->_url = other._url;
 	this->_http_version = other._http_version;
-	this->_host = other._host;
-	this->_contentlength = other._contentlength;
-	this->_contenttype = other._contenttype;
-	this->_connection = other._connection;
-	this->_encoding = other._encoding;
-	this->_port = other._port;
 	this->_body = other._body;
 	return (*this);
+}
+
+void	Request::reset_request(void)
+{
+	_header["Host"] = "";
+	_header["User-Agent"] = "";
+	_header["Accept"] = "";
+	_header["Content-Length"] = "";
+	_header["Content-type"] = "";
+	_header["Connection"] = "";
 }
 
 std::string	Request::getValidMethod(int idx) const
@@ -72,39 +84,22 @@ std::string Request::getHttpVersion() const
 	return (this->_http_version);
 }
 
-std::string Request::getHost() const
-{
-	return (this->_host);
-}
-
-int Request::getContentLenght() const
-{
-	return (this->_contentlength);
-}
-
-std::string Request::getContentType() const
-{
-	return (this->_contenttype);
-}
-
-std::string Request::getConnection() const
-{
-	return (this->_host);
-}
-
-std::string Request::getEncoding() const
-{
-	return (this->_encoding);
-}
-
-int Request::getPort() const
-{
-	return (this->_port);
-}
-
 std::string Request::getBody() const
 {
 	return (this->_body);
+}
+
+std::map<std::string, std::string>	Request::getHeader() const
+{
+	return (this->_header);
+}
+
+std::string	Request::getHeaderVal(std::string key)
+{
+	if (this->_header.find(key) == this->_header.end())
+		return ((std::string)"");
+	else
+		return (this->_header[key]);
 }
 
 void	Request::setMethod(int method)
@@ -117,44 +112,41 @@ void	Request::setUrl(std::string url)
 	this->_url = url;
 }
 
-void	Request::setHttpVersion(std::string httpversion)
+void	Request::setHttpVersion(std::string version)
 {
-	this->_http_version = httpversion;
-}
-
-void	Request::setHost(std::string host)
-{
-	this->_host = host;
-}
-
-void	Request::setContentLength(int contentlength)
-{
-	this->_contentlength = contentlength;
-}
-
-void	Request::setContentType(std::string contenttype)
-{
-	this->_contenttype = contenttype;
-}
-
-void	Request::setConnection(std::string connection)
-{
-	this->_connection = connection;
-}
-
-void	Request::setEncoding(std::string encoding)
-{
-	this->_encoding = encoding;
-}
-
-void	Request::setPort(int port)
-{
-	this->_port = port;
+	this->_http_version = version;
 }
 
 void	Request::setBody(std::string body)
 {
 	this->_body = body;
+}
+
+void		Request::setHeaderVal(std::string key, std::string val)
+{
+	if (checkKey(key))
+	{
+		this->_header[key] = val;
+		// std::cout << "header set at: " << key << std::endl; 
+	}
+	else
+		std::cout << "Key: " + key + " does not exist in header map" << std::endl;
+}
+
+bool	Request::checkKey(std::string key)
+{
+	if (this->_header.find(key) != this->_header.end())
+		return (false);
+	return (true);
+}
+
+bool	Request::checkVal(std::string key)
+{
+	if (checkKey(key) == false)
+		return (false);
+	if (this->_header.find(key) != this->_header.end())
+		return (false);
+	return (true);
 }
 
 std::ostream &operator<<(std::ostream &os, Request &obj)

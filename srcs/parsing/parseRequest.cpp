@@ -48,7 +48,7 @@ int	headerParsing(Request &request, std::istringstream &header)
 	std::string	line;
 	std::string	key;
 
-	request.reset_request();
+	request.resetRequest();
 	request.printHeader();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
 	{

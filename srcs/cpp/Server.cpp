@@ -28,6 +28,7 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	struct sockaddr_in	address;
 	int					server_fd;
 	struct pollfd		srv;
+	int					opt = 1;
 	
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);//
 	if (server_fd < 0)
@@ -35,6 +36,7 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(port_n);
+	setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
 	{
 		close(server_fd);

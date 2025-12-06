@@ -40,49 +40,45 @@ _uri:		/
 // FIXME - gestire transfer-encoding
 class Request
 {
-	// typedef std::map<std::string, std::string> strmap;
-	
-private:
-	
-	static const std::string			_validmethods[METH_NUM];
-	std::map<std::string, std::string>	_header;
-	std::string							_method; // LINE
-	std::string 						_url; // LINE
-	std::string 						_http_version; // LINE
-	std::string							_body;
-	bool	_checkPost(void);
-	bool	_checkGet(void);
-	bool	_checkDelete(void);
-public:
+	private:
+		static const std::string			_validmethods[METH_NUM];
+		std::map<std::string, std::string>	_header;
+		std::string							_method; // LINE
+		std::string 						_url; // LINE
+		std::string 						_http_version; // LINE
+		std::string							_body;
+		bool								_checkPost(void);
+		bool								_checkGet(void);
+		bool								_checkDelete(void);
 
-	Request();
-	~Request();
-	Request(const Request &other);
-	Request &operator=(const Request &other);
+	public:
+		Request();
+		~Request();
+		Request(const Request &other);
+		Request &operator=(const Request &other);
 
-	void			reset_request(void);
+		//getters
+		std::string							getValidMethod(int idx) const;
+		int									getMethNum() const;
+		std::string							getMethod() const;
+		std::string 						getUrl() const;
+		std::string 						getHttpVersion() const;
+		std::string 						getBody() const;
+		std::map<std::string, std::string>	&getHeader();
+		std::string							getHeaderVal(std::string key);
 
-	//getters
-	std::string							getValidMethod(int idx) const;
-	int									getMethNum() const;
-	std::string							getMethod() const;
-	std::string 						getUrl() const;
-	std::string 						getHttpVersion() const;
-	std::string 						getBody() const;
-	std::map<std::string, std::string>	&getHeader();
-	std::string							getHeaderVal(std::string key);
+		//setters
+		void								setMethod(int method);
+		void								setHttpVersion(std::string version);
+		void 								setUrl(std::string);
+		void								setBody(std::string);
+		void								setHeaderVal(std::string key, std::string val);
+		bool								checkVal(std::string key);
+		bool								checkKey(std::string key);
+		bool								checkHeader(void);
 
-	//setters
-	void		setMethod(int method);
-	void		setHttpVersion(std::string version);
-	void 		setUrl(std::string);
-	void		setBody(std::string);
-	void		setHeaderVal(std::string key, std::string val);
-	bool		checkVal(std::string key);
-	bool		checkKey(std::string key);
-	bool		checkHeader(void);
-
-	void	printHeader(void);
+		void								resetRequest(void);
+		void								printHeader(void);
 
 };
 

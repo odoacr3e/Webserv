@@ -19,7 +19,7 @@ Content-Type: application/x-www-form-urlencoded (SOLO POST)
 Request::Request()
 {
 	this->_method = "GET";
-	reset_request();
+	resetRequest();
 }
 
 /* void	Request::fill_checks(void)
@@ -49,7 +49,7 @@ Request&	Request::operator=(const Request &other)
 	return (*this);
 }
 
-void	Request::reset_request(void)
+void	Request::resetRequest(void)
 {
 	this->_header["Host"] = "";
 	this->_header["User-Agent"] = "";

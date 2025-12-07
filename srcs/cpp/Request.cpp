@@ -18,7 +18,6 @@ Content-Type: application/x-www-form-urlencoded (SOLO POST)
 */
 Request::Request()
 {
-	this->_method = "GET";
 	resetRequest();
 }
 
@@ -153,7 +152,7 @@ void	Request::setBody(std::string body)
 	this->_body = body;
 }
 
-void		Request::setHeaderVal(std::string key, std::string val)
+void	Request::setHeaderVal(std::string key, std::string val)
 {
 	if (!checkKey(key))
 		DBG_MSG("Key: " + key + " does not exist and has been added to header map");

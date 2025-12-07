@@ -25,7 +25,7 @@ int	lineParsing(Request &request, std::string line)
 			request.setMethod(i);
 	}
 	if (request.getMethod() == UNDEFINED)
-		return (errorParsing(400, "Bad post\n"));// ERROR : METODO NON RICONOSCIUTO
+		return (errorParsing(400, "Bad method"));// ERROR : METODO NON RICONOSCIUTO
 	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
 	if (request.getUrl().empty() == true)
 		return (errorParsing(400, "Error in URL\n"));
@@ -43,12 +43,8 @@ int	lineParsing(Request &request, std::string line)
 // 
 int	headerParsing(Request &request, std::istringstream &header)
 {
-// da fare refactor -> riempire tutti campi definiti obbligatori, controllare che non siano vuoti e poi fillare la mappa con i rimanenti
 	std::string		line;
 	std::string		key;
-	// std::streampos	pos = header.tellg(); //salva la posizione dello stream
-	// header.clear();
-	// header.seekg(pos);
 
 	request.resetRequest();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
@@ -56,28 +52,41 @@ int	headerParsing(Request &request, std::istringstream &header)
 		key = line.substr(0, line.find(':'));
 		request.setHeaderVal(key, line.substr(key.length() + 2));
 	}
-	request.printHeader();
+	// request.printHeader();
+
 	if (!request.checkHeader())
 		return (false);
+
+	key = line.substr(0, line.find(':'));
+	if (line.empty() && line.c_str() != NULL)
+	{
+		std::getline(header, line);
+		if (line.empty() && line.c_str() != NULL)
+			return(errorParsing(400, "Bad header indentation!\n"));
+	}
 	return (1);
 }
 
-// GET METH REQUESTED FIELDS
-// GET /contact HTTP/1.1
+// POST /contact HTTP/1.1
 // Host: example.com
 // User-Agent: curl/8.6.0
 // Accept: */*
+// \r\n
+// User-Agent: curl/8.6.0
 
-/*
-Host: localhost:8080
-User-Agent: curl/8.17.1-DEV
-Accept: /
-Content-Length: 10 (SOLO POST)
-Content-Type: application/x-www-form-urlencoded (SOLO POST)
+// POST /contact HTTP/1.1
+// Host: example.com
+// User-Agent: curl/8.6.0
+// Accept: */*
+// \r\n
 
+// POST /contact HTTP/1.1
+// Host: example.com
+// \r\n
+// User-Agent: curl/8.6.0
+// Accept: */*
+// \r\n
 
-*/
-//	METHOD URL VERSIONE_HTTP\r\n
 int	requestParsing(Request &request, std::string input)
 {
 	std::string			lines;

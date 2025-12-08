@@ -5,9 +5,13 @@ FLAGS = -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG
 CPPFLAGS = -std=c++98
 
 
-SRCS = $(addprefix srcs/, main.cpp $(CPP) $(PARSING))
-PARSING = $(addprefix parsing/, parseRequest.cpp)
-CPP = $(addprefix cpp/, Server.cpp Client.cpp Request.cpp)
+SRCS = $(addprefix srcs/, main.cpp $(CPP) $(PARSING) $(UTILS))
+
+PARSING = $(addprefix parsing/, parseRequest.cpp $(CONF_PARSING))
+CONF_PARSING = $(addprefix conf/, parseEvent.cpp parseMain.cpp parseServer.cpp parseLocation.cpp parseHttp.cpp)
+
+CPP = $(addprefix cpp/, Server.cpp Client.cpp Request.cpp Conf.cpp)
+UTILS = $(addprefix utils/, utils_page1.cpp)
 
 all: $(NAME)
 

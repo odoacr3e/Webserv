@@ -43,4 +43,10 @@ std::string	ft_to_string(T data)
 
 int			requestParsing(Request &request, std::string input);
 
+//SEXTION - utils
+std::string	removeWhitespaces(std::string line);
+size_t		find_first_not_whitespace(std::string line);
+size_t		find_first_whitespace(std::string line);
+bool		is_there_whitespaces(std::string line);
+
 #endif

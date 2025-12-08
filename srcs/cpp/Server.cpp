@@ -77,7 +77,6 @@ Server::~Server()
 	}
 }
 
-
 static struct pollfd	setupPollFd(int client)
 {
 	struct pollfd s;

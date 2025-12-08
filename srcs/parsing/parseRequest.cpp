@@ -90,18 +90,6 @@ static int	bodyParsing(Request &request, std::istringstream &header)
 	return (200);
 }
 
-// NOTE - da mettere in utils?
-std::string	removeWhitespaces(std::string line)
-{
-	size_t 		i = 0;
-
-	if (!std::isspace(line[0]))
-		return (line);
-	while (std::isspace(line[i]))
-		i++;	
-	return (line.substr(i));
-}
-
 static int	errorParsing(int err, std::string s)
 {
 	std::cerr << "\033[31m" << s << "\033[0m" << std::endl;

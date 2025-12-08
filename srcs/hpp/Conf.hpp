@@ -2,6 +2,7 @@
 # define CONF_HPP
 
 # include "../../includes/ether.hpp"
+# define CONF_DEFAULT_PATH "default.conf"
 
 
 // #events
@@ -13,6 +14,32 @@
 // #http 1 e uno solo
 // #server minimo 1, massimo INFINITI
 // #location minimo 0, massimo INFINITI
+
+
+
+/*
+
+
+events{NOME_ELEMENTO VALORE1 VALORE2}
+
+http    xvzv   dsdcsdf 
+{
+ 	server
+	{
+		location
+		{
+		
+		}
+		location
+		{
+		
+		}
+	}
+	server
+	{
+		
+	}
+}*/
 
 //getline
 //find(something different from ISSPACE)
@@ -28,14 +55,26 @@
 class Conf
 {
 	private:
-
+		const std::string	_file;
+	
 	//canonic
 	public:
-		Conf();
+		Conf(std::string filepath);
 		~Conf();
 		Conf(const Conf &other);
-		Conf	operator=(const Conf &other);
+		Conf	&operator=(const Conf &other);
 
+		class ConfException: public std::exception
+		{
+			private:
+				std::string _msg;
+			public:
+				ConfException(std::string msg) : _msg(msg) {};
+				virtual const char *what() const throw() {return (_msg.c_str());}
+				~ConfException() throw() {};
+		};
 };
+
+void	parseMain(Conf &conf, std::ifstream &fd);
 
 #endif

@@ -36,11 +36,10 @@ void	parseMain(Conf &conf, std::ifstream &fd)
 				token = line.substr(0, find_first_special_char(line));
 			if (!token.empty())
 				list.push_back(token);
-			// 	//se trovi caratteri speciali, resetti vector e analizzi
 			if (!list.empty())
 				std::cout << "\033[34mlist: " << (*list.rbegin()) << "\033[0m" << std::endl;
 			line = line.substr(find_first_special_char(line));
-			// token = "";
+			token = "";
 		}
 	}
 	for (size_t i = 0; i < list.size(); ++i) 

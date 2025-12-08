@@ -49,4 +49,8 @@ size_t		find_first_not_whitespace(std::string line);
 size_t		find_first_whitespace(std::string line);
 bool		is_there_whitespaces(std::string line);
 
+size_t		find_first_special_char(std::string line);
+bool		is_there_special_chars(std::string line);
+size_t		find_first_not_special_char(std::string line);
+
 #endif

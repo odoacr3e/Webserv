@@ -36,15 +36,46 @@ bool	is_there_whitespaces(std::string line)
 
 	while(line[i] != 0 && !std::isspace(line[i]))
 	{
-		return(true);
+		if (std::isspace(line[i]))
+			return (true);
 		i++;
 	}
 	return(false);
 }
 
 
+size_t	find_first_not_special_char(std::string line)
+{
+	size_t i = 0;
+
+	while(line[i] != 0 && (std::isspace(line[i]) || std::strchr("{};", line[i])))
+		i++;
+	return(i);
+}
+
+size_t	find_first_special_char(std::string line)
+{
+	size_t i = 0;
+
+	while(line[i] != 0 && !std::isspace(line[i]) && !std::strchr("{};", line[i]))
+		i++;
+	return(i + (line[0] == '{' || line[0] == '}' || line[0] == ':'));
+}
+
+bool	is_there_special_char(std::string line)
+{
+	size_t i = 0;
+
+	while(line[i] != 0)
+	{
+		if (std::isspace(line[i]) || !std::strchr("{};", line[i]))
+			return(true);
+		i++;
+	}
+	return(false);
+}
 //
-//http    xvzv   dsdcsdf 
+//     /{  :; http    xvzv   dsdcsdf 
 // {
 //  	server
 // 	{

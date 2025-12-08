@@ -19,7 +19,7 @@
 // 		std::cout << "revents:" << p[i].revents << std::endl << std::endl;
 // 	}
 // 	++count;
-// }
+// }std::strchr("/{};", line[i])
 
 int	times = 1000;
 

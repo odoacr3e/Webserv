@@ -56,7 +56,11 @@ class Conf
 {
 	private:
 		const std::string	_file;
-	
+		// bool				_events;
+		// bool				_http;
+		// bool				_server;
+		// bool				_location;
+
 	//canonic
 	public:
 		Conf(std::string filepath);
@@ -64,6 +68,8 @@ class Conf
 		Conf(const Conf &other);
 		Conf	&operator=(const Conf &other);
 
+		// void	validOpenBlock(std::string toFlag) const;
+		
 		class ConfException: public std::exception
 		{
 			private:

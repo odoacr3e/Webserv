@@ -2,10 +2,20 @@
 #include "../../../includes/ether.hpp"
 #include "../../hpp/Conf.hpp"
 
+int	newOpenBlock()
+{
+	std::cout << "PIPPO" << std::endl;
+	return (1);
+}
+
+/*
+http{}
+*/
 void	parseMain(Conf &conf, std::ifstream &fd) 
 {
 	std::string					line;
-	std::vector<std::string>	token;
+	std::string					token;
+	std::vector<std::string>	list;
 	int i = 0;
 
 	(void)conf;
@@ -16,21 +26,29 @@ void	parseMain(Conf &conf, std::ifstream &fd)
 		{
 			std::cout << "\033[33mLine " << i << ": " << line << "\033[0m" << std::endl;
 			line = removeWhitespaces(line);
-			if (!line.empty())
-				token.push_back(line.substr(0, find_first_whitespace(line)));
-			std::cout << "\033[34mToken: " << (*token.rbegin()) << "\033[0m" << std::endl;
-			//se trovi caratteri speciali, resetti vector e analizzi
-			line = line.substr(find_first_whitespace(line));
-			//std::cout << "Line 2: " << line << std::endl;
+			// if (line[0] == '{')
+			// 	newOpenBlock();
+			// else if (line[0] == '}')
+			// 	newOpenBlock();
+			// else if (line[0] == ';')
+			// 	newOpenBlock();
+			// else 
+				token = line.substr(0, find_first_special_char(line));
+			if (!token.empty())
+				list.push_back(token);
+			// 	//se trovi caratteri speciali, resetti vector e analizzi
+			if (!list.empty())
+				std::cout << "\033[34mlist: " << (*list.rbegin()) << "\033[0m" << std::endl;
+			line = line.substr(find_first_special_char(line));
+			// token = "";
 		}
 	}
-	for (size_t i = 0; i < token.size(); ++i) 
-    	std::cout << token[i] << " \n";
+	for (size_t i = 0; i < list.size(); ++i) 
+    	std::cout << list[i] << " \n";
 }
 
-// http
-// {
-// 	server
+//http
+//{server
 // 	{
 		
 // 	}	

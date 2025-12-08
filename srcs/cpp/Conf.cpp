@@ -24,3 +24,8 @@ Conf	&Conf::operator=(const Conf &other)
 		return (*this);
 	return (*this);
 }
+
+// void	Conf::validOpenBlock(std::string toFlag) const
+// {
+	
+// }

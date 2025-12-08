@@ -168,12 +168,12 @@ bool	Request::checkKey(std::string key)
 
 bool	Request::checkVal(std::string key)
 {
-	std::cout << "\033[33mChecking key:\t" + key + "\033[0m\n";
+	std::cout << "\033[33mChecking key:\t" << "\033[0m" << key << "\n";
 	if (checkKey(key) == false)
 		return (false);
 	if (this->_header.find(key) == this->_header.end())
 		return (false);
-	std::cout << key + "\033[32m è stata riempita!\n\033[0m";
+	std::cout << key << "\033[32m è stata riempita!\n\033[0m";
 	return (true);
 }
 

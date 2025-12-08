@@ -41,7 +41,6 @@ std::string	ft_to_string(T data)
 	return (stream.str());
 }
 
-int			lineParsing(Request &request, std::string line);
 int			requestParsing(Request &request, std::string input);
 
 #endif

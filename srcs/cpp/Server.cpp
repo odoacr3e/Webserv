@@ -29,8 +29,8 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	int					server_fd;
 	struct pollfd		srv;
 	int					opt = 1;
-	
-	server_fd = socket(AF_INET, SOCK_STREAM, 0);//
+
+	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_fd < 0)
 		throw std::runtime_error("\033[31mSocket ha fallito.\033[0m");
 	address.sin_family = AF_INET;
@@ -142,7 +142,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			}
 			else
 			{
-				std::cout << buffer << std::endl; //leggo la richiesta inviata dal client
+//				std::cout << buffer << std::endl; //leggo la richiesta inviata dal client
 				std::cout << "\033[33m" << "RICHIESTA CLIENT" << "\033[0m" << std::endl;
 				requestParsing(this->_clients[(*it).fd]->getRequest(), buffer);
 				(*it).events = POLLOUT;

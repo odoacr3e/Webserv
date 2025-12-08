@@ -1,48 +1,33 @@
-
 #include "../../includes/ether.hpp"
 #include "../hpp/Client.hpp"
 #include "../hpp/Request.hpp"
 
-std::string	removeWhitespaces(std::string line)
+static int	lineParsing(Request &request, std::string line);
+static int	headerParsing(Request &request, std::istringstream &header);
+static int	headerEndlineCheck(std::istringstream &header, Request &request);
+std::string	removeWhitespaces(std::string line);
+static int	errorParsing(int err, std::string s);
+
+int	requestParsing(Request &request, std::string input)
 {
-	size_t 		i = 0;
+	std::string			lines;
+	std::istringstream	s(input);
+	int					err;
 
-	if (!std::isspace(line[0]))
-		return (line);
-	while (std::isspace(line[i]))
-		i++;	
-	return(line.substr(i));
-}
-
-static int	errorParsing(int err, std::string s)
-{
-	std::cerr << "\033[31m" << s << "\033[0m" << std::endl;
-	return (err);
-}
-
-static int	headerEndlineCheck(std::istringstream &header, Request &request)
-{
-	std::string line;
-
-	if (!line.empty())
-		return(errorParsing(400, "Bad format request\n"));
-	if (request.getMethod().compare("POST") == 0 && \
-		std::atoi(request.getHeaderVal("Content-Length").c_str()) > 0)
-	{
-		std::getline(header, line);
-		if (line.empty())
-			return(errorParsing(405, "Method not allowed\n"));
-		request.setBody(line);
-		// std::cout << "Body: " << request.getBody() << std::endl;
-	}
-	return (200);
+	std::getline(s, lines, '\n');
+	if ((err = lineParsing(request, lines)) != 0)
+		return (err);
+	std::cout << request << std::endl;
+	if ((err = headerParsing(request, s)) == false)
+		return (err);
+	return (0);
 }
 
 // REVIEW Questa funzione va a prendere la prima riga dell'header per stabilire il tipo di 
 // connessione e ricava il metodo, l'url dell'oggetto della connessione e la 
 // versione http. Questo perchè in base al metodo si va a stabilire il tipo
 // di richiesta e quindi i membri che ci aspettiamo di trovare.
-int	lineParsing(Request &request, std::string line)
+static int	lineParsing(Request &request, std::string line)
 {
 	std::string	method;
 	int			i;
@@ -69,8 +54,7 @@ int	lineParsing(Request &request, std::string line)
 // REVIEW - Questa funzione va a controllare il formato dell'header della 
 // richiesta di connessione e si assicura che ci siano tutti i membri necessari in
 // in base ai metodi che dobbiamo gestire -GET -POST -DELETE
-// 
-int	headerParsing(Request &request, std::istringstream &header)
+static int	headerParsing(Request &request, std::istringstream &header)
 {
 	std::string		line;
 	std::string		key;
@@ -86,38 +70,60 @@ int	headerParsing(Request &request, std::istringstream &header)
 	return (headerEndlineCheck(header, request));
 }
 
-// POST /contact HTTP/1.1
-// Host: example.com
-// User-Agent: curl/8.6.0
-// Accept: */*
-// \r\n
-// User-Agent: curl/8.6.0
-
-// POST /contact HTTP/1.1
-// Host: example.com
-// User-Agent: curl/8.6.0
-// Accept: */*
-// \r\n
-
-// POST /contact HTTP/1.1
-// Host: example.com
-// \r\n
-// User-Agent: curl/8.6.0
-// Accept: */*
-// \r\n
-
-int	requestParsing(Request &request, std::string input)
+//FIXME - non va letta una nuova linea
+static int	headerEndlineCheck(std::istringstream &header, Request &request)
 {
-	std::string			lines;
-	std::istringstream	s(input);
-	int					err;
+	std::string line;
 
-	std::getline(s, lines, '\n');
-	if ((err = lineParsing(request, lines)) != 0)
-		return (err);
-	std::cout << request << std::endl;
-	if ((err = headerParsing(request, s)) == false)
-		return (err);
-	return (0);
+	if (!line.empty())
+		return(errorParsing(400, "Bad format request\n"));
+	if (request.getMethod().compare("POST") == 0 && \
+		std::atoi(request.getHeaderVal("Content-Length").c_str()) > 0)
+	{
+		std::getline(header, line);
+		if (line.empty())
+			return(errorParsing(405, "Method not allowed\n"));
+		request.setBody(line);
+		// std::cout << "Body: " << request.getBody() << std::endl;
+	}
+	return (200);
 }
 
+// NOTE - da mettere in utils?
+std::string	removeWhitespaces(std::string line)
+{
+	size_t 		i = 0;
+
+	if (!std::isspace(line[0]))
+		return (line);
+	while (std::isspace(line[i]))
+		i++;	
+	return (line.substr(i));
+}
+
+static int	errorParsing(int err, std::string s)
+{
+	std::cerr << "\033[31m" << s << "\033[0m" << std::endl;
+	return (err);
+}
+
+
+// POST /contact HTTP/1.1
+// Host: example.com
+// User-Agent: curl/8.6.0
+// Accept: */*
+// \r\n
+// User-Agent: curl/8.6.0
+
+// POST /contact HTTP/1.1
+// Host: example.com
+// User-Agent: curl/8.6.0
+// Accept: */*
+// \r\n
+
+// POST /contact HTTP/1.1
+// Host: example.com
+// \r\n
+// User-Agent: curl/8.6.0
+// Accept: */*
+// \r\n

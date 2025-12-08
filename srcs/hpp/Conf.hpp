@@ -56,10 +56,10 @@ class Conf
 {
 	private:
 		const std::string	_file;
-		// bool				_events;
-		// bool				_http;
-		// bool				_server;
-		// bool				_location;
+		bool				_events;
+		bool				_http;
+		bool				_server;
+		bool				_location;
 
 	//canonic
 	public:

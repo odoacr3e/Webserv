@@ -23,7 +23,7 @@
 
 int	times = 1000;
 
-void	ctrl_c(int sig)
+void	spread_democracy(int sig)
 {
 	std::cout << "\nGOLD EXPERIENCE!\n" << std::endl;
 	(void)sig, times = 0;
@@ -31,7 +31,7 @@ void	ctrl_c(int sig)
 
 int main(int ac, char **av) //da aggiungere ac e av
 {
-	signal(SIGINT, ctrl_c);
+	signal(SIGINT, spread_democracy);
 	std::cout << "\033[32mIl server si spegnerà tra " << times << " secondi.\n\033[0m";
 	try
 	{

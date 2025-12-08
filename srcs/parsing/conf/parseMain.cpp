@@ -2,14 +2,17 @@
 #include "../../../includes/ether.hpp"
 #include "../../hpp/Conf.hpp"
 
-int	newOpenBlock()
+int	newOpenBlock(Conf &conf, std::vector<std::string> &list)
 {
-	std::cout << "PIPPO" << std::endl;
+	if (list.size() != 1)
+		throw Conf::ConfException("Error in format configuration");
+	if (list[0] == "http" && conf.getHttp() == false)
+		conf.setHttp(true);
 	return (1);
 }
-
+// 
 /*
-http{}
+server{}}
 */
 void	parseMain(Conf &conf, std::ifstream &fd) 
 {
@@ -26,13 +29,13 @@ void	parseMain(Conf &conf, std::ifstream &fd)
 		{
 			std::cout << "\033[33mLine " << i << ": " << line << "\033[0m" << std::endl;
 			line = removeWhitespaces(line);
-			// if (line[0] == '{')
-			// 	newOpenBlock();
+			if (line[0] == '{')
+				newOpenBlock(conf, list);
 			// else if (line[0] == '}')
-			// 	newOpenBlock();
+				// newOpenBlock();
 			// else if (line[0] == ';')
-			// 	newOpenBlock();
-			// else 
+				// newOpenBlock();
+			else 
 				token = line.substr(0, find_first_special_char(line));
 			if (!token.empty())
 				list.push_back(token);
@@ -46,19 +49,14 @@ void	parseMain(Conf &conf, std::ifstream &fd)
     	std::cout << list[i] << " \n";
 }
 
-//http
-//{server
+//server
 // 	{
 		
 // 	}	
 // }
 
-// http    xvzv   dsdcsdf 
-// {
-//  	server
-// 	{
-// 		location
-// 		{
+
+//server{location{
 		
 // 		}
 // 		location

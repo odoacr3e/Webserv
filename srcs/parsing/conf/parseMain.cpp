@@ -10,6 +10,7 @@ int	newOpenBlock(Conf &conf, std::vector<std::string> &list)
 		conf.setHttp(true);
 	return (1);
 }
+
 // 
 /*
 server{}}

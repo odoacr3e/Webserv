@@ -68,8 +68,20 @@ class Conf
 		Conf(const Conf &other);
 		Conf	&operator=(const Conf &other);
 
-		// void	validOpenBlock(std::string toFlag) const;
+		// getters
+		bool	getEvents() const;
+		bool	getHttp() const;
+		bool	getServer() const;
+		bool	getLocation() const;
 		
+		//setters
+		void	setEvents(bool val);
+		void	setHttp(bool val);
+		void	setServer(bool val);
+		void	setLocation(bool val);
+
+
+		// exception
 		class ConfException: public std::exception
 		{
 			private:

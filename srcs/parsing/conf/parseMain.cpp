@@ -11,10 +11,6 @@ int	newOpenBlock(Conf &conf, std::vector<std::string> &list)
 	return (1);
 }
 
-// 
-/*
-server{}}
-*/
 void	parseMain(Conf &conf, std::ifstream &fd) 
 {
 	std::string					line;
@@ -49,24 +45,3 @@ void	parseMain(Conf &conf, std::ifstream &fd)
 	for (size_t i = 0; i < list.size(); ++i) 
     	std::cout << list[i] << " \n";
 }
-
-//server
-// 	{
-		
-// 	}	
-// }
-
-
-//server{location{
-		
-// 		}
-// 		location
-// 		{
-		
-// 		}
-// 	}
-// 	server
-// 	{
-		
-// 	}
-// }*/

@@ -147,10 +147,10 @@ static void	blockError(std::string block, int line, int flag)
 	else if (flag == CONF_INSTRUCTION_EMPTY)
 		throw Conf::ConfException(error + ":\tinstruction is empty\033[0m");
 	error += ", block " + block + ":\t";
-	if (!block.compare("events") && \
-		!block.compare("http") && \
-		!block.compare("server") && \
-		!block.compare("location"))
+	if (block.compare("events") && \
+		block.compare("http") && \
+		block.compare("server") && \
+		block.compare("location"))
 	{
 		error += "is not allowed (allowed: events, http, server, location)";
 	}

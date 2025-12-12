@@ -71,7 +71,7 @@ void	Conf::setLocation(bool val)
 
 std::string	Conf::checkOpenBlock(void) const
 {
-	std::cout << ", http: " << this->_http << ", server: " << this->_server << ", location: " << this->_location << std::endl;
+	std::cout << "http: " << this->_http << ", server: " << this->_server << ", location: " << this->_location << std::endl;
 	if (this->_events)
 		return ("events");
 	else if (this->_http && !this->_server && !this->_location)

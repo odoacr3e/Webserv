@@ -12,11 +12,12 @@ class Client
 {
 	private:
 		int 		_sockfd;
+		int			_srvfd;
 		Request		_request;
 		// Response	_response;
 
 	public:
-		Client(int sockfd);
+		Client(int sockfd, int srvfd);
 		~Client();
 		Client(const Client &other);
 		Client	operator=(const Client &other);

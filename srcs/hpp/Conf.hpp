@@ -4,6 +4,10 @@
 # include "../../includes/ether.hpp"
 # define CONF_DEFAULT_PATH "default.conf"
 
+typedef struct s_conf_server	t_conf_server;
+
+typedef struct s_conf_location	t_conf_location;
+
 enum	e_conf_error
 {
 	CONF_BLOCK_OPEN,
@@ -123,5 +127,27 @@ class Conf
 std::ostream &operator<<(std::ostream &os, Conf &c);
 
 void	confParse(Conf &conf, std::ifstream &fd);
+
+/*
+	{struttura server}	->	push ARRAY SERVER
+*/
+
+struct s_conf_server
+{
+	std::map<std::string, t_conf_location>	location; // <"/pippo", struct *>
+//	std::map<>								error_pages;//error_page 404 /404.html;	error_page 500 502 503 504 /50x.html;
+	std::vector<int>						ports;//listen 80; listen 127.0.0.1:8080; listen 443 ssl;
+	// std::pair<>								server_name;//server_name example.com www.example.com;
+	std::string								root;//root /var/www/html;
+	std::string								access_log;//access_log /var/log/nginx/access.log;
+	std::string								error_log;//error_log /var/log/nginx/access.log;
+	int										client_max_body_size;//client_max_body_size 10m;
+};
+
+struct s_conf_location
+{
+	
+};
+
 
 #endif

@@ -1,9 +1,10 @@
 
 #include "../hpp/Client.hpp"
 
-Client::Client(int sockfd)
+Client::Client(int sockfd, int srvfd)
 {
 	this->_sockfd = sockfd;
+	this->_srvfd = srvfd;
 }
 
 Client::~Client()

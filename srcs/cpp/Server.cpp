@@ -53,10 +53,18 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	return (srv);
 }
 
+/*
+	server {listen 80 81;}
+	server {listen 82;}
+	server {}	->mettere porta 80 (predefinita)
+*/
 Server::Server()
 {
+	this->_server_num = 0;
 	std::cout << "\033[32mserver constructor!\033[0m" << std::endl;
+	//for
 	this->_addrs.push_back(createServerSock(DEFAULT_PORT));
+	// _ROBBA[&(*(_addrs.rbegin()))] = 1;
 	std::cout << "\033[32mTutto bene col costruttore!\033[0m" << std::endl;
 }
 
@@ -88,6 +96,7 @@ static struct pollfd	setupPollFd(int client)
 }
 
 //stampa finche non si blocca
+// TODO - da aggiungere parametro su addSocket con il socket del server di riferimento
 void	Server::addSocket()
 {
 	int client = accept(this->_addrs.data()[0].fd, NULL, NULL);
@@ -96,7 +105,7 @@ void	Server::addSocket()
 	std::cout << "connessione trovata, client: " << client << std::endl;
 	this->_addrs.push_back(setupPollFd(client));
 	//creiamo oggetto client e lo aggiungiano alla std::map
-	this->_clients[client] = new Client(client);
+	this->_clients[client] = new Client(client, this->_addrs.data()[0].fd);
 	std::cout << &this->_clients[client] << std::endl;
 }
 
@@ -108,6 +117,11 @@ struct pollfd *Server::getAddrs(void)
 size_t	Server::getAddrSize(void) const
 {
 	return (this->_addrs.size());
+}
+
+int	Server::getServerNum() const
+{
+	return (this->_server_num);
 }
 
 std::string	create_http(std::string body)
@@ -123,9 +137,8 @@ std::string	create_http(std::string body)
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
-	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + 1; it != this->_addrs.end(); ++it)
+	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin(); it != this->_addrs.end(); ++it)
 	{
-		// std::cout << "Client pointer: " << &this->_clients[(*it).fd] << std::endl;
 		if ((*it).fd != -1 && ((*it).revents & POLLIN))
 		{
 			char buffer[1024] = {0};
@@ -141,9 +154,11 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			}
 			else
 			{
-//				std::cout << buffer << std::endl; //leggo la richiesta inviata dal client
+				//leggo la richiesta inviata dal client
 				std::cout << "\033[33m" << "RICHIESTA CLIENT" << "\033[0m" << std::endl;
 				requestParsing(this->_clients[(*it).fd]->getRequest(), buffer);
+				// una volta parsata la richiesta HTTP va fatta la risposta vedendo in base al client uale server 
+				//this->_ROBBA[&this->_addrs[(*it).fd]]
 				(*it).events = POLLOUT;
 			}
 		}
@@ -157,3 +172,5 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		}
 	}
 }
+
+// Server -> 

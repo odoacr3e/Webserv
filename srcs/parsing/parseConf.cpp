@@ -2,11 +2,6 @@
 #include "../../includes/ether.hpp"
 #include "../hpp/Conf.hpp"
 
-static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i);
-static int	openBlock(Conf &conf, std::vector<std::string> &list, int line);
-static int	closeBlock(Conf &conf, int line, std::string token);
-static void	blockError(std::string block, int line, int flag);
-
 void	confParseEvent(Conf &conf, std::vector<std::string> list, int line);
 void	confParseHttp(Conf &conf, std::vector<std::string> list, int line);
 void	confParseServer(Conf &conf, std::vector<std::string> list, int line);
@@ -35,65 +30,30 @@ void	confParseMain(Conf &conf, std::vector<std::string> list, int line);
 											list is reset.
 */
 
-/*
-;#verrò ignorato
-events {}
-http
+static void	blockError(std::string block, int line, int flag)
 {
-	server
-	{
-		location /gino pippo#verrò ignorato pure io
-		{
-			
-		}
-		location /www
-		{#verrò ignorato pure io
-			
-		}
-	#verrò ignorato pure io
-	}
-	server
-	{
-		scimmie omosessuali negre;
-	}
-}*/
-void	confParse(Conf &conf, std::ifstream &fd)
-{
-	std::string					line;
-	std::string					token;
-	std::vector<std::string>	list;
-	int i = 0;
+	std::string	error;
 
-	while (std::getline(fd, line))
-	{
-		i++;
-		while (!line.empty())
-		{
-			//std::cout << "\033[33mLine " << i << ": " << line << "\033[0m" << std::endl;
-			line = removeWhitespaces(line);
-			if (line[0] == ';')
-				instructionBlock(conf, list, i);
-			else if (line[0] == '{')
-				openBlock(conf, list, i);
-			else if (line[0] == '}')
-				closeBlock(conf, i, line);
-			else if (line[0] == '#')
-				break ;
-			else 
-				token = line.substr(0, find_first_special_char(line));
-			if (!token.empty())
-				list.push_back(token);
-			line = line.substr(find_first_special_char(line));
-			if (token.empty() == false)
-				std::cout << "\033[34mCurrent token:\t\033[33m" << token << "\033[0m\n";
-			token = "";
-		}
-	}
-	if (list.size() != 0)
-		blockError("", i, CONF_INSTRUCTION_UNFINISHED);
-	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
-		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
-	conf.print();
+	error = "ConfException: in line \033[33m" + ft_to_string(line);
+	if (flag == CONF_BLOCK_CLOSE)
+		throw Conf::ConfException(error + ": cannot close " + block + "\033[0m");
+	else if (flag == CONF_BLOCK_FORMAT)
+		throw Conf::ConfException(error + ": invalid open block format\033[0m");
+	else if (flag == CONF_BLOCK_EMPTY)
+		throw Conf::ConfException(error + ": block is empty, lol\033[0m");
+	else if (flag == CONF_INSTRUCTION_UNFINISHED)
+		throw Conf::ConfException(error + ": missing ; before block end\033[0m");
+	else if (flag == CONF_INSTRUCTION_EMPTY)
+		throw Conf::ConfException(error + ": instruction is empty\033[0m");
+	else if (flag == CONF_BLOCK_OPEN)
+		throw Conf::ConfException(error + ": block opened into another block\033[0m");
+	else if (flag == CONF_MULT_BLOCK)
+		throw Conf::ConfException(error + ": multiple block " + block + "\033[0m");
+	if (block.compare("events") && block.compare("http") && block.compare("server") && block.compare("location"))
+		error += ": " + block + " is not allowed (allowed: events, http, server, location)";
+	else
+		error += " block order violated.";
+	throw Conf::ConfException(error);
 }
 
 static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
@@ -163,32 +123,6 @@ static int	closeBlock(Conf &conf, int line, std::string token)
 	return (1);
 }
 
-static void	blockError(std::string block, int line, int flag)
-{
-	std::string	error;
-
-	error = "ConfException: in line \033[33m" + ft_to_string(line);
-	if (flag == CONF_BLOCK_CLOSE)
-		throw Conf::ConfException(error + ": cannot close " + block + "\033[0m");
-	else if (flag == CONF_BLOCK_FORMAT)
-		throw Conf::ConfException(error + ": invalid open block format\033[0m");
-	else if (flag == CONF_BLOCK_EMPTY)
-		throw Conf::ConfException(error + ": block is empty, lol\033[0m");
-	else if (flag == CONF_INSTRUCTION_UNFINISHED)
-		throw Conf::ConfException(error + ": missing ; before block end\033[0m");
-	else if (flag == CONF_INSTRUCTION_EMPTY)
-		throw Conf::ConfException(error + ": instruction is empty\033[0m");
-	else if (flag == CONF_BLOCK_OPEN)
-		throw Conf::ConfException(error + ": block opened into another block\033[0m");
-	else if (flag == CONF_MULT_BLOCK)
-		throw Conf::ConfException(error + ": multiple block " + block + "\033[0m");
-	if (block.compare("events") && block.compare("http") && block.compare("server") && block.compare("location"))
-		error += ": " + block + " is not allowed (allowed: events, http, server, location)";
-	else
-		error += " block order violated.";
-	throw Conf::ConfException(error);
-}
-
 void	instructionError(std::vector<std::string> &list, int line, std::string s)
 {
 	std::string	error;
@@ -199,4 +133,42 @@ void	instructionError(std::vector<std::string> &list, int line, std::string s)
 		error += list[i] + " ";
 	error += "\033[31m\b:\n" + s + "\033[0m";
 	throw Conf::ConfException(error);
+}
+
+void	confParse(Conf &conf, std::ifstream &fd)
+{
+	std::string					line;
+	std::string					token;
+	std::vector<std::string>	list;
+	int i = 0;
+
+	while (std::getline(fd, line))
+	{
+		i++;
+		while (!line.empty())
+		{
+			line = removeWhitespaces(line);
+			if (line[0] == ';')
+				instructionBlock(conf, list, i);
+			else if (line[0] == '{')
+				openBlock(conf, list, i);
+			else if (line[0] == '}')
+				closeBlock(conf, i, line);
+			else if (line[0] == '#')
+				break ;
+			else 
+				token = line.substr(0, find_first_special_char(line));
+			if (!token.empty())
+				list.push_back(token);
+			line = line.substr(find_first_special_char(line));
+			if (token.empty() == false)
+				std::cout << "\033[34mCurrent token:\t\033[33m" << token << "\033[0m\n";
+			token = "";
+		}
+	}
+	if (list.size() != 0)
+		blockError("", i, CONF_INSTRUCTION_UNFINISHED);
+	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
+		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
+	conf.print();
 }

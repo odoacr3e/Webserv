@@ -78,7 +78,7 @@ class Conf
 		bool	getServer() const;
 		bool	getLocation() const;
 		
-		//setters
+		// setters
 		void	setEvents(bool val);
 		void	setHttp(bool val);
 		void	setServer(bool val);
@@ -86,12 +86,13 @@ class Conf
 
 		std::string	checkOpenBlock(void) const;
 
-//SECTION - utils
+		// utils
 		void	print(void) const;
-//SECTION - settings getters/setters
-//	SECTION - main block
+
+		// main block
 		std::string	getMainUser(void) const;
 		void		setMainUser(std::string);
+		
 		// exception
 		class ConfException: public std::exception
 		{

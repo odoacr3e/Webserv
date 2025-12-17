@@ -83,7 +83,7 @@ std::string	Conf::checkOpenBlock(void) const
 	return ("");
 }
 
-//SECTION - utils
+// utils
 
 void	Conf::print(void) const
 {
@@ -94,8 +94,7 @@ void	Conf::print(void) const
 	std::cout << "\033[0m";
 }
 
-//SECTION - settings getters/setters
-//	SECTION - main block
+// main block
 std::string	Conf::getMainUser(void) const
 {
 	return (this->_user);

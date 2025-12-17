@@ -50,7 +50,7 @@ int main(int ac, char **av) //da aggiungere ac e av
 			if (server.getAddrs()[0].revents & POLLIN)
 				server.addSocket(); // aggiunge al vector il nuovo socket del client
 			server.checkForConnection();
-			sleep(1);
+			// sleep(1);
 		}
 	}
 	catch(const std::exception& e)

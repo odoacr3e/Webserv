@@ -33,8 +33,10 @@ void	confParseMain(Conf &conf, std::vector<std::string> list, int line);
 static void	blockError(std::string block, int line, int flag)
 {
 	std::string	error;
+	std::string	error2;
 
 	error = "ConfException: in line \033[33m" + ft_to_string(line);
+	error2 = "ConfException:\033[33m";
 	if (flag == CONF_BLOCK_CLOSE)
 		throw Conf::ConfException(error + ": cannot close " + block + "\033[0m");
 	else if (flag == CONF_BLOCK_FORMAT)
@@ -49,6 +51,8 @@ static void	blockError(std::string block, int line, int flag)
 		throw Conf::ConfException(error + ": block opened into another block\033[0m");
 	else if (flag == CONF_MULT_BLOCK)
 		throw Conf::ConfException(error + ": multiple block " + block + "\033[0m");
+	else if (flag == CONF_MISSING_BLOCK)
+		throw Conf::ConfException(error2 + " missing " + block + " in configuration file\033[0m");
 	if (block.compare("events") && block.compare("http") && block.compare("server") && block.compare("location"))
 		error += ": " + block + " is not allowed (allowed: events, http, server, location)";
 	else
@@ -76,28 +80,29 @@ static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
 
 static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
-	static int	events = 0;
-	static int	http = 0;
-
 	if (list.size() > 1 && list[0] != "location")
 		blockError(list[0], line, CONF_BLOCK_FORMAT);
 	else if (list.size() < 1)
 		blockError("", line, CONF_BLOCK_EMPTY);
-	else if ((list[0] == "events" && events > 0) || (list[0] == "http" && http > 0))
+	else if ((list[0] == "events" && conf.getBlockNumber(conf.B_EVENTS) > 0) || \
+	(list[0] == "http" && conf.getBlockNumber(conf.B_HTTP) > 0))
 		blockError(list[0], line, CONF_MULT_BLOCK);
 	if (list[0] == "events" && !conf.getHttp() && !conf.getEvents())
 	{
 		conf.setEvents(true);
-		events++;
+		conf.updateBlock(conf.B_EVENTS);
 	}
-	else if (list[0] == "http" && http == 0 && !conf.getHttp() && !conf.getEvents())
+	else if (list[0] == "http" && conf.getBlockNumber(conf.B_HTTP) == 0 && !conf.getHttp() && !conf.getEvents())
 	{
 		conf.setHttp(true);
-		http++;
+		conf.updateBlock(conf.B_HTTP);
 	}
 	//server dentro ad http non gia aperto e fuori da location o da events
 	else if (list[0] == "server" && conf.getHttp() && !conf.getServer() && !conf.getLocation() && !conf.getEvents())
+	{
 		conf.setServer(true);
+		conf.updateBlock(conf.B_SERVER);
+	}
 	else if (list[0] == "location" && conf.getServer() && conf.getHttp() && !conf.getLocation() && !conf.getEvents())
 		conf.setLocation(true);
 	else
@@ -106,10 +111,8 @@ static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 	return (1);
 }
 
-static int	closeBlock(Conf &conf, int line, std::string token)
+static int	closeBlock(Conf &conf, int line)
 {
-	// std::cout << "Close block token: " << token << ", http: " << conf.getHttp() << ", server: " << conf.getServer() << ", location: " << conf.getLocation() << std::endl;
-	(void)token;
 	if (conf.getEvents())
 		conf.setEvents(false);
 	else if (conf.getHttp() && conf.getServer() && conf.getLocation() && !conf.getEvents())
@@ -153,7 +156,7 @@ void	confParse(Conf &conf, std::ifstream &fd)
 			else if (line[0] == '{')
 				openBlock(conf, list, i);
 			else if (line[0] == '}')
-				closeBlock(conf, i, line);
+				closeBlock(conf, i);
 			else if (line[0] == '#')
 				break ;
 			else 
@@ -166,9 +169,11 @@ void	confParse(Conf &conf, std::ifstream &fd)
 			token = "";
 		}
 	}
-	if (list.size() != 0)
+	if (!conf.missingBlock().empty())
+		blockError(conf.missingBlock(), -1, CONF_MISSING_BLOCK);
+	if (list.size() != 0) // per istruzioni senza apertura o senza ;
 		blockError("", i, CONF_INSTRUCTION_UNFINISHED);
 	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
 		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
-	conf.print();
+	std::cout << conf << std::endl;
 }

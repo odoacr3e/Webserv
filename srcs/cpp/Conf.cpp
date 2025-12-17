@@ -9,6 +9,9 @@ Conf::Conf(std::string filepath): _file(filepath)
 	this->_http = false;
 	this->_server = false;
 	this->_location = false;
+	this->_nevents = 0;
+	this->_nhttp = 0;
+	this->_nserver = 0;
 	if (fd.fail())
 		throw ConfException("Invalid configuration file");
 	confParse(*this, fd);
@@ -69,6 +72,30 @@ void	Conf::setLocation(bool val)
 	this->_location = val;
 }
 
+void	Conf::updateBlock(int block_type)
+{
+	if (block_type == B_EVENTS)
+		this->_nevents++;
+	else if (block_type == B_HTTP)
+		this->_nhttp++;
+	else if (block_type == B_SERVER)
+		this->_nserver++;
+	else
+		std::cerr << "\033[31mConf: Unrecognized block number\033[0m\n";
+}
+
+int		Conf::getBlockNumber(int block_type)
+{
+	if (block_type == B_EVENTS)
+		return (this->_nevents);
+	else if (block_type == B_HTTP)
+		return (this->_nhttp);
+	else if (block_type == B_SERVER)
+		return (this->_nserver);
+	std::cerr << "\033[31mConf: Unrecognized block number\033[0m\n";
+	return (-1);
+}
+
 std::string	Conf::checkOpenBlock(void) const
 {
 	std::cout << "http: " << this->_http << ", server: " << this->_server << ", location: " << this->_location << std::endl;
@@ -83,15 +110,15 @@ std::string	Conf::checkOpenBlock(void) const
 	return ("");
 }
 
-// utils
-
-void	Conf::print(void) const
+std::string	Conf::missingBlock() const
 {
-	std::cout << "\033[35mPrint of all configurations:\n";
-	std::cout << "\033[33m{MAIN BLOCK}\n";
-	if (this->_user.empty() == false)
-		std::cout << "\033[34mUser:\t\033[33m" << this->_user << "\n";
-	std::cout << "\033[0m";
+	if (this->_nevents > 1)
+		return ("events");
+	else if (this->_nhttp != 1)
+		return ("http");
+	else if (this->_nserver < 1)
+		return ("server");
+	return ("");
 }
 
 // main block
@@ -103,4 +130,14 @@ std::string	Conf::getMainUser(void) const
 void		Conf::setMainUser(std::string user)
 {
 	this->_user = user;
+}
+
+std::ostream &operator<<(std::ostream &os, Conf &c)
+{
+	std::cout << "\033[35mPrint of all configurations:\n";
+	std::cout << "\033[33m{MAIN BLOCK}\n";
+	if (c.getMainUser().empty() == false)
+		std::cout << "\033[34mUser:\t\033[33m" << c.getMainUser() << "\n";
+	std::cout << "\033[0m";
+	return (os);
 }

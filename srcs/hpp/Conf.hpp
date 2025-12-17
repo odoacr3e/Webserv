@@ -4,6 +4,18 @@
 # include "../../includes/ether.hpp"
 # define CONF_DEFAULT_PATH "default.conf"
 
+enum	e_conf_error
+{
+	CONF_BLOCK_OPEN,
+	CONF_BLOCK_CLOSE,
+	CONF_BLOCK_FORMAT,
+	CONF_BLOCK_EMPTY,
+	CONF_BLOCK_INVALID,
+	CONF_MULT_BLOCK,
+	CONF_INSTRUCTION_UNFINISHED,
+	CONF_INSTRUCTION_EMPTY,
+	CONF_MISSING_BLOCK
+};
 
 // #events
 // #http
@@ -14,32 +26,6 @@
 // #http 1 e uno solo
 // #server minimo 1, massimo INFINITI
 // #location minimo 0, massimo INFINITI
-
-
-
-/*
-
-
-events{NOME_ELEMENTO VALORE1 VALORE2}
-
-http    xvzv   dsdcsdf 
-{
- 	server
-	{
-		location
-		{
-		
-		}
-		location
-		{
-		
-		}
-	}
-	server
-	{
-		
-	}
-}*/
 
 //getline
 //find(something different from ISSPACE)
@@ -52,6 +38,23 @@ http    xvzv   dsdcsdf
 //4.2)	quando trovi '{', entri strato/dai errore, ripeti punto 1
 //4.3)	quando trovi '}', esci strato/dai errore, ripeti punto 1.
 
+
+/*
+	CONF: salviamo indice struct server corrente
+  Struttura configuration 
+  
+  std::vector<struct server>
+  
+  struct s_server
+  {
+	std::map<std::string (name), struct location>;
+  }
+  struct s_location
+  {
+	
+  }
+*/
+
 class Conf
 {
 	private:
@@ -59,10 +62,14 @@ class Conf
 		bool				_events;
 		bool				_http;
 		bool				_server;
-		bool				_location;\
+		bool				_location;
+
+		int					_nevents;
+		int					_nhttp;
+		int					_nserver;
 
 		//SECTION - settings got from parsing
-		//SECTION - main block 
+		//SECTION - main block
 		std::string			_user;
 
 	//canonic
@@ -77,22 +84,30 @@ class Conf
 		bool	getHttp() const;
 		bool	getServer() const;
 		bool	getLocation() const;
-		
+
 		// setters
 		void	setEvents(bool val);
 		void	setHttp(bool val);
 		void	setServer(bool val);
 		void	setLocation(bool val);
 
-		std::string	checkOpenBlock(void) const;
+		void	updateBlock(int block_type);
+		int		getBlockNumber(int block_type);
 
-		// utils
-		void	print(void) const;
+		std::string	checkOpenBlock(void) const;
+		std::string	missingBlock() const;
 
 		// main block
 		std::string	getMainUser(void) const;
 		void		setMainUser(std::string);
-		
+
+		enum	e_block_type
+		{
+			B_EVENTS,
+			B_HTTP,
+			B_SERVER,
+		};
+
 		// exception
 		class ConfException: public std::exception
 		{
@@ -104,18 +119,8 @@ class Conf
 				~ConfException() throw() {};
 		};
 };
-//conf errors
-enum	e_conf_error
-{
-	CONF_BLOCK_OPEN,
-	CONF_BLOCK_CLOSE,
-	CONF_BLOCK_FORMAT,
-	CONF_BLOCK_EMPTY,
-	CONF_BLOCK_INVALID,
-	CONF_MULT_BLOCK,
-	CONF_INSTRUCTION_UNFINISHED,
-	CONF_INSTRUCTION_EMPTY,
-};
+
+std::ostream &operator<<(std::ostream &os, Conf &c);
 
 void	confParse(Conf &conf, std::ifstream &fd);
 

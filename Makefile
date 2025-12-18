@@ -11,7 +11,7 @@ PARSING = $(addprefix parsing/, parseConf.cpp parseRequest.cpp $(CONF_PARSING))
 CONF_PARSING = $(addprefix conf/, parseEvent.cpp parseMain.cpp parseServer.cpp parseLocation.cpp parseHttp.cpp)
 
 CPP = $(addprefix cpp/, Server.cpp Client.cpp Request.cpp Conf.cpp)
-UTILS = $(addprefix utils/, utils_page1.cpp)
+UTILS = $(addprefix utils/, utils_page1.cpp path_checker.cpp)
 
 all: $(NAME)
 

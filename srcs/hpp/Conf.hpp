@@ -22,7 +22,8 @@ enum	e_conf_error
 	CONF_MULT_BLOCK,
 	CONF_INSTRUCTION_UNFINISHED,
 	CONF_INSTRUCTION_EMPTY,
-	CONF_MISSING_BLOCK
+	CONF_MISSING_BLOCK,
+	CONF_PATH_INVALID,
 };
 
 // #events
@@ -103,6 +104,7 @@ class Conf
 		std::string					_user;
 		t_conf_server				_srvblock; // temporanea per blocchi server gestiti attualmente
 		t_conf_location				_locblock; // temporanea per blocchi location gestiti attualmente
+		std::string					_currlocation;
 		std::vector<t_conf_server>	_srv_conf; // vettore di blocchi server
 		// logica -> nel blocco server tmp mettiamo nella mappa di server block attuale l'URI della location con valore la struct riempita della location
 		// usciamo da blocco location e alla fine del blocco server pushamo blocco server temporaneo in _srv_conf
@@ -115,22 +117,25 @@ class Conf
 		Conf	&operator=(const Conf &other);
 
 		// getters
-		bool	getEvents() const;
-		bool	getHttp() const;
-		bool	getServer() const;
-		bool	getLocation() const;
+		bool		getEvents() const;
+		bool		getHttp() const;
+		bool		getServer() const;
+		bool		getLocation() const;
+		std::string	getCurrLocation() const;
 
 		// setters
 		void	setEvents(bool val);
 		void	setHttp(bool val);
 		void	setServer(bool val);
 		void	setLocation(bool val);
+		void	setCurrLocation(std::string curr);
 
 		void	updateBlock(int block_type);
 		int		getBlockNumber(int block_type);
 
 		std::vector<t_conf_server>	&getConfServer(void);
-		t_conf_server				getServerBlock(void) const;
+		t_conf_server				&getServerBlock(void);
+		t_conf_location				&getLocationBlock();
 
 		std::string	checkOpenBlock(void) const;
 		std::string	missingBlock() const;

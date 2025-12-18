@@ -62,6 +62,11 @@ bool	Conf::getLocation() const
 	return (this->_location);
 }
 
+std::string	Conf::getCurrLocation() const
+{
+	return (this->_currlocation);
+}
+
 void	Conf::setEvents(bool val)
 {
 	this->_events = val;
@@ -80,6 +85,11 @@ void	Conf::setServer(bool val)
 void	Conf::setLocation(bool val)
 {
 	this->_location = val;
+}
+
+void	Conf::setCurrLocation(std::string curr)
+{
+	this->_currlocation = curr;
 }
 
 void	Conf::updateBlock(int block_type)
@@ -111,9 +121,14 @@ std::vector<t_conf_server>	&Conf::getConfServer(void)
 	return (this->_srv_conf);
 }
 
-t_conf_server	Conf::getServerBlock(void) const
+t_conf_server	&Conf::getServerBlock(void)
 {
 	return (this->_srvblock);
+}
+
+t_conf_location	&Conf::getLocationBlock(void)
+{
+	return (this->_locblock);
 }
 
 std::string	Conf::checkOpenBlock(void) const

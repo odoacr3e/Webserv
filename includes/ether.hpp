@@ -19,6 +19,8 @@
 # include <cstring>
 # include <cstdlib>
 # include <sstream>
+# include <dirent.h>
+# include <sys/types.h>
 
 # include "../srcs/hpp/Request.hpp"
 
@@ -52,5 +54,8 @@ bool		is_there_whitespaces(std::string line);
 size_t		find_first_special_char(std::string line);
 bool		is_there_special_chars(std::string line);
 size_t		find_first_not_special_char(std::string line);
+
+bool	valid_directory(std::string directory);
+bool	valid_file(std::string file);
 
 #endif

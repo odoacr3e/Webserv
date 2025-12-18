@@ -31,6 +31,8 @@ static void	blockError(std::string block, int line, int flag)
 		throw Conf::ConfException(error + ": multiple block " + block + "\033[0m");
 	else if (flag == CONF_MISSING_BLOCK)
 		throw Conf::ConfException(error2 + " missing " + block + " in configuration file\033[0m");
+	else if (flag == CONF_PATH_INVALID)
+		throw Conf::ConfException(error + ": " + block + " does not exist!\033[0m");
 	if (block.compare("events") && block.compare("http") && block.compare("server") && block.compare("location"))
 		error += ": " + block + " is not allowed (allowed: events, http, server, location)";
 	else
@@ -63,7 +65,7 @@ static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
 
 static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
-	if (list.size() > 1 && list[0] != "location")
+	if (list.size() > 1 + (list[0] == "location"))
 		blockError(list[0], line, CONF_BLOCK_FORMAT);
 	else if (list.size() < 1)
 		blockError("", line, CONF_BLOCK_EMPTY);
@@ -88,6 +90,9 @@ static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 	}
 	else if (list[0] == "location" && conf.getServer() && conf.getHttp() && !conf.getLocation() && !conf.getEvents())
 	{
+		if (!valid_directory(list[1]))
+			blockError(list[1], line, CONF_PATH_INVALID);
+		conf.setCurrLocation(list[1]);
 		conf.setLocation(true);
 	}
 	else
@@ -108,7 +113,7 @@ static int	closeBlock(Conf &conf, int line)
 		conf.setEvents(false);
 	else if (conf.getHttp() && conf.getServer() && conf.getLocation() && !conf.getEvents())
 	{
-		// conf.getServerBlock()[] = 
+		conf.getServerBlock().location[conf.getCurrLocation()] = conf.getLocationBlock();
 		conf.setLocation(false);
 	}
 	else if (conf.getHttp() && conf.getServer() && !conf.getLocation() && !conf.getEvents())

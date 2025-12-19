@@ -57,5 +57,6 @@ size_t		find_first_not_special_char(std::string line);
 
 bool	valid_directory(std::string directory);
 bool	valid_file(std::string file);
+int		valid_ip_address(std::string addr);
 
 #endif

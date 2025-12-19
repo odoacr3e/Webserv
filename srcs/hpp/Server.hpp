@@ -11,6 +11,8 @@
 //	se nel config non ce lo specificano
 # define DEFAULT_PORT 8080
 
+# define DEFAULT_ROUTE "0.0.0.0"
+
 class Client;
 
 class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea

@@ -163,9 +163,12 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				//da mettere in una funzione a parte
 				std::cout << "chiudo" << std::endl;
 				close((*it).fd);
-				delete this->_clients[(*it).fd];
-				this->_clients.erase((*it).fd);
-				it = this->_addrs.erase(it) - 1;
+				if (this->_clients[(*it).fd])
+				{
+					delete this->_clients[(*it).fd];
+					this->_clients.erase((*it).fd);
+					it = this->_addrs.erase(it) - 1;
+				}
 			}
 			else
 			{

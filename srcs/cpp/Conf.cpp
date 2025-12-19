@@ -13,7 +13,7 @@ Conf::Conf(std::string filepath): _file(filepath)
 	this->_nhttp = 0;
 	this->_nserver = 0;
 //	std::memset(&this->_srvblock, 0, sizeof(this->_srvblock));
-	std::memset(&this->_locblock, 0, sizeof(this->_locblock));
+	std::memset((void*)&this->_locblock, 0, sizeof(this->_locblock));
 	if (fd.fail())
 		throw ConfException("Invalid configuration file");
 	confParse(*this, fd);
@@ -167,12 +167,31 @@ void		Conf::setMainUser(std::string user)
 	this->_user = user;
 }
 
+void		Conf::addServerName(std::string name)
+{
+	this->_server_names[name] = name;
+}
+
+bool		Conf::findServerName(std::string name)
+{
+	return (this->_server_names.count(name) > 0);
+}
+
 std::ostream &operator<<(std::ostream &os, Conf &c)
 {
 	std::cout << "\033[35mPrint of all configurations:\n";
 	std::cout << "\033[33m{MAIN BLOCK}\n";
 	if (c.getMainUser().empty() == false)
 		std::cout << "\033[34mUser:\t\033[33m" << c.getMainUser() << "\n";
+	std::cout << "\033[33m{SERVER BLOCK}\n";
+	for (size_t i = 0; i < c.getConfServer().size(); i++)
+	{
+		std::cout << "Printing " << c.getConfServer()[i].server_names[0];
+		std::cout << "\n\033[34mServer names:\033[34m\n";
+		for (size_t j = 0; i < c.getConfServer().size(); i++)
+			std::cout << c.getConfServer()[i].server_names[j] << "\n";
+		//FIXME - printare tutte le porte del server
+	}
 	std::cout << "\033[0m";
 	return (os);
 }

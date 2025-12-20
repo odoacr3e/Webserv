@@ -70,6 +70,7 @@ enum	e_conf_error
 struct s_conf_server
 {
 	void	set_if_empty(void);
+	void	set(void);
 
 	std::map<std::string, t_conf_location>	location; // <"/pippo", struct *>
 	std::map<std::string, int>				ipports;//listen 80; listen 127.0.0.1:8080; listen 443 ssl;

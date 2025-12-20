@@ -45,7 +45,7 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 	size = list.size();
 	if (size == 1)
 		instructionError(list, line, "empty ServerName instruction");
-	for (size_t i = 1; i > size; i++)
+	for (size_t i = 1; i < size; i++)
 	{
 		if (conf.findServerName(list[i]))
 			instructionError(list, line, "Server name already defined");

@@ -181,6 +181,7 @@ void	confParse(Conf &conf, std::ifstream &fd)
 	std::vector<std::string>	list;
 	int i = 0;
 
+	std:: cout << "Conf: \033[35mPrint of all token:\n";
 	while (std::getline(fd, line))
 	{
 		i++;

@@ -142,8 +142,19 @@ int	Server::getServerNum() const
 std::string	create_http(std::string body)
 {
 	std::string	html;
+	std::fstream file("www/var/index.html");
+	std::string	line;
 
-	html += "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: ";
+	body.clear();
+	if (file.is_open())
+	{
+		while (std::getline(file, line))
+		{
+			body += line + "\n";
+		}
+		file.close();
+	}
+	html += "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: ";
 	html += ft_to_string(body.length() + 1);
 	html += "\r\n\r\n";
 	html += body + "\n";

@@ -89,6 +89,8 @@ struct s_conf_location
 	
 };
 
+typedef std::map<std::pair<std::string, std::string>, std::vector<std::string>> SrvNameMap;
+
 class Conf
 {
 	private:
@@ -109,7 +111,8 @@ class Conf
 		t_conf_location				_locblock; // temporanea per blocchi location gestiti attualmente
 		std::string					_currlocation;
 		std::vector<t_conf_server>	_srv_conf; // vettore di blocchi server
-		std::map<std::string, std::string>	_server_names;			
+		std::map<std::string, std::string>	_server_names;
+		SrvNameMap							_srvnamemap;
 		// logica -> nel blocco server tmp mettiamo nella mappa di server block attuale l'URI della location con valore la struct riempita della location
 		// usciamo da blocco location e alla fine del blocco server pushamo blocco server temporaneo in _srv_conf
 

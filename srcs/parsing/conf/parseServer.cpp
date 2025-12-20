@@ -80,12 +80,13 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 	int			ip_len;
 
 	if (list.size() > 2)
-		instructionWarning(list, line, "listen does not manage flags, such as ssl");
+		instructionError(list, line, "listen does not manage flags, such as ssl");
 	else if (list.size() != 2)
 		instructionError(list, line, "empty instruction");
 	ip_port = list[1];
 	ip_len = 0;
-	if (ip_port[0] == '*')//SECTION - gestione ip address
+	//SECTION - gestione ip address
+	if (ip_port[0] == '*')
 		ip = "0.0.0.0";
 	else if ((ip_len = valid_ip_address(ip_port)) != 0)
 		ip = ip_port.substr(0, ip_len);
@@ -98,7 +99,8 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 	if (ip_port[0] == '*')
 		ip_port.erase(0, 1);
 	if (ip_port[0] == ':')
-		ip_port.erase(0, 1);//SECTION - mappatura ip - porta
+		ip_port.erase(0, 1);
+	//SECTION - mappatura ip - porta
 	if (conf.getServerBlock().ipports.find(ip) != conf.getServerBlock().ipports.end())
 		instructionWarning(list, line, "ip addr already set for this server");
 	if (ip_port.empty())

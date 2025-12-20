@@ -2,7 +2,7 @@
 #include "../../hpp/Conf.hpp"
 
 //NOTE - Allowed server instructions
-/*
+/*`
 	//FIXME - aggiungere
 */
 void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)

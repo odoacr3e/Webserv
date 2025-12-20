@@ -48,10 +48,7 @@ int main(int ac, char **av) //da aggiungere ac e av
 			if (ready < 0 && times != 0)
 				throw std::runtime_error("\033[31mPoll ha fallito.\nPorta occupata\n\033[0m");
 			if (server.getAddrs()[0].revents & POLLIN)
-			{
-				std::cout << "ADD SOCKET FUNC" << std::endl;
 				server.addSocket(); // aggiunge al vector il nuovo socket del client
-			}
 			server.checkForConnection();
 		}
 	}

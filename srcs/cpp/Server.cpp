@@ -139,13 +139,22 @@ int	Server::getServerNum() const
 	return (this->_server_num);
 }
 
-std::string	create_http(std::string body)
+std::string	create_http(std::string url)
 {
 	std::string	html;
-	std::fstream file("www/var/index.html");
+	std::fstream file;
 	std::string	line;
+	std::string	body;
+	std::string	conttype("text/html");
 
-	body.clear();
+	std::cout << "url: " << url << std::endl;
+	if (url.length() > 4 && url.substr(url.length() - 4) == ".css")
+	{
+		file.open("www/var/style.css");
+		conttype = "text/css";
+	}
+	else
+		file.open("www/var/index.html");
 	if (file.is_open())
 	{
 		while (std::getline(file, line))
@@ -154,7 +163,9 @@ std::string	create_http(std::string body)
 		}
 		file.close();
 	}
-	html += "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: ";
+	html += "HTTP/1.1 200 OK\r\n";
+	html += "Content-Type: " + conttype + "\r\n";
+	html += "Content-Length: ";
 	html += ft_to_string(body.length() + 1);
 	html += "\r\n\r\n";
 	html += body + "\n";
@@ -195,7 +206,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		{
 			// Rispondo
 			std::cout << " ----Sent message----" << std::endl;
-			std::string	html = create_http("mega gay");
+			std::string	html = create_http(this->_clients[(*it).fd]->getRequest().getUrl());
 			send((*it).fd, html.c_str(), html.length(), 0);
 			(*it).events = POLLIN;
 		}

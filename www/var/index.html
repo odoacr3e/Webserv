@@ -2,24 +2,49 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Benvenuto</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding-top: 80px;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-        }
-    </style>
+    <title>My C++ Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS esterno -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Benvenuto!</h1>
-    <p>Il server web è attivo e funzionante.</p>
+
+    <header>
+        <h1>🚀 My Web Server</h1>
+        <p>Web server scritto in C++</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Server Status</h2>
+            <p class="ok">✔ Server avviato correttamente</p>
+            <p>Se stai leggendo questa pagina, il tuo web server funziona 🎉</p>
+        </section>
+
+        <section class="card">
+            <h2>Dettagli</h2>
+            <ul>
+                <li><strong>Protocollo:</strong> HTTP/1.1</li>
+                <li><strong>Metodo:</strong> GET</li>
+                <li><strong>Documento:</strong> index.html</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Prossimi step</h2>
+            <ul>
+                <li>Gestione 404 / 500</li>
+                <li>Directory listing</li>
+                <li>CGI</li>
+                <li>Upload file</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>My Web Server • Powered by C++</p>
+    </footer>
+
 </body>
 </html>

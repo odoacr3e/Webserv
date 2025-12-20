@@ -25,6 +25,10 @@ void	s_conf_server::set_if_empty(void)
 {
 	if (this->root.empty())
 		this->root = DEFAULT_CONF_ROOT;
+	if (*this->root.rbegin() != '/')
+		this->root.push_back('/');
+	if (!this->index.empty() && !valid_file(this->root + this->index))
+		throw (Conf::ConfException("cannot open " + this->root + this->index + "\n"));
 	if (this->ipports.size() == 0)
 		this->ipports[DEFAULT_CONF_IP] = DEFAULT_CONF_PORT;
 	if (this->server_names.size() == 0)
@@ -36,6 +40,7 @@ void	s_conf_server::set_if_empty(void)
 void	s_conf_server::set(void)
 {
 	this->root.clear();
+	this->index.clear();
 	this->ipports.clear();
 	this->server_names.clear();
 	this->client_max_body_size = 0;
@@ -213,6 +218,7 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 		j != c.getConfServer()[i].ipports.end(); j++)
 			os << "\nlistening on " << (*j).first << ":" << (*j).second;
 		os << "\n\033[34mroot: \033[33m" << c.getConfServer()[i].root;
+		os << "\n\033[34mindex: \033[33m" << c.getConfServer()[i].index;
 		os << "\n\033[34mbody_size: \033[33m" << c.getConfServer()[i].client_max_body_size;
 	}
 	os << "\033[0m";

@@ -15,6 +15,7 @@ bool	valid_directory(std::string directory)
 //returns 1 if directory is valid, else 0
 bool	valid_file(std::string file)
 {
+	file = file.substr(file[0] == '/');
 	std::ifstream	fd(file.c_str());
 
 	return (fd.fail() == 0);

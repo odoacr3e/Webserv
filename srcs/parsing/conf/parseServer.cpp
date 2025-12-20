@@ -44,7 +44,7 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 
 	size = list.size();
 	if (size == 1)
-		instructionError(list, line, "empty ServerName instruction");
+		instructionError(list, line, "empty instruction");
 	for (size_t i = 1; i < size; i++)
 	{
 		if (conf.findServerName(list[i]))
@@ -75,51 +75,76 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 */
 static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 {
-	std::string	ip_addr;
+	std::string	ip;
+	std::string	ip_port;
 	int			ip_len;
 
 	if (list.size() > 2)
 		instructionWarning(list, line, "listen does not manage flags, such as ssl");
 	else if (list.size() != 2)
-		instructionError(list, line, "empty listen instruction");
+		instructionError(list, line, "empty instruction");
+	ip_port = list[1];
 	ip_len = 0;
-	if (list[1][0] == '*')//SECTION - gestione ip address
-		ip_addr = "0.0.0.0";
-	else if ((ip_len = valid_ip_address(list[1])) != 0)
-		ip_addr = list[1].substr(0, ip_len);
-	else if (list[1].find(':') == std::string::npos)
-		ip_addr = DEFAULT_CONF_IP;
-	if (list[1][0] == '*' && list[1][1] != ':')
+	if (ip_port[0] == '*')//SECTION - gestione ip address
+		ip = "0.0.0.0";
+	else if ((ip_len = valid_ip_address(ip_port)) != 0)
+		ip = ip_port.substr(0, ip_len);
+	else if (ip_port.find(':') == std::string::npos)
+		ip = DEFAULT_CONF_IP;
+	if (ip_port[0] == '*' && ip_port[1] != ':')
 		instructionWarning(list, line, "wildcard ip addr needs a : separator");
 	if (ip_len)//SECTION - rimozione caratteri
-		list[1] = list[1].substr(ip_len);
-	if (list[1][0] == '*')
-		list[1].erase(0, 1);
-	if (list[1][0] == ':')
-		list[1].erase(0, 1);//SECTION - mappatura ip - porta
-	if (conf.getServerBlock().ipports.find(ip_addr) != conf.getServerBlock().ipports.end())
+		ip_port = ip_port.substr(ip_len);
+	if (ip_port[0] == '*')
+		ip_port.erase(0, 1);
+	if (ip_port[0] == ':')
+		ip_port.erase(0, 1);//SECTION - mappatura ip - porta
+	if (conf.getServerBlock().ipports.find(ip) != conf.getServerBlock().ipports.end())
 		instructionWarning(list, line, "ip addr already set for this server");
-	if (list[1].empty())
-		conf.getServerBlock().ipports[ip_addr] = DEFAULT_CONF_PORT;
+	if (ip_port.empty())
+		conf.getServerBlock().ipports[ip] = DEFAULT_CONF_PORT;
 	else
-		conf.getServerBlock().ipports[ip_addr] = std::atoi(list[1].c_str());
-	if (list[1].find_first_not_of("0123456789") != std::string::npos)
+		conf.getServerBlock().ipports[ip] = std::atoi(ip_port.c_str());
+	if (ip_port.find_first_not_of("0123456789") != std::string::npos)
 		instructionError(list, line, "listen syntax violated");
-	std::cout << "\033[35mparseListen, line " << line << ": added " << ip_addr << ":" << \
-	conf.getServerBlock().ipports[ip_addr] << "\n\033[0m";
+	std::cout << "\033[35mparseListen, line " << line << ": added " << ip << ":" << \
+	conf.getServerBlock().ipports[ip] << "\n\033[0m";
 }
 
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)
 {
-		(void)conf, (void)list, (void)line;
+	if (list.size() != 2)
+		instructionError(list, line, "empty instruction");
+	if (conf.getServerBlock().root.empty() == false)
+		instructionWarning(list, line, "root already defined. Old is replaced");
+	if (valid_directory(list[1]) == false)
+		instructionError(list, line, "not a valid path");
+	conf.getServerBlock().root = list[1];
 }
 
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)
 {
-		(void)conf, (void)list, (void)line;
+	if (list.size() != 2)
+		instructionError(list, line, "empty instruction");
+	if (conf.getServerBlock().index.empty() == false)
+		instructionWarning(list, line, "index already defined. Old is replaced");
+	conf.getServerBlock().index = list[1];
 }
 
 static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line)
 {
-		(void)conf, (void)list, (void)line;
+	int	body_size;
+
+	if (list.size() != 2)
+		instructionError(list, line, "empty instruction");
+	if (conf.getServerBlock().client_max_body_size != 0)
+		instructionWarning(list, line, "body_size already defined");
+	if (!std::strchr("0123456789", list[1][0]))
+		instructionError(list, line, "body size must be a valid number");
+	body_size = std::atoi(list[1].c_str());
+	if (body_size < 0)
+		instructionError(list, line, "negative body size.. seriously man??");
+	if (body_size == 0)
+		instructionWarning(list, line, "body size 0 will be normalized");
+	conf.getServerBlock().client_max_body_size = body_size;
 }

@@ -30,10 +30,10 @@ void	confParseServer(Conf &conf, std::vector<std::string> list, int line)
 }
 
 /*
-//NOTE - 	i controlli sono stati inseriti per evitare che 
-			nel conf file uno dei nomi del server sia stato
-			già definito.
-			Non so se sia giusto accertarcene.
+// NOTE i controlli sono stati inseriti per evitare che 
+		nel conf file uno dei nomi del server sia stato
+		già definito.
+		Non so se sia giusto accertarcene.
 */
 static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 {
@@ -70,20 +70,13 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 	listen unix:/var/run/nginx.sock;
 	listen localhost:8000;
 */
-static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
-{
-	std::string	ip;
-	std::string	ip_port;
-	int			ip_len;
-	int			port;
 
-	if (list.size() > 2)
-		instructionError(list, line, "listen does not manage flags, such as ssl");
-	else if (list.size() != 2)
-		instructionError(list, line, "empty instruction");
+static std::string checkListenIp(std::vector<std::string> list, int line, std::string &ip)
+{
+	std::string	ip_port;
+	int			ip_len = 0;
+
 	ip_port = list[1];
-	ip_len = 0;
-	//SECTION - gestione ip address
 	if (ip_port[0] == '*')
 		ip = "0.0.0.0";
 	else if ((ip_len = valid_ip_address(ip_port)) != 0)
@@ -92,26 +85,43 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 		ip = DEFAULT_CONF_IP;
 	if (ip_port[0] == '*' && ip_port[1] != ':')
 		instructionWarning(list, line, "wildcard ip addr needs a : separator");
-	if (ip_len)//SECTION - rimozione caratteri
+	if (ip_len)
 		ip_port = ip_port.substr(ip_len);
-	if (ip_port[0] == '*')
-		ip_port.erase(0, 1);
-	if (ip_port[0] == ':')
-		ip_port.erase(0, 1);
-	//SECTION - mappatura ip - porta
-//	if (conf.getServerBlock().ipports.find(ip) != conf.getServerBlock().ipports.end() && (*conf.getServerBlock().ipports.find(ip)).second == std::atoi(ip_port.c_str()))
-//		instructionWarning(list, line, "ip addr already set for this server");
-	if (ip_port.empty())
-		port = DEFAULT_CONF_PORT;
-	else
+	if (ip_port[0] == '*' || ip_port[0] == ':')
+		ip_port.erase(0, 1 + (ip_port[0] == '*' && ip_port[1] == ':'));
+	// if (ip_port[0] == ':')
+		// ip_port.erase(0, 1);
+	return (ip_port);
+}
+
+static void checkListenPort(Conf &conf, std::vector<std::string> list, int line, std::string &ip_port, std::string &ip)
+{
+	int			port = DEFAULT_CONF_PORT;
+
+	if (!ip_port.empty())
 		port = std::atoi(ip_port.c_str());
+	if (ip_port.find_first_not_of("0123456789") != std::string::npos)
+	{
+		std::cout << "line: " << line << ", ip port: " << ip_port << std::endl;
+		instructionError(list, line, "listen syntax violated");
+	}
 	std::pair<std::string, int> ipport(ip, port);
 	if (conf.getServerBlock().ipports.count(ipport) != 0)
 		instructionError(list, line, "duplicated ip_address:port");
 	conf.getServerBlock().ipports[ipport].push_back("");
-	if (ip_port.find_first_not_of("0123456789") != std::string::npos)
-		instructionError(list, line, "listen syntax violated");
-	// std::cout << "\033[35mparseListen, line " << line << ": added " << ip << ":" << std::endl;
+}
+
+static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
+{
+	std::string	ip_port;
+	std::string	ip;
+
+	if (list.size() > 2)
+		instructionError(list, line, "listen does not manage flags (such as ssl)");
+	else if (list.size() != 2)
+		instructionError(list, line, "empty instruction");
+	ip_port = checkListenIp(list, line, ip);
+	checkListenPort(conf, list, line, ip_port, ip);
 }
 
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)

@@ -4,23 +4,6 @@
 #include "../includes/ether.hpp"
 #include <signal.h>
 
-// static void	print_fd(struct pollfd *p, int size)
-// {
-// 	static int	count;
-
-// 	std::cout << "\033[32m#----------#\033[33m\nIterazione " << count << ":\n\033[0m";  
-// 	for (int i = 0; i < size; i++)
-// 	{
-// 		if (i == 0)
-// 			std::cout << "\033[34mserver:\033[0m\n";
-// 		else
-// 			std::cout << "\033[34mClient" << i << ":\033[0m\n";
-// 		std::cout << "fd:\t" << p[i].fd << "\nevents:\t" << p[i].events << std::endl;
-// 		std::cout << "revents:" << p[i].revents << std::endl << std::endl;
-// 	}
-// 	++count;
-// }std::strchr("/{};", line[i])
-
 bool	times = true;
 
 void	spread_democracy(int sig)

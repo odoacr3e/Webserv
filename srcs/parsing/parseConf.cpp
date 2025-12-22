@@ -133,6 +133,7 @@ static int	closeBlock(Conf &conf, int line)
 	return (1);
 }
 
+// NOTE - throw exception for instructions errors
 void	instructionError(std::vector<std::string> &list, int line, std::string s)
 {
 	std::string	error;

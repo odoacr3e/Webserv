@@ -85,9 +85,6 @@ Server::Server()
 Server::~Server()
 {
 	std::cout << "\033[32mserver destructor!\033[0m" << std::endl;
-	// for (size_t i = 0; i < this->_addrs.size(); i++)
-	// 	if (this->_addrs.data()[i].fd != -1)
-	// 		close(this->_addrs.data()[i].fd);
 	if (this->_addrs.data()[0].fd != -1)
 		close(this->_addrs.data()[0].fd);
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + 1; it != this->_addrs.end(); ++it)
@@ -158,9 +155,7 @@ std::string	create_http(std::string url)
 	if (file.is_open())
 	{
 		while (std::getline(file, line))
-		{
 			body += line + "\n";
-		}
 		file.close();
 	}
 	html += "HTTP/1.1 200 OK\r\n";

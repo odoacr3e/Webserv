@@ -39,7 +39,6 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
 	{
 		close(server_fd);
-		//throw std::runtime_error("\033[31mBind ha fallito.\033[0m");
 		std::cout << port_n << " cannot be binded\n";
 		return (CONNECTION_FAIL);
 	}
@@ -48,6 +47,7 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 		close(server_fd);
 		throw std::runtime_error("\033[31mIl server ha le orecchie tappate.\033[0m");
 	}
+	std::cout << port_n << std::endl;
 	srv.fd = server_fd;
 	srv.events = POLLIN;
 	srv.revents = 0;
@@ -74,7 +74,7 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 		collegare tutti gli addrs al t_conf_server corrente
 }
 */
-Server::Server(Conf conf)
+Server::Server(Conf &conf)
 {
 	pollfd	port_connection;
 
@@ -184,7 +184,7 @@ std::string	create_http(std::string url)
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
-	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + 1; it != this->_addrs.end(); ++it)
+	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
 		if ((*it).fd != -1 && ((*it).revents & POLLIN))
 		{

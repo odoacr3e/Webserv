@@ -29,7 +29,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		int							_server_num;
 
 	public:
-		Server(Conf conf);
+		Server(Conf &conf);
 		~Server();
 
 		void 			addSocket();
@@ -121,5 +121,6 @@ enum	e_http_codes
 
 //NOTE - services like nginx, cloudflare, Amazon, Linkedln use other codes
 //		however, they are not official
-}
+};
+
 #endif

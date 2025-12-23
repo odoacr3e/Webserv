@@ -26,7 +26,8 @@ int main(int ac, char **av) //da aggiungere ac e av
 			conf_path = av[1];
 		else
 			throw std::runtime_error("\033[31mToo many configuration files\nPlease pass only one!\033[0m");
-		Server server((Conf){conf_path});
+		Conf config(conf_path);
+		Server server(config);
 		while (times)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

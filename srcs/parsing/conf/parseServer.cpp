@@ -51,7 +51,7 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 static std::string checkListenIp(std::vector<std::string> list, int line, std::string &ip)
 {
 	std::string	ip_port;
-	int			ip_len = 0;
+	int			ip_len = 7;
 
 	ip_port = list[1];
 	if (ip_port[0] == '*')
@@ -71,13 +71,13 @@ static std::string checkListenIp(std::vector<std::string> list, int line, std::s
 	return (ip_port);
 }
 
-static void checkListenPort(Conf &conf, std::vector<std::string> list, int line, std::string &ip_port, std::string &ip)
+static void checkListenPort(Conf &conf, std::vector<std::string> list, int line, std::string ip_port, std::string &ip)
 {
 	int			port = DEFAULT_CONF_PORT;
 
 	if (!ip_port.empty())
 		port = std::atoi(ip_port.c_str());
-	if (ip_port.find_first_not_of("0123456789") != std::string::npos)
+	if (!ip_port.empty() && ip_port.find_first_not_of("0123456789") != std::string::npos)
 	{
 		std::cout << "line: " << line << ", ip port: " << ip_port << std::endl;
 		instructionError(list, line, "listen syntax violated");
@@ -113,6 +113,7 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 	else if (list.size() != 2)
 		instructionError(list, line, "empty instruction");
 	ip_port = checkListenIp(list, line, ip);
+	std::cout << "line: " << line << ", ip port: " << ip_port << std::endl;
 	checkListenPort(conf, list, line, ip_port, ip);
 }
 

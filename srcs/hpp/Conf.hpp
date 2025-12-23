@@ -4,7 +4,7 @@
 # include "../../includes/ether.hpp"
 # define DEFAULT_CONF_PATH "default.conf"
 # define DEFAULT_CONF_ROOT "/www/var"
-# define DEFAULT_CONF_PORT 80
+# define DEFAULT_CONF_PORT 8080
 # define DEFAULT_CONF_IP "127.0.0.1"
 # define DEFAULT_CONF_SERVNAME "localhost"
 # define DEFAULT_CONF_BODYSIZE 1024

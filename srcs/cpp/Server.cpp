@@ -22,7 +22,7 @@ static struct pollfd	setupPollFd(int client);
 	4)	Fare un solo poll, passandogli il vector.
 		A poll frega un cazzo di dove gli arriva la roba.
 */
-static struct pollfd	createServerSock(int addr, int port_n) //successivamente prendera una reference a un oggetto Config con tutti i parametri passati dal config file
+static struct pollfd	createServerSock(int port_n) //successivamente prendera una reference a un oggetto Config con tutti i parametri passati dal config file
 {
 	struct sockaddr_in	address;
 	int					server_fd;
@@ -39,7 +39,6 @@ static struct pollfd	createServerSock(int addr, int port_n) //successivamente pr
 	if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
 	{
 		close(server_fd);
-		std::cout << addr << ":" << port_n << " cannot be binded\n";
 		return (CONNECTION_FAIL);
 	}
 	if (listen(server_fd, MAX_CONNECTION) != 0)
@@ -47,7 +46,6 @@ static struct pollfd	createServerSock(int addr, int port_n) //successivamente pr
 		close(server_fd);
 		throw std::runtime_error("\033[31mIl server ha le orecchie tappate.\033[0m");
 	}
-	// std::cout << port_n << std::endl;
 	srv.fd = server_fd;
 	srv.events = POLLIN;
 	srv.revents = 0;
@@ -78,24 +76,25 @@ Server::Server(Conf &conf)
 {
 	pollfd	port_connection;
 
-	std::cout << "\033[32mserver constructor!\033[0m" << std::endl;
+	// std::cout << "\033[32mServer constructor!\033[0m" << std::endl;
 	this->_server_num = 0;
 	if (conf.getSrvNameMap().size() == 0)
 		throw (std::runtime_error("specify at least one listen in conf file"));
 	for (SrvNameMap::iterator it = conf.getSrvNameMap().begin(); \
 		it != conf.getSrvNameMap().end(); it++)
 	{
-		port_connection = createServerSock(atohex((*it).first.first.c_str()), (*it).first.second);
+		port_connection = createServerSock((*it).first.second);
 		if (port_connection.fd != -1)
 		{
 			this->_addrs.push_back(port_connection);
 			this->_server_num++;
 		}
+		std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num << "\033[0m" << std::endl;
+		std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl << std::endl;
 	}
 	if (this->_server_num == 0)
 		throw (std::runtime_error("no server could be binded."));
-	std::cout << "servers num: " << this->_server_num << std::endl;
-	std::cout << "\033[32mTutto bene col costruttore!\033[0m" << std::endl;
+	// std::cout << "\033[32mTutto bene col costruttore!\033[0m" << std::endl;
 }
 
 Server::~Server()
@@ -225,3 +224,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 }
 
 // Server -> 
+
+void			Server::printServerConfiguration() const
+{
+	std::cout << "Number of servers -> " << this->_server_num << std::endl;
+}

@@ -28,11 +28,7 @@ int	valid_ip_address(std::string addr)
 			addr.erase(0, 1);
 		separator_index = addr.find_first_of(".:", 1);
 		if (addr[0] == '.' && separator_index > 3 && separator_index != addr.npos)
-		{
-			std::cout << addr.find_first_of(".:\0", 1) << std::endl;
-			std::cout << "addr: " << addr << ", addr[0]: |" << addr[0] << "|" << std::endl;
 			return (false);
-		}
 		if (addr[0] && addr[1] && (addr[1] == '.' || addr[1] == ':'))
 			return (false);
 		addr.erase(0, 1);

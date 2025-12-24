@@ -217,5 +217,5 @@ void	confParse(Conf &conf, std::ifstream &fd)
 		blockError("", i, CONF_INSTRUCTION_UNFINISHED);
 	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
 		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
-	std::cout << conf << std::endl;
+	// std::cout << conf << std::endl;
 }

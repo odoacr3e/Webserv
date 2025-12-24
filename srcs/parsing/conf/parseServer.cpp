@@ -41,11 +41,7 @@ static void	parseServerName(Conf &conf, std::vector<std::string> list, int line)
 	if (size == 1)
 		instructionError(list, line, "empty instruction");
 	for (size_t i = 1; i < size; i++)
-	{
-		// if (conf.findServerName(list[i]))
-		// 	instructionError(list, line, "Server name already defined");
 		conf.addServerName(list[i]);
-	}
 }
 
 static std::string checkListenIp(std::vector<std::string> list, int line, std::string &ip)
@@ -76,10 +72,7 @@ static void checkListenPort(Conf &conf, std::vector<std::string> list, int line,
 	if (!ip_port.empty())
 		port = std::atoi(ip_port.c_str());
 	if (!ip_port.empty() && ip_port.find_first_not_of("0123456789") != std::string::npos)
-	{
-		std::cout << "line: " << line << ", ip port: " << ip_port << std::endl;
 		instructionError(list, line, "listen syntax violated");
-	}
 	std::pair<std::string, int> ipport(ip, port);
 	if (conf.getServerBlock().ipports.count(ipport) != 0)
 		instructionError(list, line, "duplicated ip_address:port");
@@ -111,7 +104,6 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 	else if (list.size() != 2)
 		instructionError(list, line, "empty instruction");
 	ip_port = checkListenIp(list, line, ip);
-	std::cout << "line: " << line << ", ip port: " << ip_port << std::endl;
 	checkListenPort(conf, list, line, ip_port, ip);
 }
 

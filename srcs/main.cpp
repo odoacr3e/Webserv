@@ -8,7 +8,7 @@ bool	times = true;
 
 void	spread_democracy(int sig)
 {
-	std::cout << "\nONOLULU ARRIVO!\n" << std::endl;
+	std::cout << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
 	(void)sig, times = false;
 }
 
@@ -17,7 +17,7 @@ int main(int ac, char **av) //da aggiungere ac e av
 	std::string	conf_path;
 
 	signal(SIGINT, spread_democracy);
-	std::cout << "\033[32mIl server si spegnerà tra " << times << " secondi.\n\033[0m";
+	std::cout << "\033[1;32mStarting web server ...\033[0m" << std::endl;
 	try
 	{
 		if (ac < 2)
@@ -36,10 +36,7 @@ int main(int ac, char **av) //da aggiungere ac e av
 			for (int i = 0; i < server.getServerNum(); i++)
 			{
 				if (server.getAddrs()[i].revents & POLLIN)
-				{
-					std::cout << "Sento voci..." << i << std::endl;
 					server.addSocket(i); // aggiunge al vector il nuovo socket del client
-				}
 			}
 			server.checkForConnection();
 		}

@@ -73,7 +73,6 @@ static int checkListenPort(std::vector<std::string> list, int line, std::string 
 		port = std::atoi(ip_port.c_str());
 	if (!ip_port.empty() && ip_port.find_first_not_of("0123456789") != std::string::npos)
 		instructionError(list, line, "listen syntax violated");
-	//prendere blocco globale
 	return (port);
 }
 
@@ -104,7 +103,7 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 		instructionError(list, line, "empty instruction");
 	ip_port = checkListenIp(list, line, ip);
 	port = checkListenPort(list, line, ip_port);
-	conf.checkIpPort(ip, port);
+	if (conf.checkIpPort(ip, port))//ERRORE
 		instructionError(list, line, "duplicated ip_address:port");
 	conf.setIpPort(ip, port);
 }

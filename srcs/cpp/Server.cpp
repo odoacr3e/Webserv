@@ -80,18 +80,21 @@ Server::Server(Conf &conf)
 	this->_server_num = 0;
 	if (conf.getSrvNameMap().size() == 0)
 		throw (std::runtime_error("specify at least one listen in conf file"));
+	this->_srvnamemap = &conf.getSrvNameMap();
 	for (SrvNameMap::iterator it = conf.getSrvNameMap().begin(); \
 		it != conf.getSrvNameMap().end(); it++)
 	{
 		port_connection = createServerSock((*it).first.second);
 		if (port_connection.fd != -1)
 		{
-			// this->_server_data[port_connection.fd] = (*it).second;
+			this->_server_data[port_connection.fd] = &(*it).second;
 			this->_addrs.push_back(port_connection);
 			this->_server_num++;
+			std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num << "\033[0m" << std::endl;
+			std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl << std::endl;
 		}
-		std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num << "\033[0m" << std::endl;
-		std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl << std::endl;
+		else
+			std::cout << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
 	}
 	if (this->_server_num == 0)
 		throw (std::runtime_error("no server could be binded."));

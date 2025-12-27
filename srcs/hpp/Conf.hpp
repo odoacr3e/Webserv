@@ -146,13 +146,13 @@ class Conf
 
 		//SECTION - settings got from parsing
 		//SECTION - main block
-		std::string					_user;
-		t_conf_server				_srvblock; // temporanea per blocchi server gestiti attualmente
-		t_conf_location				_locblock; // temporanea per blocchi location gestiti attualmente
-		std::string					_currlocation;
-		std::vector<t_conf_server>	_srv_conf; // vettore di blocchi server
-		std::map<std::string, std::string>	_server_names;
-		SrvNameMap							_srvnamemap;
+		std::string									_user;
+		t_conf_server								_srvblock; // temporanea per blocchi server gestiti attualmente
+		t_conf_location								_locblock; // temporanea per blocchi location gestiti attualmente
+		std::string									_currlocation;
+		std::vector<t_conf_server>					_srv_conf; // vettore di blocchi server
+		std::map<std::string, std::string>			_server_names;
+		SrvNameMap									_srvnamemap;
 		std::vector<std::pair<std::string, int> >	_ipport;
 		// logica -> nel blocco server tmp mettiamo nella mappa di server block attuale l'URI della location con valore la struct riempita della location
 		// usciamo da blocco location e alla fine del blocco server pushamo blocco server temporaneo in _srv_conf
@@ -187,10 +187,11 @@ class Conf
 		void	updateBlock(int block_type);
 		int		getBlockNumber(int block_type);
 		
-		std::vector<t_conf_server>	&getConfServer(void);
-		t_conf_server				&getServerBlock(void);
-		t_conf_location				&getLocationBlock();
-		std::pair<std::string, int>	&getIpPort(int i);
+		std::vector<t_conf_server>					&getConfServer(void);
+		t_conf_server								&getServerBlock(void);
+		t_conf_location								&getLocationBlock();
+		std::vector<std::pair<std::string, int> >	&getIpPort();
+		std::pair<std::string, int>					&getPairIpPort(int i);
 		
 		std::string	checkOpenBlock(void) const;
 		std::string	missingBlock() const;

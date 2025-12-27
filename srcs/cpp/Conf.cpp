@@ -27,15 +27,15 @@ void	set_if_empty(t_conf_server &server, Conf &conf)
 		server.root.push_back('/');
 	if (!server.index.empty() && !valid_file(server.root + server.index))
 		throw (Conf::ConfException("cannot open " + server.root + server.index + "\n"));
-	for (int i = conf.getIpPortNumber(); i < (int)conf.getSrvNameMap().size(); i++)
-	{
-		conf.getSrvNameMap()[conf.getIpPort(i)] = *conf.getConfServer().rbegin();
-		conf.incrementIpPortNumber();
-	}
 	if (server.server_names.size() == 0)
 		server.server_names.push_back(DEFAULT_CONF_SERVNAME);
 	if (server.client_max_body_size == 0)
 		server.client_max_body_size = DEFAULT_CONF_BODYSIZE;
+	for (int i = conf.getIpPortNumber(); i < (int)conf.getIpPort().size(); i++)
+	{
+		conf.getSrvNameMap()[conf.getPairIpPort(i)] = conf.getServerBlock();
+		conf.incrementIpPortNumber();
+	}
 }
 
 void	s_conf_server::set(void)
@@ -144,9 +144,14 @@ void	Conf::setIpPort(std::string ip, int port)
 	this->_ipport.push_back(std::pair<std::string, int>(ip, port));
 }
 
-std::pair<std::string, int>	&Conf::getIpPort(int i)
+std::pair<std::string, int>	&Conf::getPairIpPort(int i)
 {
 	return (this->_ipport[i]);
+}
+
+std::vector<std::pair<std::string, int> >	&Conf::getIpPort(void)
+{
+	return (this->_ipport);
 }
 
 void	Conf::incrementIpPortNumber(void)
@@ -157,6 +162,10 @@ void	Conf::incrementIpPortNumber(void)
 bool	Conf::checkIpPort(std::string ip, int port) const
 {
 	std::pair<std::string, int>	ipport(ip, port);
+
+	//FIXME - si può usare <algorithm> ???
+	if (std::find(this->_ipport.begin(), this->_ipport.end(), ipport) != this->_ipport.end())
+		return (1);
 	return (this->_srvnamemap.count(ipport) >= 1);
 }
 

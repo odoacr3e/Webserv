@@ -15,6 +15,7 @@
 # include <netinet/in.h>
 # include <unistd.h>
 # include <vector>
+# include <algorithm>
 # include <map>
 # include <cstring>
 # include <cstdlib>

@@ -121,8 +121,7 @@ static int	closeBlock(Conf &conf, int line)
 	}
 	else if (conf.getHttp() && conf.getServer() && !conf.getLocation() && !conf.getEvents())
 	{
-		conf.getServerBlock().set_if_empty();
-		conf.setSrvNameMap(conf.getServerBlock().ipports);
+		set_if_empty(conf.getServerBlock(), conf);
 		conf.getConfServer().push_back(conf.getServerBlock());
 		conf.setServer(false);
 	}

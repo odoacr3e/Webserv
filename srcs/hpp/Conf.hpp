@@ -9,10 +9,11 @@
 # define DEFAULT_CONF_SERVNAME "localhost"
 # define DEFAULT_CONF_BODYSIZE 1024
 
+class	conf;
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
 // 127.0.0.1:80 --> tutti i dati server
-typedef std::map<std::pair<std::string, int>, std::vector<std::string> > SrvNameMap;
+typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
 
 enum	e_conf_error
 {
@@ -71,11 +72,9 @@ enum	e_conf_error
 */
 struct s_conf_server
 {
-	void	set_if_empty(void);
 	void	set(void);
 
 	std::map<std::string, t_conf_location>	location; // <"/pippo", struct *>
-	SrvNameMap								ipports;//listen 80; listen 127.0.0.1:8080; listen 443 ssl;
 	std::string								root;//root /var/www/html;
 	std::string								index;//index /var/www/html;
 	std::vector<std::string>				server_names;//server_name example.com www.example.com *example.com;
@@ -143,6 +142,8 @@ class Conf
 		int							_nhttp;
 		int							_nserver;
 
+		int							_nipport;
+
 		//SECTION - settings got from parsing
 		//SECTION - main block
 		std::string					_user;
@@ -152,6 +153,7 @@ class Conf
 		std::vector<t_conf_server>	_srv_conf; // vettore di blocchi server
 		std::map<std::string, std::string>	_server_names;
 		SrvNameMap							_srvnamemap;
+		std::vector<std::pair<std::string, int> >	_ipport;
 		// logica -> nel blocco server tmp mettiamo nella mappa di server block attuale l'URI della location con valore la struct riempita della location
 		// usciamo da blocco location e alla fine del blocco server pushamo blocco server temporaneo in _srv_conf
 
@@ -167,37 +169,42 @@ class Conf
 		bool		getHttp() const;
 		bool		getServer() const;
 		bool		getLocation() const;
+		int			getIpPortNumber() const;
 		std::string	getCurrLocation() const;
 		SrvNameMap	&getSrvNameMap();
 
+		bool	checkIpPort(std::string ip, int port) const;
 		// setters
 		void	setEvents(bool val);
 		void	setHttp(bool val);
 		void	setServer(bool val);
 		void	setLocation(bool val);
 		void	setCurrLocation(std::string curr);
-		void	setSrvNameMap(SrvNameMap curr);
-
+		void	incrementIpPortNumber(void);
+//		void	setSrvNameMap(SrvNameMap curr);
+		void	setIpPort(std::string ip, int port);
+		
 		void	updateBlock(int block_type);
 		int		getBlockNumber(int block_type);
-
+		
 		std::vector<t_conf_server>	&getConfServer(void);
 		t_conf_server				&getServerBlock(void);
 		t_conf_location				&getLocationBlock();
-
+		std::pair<std::string, int>	&getIpPort(int i);
+		
 		std::string	checkOpenBlock(void) const;
 		std::string	missingBlock() const;
-
+		
 		// main block
 		std::string	getMainUser(void) const;
 		void		setMainUser(std::string);
-
+		
 		void		addServerName(std::string name);
 		bool		findServerName(std::string name);
-
+		
 		bool		checkDuplicateServerName();
 		bool		checkDuplicateIpPort();
-
+		
 		enum	e_block_type
 		{
 			B_EVENTS,
@@ -209,7 +216,7 @@ class Conf
 		class ConfException: public std::exception
 		{
 			private:
-				std::string _msg;
+			std::string _msg;
 			public:
 				ConfException(std::string msg) : _msg(msg) {};
 				virtual const char *what() const throw() {return (_msg.c_str());}
@@ -234,5 +241,7 @@ void	confParse(Conf &conf, std::ifstream &fd);
 	3)	default server (puo contenere lettere, numeri e punto, in altri casi da errore)
 */
 //
+
+void	set_if_empty(t_conf_server &server, Conf &conf);
 
 #endif

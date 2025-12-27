@@ -65,7 +65,7 @@ static std::string checkListenIp(std::vector<std::string> list, int line, std::s
 	return (ip_port);
 }
 
-static void checkListenPort(Conf &conf, std::vector<std::string> list, int line, std::string ip_port, std::string &ip)
+static int checkListenPort(std::vector<std::string> list, int line, std::string ip_port)
 {
 	int			port = DEFAULT_CONF_PORT;
 
@@ -73,11 +73,8 @@ static void checkListenPort(Conf &conf, std::vector<std::string> list, int line,
 		port = std::atoi(ip_port.c_str());
 	if (!ip_port.empty() && ip_port.find_first_not_of("0123456789") != std::string::npos)
 		instructionError(list, line, "listen syntax violated");
-	std::pair<std::string, int> ipport(ip, port);
-	if (conf.getServerBlock().ipports.count(ipport) != 0)
-		instructionError(list, line, "duplicated ip_address:port");
 	//prendere blocco globale
-	conf.getServerBlock().ipports[ipport].push_back("");
+	return (port);
 }
 
 /*
@@ -99,13 +96,17 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 {
 	std::string	ip_port;
 	std::string	ip;
+	int			port;
 
 	if (list.size() > 2)
 		instructionError(list, line, "listen does not manage flags (such as ssl)");
 	else if (list.size() != 2)
 		instructionError(list, line, "empty instruction");
 	ip_port = checkListenIp(list, line, ip);
-	checkListenPort(conf, list, line, ip_port, ip);
+	port = checkListenPort(list, line, ip_port);
+	conf.checkIpPort(ip, port);
+		instructionError(list, line, "duplicated ip_address:port");
+	conf.setIpPort(ip, port);
 }
 
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)

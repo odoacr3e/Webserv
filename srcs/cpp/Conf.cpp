@@ -14,34 +14,34 @@ Conf::Conf(std::string filepath): _file(filepath)
 	this->_nevents = 0;
 	this->_nhttp = 0;
 	this->_nserver = 0;
+	this->_nipport = 0;
 	this->_srvblock.client_max_body_size = 0;
 	confParse(*this, fd);
 }
 
-void	s_conf_server::set_if_empty(void)
+void	set_if_empty(t_conf_server &server, Conf &conf)
 {
-	if (this->root.empty())
-		this->root = DEFAULT_CONF_ROOT;
-	if (*this->root.rbegin() != '/')
-		this->root.push_back('/');
-	if (!this->index.empty() && !valid_file(this->root + this->index))
-		throw (Conf::ConfException("cannot open " + this->root + this->index + "\n"));
-	if (this->ipports.size() == 0)
+	if (server.root.empty())
+		server.root = DEFAULT_CONF_ROOT;
+	if (*server.root.rbegin() != '/')
+		server.root.push_back('/');
+	if (!server.index.empty() && !valid_file(server.root + server.index))
+		throw (Conf::ConfException("cannot open " + server.root + server.index + "\n"));
+	for (int i = conf.getIpPortNumber(); i < (int)conf.getSrvNameMap().size(); i++)
 	{
-		std::pair<std::string, int> ipport(DEFAULT_CONF_IP, DEFAULT_CONF_PORT);
-		this->ipports[ipport] = this->server_names;
+		conf.getSrvNameMap()[conf.getIpPort(i)] = *conf.getConfServer().rbegin();
+		conf.incrementIpPortNumber();
 	}
-	if (this->server_names.size() == 0)
-		this->server_names.push_back(DEFAULT_CONF_SERVNAME);
-	if (this->client_max_body_size == 0)
-		this->client_max_body_size = DEFAULT_CONF_BODYSIZE;
+	if (server.server_names.size() == 0)
+		server.server_names.push_back(DEFAULT_CONF_SERVNAME);
+	if (server.client_max_body_size == 0)
+		server.client_max_body_size = DEFAULT_CONF_BODYSIZE;
 }
 
 void	s_conf_server::set(void)
 {
 	this->root.clear();
 	this->index.clear();
-	this->ipports.clear();
 	this->server_names.clear();
 	this->client_max_body_size = 0;
 }
@@ -81,6 +81,11 @@ bool	Conf::getLocation() const
 	return (this->_location);
 }
 
+int	Conf::getIpPortNumber() const
+{
+	return (this->_nipport);
+}
+
 std::string	Conf::getCurrLocation() const
 {
 	return (this->_currlocation);
@@ -91,6 +96,7 @@ SrvNameMap	&Conf::getSrvNameMap()
 	return (this->_srvnamemap);
 }
 
+/*
 void	Conf::setSrvNameMap(SrvNameMap curr)
 {
 	std::string	error;
@@ -106,7 +112,7 @@ void	Conf::setSrvNameMap(SrvNameMap curr)
 		}
 		this->_srvnamemap[(*it).first] = this->_srvblock.server_names;
 	}
-}
+}*/
 
 void	Conf::setEvents(bool val)
 {
@@ -131,6 +137,27 @@ void	Conf::setLocation(bool val)
 void	Conf::setCurrLocation(std::string curr)
 {
 	this->_locblock.path = curr;
+}
+
+void	Conf::setIpPort(std::string ip, int port)
+{
+	this->_ipport.push_back(std::pair<std::string, int>(ip, port));
+}
+
+std::pair<std::string, int>	&Conf::getIpPort(int i)
+{
+	return (this->_ipport[i]);
+}
+
+void	Conf::incrementIpPortNumber(void)
+{
+	this->_nipport += 1;
+}
+
+bool	Conf::checkIpPort(std::string ip, int port) const
+{
+	std::pair<std::string, int>	ipport(ip, port);
+	return (this->_srvnamemap.count(ipport) >= 1);
 }
 
 void	Conf::updateBlock(int block_type)
@@ -245,7 +272,7 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	for (SrvNameMap::iterator it = c.getSrvNameMap().begin(); it != c.getSrvNameMap().end(); ++it)
 	{
 		os << "IP ADDRESS -> " << (*it).first.first << ":" << (*it).first.second << \
-		" | SERVER NAME -> ";
+		" | SERVER NAME -> ";/*
 		for (size_t i = 0; i < (*it).second.size(); i++)
 		{
 			os << (*it).second[i];
@@ -253,7 +280,7 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 				os << ", ";
 			else
 				os << std::endl;
-		}
+		}*/
 	}
 	os << "\033[0m";
 	return (os);

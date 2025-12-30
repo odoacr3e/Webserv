@@ -211,7 +211,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 
 // Server -> 
 
-void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
+/*void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
 {
 	(void)conf;
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
@@ -236,5 +236,14 @@ void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) con
 			std::cout << "\t\t\t";
 		std::cout << (*it_loc).first << std::endl;
 	}
+	std::cout << "\n\033[0m\033[1;35m}\033[0m" << std::endl;
+}*/
+
+void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
+{
+	(void)conf;
+	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
+	std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
+	std::cout << (*it).second;
 	std::cout << "\n\033[0m\033[1;35m}\033[0m" << std::endl;
 }

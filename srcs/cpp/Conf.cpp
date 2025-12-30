@@ -21,8 +21,7 @@ Conf::Conf(std::string filepath): _file(filepath)
 
 void	s_conf_server::set_if_empty(Conf &conf)
 {
-	//if (this->location.empty())
-	conf.getServerBlock().location[conf.getCurrLocation()] = conf.getCopyLocationBlock();
+	this->location["/"] = conf.getCopyLocationBlock();
 	if (this->root.empty())
 		this->root = DEFAULT_CONF_ROOT;
 	if (*this->root.rbegin() != '/')
@@ -32,11 +31,13 @@ void	s_conf_server::set_if_empty(Conf &conf)
 	if (this->server_names.size() == 0)
 		this->server_names.push_back(DEFAULT_CONF_SERVNAME);
 	if (this->client_max_body_size == 0)
-		this->client_max_body_size = DEFAULT_CONF_BODYSIZE;	
-	//conf.getSrvNameMap()[std::pair<std::string, int>(DEFAULT_CONF_IP, DEFAULT_CONF_PORT)] = conf.getServerBlock();
+		this->client_max_body_size = DEFAULT_CONF_BODYSIZE;
+	if (this->listen_set == false)
+		conf.setIpPort(std::string(DEFAULT_CONF_IP), DEFAULT_CONF_PORT);
 	for (int i = conf.getIpPortNumber(); i < (int)conf.getIpPort().size(); i++)
 	{
 		conf.getSrvNameMap()[conf.getPairIpPort(i)] = *this;
+		conf.incrementIpPortNumber();
 	}
 }
 
@@ -60,6 +61,7 @@ void	s_conf_server::set(void)
 	this->server_names.clear();
 	this->client_max_body_size = 0;
 	this->location.clear();
+	this->listen_set = false;
 }
 
 void	s_conf_location::set(std::string path)
@@ -165,6 +167,13 @@ void	Conf::setCurrLocation(std::string curr)
 
 void	Conf::setIpPort(std::string ip, int port)
 {
+	if (checkIpPort(ip, port) != 0)
+	{
+		std::string	err = "ip:port -> " + ip + ":";
+		err += port;
+		err += " already used";
+		throw (Conf::ConfException(err));
+	}
 	this->_ipport.push_back(std::pair<std::string, int>(ip, port));
 }
 
@@ -284,9 +293,6 @@ bool		Conf::findServerName(std::string name)
 	return (this->_server_names.count(name) > 0);
 }
 
-bool		checkDuplicateServerName();
-bool		checkDuplicateIpPort();
-
 std::ostream &operator<<(std::ostream &os, Conf &c)
 {
 	os << "####################################\n";
@@ -297,20 +303,47 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	os << "\033[33m{SERVER BLOCK}";
 	for (size_t i = 0; i < c.getConfServer().size(); i++)//per ogni server
 	{
-		os << "\n\033[35mPrinting " << c.getConfServer()[i].server_names[0];
-		os << "\n\033[34mServer names:\033[33m";
-		for (size_t j = 0; j < c.getConfServer()[i].server_names.size(); j++)//per ogni nome
-			os << "\n" << c.getConfServer()[i].server_names[j];
-		os << "\n\033[34mip ports:\033[33m";
-		os << "\n\033[34mroot: \033[33m" << c.getConfServer()[i].root;
-		os << "\n\033[34mindex: \033[33m" << c.getConfServer()[i].index;
-		os << "\n\033[34mbody_size: \033[33m" << c.getConfServer()[i].client_max_body_size << std::endl;
+		os << c.getConfServer()[i];
 	}
+	os << c.getSrvNameMap();
+	os << "\033[0m";
+	return (os);
+}
+
+std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
+{
+	os << "\033[35mPrinting server " << srv.server_names[0];
+	os << "\n\033[34mServer names:\033[33m";
+	for (size_t i = 0; i < srv.server_names.size(); i++)//per ogni nome
+		os << "\n" << srv.server_names[i];
+	os << "\n";
+	print_map(os, srv.location, "location", "\033[34m");
+	os << "\n\033[34mip ports:\033[33m";
+	os << "\n\033[34mroot: \033[33m" << srv.root;
+	os << "\n\033[34mindex: \033[33m" << srv.index;
+	os << "\n\033[34mbody_size: \033[33m" << srv.client_max_body_size << std::endl;
+	return (os);
+}
+
+std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
+{
+	os << "\n\033[35mPrinting location " << loc.path;
+	os << "\n\033[34malias: \033[33m" << loc.alias;
+	os << "\n\033[34mproxy_pass: \033[33m" << loc.proxy_pass;
+	os << "\n\033[34mroot: \033[33m" << loc.root << std::endl;
+	return (os);
+}
+
+std::ostream &operator<<(std::ostream &os, SrvNameMap &map)
+{
+	(void)map;
 	os << std::endl << "\n\033[34mIp Addresses list: \033[0m" << std::endl;
-	for (SrvNameMap::iterator it = c.getSrvNameMap().begin(); it != c.getSrvNameMap().end(); ++it)
+	//print_map(map, "serverNameMap", "\033[34m");
+	/*
+		for (SrvNameMap::iterator it = c.getSrvNameMap().begin(); it != c.getSrvNameMap().end(); ++it)
 	{
 		os << "IP ADDRESS -> " << (*it).first.first << ":" << (*it).first.second << \
-		" | SERVER NAME -> ";/*
+		" | SERVER NAME -> ";
 		for (size_t i = 0; i < (*it).second.size(); i++)
 		{
 			os << (*it).second[i];
@@ -319,7 +352,5 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 			else
 				os << std::endl;
 		}*/
-	}
-	os << "\033[0m";
 	return (os);
 }

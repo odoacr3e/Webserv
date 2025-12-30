@@ -4,12 +4,22 @@
 #include "../includes/ether.hpp"
 #include <signal.h>
 
-bool	times = true;
+bool	server_run = true;
 
 void	spread_democracy(int sig)
 {
 	std::cout << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
-	(void)sig, times = false;
+	(void)sig, server_run = false;
+}
+
+void	get_conf_path(int ac, char **av, std::string &path)
+{
+	if (ac < 2)
+		path = DEFAULT_CONF_PATH;
+	else if (ac == 2)
+		path = av[1];
+	else
+		throw std::runtime_error("\033[31mToo many configuration files\nPlease pass only one!\033[0m");
 }
 
 int main(int ac, char **av) //da aggiungere ac e av
@@ -20,18 +30,13 @@ int main(int ac, char **av) //da aggiungere ac e av
 	std::cout << "\033[1;32mStarting web server ...\033[0m" << std::endl;
 	try
 	{
-		if (ac < 2)
-			conf_path = DEFAULT_CONF_PATH;
-		else if (ac == 2)
-			conf_path = av[1];
-		else
-			throw std::runtime_error("\033[31mToo many configuration files\nPlease pass only one!\033[0m");
+		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
-		while (times)
+		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);
-			if (ready < 0 && times)
+			if (ready < 0 && server_run)
 				throw std::runtime_error("\033[1;31mPoll ha fallito.\nPorta occupata\n\033[0m");
 			for (int i = 0; i < server.getServerNum(); i++)
 			{

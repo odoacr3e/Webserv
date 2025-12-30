@@ -103,9 +103,8 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 		instructionError(list, line, "empty instruction");
 	ip_port = checkListenIp(list, line, ip);
 	port = checkListenPort(list, line, ip_port);
-	if (conf.checkIpPort(ip, port))//ERRORE
-		instructionError(list, line, "duplicated ip_address:port");
 	conf.setIpPort(ip, port);
+	conf.getServerBlock().listen_set = true;
 }
 
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)

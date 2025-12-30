@@ -10,10 +10,8 @@
 # define DEFAULT_CONF_BODYSIZE 1024
 
 class	Conf;
-
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
-// 127.0.0.1:80 --> tutti i dati server
 typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
 
 enum	e_conf_error
@@ -61,6 +59,7 @@ struct s_conf_server
 	std::string								index;//index /var/www/html;
 	std::vector<std::string>				server_names;//server_name example.com www.example.com *example.com;
 	int										client_max_body_size;//client_max_body_size 10m;
+	bool									listen_set;
 	// std::map<>							error_pages;//error_page 404 /404.html;	error_page 500 502 503 504 /50x.html;
 	// std::string							access_log;//access_log /var/log/nginx/access.log;
 	// std::string							error_log;//error_log /var/log/nginx/access.log;

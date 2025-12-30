@@ -128,6 +128,7 @@ static int	closeBlock(Conf &conf, int line)
 		conf.getLocationBlock().set_if_empty(conf);
 		conf.getServerBlock().set_if_empty(conf);
 		conf.getConfServer().push_back(conf.getServerBlock());
+		conf.getLocationBlock().set("");
 		conf.setServer(false);
 	}
 	else if (conf.getHttp() && !conf.getServer() && !conf.getLocation() && !conf.getEvents())
@@ -222,5 +223,5 @@ void	confParse(Conf &conf, std::ifstream &fd)
 	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
 		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
 	// std::cout << conf << std::endl;
-	std::cout << "END OF CONFPARSE: " << conf.getConfServer()[0].location[conf.getCurrLocation()].path << std::endl;
+	//std::cout << "END OF CONFPARSE: " << (*conf.getConfServer()[0].location.rbegin()).first << std::endl;
 }

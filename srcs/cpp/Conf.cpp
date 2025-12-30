@@ -289,7 +289,6 @@ void		Conf::addServerName(std::string name)
 
 bool		Conf::findServerName(std::string name)
 {
-	// this->_srvnamemap.count(std::pair<>)
 	return (this->_server_names.count(name) > 0);
 }
 
@@ -310,27 +309,60 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	return (os);
 }
 
+// void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
+// {
+// 	(void)conf;
+// 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
+// 	std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
+// 	// std::cout << "Configuration\n{\n";
+// 	std::cout << "\033[1;35m{\033[0m\n";
+// 	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << (*it).second.root << std::endl;
+// 	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << (*it).second.index << std::endl;
+// 	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << (*it).second.client_max_body_size << std::endl;
+// 	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\t";
+// 	for (size_t i = 0; i < (*it).second.server_names.size(); i++)
+// 	{
+// 		if (i != 0)
+// 			std::cout << "\t\t\t";
+// 		std::cout << (*it).second.server_names[i] << std::endl;
+// 	}
+// 	std::cout << "\033[0m\033[1;35m    location ->\t\033[3;37m\t";
+// 	for (std::map<std::string, t_conf_location>::iterator it_loc = (*it).second.location.begin();
+// 		it_loc != (*it).second.location.end(); it_loc++)
+// 	{
+// 		if (it_loc != (*it).second.location.begin())
+// 			std::cout << "\t\t\t";
+// 		std::cout << (*it_loc).first << std::endl;
+// 	}
+// 	std::cout << "\n\033[0m\033[1;35m}\033[0m" << std::endl;
+// }
+
 std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 {
-	os << "\033[35mPrinting server " << srv.server_names[0];
-	os << "\n\033[34mServer names:\033[33m";
-	for (size_t i = 0; i < srv.server_names.size(); i++)//per ogni nome
-		os << "\n" << srv.server_names[i];
-	os << "\n";
-	print_map(os, srv.location, "location", "\033[34m");
-	os << "\n\033[34mip ports:\033[33m";
-	os << "\n\033[34mroot: \033[33m" << srv.root;
-	os << "\n\033[34mindex: \033[33m" << srv.index;
-	os << "\n\033[34mbody_size: \033[33m" << srv.client_max_body_size << std::endl;
+	// os << "\033[35mPrinting server";
+	std::cout << "\033[0m{\n";
+	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << srv.root << std::endl;
+	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << srv.index << std::endl;
+	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << srv.client_max_body_size << std::endl;
+	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\t";
+	for (size_t i = 0; i < srv.server_names.size(); i++)
+	{
+		if (i != 0)
+			os << "\t\t\t";
+		os << srv.server_names[i] << std::endl;
+	}
+	os << "\033[0m";
+	print_map(os, srv.location, "\033[0m\033[1;93m    location\033[3;37m", "\033[1;95m", NULL);
+	std::cout << "\033[0m}\033[0m\n";
 	return (os);
 }
 
 std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 {
-	os << "\n\033[35mPrinting location " << loc.path;
-	os << "\n\033[34malias: \033[33m" << loc.alias;
-	os << "\n\033[34mproxy_pass: \033[33m" << loc.proxy_pass;
-	os << "\n\033[34mroot: \033[33m" << loc.root << std::endl;
+	//os << "\n\033[35mPrinting location " << loc.path;
+	os << "\n\t\033[1;95malias: \033[37m" << loc.alias;
+	os << "\n\t\033[1;95mproxy_pass: \033[37m" << loc.proxy_pass;
+	os << "\n\t\033[1;95mroot: \033[37m" << loc.root;
 	return (os);
 }
 

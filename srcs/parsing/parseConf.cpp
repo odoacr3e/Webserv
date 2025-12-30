@@ -118,7 +118,6 @@ static int	closeBlock(Conf &conf, int line)
 	else if (conf.getHttp() && conf.getServer() && conf.getLocation() && !conf.getEvents())
 	{
 		conf.getLocationBlock().set_if_empty(conf);
-		std::cout << "aggiungo " << conf.getCurrLocation() << "\n";
 		conf.getServerBlock().location[conf.getCurrLocation()] = conf.getCopyLocationBlock();
 		conf.getLocationBlock().set("");
 		conf.setLocation(false);

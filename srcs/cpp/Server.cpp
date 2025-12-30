@@ -56,7 +56,6 @@ Server::Server(Conf &conf)
 {
 	pollfd	port_connection;
 
-	// std::cout << "\033[32mServer constructor!\033[0m" << std::endl;
 	this->_server_num = 0;
 	if (conf.getSrvNameMap().size() == 0)
 		throw (std::runtime_error("\nSpecify at least one listen in conf file"));
@@ -69,18 +68,14 @@ Server::Server(Conf &conf)
 		{
 			this->_server_data[port_connection.fd] = &(*it).second;
 			this->_addrs.push_back(port_connection);
-			std::cout << "SERVER_P: " << (*it).second.location.empty() << std::endl;
 			printServerConfiguration(conf, it);
 			this->_server_num++;
-			//std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num << "\033[0m" << std::endl;
-			//std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl << std::endl;
 		}
 		else
 			std::cout << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
 	}
 	if (this->_server_num == 0)
 		throw (std::runtime_error("\nNo server could be binded."));
-	// std::cout << "\033[32mTutto bene col costruttore!\033[0m" << std::endl;
 }
 
 Server::~Server()
@@ -210,8 +205,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 }
 
 // Server -> 
-
-/*void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
+/*
+void	Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
 {
 	(void)conf;
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
@@ -243,7 +238,7 @@ void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) con
 {
 	(void)conf;
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
-	std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
+	std::cout << "Listening on -> \033[1;32m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
 	std::cout << (*it).second;
-	std::cout << "\n\033[0m\033[1;35m}\033[0m" << std::endl;
+	
 }

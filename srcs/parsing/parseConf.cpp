@@ -65,6 +65,7 @@ static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
 
 static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
+	std::cout << list;
 	if (list.size() == 0)
 		blockError("unnamed block", line, CONF_BLOCK_INVALID);
 	if (list.size() > 1UL + (list[0] == "location"))
@@ -167,21 +168,21 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	Read configuration file. Parse it. Saves data in Conf class.
 
 	@special:	throw exceptions
-	@input:		[Conf &conf]-------------->	reference to conf class.
-				[std::ifstream &fd]------->	reference to conf file stream.
+	@input:		[Conf &conf]--->	reference to conf class.
+				[ifstream &fd]->	reference to conf file stream.
 	@return:	none 
 	@var:	
-		[std::string line]-------------->	current line read
-		[std::string token]------------->	current token.
-											tokens are separated by:
-											-	ISSPACE (see ascii)
-											-	#	comments sign
-											-	;	instruction end sign
-											-	{	open block sign
-											-	}	close block sign
-		[std::vector<std::string> list]->	list of all tokens.
-											When a token separator is found,
-											list is reset.
+	[string line]-------------->	current line read
+	[string token]------------->	current token.
+									tokens are separated by:
+										-	ISSPACE (see ascii)
+										-	#	comments sign
+										-	;	instruction end sign
+										-	{	open block sign
+										-	}	close block sign
+	[vector<std::string> list]->	list of all tokens.
+									When a token separator is found,
+									list is reset.
 */
 void	confParse(Conf &conf, std::ifstream &fd)
 {
@@ -190,7 +191,6 @@ void	confParse(Conf &conf, std::ifstream &fd)
 	std::vector<std::string>	list;
 	int i = 0;
 
-	//std:: cout << "Conf: \033[35mPrint of all token:\n";
 	while (std::getline(fd, line))
 	{
 		i++;
@@ -210,8 +210,6 @@ void	confParse(Conf &conf, std::ifstream &fd)
 			if (!token.empty())
 				list.push_back(token);
 			line = line.substr(find_first_special_char(line));
-			// if (token.empty() == false)
-			// 	std::cout << "\033[34mCurrent token:\t\033[33m" << token << "\033[0m\n";
 			token = "";
 		}
 	}
@@ -221,6 +219,4 @@ void	confParse(Conf &conf, std::ifstream &fd)
 		blockError("", i, CONF_INSTRUCTION_UNFINISHED);
 	if (conf.getEvents() || conf.getHttp() || conf.getServer() || conf.getLocation())
 		blockError(conf.checkOpenBlock(), i, CONF_BLOCK_CLOSE);
-	// std::cout << conf << std::endl;
-	//std::cout << "END OF CONFPARSE: " << (*conf.getConfServer()[0].location.rbegin()).first << std::endl;
 }

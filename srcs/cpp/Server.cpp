@@ -240,5 +240,4 @@ void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) con
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
 	std::cout << "Listening on -> \033[1;32m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
 	std::cout << (*it).second;
-	
 }

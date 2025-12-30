@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.tpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraccan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alerusso <alessandro.russo.frc@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:11:03 by alerusso          #+#    #+#             */
-/*   Updated: 2025/12/30 17:25:02 by edraccan         ###   ########.fr       */
+/*   Updated: 2025/12/30 18:27:40 by alerusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define PRINT_TPP
 
 template <typename F, typename S>
-void	print_map(std::ostream &os, std::map<F, S> map, std::string name, const char *color, const char *firstline)
+std::ostream	&operator<<(std::ostream &stream, const std::pair<F, S> &pair);
+
+template <typename F, typename S>
+void	print_map(std::ostream &os, std::map<F, S> &map, std::string name, const char *color, const char *firstline)
 {
 	if (firstline)
 		os << color << firstline << ": " << name << "\033[0m\n";
@@ -42,21 +45,41 @@ void	print_map(std::map<F, S> map)
 }
 
 template <typename F, typename S>
-void	print_map(std::ostream &os, std::map<F, S> map, std::string map_name)
+std::ostream	&operator<<(std::ostream &stream, const std::pair<F, S> &pair)
 {
-	print_map(os, map, map_name, "\033[0m", NULL);
+	stream << pair.first << ", " << pair.second;
+	return (stream);
 }
 
 template <typename F, typename S>
-void	print_pair(std::ostream &os, std::pair<F, S> &pair)
+std::ostream	&operator<<(std::ostream &stream, const std::map<F, S> &map)
 {
-	os << "1°: " << pair.first << " 2°: " << pair.second;	
+	print_map(stream, map, "", "\033[0m", NULL);
+	return (stream);
 }
 
-template <typename F, typename S>
-void	print_pair(std::pair<F, S> &pair)
+/*
+	for (size_t i = 0; i < srv.server_names.size(); i++)
+	{
+		if (i != 0)
+			os << "\t\t\t";
+		os << srv.server_names[i] << std::endl;
+	}
+*/
+
+template <typename T>
+std::ostream	&operator<<(std::ostream &stream, const std::vector<T> &vec)
 {
-	print_pair(std::cout, pair);
+	stream << "\t\t\t";
+	for (size_t i = 0; i < vec.size(); i++)
+	{
+		if (i != 0)
+			stream << "\t\t\t";
+		stream << vec[i];
+		if (i != vec.size() - 1)
+			stream << std::endl;
+	}
+	return (stream);
 }
 
 #endif

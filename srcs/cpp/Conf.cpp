@@ -309,48 +309,14 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	return (os);
 }
 
-// void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
-// {
-// 	(void)conf;
-// 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
-// 	std::cout << "Listening on -> \033[1;33m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
-// 	// std::cout << "Configuration\n{\n";
-// 	std::cout << "\033[1;35m{\033[0m\n";
-// 	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << (*it).second.root << std::endl;
-// 	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << (*it).second.index << std::endl;
-// 	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << (*it).second.client_max_body_size << std::endl;
-// 	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\t";
-// 	for (size_t i = 0; i < (*it).second.server_names.size(); i++)
-// 	{
-// 		if (i != 0)
-// 			std::cout << "\t\t\t";
-// 		std::cout << (*it).second.server_names[i] << std::endl;
-// 	}
-// 	std::cout << "\033[0m\033[1;35m    location ->\t\033[3;37m\t";
-// 	for (std::map<std::string, t_conf_location>::iterator it_loc = (*it).second.location.begin();
-// 		it_loc != (*it).second.location.end(); it_loc++)
-// 	{
-// 		if (it_loc != (*it).second.location.begin())
-// 			std::cout << "\t\t\t";
-// 		std::cout << (*it_loc).first << std::endl;
-// 	}
-// 	std::cout << "\n\033[0m\033[1;35m}\033[0m" << std::endl;
-// }
-
 std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 {
-	// os << "\033[35mPrinting server";
 	std::cout << "\033[0m{\n";
 	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << srv.root << std::endl;
 	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << srv.index << std::endl;
 	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << srv.client_max_body_size << std::endl;
-	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\t";
-	for (size_t i = 0; i < srv.server_names.size(); i++)
-	{
-		if (i != 0)
-			os << "\t\t\t";
-		os << srv.server_names[i] << std::endl;
-	}
+	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\n";
+	std::cout << srv.server_names;
 	os << "\033[0m";
 	print_map(os, srv.location, "\033[0m\033[1;93m    location\033[3;37m", "\033[1;95m", NULL);
 	std::cout << "\033[0m}\033[0m\n";
@@ -369,20 +335,7 @@ std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 std::ostream &operator<<(std::ostream &os, SrvNameMap &map)
 {
 	(void)map;
-	os << std::endl << "\n\033[34mIp Addresses list: \033[0m" << std::endl;
-	//print_map(map, "serverNameMap", "\033[34m");
-	/*
-		for (SrvNameMap::iterator it = c.getSrvNameMap().begin(); it != c.getSrvNameMap().end(); ++it)
-	{
-		os << "IP ADDRESS -> " << (*it).first.first << ":" << (*it).first.second << \
-		" | SERVER NAME -> ";
-		for (size_t i = 0; i < (*it).second.size(); i++)
-		{
-			os << (*it).second[i];
-			if (i + 1 != (*it).second.size())
-				os << ", ";
-			else
-				os << std::endl;
-		}*/
+	os << "\n\033[34mIp Address list: \033[0m" << std::endl;
+	print_map(map);
 	return (os);
 }

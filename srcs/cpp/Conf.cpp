@@ -1,6 +1,16 @@
 
 #include "../hpp/Conf.hpp"
 
+/*NOTE - index of content
+		-	Conf class
+		-	s_conf_server
+		-	s_conf_location
+		-	ip port check
+		-	block checks
+		-	server name checks
+*/
+//SECTION - Conf class
+
 Conf::Conf(std::string filepath): _file(filepath)
 {
 	std::ifstream fd(filepath.c_str(), std::ios_base::in);
@@ -18,6 +28,23 @@ Conf::Conf(std::string filepath): _file(filepath)
 	this->_srvblock.client_max_body_size = 0;
 	confParse(*this, fd);
 }
+
+Conf::~Conf()
+{}
+
+Conf::Conf(const Conf &other)
+{
+	*this = other;
+}
+
+Conf	&Conf::operator=(const Conf &other)
+{
+	if (this == &other)
+		return (*this);
+	return (*this);
+}
+
+//SECTION - s_conf_server
 
 void	s_conf_server::set_if_empty(Conf &conf)
 {
@@ -41,6 +68,18 @@ void	s_conf_server::set_if_empty(Conf &conf)
 	}
 }
 
+void	s_conf_server::set(void)
+{
+	this->root.clear();
+	this->index.clear();
+	this->server_names.clear();
+	this->client_max_body_size = 0;
+	this->location.clear();
+	this->listen_set = false;
+}
+
+//SECTION - s_conf_location
+
 void	s_conf_location::set_if_empty(Conf &conf)
 {
 	(void)conf;
@@ -54,16 +93,6 @@ void	s_conf_location::set_if_empty(Conf &conf)
 		this->proxy_pass = "";
 }
 
-void	s_conf_server::set(void)
-{
-	this->root.clear();
-	this->index.clear();
-	this->server_names.clear();
-	this->client_max_body_size = 0;
-	this->location.clear();
-	this->listen_set = false;
-}
-
 void	s_conf_location::set(std::string path)
 {
 	this->path = path;
@@ -72,125 +101,7 @@ void	s_conf_location::set(std::string path)
 	this->proxy_pass.clear();
 }
 
-Conf::~Conf()
-{}
-
-Conf::Conf(const Conf &other)
-{
-	*this = other;
-}
-
-Conf	&Conf::operator=(const Conf &other)
-{
-	if (this == &other)
-		return (*this);
-	return (*this);
-}
-
-bool	Conf::getEvents() const
-{
-	return (this->_events);
-}
-
-bool	Conf::getHttp() const
-{
-	return (this->_http);
-}
-
-bool	Conf::getServer() const
-{
-	return (this->_server);
-}
-
-bool	Conf::getLocation() const
-{
-	return (this->_location);
-}
-
-int	Conf::getIpPortNumber() const
-{
-	return (this->_nipport);
-}
-
-std::string	Conf::getCurrLocation() const
-{
-	return (this->_locblock.path);
-}
-
-SrvNameMap	&Conf::getSrvNameMap()
-{
-	return (this->_srvnamemap);
-}
-
-/*
-void	Conf::setSrvNameMap(SrvNameMap curr)
-{
-	std::string	error;
-
-	for (SrvNameMap::iterator it = curr.begin(); it != curr.end(); ++it)
-	{
-		if (this->_srvnamemap.count((*it).first) != 0)
-		{
-			error = "Duplicated ip, port server name \
-			combination: ";
-			error += (*it).first.first + ":" + ft_to_string((*it).first.second);
-			throw Conf::ConfException(error);
-		}
-		this->_srvnamemap[(*it).first] = this->_srvblock.server_names;
-	}
-}*/
-
-void	Conf::setEvents(bool val)
-{
-	this->_events = val;
-}
-
-void	Conf::setHttp(bool val)
-{
-	this->_http = val;
-}
-
-void	Conf::setServer(bool val)
-{
-	this->_server = val;
-}
-
-void	Conf::setLocation(bool val)
-{
-	this->_location = val;
-}
-
-void	Conf::setCurrLocation(std::string curr)
-{
-	this->_locblock.path = curr;
-}
-
-void	Conf::setIpPort(std::string ip, int port)
-{
-	if (checkIpPort(ip, port) != 0)
-	{
-		std::string	err = "ip:port -> " + ip + ":";
-		err += port;
-		err += " already used";
-		throw (Conf::ConfException(err));
-	}
-	this->_ipport.push_back(std::pair<std::string, int>(ip, port));
-}
-
-std::pair<std::string, int>	&Conf::getPairIpPort(int i)
-{
-	return (this->_ipport[i]);
-}
-
-std::vector<std::pair<std::string, int> >	&Conf::getIpPort(void)
-{
-	return (this->_ipport);
-}
-
-void	Conf::incrementIpPortNumber(void)
-{
-	this->_nipport += 1;
-}
+//SECTION - ip port check
 
 bool	Conf::checkIpPort(std::string ip, int port) const
 {
@@ -202,49 +113,7 @@ bool	Conf::checkIpPort(std::string ip, int port) const
 	return (this->_srvnamemap.count(ipport) >= 1);
 }
 
-void	Conf::updateBlock(int block_type)
-{
-	if (block_type == B_EVENTS)
-		this->_nevents++;
-	else if (block_type == B_HTTP)
-		this->_nhttp++;
-	else if (block_type == B_SERVER)
-		this->_nserver++;
-	else
-		std::cerr << "\033[31mConf: Unrecognized block number\033[0m\n";
-}
-
-int		Conf::getBlockNumber(int block_type)
-{
-	if (block_type == B_EVENTS)
-		return (this->_nevents);
-	else if (block_type == B_HTTP)
-		return (this->_nhttp);
-	else if (block_type == B_SERVER)
-		return (this->_nserver);
-	std::cerr << "\033[31mConf: Unrecognized block number\033[0m\n";
-	return (-1);
-}
-
-std::vector<t_conf_server>	&Conf::getConfServer(void)
-{
-	return (this->_srv_conf);
-}
-
-t_conf_server	&Conf::getServerBlock(void)
-{
-	return (this->_srvblock);
-}
-
-t_conf_location	&Conf::getLocationBlock(void)
-{
-	return (this->_locblock);
-}
-
-t_conf_location	Conf::getCopyLocationBlock(void)
-{
-	return (this->_locblock);
-}
+//SECTION - block checks
 
 std::string	Conf::checkOpenBlock(void) const
 {
@@ -270,72 +139,9 @@ std::string	Conf::missingBlock() const
 	return ("");
 }
 
-// main block
-std::string	Conf::getMainUser(void) const
-{
-	return (this->_user);
-}
-
-void		Conf::setMainUser(std::string user)
-{
-	this->_user = user;
-}
-
-void		Conf::addServerName(std::string name)
-{
-	this->_server_names[name] = name;
-	this->_srvblock.server_names.push_back(name);
-}
+//SECTION - server name checks
 
 bool		Conf::findServerName(std::string name)
 {
 	return (this->_server_names.count(name) > 0);
-}
-
-std::ostream &operator<<(std::ostream &os, Conf &c)
-{
-	os << "####################################\n";
-	os << "\033[35mPrint of all configurations:\n";
-	os << "\033[33m{MAIN BLOCK}\n";
-	if (c.getMainUser().empty() == false)
-		os << "\033[34mUser:\t\033[33m" << c.getMainUser() << "\n";
-	os << "\033[33m{SERVER BLOCK}";
-	for (size_t i = 0; i < c.getConfServer().size(); i++)//per ogni server
-	{
-		os << c.getConfServer()[i];
-	}
-	os << c.getSrvNameMap();
-	os << "\033[0m";
-	return (os);
-}
-
-std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
-{
-	std::cout << "\033[0m{\n";
-	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << srv.root << std::endl;
-	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << srv.index << std::endl;
-	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << srv.client_max_body_size << std::endl;
-	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\n";
-	std::cout << srv.server_names;
-	os << "\033[0m";
-	print_map(os, srv.location, "\033[0m\033[1;93m    location\033[3;37m", "\033[1;95m", NULL);
-	std::cout << "\033[0m}\033[0m\n";
-	return (os);
-}
-
-std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
-{
-	//os << "\n\033[35mPrinting location " << loc.path;
-	os << "\n\t\033[1;95malias: \033[37m" << loc.alias;
-	os << "\n\t\033[1;95mproxy_pass: \033[37m" << loc.proxy_pass;
-	os << "\n\t\033[1;95mroot: \033[37m" << loc.root;
-	return (os);
-}
-
-std::ostream &operator<<(std::ostream &os, SrvNameMap &map)
-{
-	(void)map;
-	os << "\n\033[34mIp Address list: \033[0m" << std::endl;
-	print_map(map);
-	return (os);
 }

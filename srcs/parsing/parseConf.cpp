@@ -65,7 +65,6 @@ static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
 
 static int	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
-	std::cout << list;
 	if (list.size() == 0)
 		blockError("unnamed block", line, CONF_BLOCK_INVALID);
 	if (list.size() > 1UL + (list[0] == "location"))

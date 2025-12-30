@@ -10,8 +10,8 @@
 # define DEFAULT_CONF_BODYSIZE 1024
 
 class	Conf;
-typedef struct s_conf_server	t_conf_server;
-typedef struct s_conf_location	t_conf_location;
+struct s_conf_server;
+struct s_conf_location;
 typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
 
 enum	e_conf_error
@@ -28,27 +28,6 @@ enum	e_conf_error
 	CONF_PATH_INVALID,
 };
 
-
-
-/*
-	CONF: salviamo indice struct server corrente
-  Struttura configuration 
-  
-  std::vector<struct server>
-  
-  struct s_server
-  {
-	std::map<std::string (name), struct location>;
-  }
-  struct s_location
-  {
-	
-  }
-*/
-
-/*
-	{struttura server}	->	push ARRAY SERVER
-*/
 struct s_conf_server
 {
 	void	set(void);
@@ -64,37 +43,6 @@ struct s_conf_server
 	// std::string							access_log;//access_log /var/log/nginx/access.log;
 	// std::string							error_log;//error_log /var/log/nginx/access.log;
 };
-
-/*
-//SECTION - cosa fa proxy_pass
-in parole povere: cambia indirizzo ip
-in parole lunghe: 
-proxy_pass URL
-default:
- 
-context: location, if in location, limit_except
- 
-Sets the protocol and address of a proxied server and an optional URI to which a location should be mapped. As a protocol, http or https can be specified. The address can be specified as a domain name or IP address, and an optional port:
-
-proxy_pass http://localhost:8000/uri/;
-or as a UNIX-domain socket path specified after the word unix and enclosed in colons:
-
-proxy_pass http://unix:/tmp/backend.socket:/uri/;
-If a domain name resolves to several addresses, all of them will be used in a round-robin fashion. In addition, an address can be specified as a server group. A request URI is passed to the server as follows:
-
-If the proxy_pass directive is specified with a URI, then when a request is passed to the server, the part of a location normalized request URI matching the location is replaced by a URI specified in the directive:
-location /name/ {
-    proxy_pass http://127.0.0.1/remote/;
-}
-If proxy_pass is specified without a URI, the request URI is passed to the server in the same form as sent by a client when the original request is processed, or the full normalized request URI is passed when processing the changed URI:
-location /some/path/ {
-    proxy_pass http://127.0.0.1;
-}
-Before version 1.1.12, if proxy_pass is specified without a URI, the original request URI might be passed instead of the changed URI in some cases.
-
-In some cases, the part of a request URI to be replaced cannot be determined:
-
-*/
 
 struct s_conf_location
 {
@@ -129,8 +77,8 @@ class Conf
 		t_conf_location								_locblock; // temporanea per blocchi location gestiti attualmente
 		std::vector<t_conf_server>					_srv_conf; // vettore di blocchi server
 		std::map<std::string, std::string>			_server_names;
-		SrvNameMap									_srvnamemap;
-		std::vector<std::pair<std::string, int> >	_ipport;
+		SrvNameMap									_srvnamemap; // mappa ipport/server_data
+		std::vector<std::pair<std::string, int> >	_ipport; // vettore con tutti ip/porte
 		// logica -> nel blocco server tmp mettiamo nella mappa di server block attuale l'URI della location con valore la struct riempita della location
 		// usciamo da blocco location e alla fine del blocco server pushamo blocco server temporaneo in _srv_conf
 
@@ -204,7 +152,7 @@ class Conf
 		};
 };
 
-std::ostream &operator<<(std::ostream &os, Conf &c);
+//std::ostream &operator<<(std::ostream &os, Conf &c);
 
 void	confParse(Conf &conf, std::ifstream &fd);
 
@@ -220,7 +168,6 @@ void	confParse(Conf &conf, std::ifstream &fd);
 	2)	wildcard
 	3)	default server (puo contenere lettere, numeri e punto, in altri casi da errore)
 */
-//
 
 
 

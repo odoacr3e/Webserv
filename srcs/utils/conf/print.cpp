@@ -9,10 +9,8 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	if (c.getMainUser().empty() == false)
 		os << "\033[34mUser:\t\033[33m" << c.getMainUser() << "\n";
 	os << "\033[33m{SERVER BLOCK}";
-	for (size_t i = 0; i < c.getConfServer().size(); i++)//per ogni server
-	{
-		os << c.getConfServer()[i];
-	}
+	os << c.getConfServer();
+	os << "\033[33m{IP:PORT / SERVER_CONF MAP}";
 	os << c.getSrvNameMap();
 	os << "\033[0m";
 	return (os);

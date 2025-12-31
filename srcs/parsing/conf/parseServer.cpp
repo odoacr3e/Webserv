@@ -110,7 +110,7 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)
 {
 	if (list.size() != 2)
-		instructionError(list, line, "empty instruction");
+		instructionError(list, line, "please give one valid path");
 	if (conf.getServerBlock().root.empty() == false)
 		instructionWarning(list, line, "root already defined. Old is replaced");
 	if (valid_directory(list[1]) == false)
@@ -121,7 +121,7 @@ static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)
 {
 	if (list.size() != 2)
-		instructionError(list, line, "empty instruction");
+		instructionError(list, line, "please give one valid path");
 	if (conf.getServerBlock().index.empty() == false)
 		instructionWarning(list, line, "index already defined. Old is replaced");
 	conf.getServerBlock().index = list[1];
@@ -132,7 +132,7 @@ static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line)
 	int	body_size;
 
 	if (list.size() != 2)
-		instructionError(list, line, "empty instruction");
+		instructionError(list, line, "please give one valid integer");
 	if (conf.getServerBlock().client_max_body_size != 0)
 		instructionWarning(list, line, "body_size already defined");
 	if (!std::strchr("0123456789", list[1][0]))

@@ -115,6 +115,7 @@ bool	Conf::checkIpPort(std::string ip, int port) const
 
 //SECTION - block checks
 
+//NOTE - returns current block name, or ""
 std::string	Conf::checkOpenBlock(void) const
 {
 	if (this->_events)
@@ -128,6 +129,7 @@ std::string	Conf::checkOpenBlock(void) const
 	return ("");
 }
 
+//NOTE - returns missing block name, or ""
 std::string	Conf::missingBlock() const
 {
 	if (this->_nevents > 1)
@@ -137,6 +139,28 @@ std::string	Conf::missingBlock() const
 	else if (this->_nserver < 1)
 		return ("server");
 	return ("");
+}
+
+//returns enum code if type is valid.
+//else, returns B_NONE (== 0).
+//in case of error, returns an enum e_conf_error. 
+int	Conf::checkBlockType(std::string &type) const
+{
+	if ((type == "events" && _nevents > 0) || \
+	(type == "http" && _nhttp > 0))
+		return (CONF_MULT_BLOCK);
+	if (type == "events" && !_http && !_events)
+		return (B_EVENTS);
+	else if (type == "http" && !_http && !_events)
+		return (B_HTTP);
+	else if (type == "server" && _http && !_server)
+		return (B_SERVER);
+	else if (type == "location" && _server)
+		return (B_LOCATION);
+	if (type == "events" || type == "http" || \
+	type == "server" || type == "location")
+		return (CONF_BLOCK_OPEN);	
+	return (B_NONE);
 }
 
 //SECTION - server name checks

@@ -31,7 +31,7 @@ bool	Conf::getLocation() const
 	return (this->_location);
 }
 
-int		Conf::getBlockNumber(int block_type)
+int		Conf::getBlockNumber(int block_type) const
 {
 	if (block_type == B_EVENTS)
 		return (this->_nevents);
@@ -41,6 +41,19 @@ int		Conf::getBlockNumber(int block_type)
 		return (this->_nserver);
 	std::cerr << "\033[31mConf: Unrecognized block number\033[0m\n";
 	return (-1);
+}
+
+int	Conf::getBlockType(void) const
+{
+	if (this->_location)
+		return (B_LOCATION);
+	else if (this->_server)
+		return (B_SERVER);
+	else if (this->_http)
+		return (B_HTTP);
+	else if (this->_events)
+		return (B_EVENTS);
+	return (B_NONE);
 }
 
 //SECTION - main block
@@ -70,7 +83,7 @@ t_conf_location	&Conf::getLocationBlock(void)
 	return (this->_locblock);
 }
 
-t_conf_location	Conf::getCopyLocationBlock(void)
+t_conf_location	Conf::getCopyLocationBlock(void) const
 {
 	return (this->_locblock);
 }

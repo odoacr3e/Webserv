@@ -62,18 +62,4 @@ bool	valid_file(std::string file);
 int		valid_ip_address(std::string addr);
 int		atohex(std::string s);
 
-//SECTION - overload
-
-class	Conf;
-typedef struct s_conf_server	t_conf_server;
-typedef struct s_conf_location	t_conf_location;
-typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
-
-std::ostream &operator<<(std::ostream &os, Conf &c);
-std::ostream &operator<<(std::ostream &os, t_conf_server &srv);
-std::ostream &operator<<(std::ostream &os, t_conf_location &loc);
-std::ostream &operator<<(std::ostream &os, SrvNameMap &map);
-
-
-
 #endif

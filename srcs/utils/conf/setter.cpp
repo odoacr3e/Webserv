@@ -14,16 +14,29 @@
 void	Conf::setEvents(bool val)
 {
 	this->_events = val;
+	if (val)
+		this->_nevents++;
 }
 
 void	Conf::setHttp(bool val)
 {
 	this->_http = val;
+	if (val)
+		this->_nhttp++;
 }
 
 void	Conf::setServer(bool val)
 {
 	this->_server = val;
+	if (val)
+		this->_nserver++;
+	this->_srvblock.set();
+}
+
+void	Conf::setLocation(bool val, std::string path)
+{
+	this->_location = val;
+	this->_locblock.set(path);
 }
 
 //increase by one the counter of the specified block type.
@@ -47,11 +60,6 @@ void		Conf::setMainUser(std::string user)
 }
 
 //SECTION - location block
-
-void	Conf::setLocation(bool val)
-{
-	this->_location = val;
-}
 
 void	Conf::setCurrLocation(std::string curr)
 {

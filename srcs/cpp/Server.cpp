@@ -2,26 +2,17 @@
 #include "../hpp/Server.hpp"
 #include <fstream>
 
-static struct pollfd	setupPollFd(int client);
+//crea una struct pollfd con l'fd del client, dato da accept()
+static struct pollfd	setupPollFd(int client)
+{
+	struct pollfd s;
 
-/*
-	//NOTE - ipotesi su come gestire più porte
+	s.fd = client;
+	s.events = POLLIN;
+	s.revents = 0;
+	return (s);
+}
 
-	1)	Per ogni porta dobbiamo fare socket + bind + listen;
-	2)	Registriamo tutti gli fd in un SINGOLO vector (_addrs);
-	3)	Il vector deve avere questa struttura:
-		Porte ascoltate: 8080, 8081, 8082
-		Fd delle porte:		3,    4,    5
-		vector _addrs
-			_addrs[0] = 3; ---->	Listen 8080
-			_addrs[1] = 4; ---->	Listen 8081
-			_addrs[2] = 5; ---->	Listen 8082
-			_addrs[3] = 6; ---->	Client A
-			_addrs[4] = 7; ---->	Client B
-	
-	4)	Fare un solo poll, passandogli il vector.
-		A poll frega un cazzo di dove gli arriva la roba.
-*/
 static struct pollfd	createServerSock(int port_n) //successivamente prendera una reference a un oggetto Config con tutti i parametri passati dal config file
 {
 	struct sockaddr_in	address;
@@ -90,17 +81,6 @@ Server::~Server()
 		this->_clients.erase((*it).fd);
 		it = this->_addrs.erase(it) - 1;
 	}
-}
-
-//crea una struct pollfd con l'fd del client, dato da accept()
-static struct pollfd	setupPollFd(int client)
-{
-	struct pollfd s;
-
-	s.fd = client;
-	s.events = POLLIN;
-	s.revents = 0;
-	return (s);
 }
 
 //stampa finche non si blocca

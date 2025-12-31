@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.tpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alerusso <alessandro.russo.frc@gmail.co    +#+  +:+       +#+        */
+/*   By: edraccan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:11:03 by alerusso          #+#    #+#             */
-/*   Updated: 2025/12/31 11:23:44 by alerusso         ###   ########.fr       */
+/*   Updated: 2025/12/31 11:43:52 by edraccan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ std::ostream	&operator<<(std::ostream &stream, const std::map<F, S> &map)
 	print_map(stream, map, "", "\033[0m", NULL);
 	return (stream);
 }
-
-/*
-	for (size_t i = 0; i < srv.server_names.size(); i++)
-	{
-		if (i != 0)
-			os << "\t\t\t";
-		os << srv.server_names[i] << std::endl;
-	}
-*/
 
 template <typename T>
 std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)

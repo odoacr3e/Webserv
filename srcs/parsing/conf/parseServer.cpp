@@ -76,21 +76,6 @@ static int checkListenPort(std::vector<std::string> list, int line, std::string 
 	return (port);
 }
 
-/*
-//NOTE - da testare:
-	-	Casi normali:
-	listen 127.0.0.1:8000;
-	listen 127.0.0.1;
-	listen 8000;
-	listen *:8000;
-//FIXME - non gestisce:
-	-	IPv6 addresses
-	listen [::]:8000;
-	listen [::1];
-	-	DNS
-	listen unix:/var/run/nginx.sock;
-	listen localhost:8000;
-*/
 static void	parseListen(Conf &conf, std::vector<std::string> list, int line)
 {
 	std::string	ip_port;

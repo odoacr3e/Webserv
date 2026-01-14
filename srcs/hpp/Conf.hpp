@@ -9,8 +9,8 @@ typedef struct s_conf_location	t_conf_location;
 
 typedef std::vector<t_conf_server>	ServerVector;
 typedef std::vector<std::pair<std::string, int> >	IpPortVector;
-typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
 typedef std::pair<std::string, int>	IpPortPair;
+typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
 typedef std::vector<std::pair<std::string, std::string> >	CgiParam;
 
 //SECTION - default conf settings

@@ -7,6 +7,7 @@
 # define UNDEFINED ""
 
 typedef std::map<std::string, std::string> headermap;
+typedef std::pair<std::string, int>	IpPortPair;
 
 enum	e_methods
 {
@@ -69,6 +70,7 @@ class Request
 		std::string 						getBody() const;
 		headermap							&getHeader();
 		std::string							getHeaderVal(std::string key);
+		IpPortPair							getHost();
 
 		//setters
 		void								setMethod(int method);

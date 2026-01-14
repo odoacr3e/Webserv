@@ -17,7 +17,6 @@ int	requestParsing(Request &request, std::string input)
 	std::getline(s, lines, '\n');
 	if ((err = lineParsing(request, lines)) != 0)
 		return (err);
-	std::cout << request << std::endl;
 	if ((err = headerParsing(request, s)) == false)
 		return (err);
 	if ((err = bodyParsing(request, s)) == false)
@@ -64,6 +63,7 @@ static int	headerParsing(Request &request, std::istringstream &header)
 	request.resetRequest();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
 	{
+		std::cout << "LINES :" << line << std::endl;
 		key = line.substr(0, line.find(':'));
 		request.setHeaderVal(key, line.substr(key.length() + 2));
 	}

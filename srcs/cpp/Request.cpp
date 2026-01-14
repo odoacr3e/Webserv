@@ -59,7 +59,7 @@ void	Request::resetRequest(void)
 // true e false
 int	Request::checkHeader(void)
 {
-	if (!this->checkVal("Host") || this->getHeaderVal("Host").find(' ') || !this->checkVal("Accept") || !this->checkVal("User-Agent"))
+	if (!this->checkVal("Host") || !this->checkVal("Accept") || !this->checkVal("User-Agent"))
 		return (false);
 	if (this->_method == "POST")
 		return (this->_checkPost());
@@ -130,6 +130,18 @@ std::string	Request::getHeaderVal(std::string key)
 		return ((std::string)"");
 	else
 		return (this->_header[key]);
+}
+
+IpPortPair	Request::getHost()
+{
+	std::string	ipport;
+	std::string	ip;
+	int			port;
+	
+	ipport = this->_header["Host"];
+	ip = ipport.substr(0, ipport.find(':'));
+	port = std::atoi(ipport.substr(ipport.find(':') + 1).c_str());	
+	return (IpPortPair(ip, port));
 }
 
 void	Request::setMethod(int method)

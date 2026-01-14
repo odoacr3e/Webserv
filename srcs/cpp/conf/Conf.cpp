@@ -89,8 +89,6 @@ void	s_conf_location::set_if_empty(Conf &conf)
 		this->root = "";
 	if (this->alias.empty())
 		this->alias = "";
-	if (this->proxy_pass.empty())
-		this->proxy_pass = "";
 }
 
 void	s_conf_location::set(std::string path)
@@ -98,7 +96,7 @@ void	s_conf_location::set(std::string path)
 	this->path = path;
 	this->root.clear();
 	this->alias.clear();
-	this->proxy_pass.clear();
+	this->cgiparam.clear();
 }
 
 //SECTION - ip port check

@@ -34,9 +34,9 @@ std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 //t_conf_location print overload
 std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 {
-	os << "\n\t\033[1;95malias: \033[37m" << loc.alias;
-	os << "\n\t\033[1;95mproxy_pass: \033[37m" << loc.proxy_pass;
-	os << "\n\t\033[1;95mroot: \033[37m" << loc.root;
+	os << "\n\t\033[1;95malias: \033[37m\t\t" << loc.alias;
+	os << "\n\t\033[1;95mroot: \033[37m\t\t" << loc.root;
+	os << "\n\t\033[1;95mfastcgi_param: \033[37m" << loc.cgiparam;
 	return (os);
 }
 

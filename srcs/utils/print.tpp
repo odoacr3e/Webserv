@@ -33,7 +33,7 @@ void	print_map(std::ostream &os, std::map<F, S> &map, std::string name, const ch
 		os << name << " \033[3;37m" << (*it).first << "\033[0m\n    {";
 		os << color << (*it).second << "\033[0m\n    }";
 		if (it != --map.end())
-			os << std::endl;
+			os << std::endl << std::endl;
 	}
 	os << "\n";
 }

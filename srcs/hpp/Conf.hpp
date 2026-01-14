@@ -11,6 +11,7 @@ typedef std::vector<t_conf_server>	ServerVector;
 typedef std::vector<std::pair<std::string, int> >	IpPortVector;
 typedef std::map<std::pair<std::string, int>, t_conf_server> SrvNameMap;
 typedef std::pair<std::string, int>	IpPortPair;
+typedef std::vector<std::pair<std::string, std::string> >	CgiParam;
 
 //SECTION - default conf settings
 
@@ -65,10 +66,10 @@ struct s_conf_location
 	void	set(std::string path);
 	void	set_if_empty(Conf &conf);
 
+	CgiParam		cgiparam;
 	std::string		path;//location /images {}
 	std::string		root;// fa append su URI (root + URI)
 	std::string		alias;// sostituisce parola (alias + URI senza parola) -> sempre con / alla fine del path di alias
-	std::string		proxy_pass;
 };
 
 class Conf

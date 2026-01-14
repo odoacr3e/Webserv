@@ -1,5 +1,5 @@
 
-#include "../hpp/Conf.hpp"
+#include "../../hpp/Conf.hpp"
 
 /*NOTE - index of content
 		-	Conf class

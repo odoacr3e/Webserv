@@ -41,15 +41,15 @@ static int	lineParsing(Request &request, std::string line)
 			request.setMethod(i);
 	}
 	if (request.getMethod() == UNDEFINED)
-		return (errorParsing(400, "Bad request"));// ERROR : METODO NON RICONOSCIUTO
+		return (errorParsing(400, "Bad request (no method)"));// ERROR : METODO NON RICONOSCIUTO
 	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
 	if (request.getUrl().empty() == true)
-		return (errorParsing(400, "Bad request\n"));
+		return (errorParsing(400, "Bad request (uri)\n"));
 	request.setHttpVersion(line.substr(method.length() + 1 + \
 		request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
 		request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
 	if (request.getHttpVersion().compare("HTTP/1.1\r") != 0)
-		return (errorParsing(400, "Bad request\n"));
+		return (errorParsing(400, "Bad request (http ver.)\n"));
 	return (0);
 }
 

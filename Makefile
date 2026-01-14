@@ -10,9 +10,9 @@ SRCS = $(addprefix srcs/, main.cpp $(CPP) $(PARSING) $(UTILS))
 PARSING = $(addprefix parsing/, parseConf.cpp parseRequest.cpp $(CONF_PARSING))
 CONF_PARSING = $(addprefix conf/, parseEvent.cpp parseMain.cpp parseServer.cpp parseLocation.cpp parseHttp.cpp)
 
-CPP = $(addprefix cpp/, Server.cpp Client.cpp Request.cpp Conf.cpp)
-UTILS = $(addprefix utils/, $(addprefix conf/, getter.cpp setter.cpp print.cpp)\
-							utils_page1.cpp path_checker.cpp value_checker.cpp)
+CPP = $(addprefix cpp/, Server.cpp Client.cpp Request.cpp \
+		$(addprefix conf/, getter.cpp setter.cpp print.cpp Conf.cpp))
+UTILS = $(addprefix utils/, utils_page1.cpp path_checker.cpp value_checker.cpp)
 
 all: $(NAME)
 

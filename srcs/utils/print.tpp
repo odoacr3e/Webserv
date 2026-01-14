@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.tpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edraccan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lpussorolis <lpalerols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:11:03 by alerusso          #+#    #+#             */
-/*   Updated: 2025/12/31 11:43:52 by edraccan         ###   ########.fr       */
+/*   Updated: 2026/01/14 10:46:56 by lparolis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ std::ostream	&operator<<(std::ostream &stream, const std::map<F, S> &map)
 template <typename T>
 std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 {
-	stream << "\t\t\t";
+	stream << "\t";
 	for (size_t i = 0; i < vec.size(); i++)
 	{
 		if (i != 0)

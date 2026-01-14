@@ -2991,7 +2991,9 @@ default:
  
 context: location, if in location, limit_except
  
-Sets the protocol and address of a proxied server and an optional URI to which a location should be mapped. As a protocol, http or https can be specified. The address can be specified as a domain name or IP address, and an optional port:
+Sets the protocol and address of a proxied server and an optional URI to which a location 
+should be mapped. As a protocol, http or https can be specified. The address can be specified 
+as a domain name or IP address, and an optional port:
 
 proxy_pass http://localhost:8000/uri/;
 or as a UNIX-domain socket path specified after the word unix and enclosed in colons:
@@ -3007,12 +3009,15 @@ If proxy_pass is specified without a URI, the request URI is passed to the serve
 location /some/path/ {
     proxy_pass http://127.0.0.1;
 }
-Before version 1.1.12, if proxy_pass is specified without a URI, the original request URI might be passed instead of the changed URI in some cases.
+Before version 1.1.12, if proxy_pass is specified without a URI, the original request URI might be 
+passed instead of the changed URI in some cases.
 
 In some cases, the part of a request URI to be replaced cannot be determined:
 
-When location is specified using a regular expression. In this case, the directive should be specified without a URI.
-When the URI is changed inside a proxied location using the rewrite directive, and this same configuration will be used to process a request (break):
+When location is specified using a regular expression. In this case, the directive should 
+be specified without a URI. When the URI is changed inside a proxied location using the 
+rewrite directive, and this same configuration will be used to process a request (break):
+
 location /name/ {
     rewrite    /name/([^/]+) /users?name=$1 break;
     proxy_pass http://127.0.0.1;

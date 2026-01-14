@@ -23,7 +23,7 @@ std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 	std::cout << "\033[0m\033[1;35m    root ->\t\t\033[3;37m" << srv.root << std::endl;
 	std::cout << "\033[0m\033[1;35m    index ->\t\t\033[3;37m" << srv.index << std::endl;
 	std::cout << "\033[0m\033[1;35m    client_max_body ->\033[3;37m\t" << srv.client_max_body_size << std::endl;
-	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m\n";
+	std::cout << "\033[0m\033[1;35m    server names ->\033[3;37m";
 	std::cout << srv.server_names;
 	os << "\033[0m";
 	print_map(os, srv.location, "\033[0m\033[1;93m    location\033[3;37m", "\033[1;95m", NULL);
@@ -34,7 +34,6 @@ std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 //t_conf_location print overload
 std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 {
-	//os << "\n\033[35mPrinting location " << loc.path;
 	os << "\n\t\033[1;95malias: \033[37m" << loc.alias;
 	os << "\n\t\033[1;95mproxy_pass: \033[37m" << loc.proxy_pass;
 	os << "\n\t\033[1;95mroot: \033[37m" << loc.root;

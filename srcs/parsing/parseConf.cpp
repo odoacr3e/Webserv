@@ -196,7 +196,7 @@ void	instructionError(std::vector<std::string> &list, int line, std::string s)
 	error += ", instruction \033[34m";
 	for (size_t i = 0; i < list.size(); i++)
 		error += list[i] + " ";
-	error += "\033[31m\b: " + s + "\033[0m";
+	error += "\033[31m\b: " + s + COLOR_RESET;
 	throw Conf::ConfException(error);
 }
 
@@ -206,10 +206,10 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	std::string	error;
 
 	error = "\033[31mConfWarning: in line " + ft_to_string(line);
-	error += ", instruction \033[34m";
+	error += ", instruction"COLOR_RESET;
 	for (size_t i = 0; i < list.size(); i++)
 		error += list[i] + " ";
-	error += "\033[31m\b:\n" + s + "\033[0m";
+	error += "\033[31m\b:\n" + s + COLOR_RESET;
 	std::cerr << error << std::endl;
 }
 
@@ -222,32 +222,32 @@ static void	blockError(std::string block, int line, int flag)
 	error = "ConfException in line \033[33m" + ft_to_string(line);
 	error2 = "ConfException:\033[33m";
 	if (flag == CONF_BLOCK_CLOSE)
-		throw Conf::ConfException(error + ": cannot close " + block + "\033[0m");
+		throw Conf::ConfException(error + ": cannot close " + block + COLOR_RESET);
 	else if (flag == CONF_BLOCK_FORMAT)
-		throw Conf::ConfException(error + ": invalid block format\033[0m");
+		throw Conf::ConfException(error + ": invalid block format"COLOR_RESET);
 	else if (flag == CONF_BLOCK_EMPTY)
-		throw Conf::ConfException(error + ": block is empty, lol\033[0m");
+		throw Conf::ConfException(error + ": block is empty, lol"COLOR_RESET);
 	else if (flag == CONF_BLOCK_UNIFINISHED)
-		throw Conf::ConfException(error + ": " + block + " block never closed\033[0m");
+		throw Conf::ConfException(error + ": " + block + " block never closed"COLOR_RESET);
 	else if (flag == CONF_INSTRUCTION_UNFINISHED)
-		throw Conf::ConfException(error + ": missing ; before block end\033[0m");
+		throw Conf::ConfException(error + ": missing ; before block end"COLOR_RESET);
 	else if (flag == CONF_INSTRUCTION_EMPTY)
-		throw Conf::ConfException(error + ": instruction is empty\033[0m");
+		throw Conf::ConfException(error + ": instruction is empty"COLOR_RESET);
 	else if (flag == CONF_BLOCK_OPEN)
-		throw Conf::ConfException(error + ": block cannot be opened\033[0m");
+		throw Conf::ConfException(error + ": block cannot be opened"COLOR_RESET);
 	else if (flag == CONF_MULT_BLOCK)
-		throw Conf::ConfException(error + ": multiple block " + block + "\033[0m");
+		throw Conf::ConfException(error + ": multiple block " + block + COLOR_RESET);
 	else if (flag == CONF_MISSING_BLOCK)
-		throw Conf::ConfException(error2 + " missing " + block + " in configuration file\033[0m");
+		throw Conf::ConfException(error2 + " missing " + block + " in configuration file"COLOR_RESET);
 	else if (flag == CONF_PATH_INVALID)
-		throw Conf::ConfException(error + ": " + block + " does not exist!\033[0m");
+		throw Conf::ConfException(error + ": " + block + " does not exist!"COLOR_RESET);
 	else if (flag == CONF_MULT_LOCATION)
-		throw Conf::ConfException(error + " path location already exist\033[0m");
+		throw Conf::ConfException(error + " path location already exist"COLOR_RESET);
 	else if (block != "events" && block != "http" && \
 	block != "server" && block != "location")
-		error += ": " + block + " is not allowed (allowed: events, http, server, location)\033[0m";
+		error += ": " + block + " is not allowed (allowed: events, http, server, location)"COLOR_RESET;
 	else
-		error += " block order violated.\033[0m";
+		error += " block order violated."COLOR_RESET;
 	throw Conf::ConfException(error);
 }
 
@@ -267,7 +267,7 @@ static void	blockError(std::string block, int line, int flag)
 	else
 		confParseMain(conf, list, i);
 	list.clear();
-	return (true);
+	return (true); SEMBRANO I PIEDI DELLA ZIA DEL TUO RAGAZZO
 }
 */
 

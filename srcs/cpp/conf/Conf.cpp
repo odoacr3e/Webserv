@@ -89,6 +89,8 @@ void	s_conf_location::set_if_empty(Conf &conf)
 		this->root = "";
 	if (this->alias.empty())
 		this->alias = "";
+	if (this->ret.first == 0 && !this->ret.second.empty())
+		this->ret.first = 302; //HTTP_RD_FOUND
 }
 
 void	s_conf_location::set(std::string path)

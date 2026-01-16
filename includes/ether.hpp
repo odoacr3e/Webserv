@@ -26,11 +26,11 @@
 # include "../srcs/hpp/Request.hpp"
 # include "../srcs/utils/print.tpp"
 
-#define COLOR_RESET = \033[0m
+# define COLOR_RESET "\033[0m"
 # define DEBUG 1
 
 #if defined(DEBUG) && DEBUG
-  #define DBG_MSG(msg) (std::cout << "\033[31m" << (msg) << "\033[0m" << std::endl)
+  #define DBG_MSG(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)
 #else
   #define DBG_MSG(msg) ((void)0)
 #endif

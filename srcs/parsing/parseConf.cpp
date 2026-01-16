@@ -107,7 +107,8 @@ static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i)
 	return (true);
 }
 
-/*NOTE - openBlock
+/*
+NOTE - openBlock
 	-	controlla che la lista di istruzioni:
 		- NON abbia size() == 0.
 		- se blocco location: size == 2.
@@ -137,6 +138,8 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 		case (Conf::B_LOCATION) :
 			if (!valid_directory(list[1]))
 				blockError(list[1], line, CONF_PATH_INVALID);
+			if (conf.getServerBlock().location.count(list[1]) > 0)
+				blockError(list[1], line, CONF_MULT_LOCATION);
 			conf.setLocation(true, list[1]);
 			break ;
 		case (Conf::B_NONE) :
@@ -239,6 +242,8 @@ static void	blockError(std::string block, int line, int flag)
 		throw Conf::ConfException(error2 + " missing " + block + " in configuration file\033[0m");
 	else if (flag == CONF_PATH_INVALID)
 		throw Conf::ConfException(error + ": " + block + " does not exist!\033[0m");
+	else if (flag == CONF_MULT_LOCATION)
+		throw Conf::ConfException(error + "path location already exist\033[0m");
 	else if (block != "events" && block != "http" && \
 	block != "server" && block != "location")
 		error += ": " + block + " is not allowed (allowed: events, http, server, location)\033[0m";

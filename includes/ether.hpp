@@ -26,6 +26,7 @@
 # include "../srcs/hpp/Request.hpp"
 # include "../srcs/utils/print.tpp"
 
+#define COLOR_RESET = \033[0m
 # define DEBUG 1
 
 #if defined(DEBUG) && DEBUG

@@ -48,7 +48,7 @@ Conf	&Conf::operator=(const Conf &other)
 
 void	s_conf_server::set_if_empty(Conf &conf)
 {
-	this->location["/"] = conf.getCopyLocationBlock();
+	// this->location["/"] = conf.getCopyLocationBlock();
 	if (this->root.empty())
 		this->root = DEFAULT_CONF_ROOT;
 	if (*this->root.rbegin() != '/')
@@ -100,7 +100,7 @@ void	s_conf_location::set(std::string path)
 	this->alias.clear();
 	this->cgiparam.clear();
 	this->autoindex = false;
-	this->ret_code = 0, this->ret_uri.clear();
+	this->ret_code = 0, this->ret_uri.clear(), this->ret_text.clear();
 }
 
 //SECTION - ip port check

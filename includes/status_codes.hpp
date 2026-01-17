@@ -32,7 +32,7 @@ enum	e_http_codes
 	HTTP_RD_USE_PROXY = 305,//you need to use this proxy to get this resource
 	HTTP_RD_SWITCH_PROXY = 306,//(DEPRECATED) use this proxy in future calls
 	HTTP_RD_TEMP_REDIRECT = 307,//like 303; but with the same method
-	HTTP_RD_PERM_REDIRECT = 308,//like 307; but for this and future request;
+	HTTP_RD_PERM_REDIRECT = 308,//like 307; but for this and future request; Imposes the use of the same http method on linked http requests
 //SECTION - client error: server must give:
 //						-	an entity with the explaination of the error;
 //						-	specify if the issue is temponary or permanent.
@@ -78,19 +78,38 @@ enum	e_http_codes
 	HTTP_SE_VARIANT_NEGOTIATES = 506,//see 'circular reference'
 	HTTP_SE_STORAGE_INSUFFICIENT = 507,//request cannot be represented in mem
 	HTTP_SE_LOOP_DETECTED = 508,//infine loop while processing request
-	HTTP_NOT_EXTENDED = 510,//server needs further extension to the request to process
-	HTTP_NETWORK_AUTH_REQUIRED = 511,//see 'captive portals'
+	HTTP_SE_NOT_EXTENDED = 510,//server needs further extension to the request to process
+	HTTP_SE_NETWORK_AUTH_REQUIRED = 511,//see 'captive portals'
 
 //NOTE - services like nginx, cloudflare, Amazon, Linkedln use other codes
 //		however, they are not official
 };
 
 # define 	VALID_HTTP_CODES {\
-	(int)HTTP_OK,\
-	(int)HTTP_OK_CREATED,\
-	(int)HTTP_OK_ACCEPTED,\
-	(int)HTTP_OK_NO_CONTENT,\
-	(int)HTTP_OK_IM_USED\
+	HTTP_OK,\
+	HTTP_OK_CREATED,\
+	HTTP_OK_ACCEPTED,\
+	HTTP_OK_NO_CONTENT,\
+	HTTP_OK_IM_USED,\
+	HTTP_RD_MOVED_PERM,\
+	HTTP_RD_FOUND,\
+	HTTP_RD_NOT_MODIFIED,\
+	HTTP_RD_TEMP_REDIRECT,\
+	HTTP_RD_PERM_REDIRECT,\
+	HTTP_CE_BAD_REQUEST,\
+	HTTP_CE_UNATHORIZED,\
+	HTTP_CE_FORBIDDEN,\
+	HTTP_CE_NOT_FOUND,\
+	HTTP_CE_METHOD_NOT_ALLOWED,\
+	HTTP_CE_CONFLICT,\
+	HTTP_CE_LENGTH_REQUIRED,\
+	HTTP_CE_URI_TOO_LONG,\
+	HTTP_CE_MEDIA_TYPE,\
+	HTTP_CE_IM_TEAPOT,\
+	HTTP_CE_CONTENT_UNPROCESSABLE,\
+	HTTP_SE_INTERNAL,\
+	HTTP_SE_NOT_IMPLEMENTED,\
+	HTTP_SE_HTTP_VERSION_UNSOPPORTED\
 }
 
 #endif

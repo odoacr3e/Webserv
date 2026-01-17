@@ -23,7 +23,7 @@ void	print_map(std::ostream &os, std::map<F, S> &map, std::string name, const ch
 		os << color << firstline << ": " << name << "\033[0m\n";
 	if (map.empty())
 	{
-		os << "map vuota.\n";
+		os << std::endl;
 		return ;
 	}
 	os << std::endl;

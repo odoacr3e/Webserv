@@ -177,7 +177,7 @@ static void	closeBlock(Conf &conf, std::vector<std::string> &list, int line)
 			conf.setLocation(false, "");
 			break ;
 		case (Conf::B_SERVER) :
-			conf.getLocationBlock().set_if_empty(conf);
+			// conf.getLocationBlock().set_if_empty(conf);
 			conf.getServerBlock().set_if_empty(conf);
 			conf.getConfServer().push_back(conf.getServerBlock());
 			conf.setServer(false);

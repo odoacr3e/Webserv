@@ -75,44 +75,57 @@ static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line)
 	conf.getLocationBlock().cgiparam.push_back(p);
 }
 
-/*
-return code [text]
-return code URL
-return URL
-return code
-
-return 12
-*/
-
 static bool checkValidCode(int code)
 {
 	int	valid_codes[] = VALID_HTTP_CODES;
-	
+	int	size = sizeof(valid_codes) / sizeof(valid_codes[0]);
+
+	for (int i = 0; i < size; i++)
+	{
+		if (code == valid_codes[i])
+			return (true);
+	}
+	return (false);
 }
 
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 {
-	bool is_code_valid = charFinder(list[1], std::isdigit);
-	bool code;
+	bool	code_syntax;
+	int		code;
+	bool	code_valid;
 
 	if (list.size() < 2 || list.size() > 3)
 		instructionError(list, line, "return needs this syntax:	return code [text] |"\
 		"return code URL | return URL | return code\n");
+	code_syntax = charFinder(list[1], std::isdigit);
+	code = std::atoi(list[1].c_str());
+	code_valid = checkValidCode(code);
 	if (list.size() == 2) //URL o code
 	{
-		if (!is_code_valid || !code)
+		if (!code_syntax)
 		{
 			conf.getLocationBlock().ret_uri = list[1];
 			conf.getLocationBlock().ret_code = 302;
 		}
+		else if (!code_valid)
+			instructionError(list, line, "invalid status code\n");
 		else if (code >= 300 && code < 309)
-			instructionError(list, line, "return code between 300 and 308 must have an uri\n");
+			instructionError(list, line, "return code 3xx must have an uri\n");
 		else
 			conf.getLocationBlock().ret_code = code;
 		return ;
-	}
+	}// code [text] | code URL
+	if (!code_syntax)
+		instructionError(list, line, "Wrong status code syntax\n");
+	if (!code_valid)
+		instructionError(list, line, "invalid status code\n");
+	conf.getLocationBlock().ret_code = code;
 	if (code >= 300 && code < 309)
-		instructionError(list, line, "return code between 300 and 308 must have an uri\n");
-		// conf.getLocationBlock().ret_code = code;
-		// conf.getLocationBlock().ret_uri = list[2];
+	{
+		if (list[2][0] != '/')
+			instructionError(list, line, "return code 3xx must have an uri\n");
+		conf.getLocationBlock().ret_uri = list[2];
+	}
+	else
+		conf.getLocationBlock().ret_text = list[2];
 }

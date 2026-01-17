@@ -37,6 +37,9 @@ std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 	os << "\n\t\033[1;95malias: \033[37m\t\t" << loc.alias;
 	os << "\n\t\033[1;95mroot: \033[37m\t\t" << loc.root;
 	os << "\n\t\033[1;95mfastcgi_param: \033[37m" << loc.cgiparam;
+	os << "\n\t\033[1;95mret code: \033[37m\t" << loc.ret_code;
+	os << "\n\t\033[1;95mret text: \033[37m\t" << loc.ret_text;
+	os << "\n\t\033[1;95mret uri: \033[37m\t" << loc.ret_uri;
 	return (os);
 }
 

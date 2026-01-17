@@ -17,6 +17,7 @@ typedef std::vector<std::pair<std::string, std::string> >	CgiParam;
 //SECTION - default conf settings
 
 # define DEFAULT_CONF_PATH "default.conf"
+# define DEFAULT_CONF_INDEX "index.html"
 # define DEFAULT_CONF_ROOT "/www/var"
 # define DEFAULT_CONF_PORT 8080
 # define DEFAULT_CONF_IP "127.0.0.1"
@@ -43,6 +44,7 @@ struct s_conf_server
 	std::vector<std::string>				server_names;//server_name example.com www.example.com *example.com;
 	int										client_max_body_size;//client_max_body_size 10m;
 	bool									listen_set;//is listen istruction set?
+	bool									autoindex;//is autoindex tette?
 	// std::map<>							error_pages;//error_page 404 /404.html;	error_page 500 502 503 504 /50x.html;
 	// std::string							access_log;//access_log /var/log/nginx/access.log;
 	// std::string							error_log;//error_log /var/log/nginx/access.log;

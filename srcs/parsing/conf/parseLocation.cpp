@@ -7,6 +7,7 @@ static void	parseAlias(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line);
 static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line);
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line);
+static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line);
 
 //NOTE - Allowed location instructions
 /*
@@ -23,7 +24,7 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 	else if (list[0] == "return")
 		parseReturn(conf, list, line);
 	else if (list[0] == "autoindex")
-		conf.getLocationBlock().autoindex = true;
+		parseAutoindex(conf, list, line);
 	else if (list[0] == "error_page")
 		; // da gestire come return -> error_page <code> [uri error page]
 	else
@@ -75,19 +76,6 @@ static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line)
 	conf.getLocationBlock().cgiparam.push_back(p);
 }
 
-static bool checkValidCode(int code)
-{
-	int	valid_codes[] = VALID_HTTP_CODES;
-	int	size = sizeof(valid_codes) / sizeof(valid_codes[0]);
-
-	for (int i = 0; i < size; i++)
-	{
-		if (code == valid_codes[i])
-			return (true);
-	}
-	return (false);
-}
-
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 {
 	bool	code_syntax;
@@ -114,7 +102,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 		else
 			conf.getLocationBlock().ret_code = code;
 		return ;
-	}// code [text] | code URL
+	}
 	if (!code_syntax)
 		instructionError(list, line, "Wrong status code syntax\n");
 	if (!code_valid)
@@ -128,4 +116,16 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	}
 	else
 		conf.getLocationBlock().ret_text = list[2];
+}
+
+static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line)
+{
+	if (list.size() != 2)
+		instructionError(list, line, "autoindex usage: autoindex <on | off>");
+	else if (list[1] == "on")
+		conf.getLocationBlock().autoindex = true;
+	else if (list[1] == "off")
+		conf.getLocationBlock().autoindex = false;
+	else
+		instructionError(list, line, "autoindex usage: autoindex <on | off>");
 }

@@ -1,5 +1,6 @@
 
 #include "../../includes/ether.hpp"
+#include "../../includes/status_codes.hpp"
 
 std::string	removeWhitespaces(std::string line)
 {
@@ -91,6 +92,19 @@ bool charFinder(const std::string literal, int(*check)(int))
 		index++;
 	}
 	return (true);
+}
+
+bool checkValidCode(int code)
+{
+	int	valid_codes[] = VALID_HTTP_CODES;
+	int	size = sizeof(valid_codes) / sizeof(valid_codes[0]);
+
+	for (int i = 0; i < size; i++)
+	{
+		if (code == valid_codes[i])
+			return (true);
+	}
+	return (false);
 }
 
 //

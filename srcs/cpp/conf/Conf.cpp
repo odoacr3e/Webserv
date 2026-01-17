@@ -51,6 +51,8 @@ void	s_conf_server::set_if_empty(Conf &conf)
 	// this->location["/"] = conf.getCopyLocationBlock();
 	if (this->root.empty())
 		this->root = DEFAULT_CONF_ROOT;
+	if (this->index.empty())
+		this->index = DEFAULT_CONF_INDEX;
 	if (*this->root.rbegin() != '/')
 		this->root.push_back('/');
 	if (!this->index.empty() && !valid_file(this->root + this->index))
@@ -76,6 +78,7 @@ void	s_conf_server::set(void)
 	this->client_max_body_size = 0;
 	this->location.clear();
 	this->listen_set = false;
+	this->autoindex = false;
 }
 
 //SECTION - s_conf_location

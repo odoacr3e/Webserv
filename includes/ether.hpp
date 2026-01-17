@@ -22,6 +22,7 @@
 # include <sstream>
 # include <dirent.h>
 # include <sys/types.h>
+# include <fcntl.h>
 
 # include "../srcs/hpp/Request.hpp"
 # include "../srcs/utils/print.tpp"
@@ -59,9 +60,11 @@ size_t		find_first_special_char(std::string line);
 bool		is_there_special_chars(std::string line);
 size_t		find_first_not_special_char(std::string line);
 
-bool	valid_directory(std::string directory);
-bool	valid_file(std::string file);
-int		valid_ip_address(std::string addr);
-int		atohex(std::string s);
+bool		valid_directory(std::string directory);
+bool		valid_file(std::string file);
+int			valid_ip_address(std::string addr);
+int			atohex(std::string s);
+bool		checkValidCode(int code);
+
 
 #endif

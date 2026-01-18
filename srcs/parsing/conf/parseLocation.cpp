@@ -8,6 +8,7 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line);
 static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line);
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line);
+static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line);
 
 //NOTE - Allowed location instructions
 /*
@@ -26,7 +27,7 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 	else if (list[0] == "autoindex")
 		parseAutoindex(conf, list, line);
 	else if (list[0] == "error_page")
-		; // da gestire come return -> error_page <code> [uri error page]
+		parseErrorPages(conf, list, line);
 	else
 		instructionError(list, line, "unrecognized instruction");
 }
@@ -97,7 +98,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 		}
 		else if (!code_valid)
 			instructionError(list, line, "invalid status code\n");
-		else if (code >= 300 && code < 309)
+		else if (code >= 300 && code < 399)
 			instructionError(list, line, "return code 3xx must have an uri\n");
 		else
 			conf.getLocationBlock().ret_code = code;
@@ -108,7 +109,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	if (!code_valid)
 		instructionError(list, line, "invalid status code\n");
 	conf.getLocationBlock().ret_code = code;
-	if (code >= 300 && code < 309)
+	if (code >= 300 && code < 399)
 	{
 		if (list[2][0] != '/')
 			instructionError(list, line, "return code 3xx must have an uri\n");
@@ -128,4 +129,44 @@ static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line)
 		conf.getLocationBlock().autoindex = false;
 	else
 		instructionError(list, line, "autoindex usage: autoindex <on | off>");
+}
+
+/*
+error_page code ... [=[response]] uri
+default:
+ 
+context: http, server, location, if in location
+ 
+Defines the URI that will be shown for the specified errors. error_page directives are inherited from the previous level only if there are no error_page directives defined on the current level. A uri value can contain variables. Example:
+
+error_page 404             /404.html;
+Furthermore, it is possible to change the response code to another using the =response syntax, for example:
+
+If an error response is processed by a proxied server or a FastCGI server, and the server may return different response codes (e.g., 200, 302, 401 or 404), it is possible to respond with the code it returns:
+
+It is also possible to use redirects for error processing:
+
+error_page 403      http://example.com/forbidden.html;
+error_page 404 =301 http://example.com/notfound.html;
+In this case, by default, the response code 302 is returned to the client. It can only be changed to one of the redirect status codes (301, 302, 303, and 307). If there is no need to change URI during internal redirection it is possible to pass error processing into a named location:
+
+*/
+static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line)
+{
+	if (list.size() != 3)
+		instructionError(list, line, "bad error pages params");
+	bool code_syntax = charFinder(list[1], std::isdigit);
+	if (!code_syntax)
+		instructionError(list, line, "invalid status code format in error_pages param");
+	int		code = std::atoi(list[1].c_str());
+	bool	code_valid = checkValidCode(code);
+	if (!code_valid)
+		instructionError(list, line, "status code not implemented");
+	if (code >= 300 && code <= 399)
+		instructionError(list, line, "redirect are invalid in error pages");
+	if (list[2][0] != '/')
+		instructionError(list, line, "Uri must start with /");
+	if (conf.getLocationBlock().err_pages.count(code) > 0)
+		instructionError(list, line, "error page for this status code already set");
+	conf.getLocationBlock().err_pages[code] = list[2];
 }

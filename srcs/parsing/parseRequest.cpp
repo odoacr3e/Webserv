@@ -103,7 +103,10 @@ static int	errorParsing(Request &request, e_http_codes code)
 
 static int	errorParsing(Request &request, e_http_codes code, std::string info)
 {
-	switch (code)
+	int	int_code;
+
+	int_code = code;
+	switch (int_code)
 	{
 		case HTTP_CE_BAD_REQUEST :
 			SWITCH_LOG(info, "Http ClientError: Bad Request");

@@ -8,6 +8,7 @@ static void	parseListen(Conf &conf, std::vector<std::string> list, int line);
 static void	parseRoot(Conf &conf, std::vector<std::string> list, int line);
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line);
 static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line);
+static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line);
 
 //NOTE - Allowed server instructions
 /*
@@ -29,6 +30,8 @@ void	confParseServer(Conf &conf, std::vector<std::string> list, int line)
 		parseIndex(conf, list, line);
 	else if (list[0] == "client_max_body_size")
 		parseBodySize(conf, list, line);
+	else if (list[0] == "error_page")
+		parseErrorPages(conf, list, line);
 	else
 		instructionError(list, line, "unrecognized instruction");
 }
@@ -128,4 +131,24 @@ static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line)
 	if (body_size == 0)
 		instructionWarning(list, line, "body size 0 will be normalized");
 	conf.getServerBlock().client_max_body_size = body_size;
+}
+
+static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line)
+{
+	if (list.size() != 3)
+		instructionError(list, line, "bad error pages params");
+	bool code_syntax = charFinder(list[1], std::isdigit);
+	if (!code_syntax)
+		instructionError(list, line, "invalid status code format in error_pages param");
+	int		code = std::atoi(list[1].c_str());
+	bool	code_valid = checkValidCode(code);
+	if (!code_valid)
+		instructionError(list, line, "status code not implemented");
+	if (code >= 300 && code <= 399)
+		instructionError(list, line, "redirect are invalid in error pages");
+	if (list[2][0] != '/')
+		instructionError(list, line, "Uri must start with /");
+	if (conf.getServerBlock().err_pages.count(code) > 0)
+		instructionError(list, line, "error page for this status code already set");
+	conf.getServerBlock().err_pages[code] = list[2];
 }

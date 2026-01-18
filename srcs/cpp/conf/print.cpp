@@ -16,6 +16,19 @@ std::ostream &operator<<(std::ostream &os, Conf &c)
 	return (os);
 }
 
+void	print_err_pages(std::ostream &stream, std::map<int, std::string> err_pages, std::string format)
+{
+	stream << format << "\033[0m\033[1;35merror_pages -> \t\033[3;37m";
+	for (std::map<int, std::string>::iterator it = err_pages.begin(); it != err_pages.end(); ++it)
+	{
+		if (it != err_pages.begin())
+			stream << "\t\t\t";
+		stream << (*it).first << ", " << (*it).second;
+		if (it != --err_pages.end())
+			stream << std::endl;
+	}
+}
+
 //t_conf_server print overload
 std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 {
@@ -26,6 +39,7 @@ std::ostream &operator<<(std::ostream &os, t_conf_server &srv)
 	os << "\033[0m\033[1;35m    autoindex -> \033[37m\t" << (srv.autoindex ? "true" : "false") << std::endl;
 	os << "\033[0m\033[1;35m    server names ->\033[3;37m";
 	os << srv.server_names;
+	print_err_pages(os, srv.err_pages, "\n    ");
 	os << "\033[0m";
 	print_map(os, srv.location, "\033[0m\033[1;93m    location\033[3;37m", "\033[1;95m", NULL);
 	os << "\033[0m}\033[0m\n";
@@ -42,6 +56,7 @@ std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 	os << "\n\t\033[1;95mret text: \033[37m\t" << loc.ret_text;
 	os << "\n\t\033[1;95mret uri: \033[37m\t" << loc.ret_uri;
 	os << "\n\t\033[1;95mautoindex: \033[37m\t" << (loc.autoindex ? "true" : "false") << std::endl;
+	print_err_pages(os, loc.err_pages, "\t");
 	return (os);
 }
 

@@ -171,6 +171,11 @@ void	Request::setBody(std::string body)
 
 void	Request::setHeaderVal(std::string key, std::string val)
 {
+	/*if (key == "Host")
+	{
+		if (val.compare(0, 9, "localhost") == 0)
+			val.replace(0, 9, "127.0.0.1");
+	}*/
 	if (val.find(' ') != std::string::npos)
 	{
 		DBG_MSG("Val: " + val + " stores one or more spaces");

@@ -5,7 +5,7 @@
 #include <signal.h>
 
 bool	server_run = true;
-
+/*
 int		test_request(Conf &conf, Server &server)
 {
 	std::ifstream	file("test_request");
@@ -13,8 +13,9 @@ int		test_request(Conf &conf, Server &server)
 
 	if (file.fail())
 		return (std::cout << "cannot open test_request\n" << std::endl, 1);
-	std::getline();
+	// std::getline();
 }
+*/
 
 void	stopServer(int sig)
 {
@@ -43,7 +44,7 @@ int main(int ac, char **av)
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
-		return (test_request(conf, server));
+		// return (test_request(conf, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

@@ -46,9 +46,6 @@ struct s_conf_server
 	bool									listen_set;//is listen istruction set?
 	bool									autoindex;//is autoindex tette?
 	std::map<int, std::string> 				err_pages;//error codes associated to their error page
-	// std::map<>							error_pages;//error_page 404 /404.html;	error_page 500 502 503 504 /50x.html;
-	// std::string							access_log;//access_log /var/log/nginx/access.log;
-	// std::string							error_log;//error_log /var/log/nginx/access.log;
 };
 
 //SECTION - s_conf_location: the data structure for location block

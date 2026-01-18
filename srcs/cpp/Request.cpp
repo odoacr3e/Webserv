@@ -222,5 +222,10 @@ std::ostream &operator<<(std::ostream &os, Request &obj)
 {
 	os << "Method: " << obj.getMethod() << "\nURL: " << \
 	obj.getUrl() << "\nVERSION: " << obj.getHttpVersion() << std::endl;
+	os << "\033[0;1m--------------------------------------\n" COLOR_RESET;
+	os << "Header fields: \n";
+	print_map(obj.getHeader());
+	os << "\033[0;1m--------------------------------------\n" COLOR_RESET;
+	os << "Body: " << obj.getBody() << std::endl;
 	return (os);
 }

@@ -7,7 +7,7 @@
 
 # define UNDEFINED ""
 # define SWITCH_LOG(info, s) \
-std::cerr << "\033[31mRequestError: \033[33m" << s << "\033[0m" << info << "\n"; break 
+std::cerr << "\033[31mRequestError: \033[33m" << s << "\033[0m --> " << info << "\n"; break 
 
 typedef std::map<std::string, std::string> headermap;
 typedef std::pair<std::string, int>	IpPortPair;

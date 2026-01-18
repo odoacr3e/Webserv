@@ -69,7 +69,7 @@ static int	headerParsing(Request &request, std::istringstream &header)
 		line.erase(line.size() - 1);
 		if (line.find_first_of('\r') != std::string::npos)
 			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "invalid \\r"));
-		std::cout << "LINES :" << line << std::endl;
+		//std::cout << "LINES :" << line << std::endl;
 		key = line.substr(0, line.find(':'));
 		request.setHeaderVal(key, line.substr(key.length() + 2));
 	}
@@ -110,6 +110,22 @@ static int	errorParsing(Request &request, e_http_codes code, std::string info)
 	{
 		case HTTP_CE_BAD_REQUEST :
 			SWITCH_LOG(info, "Http ClientError: Bad Request");
+		case HTTP_CE_METHOD_NOT_ALLOWED :
+			SWITCH_LOG(info, "Http ClientError: method not allowed");
+		case HTTP_CE_LENGTH_REQUIRED :
+			SWITCH_LOG(info, "Http ClientError: length required");
+		case HTTP_CE_URI_TOO_LONG :
+			SWITCH_LOG(info, "Http ClientError: uri too long");
+		case HTTP_CE_MEDIA_TYPE :
+			SWITCH_LOG(info, "Http ClientError: media type not allowed");
+		case HTTP_CE_IM_TEAPOT :
+			SWITCH_LOG(info, CHARIZARD);
+		case HTTP_CE_CONTENT_UNPROCESSABLE :
+			SWITCH_LOG(info, "Http ClientError: request cannot be processed");
+		case HTTP_CE_HEADER_FIELD_TOO_LARGE :
+			SWITCH_LOG(info, "Http ClientError: header field too large");
+		default :
+			SWITCH_LOG(info, "Http Unknown Error");
 	}
 	request.setStatusCode(code);
 	return (1);

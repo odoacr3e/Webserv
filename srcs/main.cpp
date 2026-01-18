@@ -5,17 +5,29 @@
 #include <signal.h>
 
 bool	server_run = true;
-/*
+
 int		test_request(Conf &conf, Server &server)
 {
 	std::ifstream	file("test_request");
+	Request			request;
 	std::string		input;
 
+	(void)conf, (void)server;
 	if (file.fail())
 		return (std::cout << "cannot open test_request\n" << std::endl, 1);
-	// std::getline();
+	std::getline(file, input, '\0');
+	if (input.empty())
+		return (std::cout << "ifstream error in test_request\n" << std::endl, 2);
+	std::cout << "\033[0;2mStart parsing.." COLOR_RESET << std::endl;
+	requestParsing(request, input);
+	std::cout << "\033[0;2mParsing end." COLOR_RESET << std::endl;
+	std::cout << "\033[33m[REQUEST]\n" COLOR_RESET << request << std::endl;
+	if (conf.getSrvNameMap().count(request.getHost()) == 0)
+		std::cout << "\033[31mNo valid server for this ip port.\n" COLOR_RESET;
+	else
+		std::cout << "\033[33m[SERVER]\n" COLOR_RESET << conf.getSrvNameMap()[request.getHost()] << std::endl;
+	return (0);
 }
-*/
 
 void	stopServer(int sig)
 {
@@ -44,7 +56,7 @@ int main(int ac, char **av)
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
-		// return (test_request(conf, server));
+		return (test_request(config, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

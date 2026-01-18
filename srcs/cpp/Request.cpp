@@ -169,13 +169,23 @@ void	Request::setBody(std::string body)
 	this->_body = body;
 }
 
-void	Request::setHeaderVal(std::string key, std::string val)
+void	Request::setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names)
 {
-	/*if (key == "Host")
+	// poi da togliere finito il parsing per i server name
+	if (key == "Host")
 	{
 		if (val.compare(0, 9, "localhost") == 0)
 			val.replace(0, 9, "127.0.0.1");
-	}*/
+	}
+	// if (key == "Host")
+	// {
+	// 	for (SrvNameMap::iterator it = srv_names.begin(); it != srv_names.end(); it++)
+	// 	{
+	// 		if ()
+	// 	}
+		
+	// }
+	
 	if (val.find(' ') != std::string::npos)
 	{
 		DBG_MSG("Val: " + val + " stores one or more spaces");

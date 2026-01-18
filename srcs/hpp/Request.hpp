@@ -3,6 +3,7 @@
 
 # include "../../includes/ether.hpp"
 # include "../../includes/status_codes.hpp"
+# include "Conf.hpp"
 # include <stdarg.h>
 
 # define UNDEFINED ""
@@ -82,7 +83,7 @@ class Request
 		void								setHttpVersion(std::string version);
 		void 								setUrl(std::string);
 		void								setBody(std::string);
-		void								setHeaderVal(std::string key, std::string val);
+		void								setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names);
 		void								setStatusCode(e_http_codes status_code);
 		bool								checkVal(std::string key);
 		bool								checkKey(std::string key);

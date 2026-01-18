@@ -22,10 +22,7 @@ void	print_map(std::ostream &os, std::map<F, S> &map, std::string name, const ch
 	if (firstline)
 		os << color << firstline << ": " << name << "\033[0m\n";
 	if (map.empty())
-	{
-		os << std::endl;
-		return ;
-	}
+		return (os << std::endl, (void)0);
 	os << std::endl;
 	for (typename std::map<F, S>::iterator it = map.begin();\
 		it != map.end(); it++)

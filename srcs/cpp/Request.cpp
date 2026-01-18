@@ -144,6 +144,11 @@ IpPortPair	Request::getHost()
 	return (IpPortPair(ip, port));
 }
 
+e_http_codes	Request::getStatusCode() const
+{
+	return (this->_status_code);
+}
+
 void	Request::setMethod(int method)
 {
 	this->_method = this->_validmethods[method];
@@ -174,6 +179,11 @@ void	Request::setHeaderVal(std::string key, std::string val)
 	if (!checkKey(key))
 		DBG_MSG("Key: " + key + " does not exist and has been added to header map");
 	this->_header[key] = val;
+}
+
+void	Request::setStatusCode(e_http_codes status_code)
+{
+	this->_status_code = status_code;
 }
 
 bool	Request::checkKey(std::string key)

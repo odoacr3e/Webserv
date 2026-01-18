@@ -6,6 +6,16 @@
 
 bool	server_run = true;
 
+int		test_request(Conf &conf, Server &server)
+{
+	std::ifstream	file("test_request");
+	std::string		input;
+
+	if (file.fail())
+		return (std::cout << "cannot open test_request\n" << std::endl, 1);
+	std::getline();
+}
+
 void	stopServer(int sig)
 {
 	std::cout << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
@@ -33,6 +43,7 @@ int main(int ac, char **av)
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
+		return (test_request(conf, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

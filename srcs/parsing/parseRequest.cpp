@@ -1,4 +1,5 @@
 #include "../../includes/ether.hpp"
+#include "../../includes/status_codes.hpp"
 #include "../hpp/Client.hpp"
 #include "../hpp/Request.hpp"
 
@@ -6,21 +7,21 @@ static int	lineParsing(Request &request, std::string line);
 static int	headerParsing(Request &request, std::istringstream &header);
 static int	bodyParsing(Request &request, std::istringstream &header);
 std::string	removeWhitespaces(std::string line);
-static int	errorParsing(int err, std::string s);
+static int	errorParsing(Request &request, e_http_codes code);
+static int	errorParsing(Request &request, e_http_codes code, std::string info);
 
 int	requestParsing(Request &request, std::string input)
 {
 	std::string			lines;
 	std::istringstream	s(input);
-	int					err;
 
 	std::getline(s, lines, '\n');
-	if ((err = lineParsing(request, lines)) != 0)
-		return (err);
-	if ((err = headerParsing(request, s)) == false)
-		return (err);
-	if ((err = bodyParsing(request, s)) == false)
-		return (err);
+	if (lineParsing(request, lines) != 0)
+		return (request.getStatusCode());
+	if (headerParsing(request, s) != 0)
+		return (request.getStatusCode());
+	if (bodyParsing(request, s) != 0)
+		return (request.getStatusCode());
 	return (0);
 }
 
@@ -40,15 +41,15 @@ static int	lineParsing(Request &request, std::string line)
 			request.setMethod(i);
 	}
 	if (request.getMethod() == UNDEFINED)
-		return (errorParsing(400, "Bad request (no method)"));// ERROR : METODO NON RICONOSCIUTO
+		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "no method"));
 	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
 	if (request.getUrl().empty() == true)
-		return (errorParsing(400, "Bad request (uri)\n"));
+		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "No uri"));
 	request.setHttpVersion(line.substr(method.length() + 1 + \
 		request.getUrl().length() + 1, line.find('\n', method.length() + 1 + \
 		request.getUrl().length() + 1) - (method.length() + 1) - (request.getUrl().length() + 1)));
 	if (request.getHttpVersion().compare("HTTP/1.1\r") != 0)
-		return (errorParsing(400, "Bad request (http ver.)\n"));
+		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Bad http version"));
 	return (0);
 }
 
@@ -63,13 +64,18 @@ static int	headerParsing(Request &request, std::istringstream &header)
 	request.resetRequest();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
 	{
+		if (line.rbegin()[0] != '\r')
+			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "missing \\r"));
+		line.erase(line.size() - 1);
+		if (line.find_first_of('\r') != std::string::npos)
+			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "invalid \\r"));
 		std::cout << "LINES :" << line << std::endl;
 		key = line.substr(0, line.find(':'));
 		request.setHeaderVal(key, line.substr(key.length() + 2));
 	}
 	if (!request.checkHeader())
-		return (false);
-	return (true);
+		return (1);
+	return (0);
 }
 
 //FIXME - non va letta una nuova linea
@@ -78,22 +84,32 @@ static int	bodyParsing(Request &request, std::istringstream &header)
 	std::string line;
 
 	if (!line.empty())
-		return(errorParsing(400, "Bad format request\n"));
+		return(errorParsing(request, HTTP_CE_BAD_REQUEST, "No body"));
 	if (request.getMethod().compare("POST") == 0 && \
 		std::atoi(request.getHeaderVal("Content-Length").c_str()) > 0)
 	{
 		std::getline(header, line);
 		if (line.empty())
-			return(errorParsing(405, "Method not allowed\n"));
+			return(errorParsing(request, HTTP_CE_METHOD_NOT_ALLOWED));
 		request.setBody(line);
 	}
-	return (200);
+	return (0);
 }
 
-static int	errorParsing(int err, std::string s)
+static int	errorParsing(Request &request, e_http_codes code)
 {
-	std::cerr << "\033[31m" << s << "\033[0m" << std::endl;
-	return (err);
+	return (errorParsing(request, code, ""));
+}
+
+static int	errorParsing(Request &request, e_http_codes code, std::string info)
+{
+	switch (code)
+	{
+		case HTTP_CE_BAD_REQUEST :
+			SWITCH_LOG(info, "Http ClientError: Bad Request");
+	}
+	request.setStatusCode(code);
+	return (1);
 }
 
 

@@ -2,9 +2,13 @@
 # define REQUEST_HPP
 
 # include "../../includes/ether.hpp"
+# include "../../includes/status_codes.hpp"
 # include <stdarg.h>
 
 # define UNDEFINED ""
+# define SWITCH_LOG(info, s) \
+std::cerr << "\033[31mRequestError: \033[33m" << s << "\033[0m" << info << "\n"; break 
+# endif
 
 typedef std::map<std::string, std::string> headermap;
 typedef std::pair<std::string, int>	IpPortPair;
@@ -51,6 +55,7 @@ class Request
 		std::string 						_url; // LINE
 		std::string 						_http_version; // LINE
 		std::string							_body;
+		e_http_codes						_status_code;
 		int									_checkPost(void);
 		int									_checkGet(void);
 		int									_checkDelete(void);
@@ -71,6 +76,7 @@ class Request
 		headermap							&getHeader();
 		std::string							getHeaderVal(std::string key);
 		IpPortPair							getHost();
+		e_http_codes						getStatusCode() const;
 
 		//setters
 		void								setMethod(int method);
@@ -78,6 +84,7 @@ class Request
 		void 								setUrl(std::string);
 		void								setBody(std::string);
 		void								setHeaderVal(std::string key, std::string val);
+		void								setStatusCode(e_http_codes status_code);
 		bool								checkVal(std::string key);
 		bool								checkKey(std::string key);
 		int									checkHeader(void);

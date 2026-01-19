@@ -59,7 +59,7 @@ int main(int ac, char **av)
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
-		return (test_request(config, server));
+		//return (test_request(config, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

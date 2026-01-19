@@ -171,16 +171,19 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			}
 			else
 			{
+				Request	&request = this->_clients[(*it).fd]->getRequest();
 				//leggo la richiesta inviata dal client
-				if (requestParsing(this->_clients[(*it).fd]->getRequest(), buffer, *this->_srvnamemap))
+				if (requestParsing(request, buffer, *this->_srvnamemap))
 				{
 					(*it).events = POLLOUT;
-					std::cout << "errore\n";  
+					std::cout << "errore\n";
 					return ;
 				}
-				convertDnsToIp(this->_clients[(*it).fd]->getRequest().getHost(), *this->_srvnamemap);
-				std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << this->_clients[(*it).fd]->getRequest().getHost() << "\033[0m" << std::endl;
-				std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[(this->_clients[(*it).fd])->getRequest().getHost()] << std::endl;
+				convertDnsToIp(request.getHost(), *this->_srvnamemap);
+				if ((*this->_srvnamemap).count(request.getHost()) == 0)
+					return ((*it).events = POLLOUT, std::cout << "server not found\n", (void)0);
+				std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << request.getHost() << "\033[0m" << std::endl;
+				std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[request.getHost()] << std::endl;
 				// una volta parsata la richiesta HTTP va fatta la risposta vedendo in base al client uale server 
 				(*it).events = POLLOUT;
 			}
@@ -205,17 +208,18 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 
 void	convertDnsToIp(IpPortPair &ipport, SrvNameMap &srvmap)
 {
-	if (std::isdigit(ipport.first[0]))
+	if (std::isdigit(ipport.first[0]) != 0)
 		return;
-	// std::cout << "-----BALOSKI DNS FOR------ " << ipport << "...\n";
+	if (ipport.first == "localhost")
+	{
+		ipport.first = "127.0.0.1";
+		return ;
+	}
 	for (SrvNameMap::iterator it = srvmap.begin(); it != srvmap.end(); it++)
 	{
 		for (std::vector<std::string>::iterator vit = (*it).second.server_names.begin(); \
 			vit != (*it).second.server_names.end(); vit++)
 		{
-			// std::cout << "Checking vit: " << *vit << "\n";
-			// std::cout << "For ip: " << ipport.first << "\n";
-			// std::cout << "For port: " << ipport.second << "\n";
 			if (ipport.first == *vit && ipport.second == (*it).first.second)
 			{
 				std::cout << "\n---------------DNS CONVERSION----------------\n";

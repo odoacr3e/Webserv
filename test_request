@@ -1,5 +1,6 @@
-POST / HTTP/1.1
-Host: localhost:8080
+GET / HTTP/1.1
+
+Host: www.cazzi.it:9020
 User-Agent: curl/8.17.1-DEV
 Accept: */*
 Content-Length: 10

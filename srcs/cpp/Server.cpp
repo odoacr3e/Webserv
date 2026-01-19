@@ -118,7 +118,7 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
-std::string	create_http(std::string url)
+std::string	create_http(std::string url) // create http va messo anche percorso per il file
 {
 	std::string	html;
 	std::fstream file;
@@ -172,7 +172,13 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			else
 			{
 				//leggo la richiesta inviata dal client
-				requestParsing(this->_clients[(*it).fd]->getRequest(), buffer, *this->_srvnamemap);
+				if (requestParsing(this->_clients[(*it).fd]->getRequest(), buffer, *this->_srvnamemap))
+				{
+					(*it).events = POLLOUT;
+					std::cout << "errore\n";  
+					return ;
+				}
+				convertDnsToIp(this->_clients[(*it).fd]->getRequest().getHost(), *this->_srvnamemap);
 				std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << this->_clients[(*it).fd]->getRequest().getHost() << "\033[0m" << std::endl;
 				std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[(this->_clients[(*it).fd])->getRequest().getHost()] << std::endl;
 				// una volta parsata la richiesta HTTP va fatta la risposta vedendo in base al client uale server 
@@ -189,6 +195,75 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		}
 	}
 }
+
+/*
+	ipPortPair
+
+	doppio for
+		se IP == serv_name && PORT == port 
+*/
+
+void	convertDnsToIp(IpPortPair &ipport, SrvNameMap &srvmap)
+{
+	if (std::isdigit(ipport.first[0]))
+		return;
+	// std::cout << "-----BALOSKI DNS FOR------ " << ipport << "...\n";
+	for (SrvNameMap::iterator it = srvmap.begin(); it != srvmap.end(); it++)
+	{
+		for (std::vector<std::string>::iterator vit = (*it).second.server_names.begin(); \
+			vit != (*it).second.server_names.end(); vit++)
+		{
+			// std::cout << "Checking vit: " << *vit << "\n";
+			// std::cout << "For ip: " << ipport.first << "\n";
+			// std::cout << "For port: " << ipport.second << "\n";
+			if (ipport.first == *vit && ipport.second == (*it).first.second)
+			{
+				std::cout << "\n---------------DNS CONVERSION----------------\n";
+				std::cout << "DNS: convert " << ipport.first;
+				ipport.first = (*it).first.first;
+				std::cout << " ----> " << ipport.first << "\n";
+				std::cout << "---------------DNS CONVERSION----------------\n";
+				return ;
+			}
+		}
+	}
+	std::cout << "------------DNS CONVERSION------------\n";
+	std::cout << "				FAIL!					\n";
+	std::cout << "------------DNS CONVERSION------------\n";
+}
+
+// Vecchio controllo sulla corrispondenza dns ip
+// size_t 	endpoint;
+	// 
+	// if (key == "Host" && !isdigit(val[0]))
+	// {//www.name.it:9090
+		// endpoint = val.find_last_of(':');
+		// if (endpoint == std::string::npos)
+			// return (this->_header[key] = "", (void)0);
+		// std::string name(val.substr(0, endpoint));
+		// std::string s_port(val.substr(endpoint + 1));
+		// int			port = std::atoi(s_port.c_str());
+		// std::cout << "DNS IP SOLVING " << name << "\n";
+		// std::cout << "DNS PORT SOLVING " << port << "\n";
+		// for (SrvNameMap::iterator it = srv_names.begin(); it != srv_names.end(); it++)// Ma che caz?
+		// {
+			// for (std::vector<std::string>::iterator vit = (*it).second.server_names.begin(); \
+			// vit != (*it).second.server_names.end(); vit++)
+			// {
+				// std::cout << "Checking vit " << *vit << "\n";
+				// if (name == *vit && port == (*it).first.second)
+				// {//KEY == HOST VALORE IP:PORTA
+					// CONTROLLA ANCHE PORTA
+					// std::cout << "Trovato il figlio di puttana\n";
+					// this->_header[key] = (*it).first.first; //associo ip del server
+					// this->_header[key].append(val.substr(endpoint)); // appendo la porta presa da val
+					// std::cout << "adesso e " << this->_header[key] << "\n";
+					// return ;
+				// }
+			// }
+		// }
+	// }
+
 
 // Server -> 
 /*

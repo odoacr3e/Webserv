@@ -6,6 +6,8 @@
 
 bool	server_run = true;
 
+void	convertDnsToIp(IpPortPair &ipport, SrvNameMap &srvmap);
+
 int		test_request(Conf &conf, Server &server)
 {
 	std::ifstream	file("test_request");
@@ -22,9 +24,14 @@ int		test_request(Conf &conf, Server &server)
 		std::cout << "BELIN SI È ROTTO TUTTO\n\n";
 		return (1);
 	}
+	convertDnsToIp(request.getHost(), server.getSrvNameMap());
 	std::cout << "\033[0;2mEnd." COLOR_RESET << "\n";
 	std::cout << "\033[33m[RESULT]" COLOR_RESET << "\n";
 	std::cout << request << "\n";
+	if (server.getSrvNameMap().count(request.getHost()) == 0)
+		return (std::cout << "server not found\n", 1);
+	else
+		std:: cout << server.getSrvNameMap()[request.getHost()] << std::endl;
 	return (0);
 }
 

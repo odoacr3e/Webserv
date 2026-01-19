@@ -23,6 +23,7 @@ int	requestParsing(Request &request, std::string input, SrvNameMap &srv_names)
 		return (request.getStatusCode());
 	if (bodyParsing(request, s) != 0)
 		return (request.getStatusCode());
+	request.setStatusCode(HTTP_OK);
 	return (0);
 }
 
@@ -61,6 +62,7 @@ static int	headerParsing(Request &request, std::istringstream &header, SrvNameMa
 {
 	std::string		line;
 	std::string		key;
+	size_t			sep;
 
 	request.resetRequest();
 	while (std::getline(header, line) && line != "\r") // da trimmare \r
@@ -71,11 +73,17 @@ static int	headerParsing(Request &request, std::istringstream &header, SrvNameMa
 		if (line.find_first_of('\r') != std::string::npos)
 			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "invalid \\r"));
 		std::cout << "LINES :" << line << std::endl;
-		key = line.substr(0, line.find(':'));
-		request.setHeaderVal(key, line.substr(key.length() + 2), srv_names);
+		sep = line.find(':');
+		if (sep == std::string::npos)
+			return (0);
+		key = line.substr(0, sep);
+		if (sep + 2 < line.size())
+			request.setHeaderVal(key, line.substr(key.length() + 2), srv_names);
+		else
+			return (0);
 	}
 	if (!request.checkHeader())
-		return (1);
+		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "miss header"));
 	return (0);
 }
 
@@ -133,6 +141,7 @@ static int	errorParsing(Request &request, e_http_codes code, std::string info)
 			SWITCH_LOG(info, "Http ClientError: Wtf" PIEDI_DELLA_ZIA_DEL_TUO_RAGAZZO);	
 	}
 	request.setStatusCode(code);
+	request.setRequestErrorBool(true);
 	return (1);
 }
 

@@ -70,4 +70,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void			printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const;
 };
 
+void	convertDnsToIp(IpPortPair &ipport, SrvNameMap &srvmap);
+
 #endif

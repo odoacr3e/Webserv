@@ -51,18 +51,23 @@ class Request
 {
 
 	private:
+		
 		static const std::string			_validmethods[METH_NUM];
 		headermap							_header;
 		std::string							_method; // LINE
 		std::string 						_url; // LINE
 		std::string 						_http_version; // LINE
 		std::string							_body;
+		IpPortPair							_ipport;
 		e_http_codes						_status_code;
+		bool								_error; //GIORGIOVANNI
+
 		int									_checkPost(void);
 		int									_checkGet(void);
 		int									_checkDelete(void);
 
 	public:
+		
 		Request();
 		~Request();
 		Request(const Request &other);
@@ -77,8 +82,9 @@ class Request
 		std::string 						getBody() const;
 		headermap							&getHeader();
 		std::string							getHeaderVal(std::string key);
-		IpPortPair							getHost();
+		IpPortPair							&getHost();
 		e_http_codes						getStatusCode() const;
+		bool								getRequestErrorBool() const;
 
 		//setters
 		void								setMethod(int method);
@@ -87,6 +93,7 @@ class Request
 		void								setBody(std::string);
 		void								setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names);
 		void								setStatusCode(e_http_codes status_code);
+		void								setRequestErrorBool(bool error);
 		bool								checkVal(std::string key);
 		bool								checkKey(std::string key);
 		int									checkHeader(void);

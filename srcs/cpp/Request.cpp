@@ -52,6 +52,7 @@ void	Request::resetRequest(void)
 	this->_header["Connection"] = "keep-alive";
 	this->_header["Transfer-Encoding"] = "unchunked";
 	this->_header["Authorization"] = "";
+	this->_error = false;
 }
 
 // FIXME Quetsa funzione controlla che se uno dei membri richiesti è assente 
@@ -132,21 +133,32 @@ std::string	Request::getHeaderVal(std::string key)
 		return (this->_header[key]);
 }
 
-IpPortPair	Request::getHost()
+//setta la pair se gia non e stata settata
+IpPortPair	&Request::getHost()
 {
 	std::string	ipport;
 	std::string	ip;
 	int			port;
-	
+
+	if (!this->_ipport.first.empty())
+		return (this->_ipport);
 	ipport = this->_header["Host"];
+	// std::cout << "excuseme wtf?: " << this->_header["Host"] << "\n";
 	ip = ipport.substr(0, ipport.find(':'));
-	port = std::atoi(ipport.substr(ipport.find(':') + 1).c_str());	
-	return (IpPortPair(ip, port));
+	port = std::atoi(ipport.substr(ipport.find(':') + 1).c_str());
+	// std::cout << "convert: " << ipport << " ip: " << ip << " port: " << port << "\n";
+	this->_ipport = IpPortPair(ip, port);	
+	return (this->_ipport);
 }
 
 e_http_codes	Request::getStatusCode() const
 {
 	return (this->_status_code);
+}
+
+bool	Request::getRequestErrorBool() const
+{
+	return (this->_error);
 }
 
 void	Request::setMethod(int method)
@@ -171,33 +183,7 @@ void	Request::setBody(std::string body)
 
 void	Request::setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names)
 {
-	size_t 	endpoint;
-	
-	if (key == "Host" && !isdigit(val[0]))
-	{//www.name.it:9090
-		endpoint = val.find_last_of(':');
-		if (endpoint == std::string::npos)
-			return (this->_header[key] = "", (void)0);
-		std::string name(val.substr(0, endpoint));
-		std::cout << "DNS SOLVING " << name << "\n";
-		for (SrvNameMap::iterator it = srv_names.begin(); it != srv_names.end(); it++)// Ma che caz?
-		{
-			for (std::vector<std::string>::iterator vit = (*it).second.server_names.begin(); \
-			vit != (*it).second.server_names.end(); vit++)
-			{
-				std::cout << "Checking vit " << *vit << "\n";
-				if (name == *vit)
-				{//KEY == HOST VALORE IP:PORTA
-					std::cout << "Trovato il figlio di puttana\n";
-					this->_header[key] = (*it).first.first; //associo ip del server
-					this->_header[key].append(val.substr(endpoint)); // appendo la porta presa da val
-					std::cout << "adesso e " << this->_header[key] << "\n";
-					return ;
-				}
-			}
-		}
-	}
-	
+	(void)srv_names;
 	if (val.find(' ') != std::string::npos)
 	{
 		DBG_MSG("Val: " + val + " stores one or more spaces");
@@ -211,6 +197,11 @@ void	Request::setHeaderVal(std::string key, std::string val, SrvNameMap &srv_nam
 void	Request::setStatusCode(e_http_codes status_code)
 {
 	this->_status_code = status_code;
+}
+
+void	Request::setRequestErrorBool(bool error)
+{		
+	this->_error = error; 
 }
 
 bool	Request::checkKey(std::string key)

@@ -126,7 +126,6 @@ std::string	create_http(Client &client) // create http va messo anche percorso p
 	std::string	line;
 	std::string	body;
 	std::string	conttype("text/html");
-
 	std::string	url = client.getRequest().getUrl();
 	std::cout << "url: " << url << std::endl;
 	if (url.length() > 4 && url.substr(url.length() - 4) == ".css")

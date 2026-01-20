@@ -50,7 +50,7 @@ std::string	ft_to_string(T data)
 	return (stream.str());
 }
 
-int			requestParsing(Request &request, std::string input, SrvNameMap &srv_namessrv_names);
+int			requestParsing(Request &request, std::string input);
 
 //SEXTION - utils
 std::string	removeWhitespaces(std::string line);
@@ -67,7 +67,7 @@ bool		valid_directory(std::string directory);
 bool		valid_file(std::string file);
 int			valid_ip_address(std::string addr);
 int			atohex(std::string s);
-bool		checkValidCode(int code);
+int 		checkValidCode(int code);
 
 #define CHARIZARD "                 .\"-,.__\n\
                  `.     `.  ,\n\

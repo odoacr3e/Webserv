@@ -20,6 +20,7 @@ enum	e_methods
 	POST,
 	GET,
 	DELETE,
+	HEAD,
 	METH_NUM,
 };
 
@@ -91,7 +92,7 @@ class Request
 		void								setHttpVersion(std::string version);
 		void 								setUrl(std::string);
 		void								setBody(std::string);
-		void								setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names);
+		void								setHeaderVal(std::string key, std::string val);
 		void								setStatusCode(e_http_codes status_code);
 		void								setRequestErrorBool(bool error);
 		bool								checkVal(std::string key);

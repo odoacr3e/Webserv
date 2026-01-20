@@ -1,4 +1,4 @@
-#ifndef STATUS_CODES_HPP
+ #ifndef STATUS_CODES_HPP
 # define STATUS_CODES_HPP
 
 enum	e_http_codes
@@ -80,10 +80,39 @@ enum	e_http_codes
 	HTTP_SE_LOOP_DETECTED = 508,//infine loop while processing request
 	HTTP_SE_NOT_EXTENDED = 510,//server needs further extension to the request to process
 	HTTP_SE_NETWORK_AUTH_REQUIRED = 511,//see 'captive portals'
+	//unknown
+	HTTP_UNKNOWN = 999, //wut?
 
 //NOTE - services like nginx, cloudflare, Amazon, Linkedln use other codes
 //		however, they are not official
 };
+
+# define 	VALID_HTTP_STR {\
+	"OK",\
+	"Created",\
+	"Accepted",\
+	"No Content",\
+	"IM Used",\
+	"Moved Permanently" ,\
+	"Found",\
+	"Not Modified",\
+	"Temporary Redirect",\
+	"Permanent Redirect",\
+	"Bad Request",\
+	"Unauthorized",\
+	"Forbidden",\
+	"Not Found",\
+	"Method Not Allowed",\
+	"Conflict",\
+	"Length Required",\
+	"Uri Too Long",\
+	"Unsupported Media Type",\
+	"I'm a Teapot",\
+	"Unprocessable Content",\
+	"Internal Server Error",\
+	"Not Implemented",\
+	"HTTP Version Not supported"\
+}
 
 # define 	VALID_HTTP_CODES {\
 	HTTP_OK,\
@@ -109,7 +138,8 @@ enum	e_http_codes
 	HTTP_CE_CONTENT_UNPROCESSABLE,\
 	HTTP_SE_INTERNAL,\
 	HTTP_SE_NOT_IMPLEMENTED,\
-	HTTP_SE_HTTP_VERSION_UNSOPPORTED\
+	HTTP_SE_HTTP_VERSION_UNSOPPORTED,\
+	HTTP_UNKNOWN\
 }
 
 #endif

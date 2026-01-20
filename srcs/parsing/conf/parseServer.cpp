@@ -141,8 +141,8 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
 	if (!code_syntax)
 		instructionError(list, line, "invalid status code format in error_pages param");
 	int		code = std::atoi(list[1].c_str());
-	bool	code_valid = checkValidCode(code);
-	if (!code_valid)
+	int		code_valid = checkValidCode(code);
+	if (code_valid == HTTP_UNKNOWN)
 		instructionError(list, line, "status code not implemented");
 	if (code >= 300 && code <= 399)
 		instructionError(list, line, "redirect are invalid in error pages");

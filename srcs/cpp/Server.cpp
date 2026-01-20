@@ -122,23 +122,27 @@ std::string	create_http(Client &client) // create http va messo anche percorso p
 {
 	std::string	html;
 	std::fstream file;
-
+	std::string	http_codes_str[] = VALID_HTTP_STR;
 	std::string	line;
 	std::string	body;
-	std::string	conttype("text/html");
+	std::string	conttype;
 	std::string	url = client.getRequest().getUrl();
 	std::cout << "url: " << url << std::endl;
 	if (url.length() > 4 && url.substr(url.length() - 4) == ".css")
 	{
 		conttype = "text/css";
-		if (client.getRequest().getStatusCode() == 200)
+		if (client.getRequest().getStatusCode() != 200)
 			file.open("www/var/errors/default/default.css");
 		else
 			file.open("www/var/style.css");
 	}
 	else
 	{
-		file.open("www/var/index.html");
+		conttype = "text/html";
+		if (client.getRequest().getStatusCode() != 200)
+			file.open("www/var/errors/default/default.html");
+		else
+			file.open("www/var/index.html");
 	}
 	if (file.is_open())
 	{
@@ -146,12 +150,16 @@ std::string	create_http(Client &client) // create http va messo anche percorso p
 			body += line + "\n";
 		file.close();
 	}
-	html += "HTTP/1.1 200 OK\r\n";
+	html += "HTTP/1.1 ";
+	html += ft_to_string(client.getRequest().getStatusCode());
+	html += " " + http_codes_str[checkValidCode(client.getRequest().getStatusCode())];
+	html += "\r\n";
 	html += "Content-Type: " + conttype + "\r\n";
 	html += "Content-Length: ";
 	html += ft_to_string(body.length() + 1);
 	html += "\r\n\r\n";
 	html += body + "\n";
+	std::cout << html << "\n";
 	return (html + "\n");
 }
 
@@ -179,15 +187,21 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			{
 				Request	&request = this->_clients[(*it).fd]->getRequest();
 				//leggo la richiesta inviata dal client
-				if (requestParsing(request, buffer, *this->_srvnamemap))
+				if (requestParsing(request, buffer))
 				{
 					(*it).events = POLLOUT;
 					std::cout << "errore\n";
 					return ;
 				}
+				std::cout << request << std::endl;
 				convertDnsToIp(request.getHost(), *this->_srvnamemap);
 				if ((*this->_srvnamemap).count(request.getHost()) == 0)
-					return ((*it).events = POLLOUT, std::cout << "server not found\n", (void)0);
+				{
+					this->_clients[(*it).fd]->getRequest().setStatusCode(HTTP_CE_BAD_REQUEST);
+					(*it).events = POLLOUT;
+					std::cout << "server not found\n";
+					return ;
+				}
 				std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << request.getHost() << "\033[0m" << std::endl;
 				std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[request.getHost()] << std::endl;
 				// una volta parsata la richiesta HTTP va fatta la risposta vedendo in base al client uale server 
@@ -198,7 +212,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		{
 			// Rispondo
 			std::cout << " ----Sent message----" << std::endl;
-			std::string	html = create_http(this->_clients[(*it).fd]);
+			std::string	html = create_http(*(this->_clients[(*it).fd]));
 			send((*it).fd, html.c_str(), html.length(), 0);
 			(*it).events = POLLIN;
 		}
@@ -308,6 +322,7 @@ void	Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
 void			Server::printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const
 {
 	(void)conf;
+	return ;
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
 	std::cout << "Listening on -> \033[1;32m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
 	std::cout << (*it).second;

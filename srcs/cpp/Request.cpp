@@ -4,7 +4,8 @@
 const std::string Request::_validmethods[METH_NUM] = {
     "POST",
     "GET",
-    "DELETE"
+    "DELETE",
+	"HEAD"
 };
 
 /*
@@ -47,6 +48,7 @@ void	Request::resetRequest(void)
 	this->_header.clear();
 	this->_header["Connection"] = "keep-alive";
 	this->_header["Transfer-Encoding"] = "unchunked";
+	this->_status_code = HTTP_OK;
 	this->_error = false;
 }
 
@@ -63,6 +65,8 @@ int	Request::checkHeader(void)
 		return (this->_checkGet());
 	else if (this->_method == "DELETE")
 		return (this->_checkDelete());
+	else if (this->_method == "HEAD")
+		return (true);
 	return (false);
 }
 
@@ -176,14 +180,9 @@ void	Request::setBody(std::string body)
 	this->_body = body;
 }
 
-void	Request::setHeaderVal(std::string key, std::string val, SrvNameMap &srv_names)
+void	Request::setHeaderVal(std::string key, std::string val)
 {
-	(void)srv_names;
-	if (val.find(' ') != std::string::npos)
-	{
-		DBG_MSG("Val: " + val + " stores one or more spaces");
-		return ;
-	}
+	std::cout << "\033[33mNEW:" COLOR_RESET << key << " " << val << "\n";
 	//if (!checkKey(key))
 	//	DBG_MSG("Key: " + key + " does not exist and has been added to header map");
 	this->_header[key] = val;
@@ -209,9 +208,8 @@ bool	Request::checkKey(std::string key)
 bool	Request::checkVal(std::string key)
 {
 	std::cout << "\033[33mChecking key:\t" << "\033[0m" << key << "\n";
+	std::cout << "KEY PRE ERROR: " << key << std::endl;
 	if (checkKey(key) == false)
-		return (false);
-	if (this->_header.find(key) == this->_header.end())
 		return (false);
 	std::cout << key << "\033[32m è stata riempita!\n\033[0m";
 	return (true);

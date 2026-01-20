@@ -94,7 +94,7 @@ bool charFinder(const std::string literal, int(*check)(int))
 	return (true);
 }
 
-bool checkValidCode(int code)
+int checkValidCode(int code)
 {
 	int	valid_codes[] = VALID_HTTP_CODES;
 	int	size = sizeof(valid_codes) / sizeof(valid_codes[0]);
@@ -102,9 +102,9 @@ bool checkValidCode(int code)
 	for (int i = 0; i < size; i++)
 	{
 		if (code == valid_codes[i])
-			return (true);
+			return (i);
 	}
-	return (false);
+	return (HTTP_UNKNOWN);
 }
 
 //
@@ -125,4 +125,4 @@ bool checkValidCode(int code)
 // 	{
 		
 // 	}
-// }
+// }"OK

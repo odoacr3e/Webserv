@@ -19,7 +19,7 @@ int		test_request(Conf &conf, Server &server)
 		return (std::cout << "cannot open test_request\n" << std::endl, 1);
 	std::getline(file, input, '\0');
 	std::cout << "\033[0;2m\n-------REQUEST PARSING STARTED------...\n" COLOR_RESET << "\n";
-	if (requestParsing(request, input, server.getSrvNameMap()) != 0)
+	if (requestParsing(request, input) != 0)
 		return (1);
 	convertDnsToIp(request.getHost(), server.getSrvNameMap());
 	std::cout << "\033[0;2mEnd." COLOR_RESET << "\n";

@@ -5,13 +5,13 @@
 #include "../hpp/Server.hpp"
 
 static int	lineParsing(Request &request, std::string line);
-static int	headerParsing(Request &request, std::istringstream &header, SrvNameMap &srv_names);
+static int	headerParsing(Request &request, std::istringstream &header);
 static int	bodyParsing(Request &request, std::istringstream &header);
 std::string	removeWhitespaces(std::string line);
 //static int	errorParsing(Request &request, e_http_codes code);
 static int	errorParsing(Request &request, e_http_codes code, std::string info);
 
-int	requestParsing(Request &request, std::string input, SrvNameMap &srv_names)
+int	requestParsing(Request &request, std::string input)
 {
 	std::string			lines;
 	std::istringstream	s(input);
@@ -19,7 +19,7 @@ int	requestParsing(Request &request, std::string input, SrvNameMap &srv_names)
 	std::getline(s, lines, '\n');
 	if (lineParsing(request, lines) != 0) // first line parsing
 		return (request.getStatusCode());
-	if (headerParsing(request, s, srv_names) != 0) // header parsing
+	if (headerParsing(request, s) != 0) // header parsing
 		return (request.getStatusCode());
 	if (bodyParsing(request, s) != 0)
 		return (request.getStatusCode());
@@ -49,7 +49,10 @@ static int	lineParsing(Request &request, std::string line)
 			request.setMethod(i);
 	}
 	if (request.getMethod() == UNDEFINED)
+	{
+		std::cout << "METODO: " << request.getMethod() << std::endl; 
 		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Invalid method"));
+	}
 	if (line.substr(method.length() + 1).find(' ') == std::string::npos)
 		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Invalid first line format"));
 	request.setUrl(line.substr(method.length() + 1, line.find(' ', method.length() + 1) - (method.length() + 1)));
@@ -66,7 +69,7 @@ static int	lineParsing(Request &request, std::string line)
 // REVIEW - Questa funzione va a controllare il formato dell'header della 
 // richiesta di connessione e si assicura che ci siano tutti i membri necessari in
 // in base ai metodi che dobbiamo gestire -GET -POST -DELETE
-static int	headerParsing(Request &request, std::istringstream &header, SrvNameMap &srv_names)
+static int	headerParsing(Request &request, std::istringstream &header)
 {
 	std::string		line;
 	std::string		key;
@@ -85,7 +88,7 @@ static int	headerParsing(Request &request, std::istringstream &header, SrvNameMa
 			return (0);
 		key = line.substr(0, sep);
 		if (sep + 2 < line.size())
-			request.setHeaderVal(key, line.substr(key.length() + 2), srv_names);
+			request.setHeaderVal(key, line.substr(key.length() + 2));
 		else
 			return (0);
 	}

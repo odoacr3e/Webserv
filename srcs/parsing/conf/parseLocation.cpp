@@ -81,7 +81,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 {
 	bool	code_syntax;
 	int		code;
-	bool	code_valid;
+	int		code_valid;
 
 	if (list.size() < 2 || list.size() > 3)
 		instructionError(list, line, "return needs this syntax:	return code [text] |"\
@@ -96,7 +96,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 			conf.getLocationBlock().ret_uri = list[1];
 			conf.getLocationBlock().ret_code = 302;
 		}
-		else if (!code_valid)
+		else if (code_valid == HTTP_UNKNOWN)
 			instructionError(list, line, "invalid status code\n");
 		else if (code >= 300 && code < 399)
 			instructionError(list, line, "return code 3xx must have an uri\n");
@@ -106,7 +106,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	}
 	if (!code_syntax)
 		instructionError(list, line, "Wrong status code syntax\n");
-	if (!code_valid)
+	if (code_valid == HTTP_UNKNOWN)
 		instructionError(list, line, "invalid status code\n");
 	conf.getLocationBlock().ret_code = code;
 	if (code >= 300 && code < 399)
@@ -159,8 +159,8 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
 	if (!code_syntax)
 		instructionError(list, line, "invalid status code format in error_pages param");
 	int		code = std::atoi(list[1].c_str());
-	bool	code_valid = checkValidCode(code);
-	if (!code_valid)
+	int		code_valid = checkValidCode(code);
+	if (code_valid == HTTP_UNKNOWN)
 		instructionError(list, line, "status code not implemented");
 	if (code >= 300 && code <= 399)
 		instructionError(list, line, "redirect are invalid in error pages");

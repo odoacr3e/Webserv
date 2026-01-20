@@ -122,6 +122,7 @@ std::string	create_http(Client &client) // create http va messo anche percorso p
 {
 	std::string	html;
 	std::fstream file;
+
 	std::string	line;
 	std::string	body;
 	std::string	conttype("text/html");

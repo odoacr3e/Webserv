@@ -7,6 +7,7 @@
 # include <stdarg.h>
 
 # define UNDEFINED ""
+# define MAX_URI_LENGTH 8000
 # define SWITCH_LOG(info, s) \
 std::cerr << "\033[31mRequestError: \033[33m" << s << " \033[0m" << info << "\n"; break 
 
@@ -53,7 +54,7 @@ class Request
 
 	private:
 		
-		static const std::string			_validmethods[METH_NUM];
+		std::string							_validmethods[METH_NUM];
 		headermap							_header;
 		std::string							_method; // LINE
 		std::string 						_url; // LINE
@@ -61,6 +62,8 @@ class Request
 		std::string							_body;
 		IpPortPair							_ipport;
 		e_http_codes						_status_code;
+		size_t								_max_method_length;
+		size_t								_body_len;
 		bool								_error; //GIORGIOVANNI
 
 		int									_checkPost(void);
@@ -78,6 +81,7 @@ class Request
 		std::string							getValidMethod(int idx) const;
 		int									getMethNum() const;
 		std::string							getMethod() const;
+		e_methods							getMethodEnum() const;
 		std::string 						getUrl() const;
 		std::string 						getHttpVersion() const;
 		std::string 						getBody() const;
@@ -85,16 +89,18 @@ class Request
 		std::string							getHeaderVal(std::string key);
 		IpPortPair							&getHost();
 		e_http_codes						getStatusCode() const;
+		size_t								getBodyLen() const;
 		bool								getRequestErrorBool() const;
 
 		//setters
-		void								setMethod(int method);
+		void								setMethod(std::string method);
 		void								setHttpVersion(std::string version);
 		void 								setUrl(std::string);
 		void								setBody(std::string);
 		void								setHeaderVal(std::string key, std::string val);
 		void								setStatusCode(e_http_codes status_code);
 		void								setRequestErrorBool(bool error);
+		void								setBodyLen(size_t len);
 		bool								checkVal(std::string key);
 		bool								checkKey(std::string key);
 		int									checkHeader(void);

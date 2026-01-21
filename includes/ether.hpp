@@ -63,6 +63,11 @@ size_t		find_first_special_char(std::string line);
 bool		is_there_special_chars(std::string line);
 size_t		find_first_not_special_char(std::string line);
 
+bool		trim_equal_left(std::string &s, char c);
+bool		trim_diff_left(std::string &s, char c);
+bool		trim_equal_right(std::string &s, char c);
+bool		trim_diff_right(std::string &s, char c);
+
 bool		valid_directory(std::string directory);
 bool		valid_file(std::string file);
 int			valid_ip_address(std::string addr);

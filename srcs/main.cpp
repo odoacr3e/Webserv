@@ -48,6 +48,12 @@ void	get_conf_path(int ac, char **av, std::string &path)
 		throw std::runtime_error("\033[1;31mToo many configuration files\nPlease pass only one!\033[0m");
 }
 
+/*
+TODO - 21/01
+[]	RFC request
+[]	refactoring server
+[]	refactoring request
+*/
 int main(int ac, char **av)
 {
 	std::string	conf_path;
@@ -59,7 +65,7 @@ int main(int ac, char **av)
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		Server server(config);
-		//return (test_request(config, server));
+		return (test_request(config, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);

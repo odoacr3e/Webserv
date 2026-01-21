@@ -1,13 +1,6 @@
 
 #include "../hpp/Request.hpp"
 
-const std::string Request::_validmethods[METH_NUM] = {
-    "POST",
-    "GET",
-    "DELETE",
-	"HEAD"
-};
-
 /*
 Host: localhost:8080
 User-Agent: curl/8.17.1-DEV
@@ -15,10 +8,21 @@ Accept: /
 Content-Length: 10 (SOLO POST)
 Content-Type: application/x-www-form-urlencoded (SOLO POST)
 
-
+	POST,
+	GET,
+	DELETE,
+	HEAD,
 */
 Request::Request()
 {
+	this->_validmethods[POST] = "POST";
+	this->_validmethods[GET] = "GET";
+	this->_validmethods[DELETE] = "DELETE";
+	this->_validmethods[HEAD] = "HEAD";
+	this->_max_method_length = 0;
+	for (int i = 0; i != METH_NUM; i++)
+		if (this->_validmethods[i].length() > this->_max_method_length)
+			this->_max_method_length = this->_validmethods[i].length();
 	resetRequest();
 }
 
@@ -65,8 +69,8 @@ int	Request::checkHeader(void)
 		return (this->_checkGet());
 	else if (this->_method == "DELETE")
 		return (this->_checkDelete());
-	else if (this->_method == "HEAD")
-		return (true);
+	std::cout << "\033[31mWARNING: METHOD " COLOR_RESET << this->_method;
+	std::cout << "\033[31m HAS NO PARSING!!" COLOR_RESET << std::endl;
 	return (false);
 }
 
@@ -104,6 +108,18 @@ int Request::getMethNum() const
 	return (METH_NUM);
 }
 
+e_methods	Request::getMethodEnum() const
+{
+	int	i;
+
+	for (int i = 0; i != METH_NUM; i ++)
+	{
+		if (this->_validmethods[i] == this->_method)
+			return ((e_methods)(POST + i));
+	}
+	return (METH_NUM);
+}
+
 std::string Request::getUrl() const
 {
 	return (this->_url);
@@ -117,6 +133,11 @@ std::string Request::getHttpVersion() const
 std::string Request::getBody() const
 {
 	return (this->_body);
+}
+
+size_t	Request::getBodyLen(void) const
+{
+	return (this->_body_len);
 }
 
 headermap	&Request::getHeader()
@@ -160,13 +181,28 @@ bool	Request::getRequestErrorBool() const
 	return (this->_error);
 }
 
-void	Request::setMethod(int method)
+void	Request::setMethod(std::string method)
 {
-	this->_method = this->_validmethods[method];
+	this->_method = UNDEFINED;
+	if (method.length() > this->_max_method_length)
+		return ;
+	for (int i = 0; i < this->getMethNum(); i++)
+	{
+		if (method == this->_validmethods[i])
+		{
+			this->_method = method;
+			return ;
+		}
+	}
 }
 
 void	Request::setUrl(std::string url)
 {
+	if (url.find('\r') != std::string::npos)
+	{
+		this->_url = "";
+		return ;
+	}
 	this->_url = url;
 }
 
@@ -178,6 +214,11 @@ void	Request::setHttpVersion(std::string version)
 void	Request::setBody(std::string body)
 {
 	this->_body = body;
+}
+
+void	Request::setBodyLen(size_t len)
+{
+	this->_body_len = len;
 }
 
 void	Request::setHeaderVal(std::string key, std::string val)

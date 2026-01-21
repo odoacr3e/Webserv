@@ -92,13 +92,17 @@ static int	headerParsing(Request &request, std::istringstream &header)
 		sep = line.find(':');
 		if (sep == std::string::npos)
 			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Missing : in head"));
+		// if (sep != line.find_first_not_of(':'))
+		// 	return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Multiple :"));
 		key = line.substr(0, sep);
 		if (find_first_whitespace(key) != key.length())
 			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Key with WS"));
-		if (sep + 2 < line.size())
-			request.setHeaderVal(key, line.substr(key.length() + 2));
-		else
+		line = line.substr(key.length() + 1);
+		line = removeWhitespaces(line);
+		if (line.empty())
 			return (errorParsing(request, HTTP_CE_BAD_REQUEST, "Empty header val"));
+		else if (request.setHeaderVal(key, line))
+			return (errorParsing(request, HTTP_CE_BAD_REQUEST, line));
 	}
 	if (request.getBodyLen() != 0 && \
 	request.getHeaderVal("Transfer-Encoding") == "chunked")

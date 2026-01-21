@@ -46,14 +46,15 @@ void	Request::resetRequest(void)
 
 // FIXME Quetsa funzione controlla che se uno dei membri richiesti è assente 
 // restituisce l'errore di corrispondenza e questa cosa va gestita, per ora restituiamo
-// true e false
+// 	true OK
+//	false ERROR
 int	Request::checkHeader(void)
 {
 	if (!this->checkVal("Host") || !this->checkVal("Accept") || !this->checkVal("User-Agent"))
 		return (false);
 	if (this->_header["Transfer-Encoding"] != "chunked" && \
 	this->_header["Transfer-Encoding"] != "unchunked")
-		return (1);
+		return (false);
 	if (this->_method == "POST")
 		return (this->_checkPost());
 	else if (this->_method == "GET")
@@ -62,7 +63,7 @@ int	Request::checkHeader(void)
 		return (this->_checkDelete());
 	std::cout << "\033[31mWARNING: METHOD " COLOR_RESET << this->_method;
 	std::cout << "\033[31m HAS NO PARSING!!" COLOR_RESET << std::endl;
-	return (false);
+	return (true);
 }
 
 int	Request::_checkPost(void)
@@ -212,12 +213,17 @@ void	Request::setBodyLen(size_t len)
 	this->_body_len = len;
 }
 
-void	Request::setHeaderVal(std::string key, std::string val)
+bool	Request::setHeaderVal(std::string key, std::string val)
 {
 	std::cout << "\033[33mNEW:" COLOR_RESET << key << " " << val << "\n";
-	//if (!checkKey(key))
-	//	DBG_MSG("Key: " + key + " does not exist and has been added to header map");
+	if (find_first_whitespace(val) != val.length())
+		return (1);
+	if (key != "Host" && val.find(':') != std::string::npos)
+		return (1);
+	if (key == "Content-Length" && !charFinder(val, std::isdigit))
+		return (1);
 	this->_header[key] = val;
+	return (0);
 }
 
 void	Request::setStatusCode(e_http_codes status_code)
@@ -240,7 +246,6 @@ bool	Request::checkKey(std::string key)
 bool	Request::checkVal(std::string key)
 {
 	std::cout << "\033[33mChecking key:\t" << "\033[0m" << key << "\n";
-	std::cout << "KEY PRE ERROR: " << key << std::endl;
 	if (checkKey(key) == false)
 		return (false);
 	std::cout << key << "\033[32m è stata riempita!\n\033[0m";

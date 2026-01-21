@@ -29,11 +29,13 @@ fclean:
 
 re: fclean all
 
-run: re
+runner: re
 	clear ; ./$(NAME)
 
-run+: re
-	clear ; echo "Grazie per aver scelto il servizio plus!\nOra potrete usufruire del servizio pulizia piedi della zia del tuo ragazzo senza costi aggiuntivi!" && ./$(NAME)
+# BladeRunner: 
+# 	xgd open https://www.youtube.com/results?search_query=bayblade+sigla
+run:
+	clear ; ./$(NAME)
 
 spaghetti: re
 	clear ; ./$(NAME)

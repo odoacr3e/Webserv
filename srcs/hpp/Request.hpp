@@ -97,7 +97,7 @@ class Request
 		void								setHttpVersion(std::string version);
 		void 								setUrl(std::string);
 		void								setBody(std::string);
-		void								setHeaderVal(std::string key, std::string val);
+		bool								setHeaderVal(std::string key, std::string val);
 		void								setStatusCode(e_http_codes status_code);
 		void								setRequestErrorBool(bool error);
 		void								setBodyLen(size_t len);

@@ -50,9 +50,9 @@ void	get_conf_path(int ac, char **av, std::string &path)
 
 /*
 TODO - 21/01
-[]	RFC request
-[]	refactoring server
-[]	refactoring request
+[X]	RFC request
+[ ]	refactoring server
+[ ]	refactoring request
 */
 int main(int ac, char **av)
 {

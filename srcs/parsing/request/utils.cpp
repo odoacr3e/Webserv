@@ -17,7 +17,7 @@ bool	bodyChecker(Request &request, std::string &body, bool accept_empty)
 	if (request.getBodyLen() == 0 && \
 	request.getHeaderVal("Transfer-Encoding") != "chunked")
 		return (errorParsing(request, HTTP_CE_LENGTH_REQUIRED));
-	if (request.getBodyLen() || request.getBodyLen() != body.length())
+	if (request.getBodyLen() && request.getBodyLen() != body.length())
 		return (errorParsing(request, HTTP_CE_BAD_REQUEST, "invalid body len"));
 	return (0);
 }

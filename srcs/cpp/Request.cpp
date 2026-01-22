@@ -293,6 +293,17 @@ int	Request::fail(e_http_codes code, std::string info)
 	this->setRequestErrorBool(true);
 	return (1);
 }
+
+void	Request::manageIndex(t_conf_server *srv, t_conf_location *loc)
+{
+	if (!loc)
+	{
+		this->setUrl(this->getUrl().append(srv->index));
+	}
+	else
+		this->setUrl(this->getUrl().append(loc->index));
+}
+
 // std::map<std::string, t_conf_location>
 void	Request::findRightPath(t_conf_server *srv)
 {
@@ -301,35 +312,39 @@ void	Request::findRightPath(t_conf_server *srv)
 	std::cout << "\033[33m FINDRIGHTPATH" COLOR_RESET;
 	std::cout << "url: " << getUrl() << std::endl;
 	std::string tmpuri;
+
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
 	{
 		if ((*it).first.compare(this->getUrl().substr(0, (*it).first.length())) == 0 && \
 			(*it).first.length() > tmpuri.length())
 			tmpuri = (*it).first;
 	}
-	if (tmpuri.empty())
+	if (tmpuri.empty()) // se non trova location corretta
+	{
+		if (this->getUrl() == "/")//da spostare sopra!
+			manageIndex(srv, NULL);
 		this->setUrl(srv->root + this->getUrl());
+	}
 	else
 	{
 		/*
-			URL =		/dir/index.html
+			URL =		/dir/
 			tmpuri =	/dir/
 			alias = 	/www/var/
 
 			index.html
-			/www/var/
+			/www/var/index.html
+			&list[0 + uri[0] == '/'] che sesso che mi fai quando fai così
 		*/
 		if (!srv->location[tmpuri].alias.empty())
 		{
 			this->setUrl(this->getUrl().erase(0, tmpuri.length()));
+			if (this->getUrl().empty())
+				;//
 			this->setUrl(srv->location[tmpuri].alias.append(this->getUrl()));
-			std::cout << "ALIAS ";
 		}
 		else if (!srv->location[tmpuri].root.empty())
-		{
-			this->setUrl(srv->location[tmpuri].root + this->getUrl());//root
-			std::cout << "ROOT ";
-		}
+			this->setUrl(srv->location[tmpuri].root + this->getUrl()); //root
 		else
 			this->setUrl(srv->root + this->getUrl());
 	}

@@ -7,6 +7,7 @@ static void	parseAlias(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line);
 static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line);
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line);
+static void	parseIndex(Conf &conf, std::vector<std::string> list, int line);
 static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line);
 
@@ -24,6 +25,8 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 		parseCgiParam(conf, list, line);
 	else if (list[0] == "return")
 		parseReturn(conf, list, line);
+	else if (list[0] == "index")
+		parseIndex(conf, list, line);
 	else if (list[0] == "autoindex")
 		parseAutoindex(conf, list, line);
 	else if (list[0] == "error_page")
@@ -58,6 +61,15 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line)
 	if (list[1].rbegin()[0] == '/')
 		list[1].erase(list[1].length() - 1);
 	conf.getLocationBlock().root = list[1];
+}
+
+static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)
+{
+	if (list.size() != 2)
+		instructionError(list, line, "please give one valid path");
+	if (conf.getLocationBlock().index.empty() == false)
+		instructionWarning(list, line, "index already defined. Old is replaced");
+	conf.getLocationBlock().index = list[1];
 }
 
 static void parseCgiParam(Conf &conf, std::vector<std::string> &list, int line)

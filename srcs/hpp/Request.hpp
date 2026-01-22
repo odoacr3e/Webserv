@@ -104,6 +104,7 @@ class Request
 		bool			checkKey(std::string key);
 		int				checkHeader(void);
 
+		void			manageIndex(t_conf_server *srv, t_conf_location *loc);
 		int				fail(e_http_codes code);
 		int				fail(e_http_codes code, std::string info);
 		void			resetRequest(void);

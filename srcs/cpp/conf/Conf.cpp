@@ -48,14 +48,11 @@ Conf	&Conf::operator=(const Conf &other)
 
 void	s_conf_server::set_if_empty(Conf &conf)
 {
-	// this->location["/"] = conf.getCopyLocationBlock();
 	if (this->root.empty())
 		this->root = DEFAULT_CONF_ROOT;
 	if (this->index.empty())
 		this->index = DEFAULT_CONF_INDEX;
-	if (*this->root.rbegin() != '/')
-		this->root.push_back('/');
-	if (!this->index.empty() && !valid_file(this->root + this->index))
+	if (!this->index.empty() && !valid_file(this->root + '/' + this->index))
 		throw (Conf::ConfException("cannot open " + this->root + this->index + "\n"));
 	if (this->server_names.size() == 0)
 		this->server_names.push_back(DEFAULT_CONF_SERVNAME);

@@ -75,6 +75,7 @@ struct s_conf_location
 	std::string					path; //location /images {}
 	std::string					root; // fa append su URI (root + URI)
 	std::string					alias; // sostituisce parola (alias + URI senza parola) -> sempre con / alla fine del path di alias
+	std::string					index;
 	std::string					ret_uri;
 	std::string					ret_text;
 	int							ret_code;

@@ -298,10 +298,19 @@ void	Request::findRightPath(t_conf_server *srv)
 {
 	typedef std::map<std::string, t_conf_location> maplocation;
 	// controllo se esiste uri nelle location, altrimenti root server
+	std::string tmpuri;
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
 	{
-		;
+		if ((*it).first.compare(this->getUrl().substr(0, (*it).first.length())) == 0 && \
+			(*it).first.length() > tmpuri.length())
+			tmpuri = (*it).first;
 	}
+	if (tmpuri.empty())
+		this->setUrl(srv->root + this->getUrl());
+	// else
+	// {
+	// 	;
+	// }
 	//casi di uri
 	/*
 		location /

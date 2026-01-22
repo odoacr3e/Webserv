@@ -42,6 +42,8 @@ static void	parseAlias(Conf &conf, std::vector<std::string> &list, int line)
 		instructionError(list, line, "invalid alias path");
 	if (*list[1].rbegin() != '/')
 		instructionError(list, line, "alias must finish with /");
+	if (*(list[1].rbegin()) == '/' && *(conf.getCurrLocation().rbegin()) != '/')
+		instructionError(list, line, "alias can be present only with uri ending with '/'");
 	conf.getLocationBlock().alias = list[1];
 }
 
@@ -53,6 +55,8 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line)
 		instructionError(list, line, "invalid parameter \"root\": alias already exists");
 	if (valid_directory(list[1]) == false)
 		instructionError(list, line, "invalid root path");
+	if (list[1].rbegin()[0] == '/')
+		list[1].erase(list[1].length() - 1);
 	conf.getLocationBlock().root = list[1];
 }
 

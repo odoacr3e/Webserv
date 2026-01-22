@@ -298,6 +298,8 @@ void	Request::findRightPath(t_conf_server *srv)
 {
 	typedef std::map<std::string, t_conf_location> maplocation;
 	// controllo se esiste uri nelle location, altrimenti root server
+	std::cout << "\033[33m FINDRIGHTPATH" COLOR_RESET;
+	std::cout << "url: " << getUrl() << std::endl;
 	std::string tmpuri;
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
 	{
@@ -307,10 +309,31 @@ void	Request::findRightPath(t_conf_server *srv)
 	}
 	if (tmpuri.empty())
 		this->setUrl(srv->root + this->getUrl());
-	// else
-	// {
-	// 	;
-	// }
+	else
+	{
+		/*
+			URL =		/dir/index.html
+			tmpuri =	/dir/
+			alias = 	/www/var/
+
+			index.html
+			/www/var/
+		*/
+		if (!srv->location[tmpuri].alias.empty())
+		{
+			this->setUrl(this->getUrl().erase(0, tmpuri.length()));
+			this->setUrl(srv->location[tmpuri].alias.append(this->getUrl()));
+			std::cout << "ALIAS ";
+		}
+		else if (!srv->location[tmpuri].root.empty())
+		{
+			this->setUrl(srv->location[tmpuri].root + this->getUrl());//root
+			std::cout << "ROOT ";
+		}
+		else
+			this->setUrl(srv->root + this->getUrl());
+	}
+	std::cout << "RESULT " << this->getUrl() << " " << std::endl;
 	//casi di uri
 	/*
 		location /

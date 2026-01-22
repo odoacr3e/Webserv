@@ -99,6 +99,7 @@ class Request
 		void			setStatusCode(e_http_codes status_code);
 		void			setRequestErrorBool(bool error);
 		void			setBodyLen(size_t len);
+		void			findRightPath(t_conf_server *srv);
 		bool			checkVal(std::string key);
 		bool			checkKey(std::string key);
 		int				checkHeader(void);

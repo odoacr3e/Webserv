@@ -129,6 +129,8 @@ std::string	create_http(Client &client) // create http va messo anche percorso p
 	std::string	url = client.getRequest().getUrl();
 	std::cout << "HTTP FUNC ERROR: " << (client.getRequest().getRequestErrorBool() == true ? "true" : "false") << std::endl;
 	std::cout << "HTTP FUNC STATUS: " << client.getRequest().getStatusCode() << std::endl;
+	//create http
+	//  /index.html
 	if (url.length() > 4 && url.substr(url.length() - 4) == ".css")
 	{
 		std::cout << "\033[1;31mERROR: " << (client.getRequest().getRequestErrorBool() == true ? "true" : "false") << "\033[0m" << std::endl;
@@ -206,7 +208,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				// (void)buffer;
 				// this->_clients[(*it).fd]->getRequest() = fileToString();
 				Request	&request = this->_clients[(*it).fd]->getRequest();
-				// std::cout << buffer << std::endl; 
+				std::cout << buffer << std::endl;
 				//leggo la richiesta inviata dal client
 				// if (requestParsing(request, fileToString("test_request")))
 				if (requestParsing(request, buffer))
@@ -215,25 +217,20 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 					std::cout << "errore\n";
 					return ;
 				}
-				// std::cout << request << std::endl;
 				convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
 				if ((*this->_srvnamemap).count(request.getHost()) == 0)
 				{
-					//this->_clients[(*it).fd]->getRequest().setStatusCode(HTTP_CE_BAD_REQUEST);
 					request.setRequestErrorBool(true);
-					std::cout << "Error bool: " << (request.getRequestErrorBool() == true ? "true" : "false") << std::endl;
-					std::cout << "status code: " << request.getStatusCode() << std::endl;
 					request.setStatusCode(HTTP_OK);
-					// return ;
+					std::cout << "SERVER NOT FOUND\n" << std::endl;
 				}
-				if ((*this->_srvnamemap).count(request.getHost()) > 0)
+				else
 				{
+					request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
+					//funziona che trova location giusta
 					std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << request.getHost() << "\033[0m" << std::endl;
 					std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[request.getHost()] << std::endl;
 				}
-				else
-					std::cout << "SERVER NOT FOUND\n" << std::endl;
-				// una volta parsata la richiesta HTTP va fatta la risposta vedendo in base al client uale server 
 				(*it).events = POLLOUT;
 			}
 		}

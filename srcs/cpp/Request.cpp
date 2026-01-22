@@ -293,6 +293,29 @@ int	Request::fail(e_http_codes code, std::string info)
 	this->setRequestErrorBool(true);
 	return (1);
 }
+// std::map<std::string, t_conf_location>
+void	Request::findRightPath(t_conf_server *srv)
+{
+	typedef std::map<std::string, t_conf_location> maplocation;
+	// controllo se esiste uri nelle location, altrimenti root server
+	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
+	{
+		;
+	}
+	//casi di uri
+	/*
+		location /
+		location /cartella
+		1) uri = "/"
+			pseudocodice
+		2) uri = "/index.html"
+			pseudocodice
+		3) uri = "/cartella/index.html"
+			pseudocodice
+		4) uri = "/cartella1/cartella2/index.html"
+			pseudocodice
+	*/
+}
 
 void	Request::printHeader(void)
 {

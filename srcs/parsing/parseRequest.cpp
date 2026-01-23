@@ -8,6 +8,7 @@ static int	lineParsing(Request &request, std::string line);
 static int	headerParsing(Request &request, std::istringstream &header);
 static int	bodyParsing(Request &request, std::istringstream &header);
 bool		bodyChecker(Request &request, std::string &body, bool accept_empty);
+bool		getNextFirstLineField(std::string &line, std::string &field);
 std::string	removeWhitespaces(std::string line);
 
 int	requestParsing(Request &request, std::string input)
@@ -27,28 +28,25 @@ int	requestParsing(Request &request, std::string input)
 	return (0);
 }
 
-// REVIEW Questa funzione va a prendere la prima riga dell'header per stabilire il tipo di 
-// connessione e ricava il metodo, l'url dell'oggetto della connessione e la 
-// versione http. Questo perchè in base al metodo si va a stabilire il tipo
-// di richiesta e quindi i membri che ci aspettiamo di trovare.
+/*REVIEW
+	Questa funzione va a prendere la prima riga dell'header per stabilire 
+	il tipo di connessione.
+	ricava il metodo, l'url dell'oggetto della connessione e la versione http.
+	Questo perchè in base al metodo si va a stabilire il tipo
+	di richiesta e quindi i membri che ci aspettiamo di trovare.
+*/
 static int	lineParsing(Request &request, std::string line)
 {
 	std::string	field;
 
-	if (trim_equal_left(line, ' ') == 1)
-		return (request.fail(HTTP_CE_BAD_REQUEST, "Method"));
-	field = line;
-	trim_diff_right(field, ' ');
+	if (getNextFirstLineField(line, field) == 1)
+		return (request.fail(HTTP_CE_BAD_REQUEST, "Method Format"));
 //SECTION - method
 	request.setMethod(field);
 	if (request.getMethod() == UNDEFINED)
-		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "method " \
-		+ request.getMethod()));
-	trim_diff_left(line, ' ');
-	if (!line[0] || !line[1] || trim_equal_left(line, ' ') == 1)
-		return (request.fail(HTTP_CE_BAD_REQUEST, "Format"));
-	field = line;
-	trim_diff_right(field, ' ');
+		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "method " + field));
+	if (getNextFirstLineField(line, field) == 1)
+		return (request.fail(HTTP_CE_BAD_REQUEST, "Url Format"));
 //SECTION - URI
 	if (field[0] != '/')
 		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "No origin form"));
@@ -57,20 +55,20 @@ static int	lineParsing(Request &request, std::string line)
 	request.setUrl(field);
 	if (request.getUrl().empty() == true)
 		return (request.fail(HTTP_CE_BAD_REQUEST, "URI"));
-	trim_diff_left(line, ' ');
-	if (!line[0] || !line[1] || trim_equal_left(line, ' ') == 1)
-		return (request.fail(HTTP_CE_BAD_REQUEST, "Format"));
+	if (getNextFirstLineField(line, field) == 1)
+		return (request.fail(HTTP_CE_BAD_REQUEST, "HTTP version Format"));
 //SECTION - version
 	if (line != "HTTP/1.1\r")
-		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "" \
-		+ line));
+		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "version " + line));
 	request.setHttpVersion("HTTP/1.1");
 	return (0);
 }
 
-// REVIEW - Questa funzione va a controllare il formato dell'header della 
-// richiesta di connessione e si assicura che ci siano tutti i membri necessari in
-// in base ai metodi che dobbiamo gestire -GET -POST -DELETE
+/*REVIEW - 
+	Questa funzione va a controllare il formato dell'header della 
+	richiesta di connessione e si assicura che ci siano tutti i membri necessari in
+	in base ai metodi che dobbiamo gestire -GET -POST -DELETE -HEAD
+*/
 static int	headerParsing(Request &request, std::istringstream &header)
 {
 	std::string		line;
@@ -91,8 +89,6 @@ static int	headerParsing(Request &request, std::istringstream &header)
 		sep = line.find(':');
 		if (sep == std::string::npos)
 			return (request.fail(HTTP_CE_BAD_REQUEST, "Missing : in head"));
-		// if (sep != line.find_first_not_of(':'))
-		// 	return (request.fail(HTTP_CE_BAD_REQUEST, "Multiple :"));
 		key = line.substr(0, sep);
 		if (find_first_whitespace(key) != key.length())
 			return (request.fail(HTTP_CE_BAD_REQUEST, "Key with WS"));

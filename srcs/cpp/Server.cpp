@@ -118,52 +118,64 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
-std::string	create_http(Client &client) // create http va messo anche percorso per il file
+static void	choose_file(Client &client, std::string &type, std::string fname, std::fstream &file)
+{
+	std::string		url;
+	
+	type.erase(0, 1);
+	type = "text/" + type;
+	url = client.getRequest().getUrl().erase(0, 1);
+
+	if (client.getRequest().getStatusCode() != 200)
+	{
+		file.open(("www/var/errors/standard/" + fname).c_str());
+		std::cout << "www/var/errors/standard/" + fname << std::endl;
+	}
+	else if (client.getRequest().getRequestErrorBool())
+	{
+		file.open(("www/var/errors/dns/" + fname).c_str());
+		std::cout << "www/var/errors/dns/" + fname << std::endl;
+	}
+	else
+	{
+		file.open(url.c_str());
+		if (file.fail())
+		{
+			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + " file not found!");
+			file.open(("www/var/errors/standard/" + fname).c_str());
+			std::cout << "www/var/errors/standard/" + fname << std::endl;
+		}
+		else
+			std::cout << url << std::endl;
+	}
+}
+
+std::string	create_html(Client &client) // create html va messo anche percorso per il file
 {
 	std::string	html;
 	std::fstream file;
 	std::string	http_codes_str[] = VALID_HTTP_STR;
-	std::string	line;
 	std::string	body;
-	std::string	conttype;
+	std::string	type;
 	std::string	url = client.getRequest().getUrl().erase(0, 1);
+
+	if (url.find_last_of('.') != std::string::npos)
+		type = url.substr(url.find_last_of('.'));
+	if (type == ".css")
+		choose_file(client, type, "style.css", file);
+	else if (type == ".html")
+		choose_file(client, type, "default.html", file);
+	else
+		client.getRequest().fail(HTTP_CE_NOT_FOUND, "File extension not recognized!");
+	body = file_opener(file);
 	std::cout << "HTTP FUNC ERROR: " << (client.getRequest().getRequestErrorBool() == true ? "true" : "false") << std::endl;
 	std::cout << "HTTP FUNC STATUS: " << client.getRequest().getStatusCode() << std::endl;
 	std::cout << "URL: " << url << std::endl;
-	//create http
-	//  /index.html
-	if (url.length() > 4 && url.substr(url.length() - 4) == ".css")
-	{
-		//std::cout << "\033[1;31mERROR: " << (client.getRequest().getRequestErrorBool() == true ? "true" : "false") << "\033[0m" << std::endl;
-		conttype = "text/css";
-		if (client.getRequest().getStatusCode() != 200)
-			file.open("www/var/errors/default/default.css");
-		else if (client.getRequest().getRequestErrorBool())
-			file.open("www/var/errors/dns/style.css");
-		else
-			file.open(url.c_str());
-	}
-	else
-	{
-		conttype = "text/html";
-		if (client.getRequest().getStatusCode() != 200)
-			file.open("www/var/errors/default/default.html");
-		else if (client.getRequest().getRequestErrorBool())
-			file.open("www/var/errors/dns/dns_error.html");
-		else
-			file.open(url.c_str());
-	}
-	if (file.is_open())
-	{
-		while (std::getline(file, line))
-			body += line + "\n";
-		file.close();
-	}
 	html += "HTTP/1.1 ";
 	html += ft_to_string(client.getRequest().getStatusCode());
 	html += " " + http_codes_str[checkValidCode(client.getRequest().getStatusCode())];
 	html += "\r\n";
-	html += "Content-Type: " + conttype + "\r\n";
+	html += "Content-Type: " + type + "\r\n";
 	html += "Content-Length: ";
 	html += ft_to_string(body.length() + 1);
 	html += "\r\n\r\n";
@@ -196,7 +208,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				static int	n;
 				//da mettere in una funzione a parte
 				std::cout << "chiudo connessione " << n++ << std::endl;
-				std::cout << "----------------------------------------------------------\n";
+				std::cout << "\033[2J\033[H";
 				close((*it).fd);
 				if (this->_clients[(*it).fd])
 				{
@@ -220,6 +232,9 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 					std::cout << "errore\n";
 					return ;
 				}
+				if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < \
+					request.getBodyLen())
+						request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 				convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
 				if ((*this->_srvnamemap).count(request.getHost()) == 0)
 				{
@@ -241,7 +256,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		{
 			// Rispondo
 			std::cout << " ----Sent message----" << std::endl;
-			std::string	html = create_http(*(this->_clients[(*it).fd]));
+			std::string	html = create_html(*(this->_clients[(*it).fd]));
 			send((*it).fd, html.c_str(), html.length(), 0);
 			(*it).events = POLLIN;
 		}

@@ -1,0 +1,219 @@
+	<!-- <!DOCTYPE html>
+<html lang="it">
+<head>
+<title>My C++ Web Server</title>
+<style type="text/css">
+	* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+	}
+
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+		background: #0f172a;
+		color: #e5e7eb;
+		line-height: 1.6;
+	}
+
+	/* Header */
+	header {
+		text-align: center;
+		padding: 40px 20px;
+		background: #020617;
+		border-bottom: 1px solid #1e293b;
+	}
+
+	header h1 {
+		font-size: 2.5rem;
+		margin-bottom: 10px;
+	}
+
+	header p {
+		color: #94a3b8;
+	}
+
+	/* Main content */
+	main {
+		max-width: 900px;
+		margin: 40px auto;
+		padding: 0 20px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 20px;
+	}
+
+	/* Cards */
+	.card {
+		background: #020617;
+		border: 1px solid #1e293b;
+		border-radius: 10px;
+		padding: 20px;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+	}
+
+	.card h2 {
+		margin-bottom: 10px;
+		font-size: 1.4rem;
+	}
+
+	.card ul {
+		list-style: none;
+	}
+
+	.card li {
+		padding: 5px 0;
+	}
+
+	/* Status */
+	.ok {
+		color: #22c55e;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+
+	/* Footer */
+	footer {
+		text-align: center;
+		padding: 20px;
+		color: #94a3b8;
+		font-size: 0.9rem;
+		border-top: 1px solid #1e293b;
+	}
+</style>
+</head>
+<body>
+<h2>Errore di default!</h2>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<title>My C++ Web Server</title>
+<meta charset="utf-8">
+
+<style type="text/css">
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+		background: #0f172a;
+		color: #e5e7eb;
+		line-height: 1.6;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	header {
+		text-align: center;
+		padding: 40px 20px;
+		background: #020617;
+		border-bottom: 1px solid #1e293b;
+	}
+
+	header h1 {
+		font-size: 2.5rem;
+		margin-bottom: 10px;
+	}
+
+	header p {
+		color: #94a3b8;
+	}
+
+	main {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+	}
+
+	.card {
+		background: #020617;
+		border: 1px solid #1e293b;
+		border-radius: 12px;
+		padding: 30px;
+		max-width: 500px;
+		width: 100%;
+		text-align: center;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+	}
+
+	.card h2 {
+		font-size: 2rem;
+		margin-bottom: 10px;
+	}
+
+	.card p {
+		color: #94a3b8;
+		margin-bottom: 25px;
+	}
+
+	.error-code {
+		font-size: 4rem;
+		font-weight: bold;
+		color: #ef4444;
+		margin-bottom: 10px;
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 10px 20px;
+		border-radius: 8px;
+		background: #2563eb;
+		color: #fff;
+		text-decoration: none;
+		font-weight: bold;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+
+	.btn:hover {
+		background: #1d4ed8;
+		transform: translateY(-2px);
+	}
+
+	footer {
+		text-align: center;
+		padding: 20px;
+		color: #94a3b8;
+		font-size: 0.9rem;
+		border-top: 1px solid #1e293b;
+	}
+</style>
+</head>
+
+<body>
+
+<header>
+	<h1>My C++ Web Server</h1>
+	<p>Minimal • Fast • Handmade</p>
+</header>
+
+<main>
+	<div class="card">
+		<div class="error-code">⚠️</div>
+		<h2>Errore di default</h2>
+		<p>
+			Il server ha ricevuto una richiesta non valida oppure
+			la risorsa non è disponibile.
+		</p>
+		<a href="/" class="btn">Torna alla home</a>
+	</div>
+</main>
+
+<footer>
+	© 2026 • Custom C++ HTTP Server
+</footer>
+
+</body>
+</html>

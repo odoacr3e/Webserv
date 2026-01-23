@@ -53,11 +53,12 @@ std::string	ft_to_string(T data)
 int			requestParsing(Request &request, std::string input);
 
 //SEXTION - utils
-std::string	removeWhitespaces(std::string line);
-size_t		find_first_not_whitespace(std::string line);
-size_t		find_first_whitespace(std::string line);
-bool		is_there_whitespaces(std::string line);
-bool 		charFinder(const std::string literal, int(*check)(int));
+std::string removeWhitespaces(std::string line);
+size_t	    find_first_not_whitespace(std::string line);
+size_t      find_first_whitespace(std::string line);
+bool        is_there_whitespaces(std::string line);
+bool        charFinder(const std::string literal, int(*check)(int));
+std::string file_opener(std::fstream &file);
 
 size_t		find_first_special_char(std::string line);
 bool		is_there_special_chars(std::string line);

@@ -51,9 +51,9 @@ void	get_conf_path(int ac, char **av, std::string &path)
 /*
 TODO - 23/01
 [X]	refactoring request
-[ ]	fare un .html con bottone che richiede uri specifica
-[ ]	risolverlo con root, alias, index
-[ ]	dare errore se non viene trovato
+[X]	risolverlo con root, alias, index
+[X]	dare errore se non viene trovato
+[X]	fare un .html con bottone che richiede uri specifica
 [ ]	parsing accept
 */
 int main(int ac, char **av)

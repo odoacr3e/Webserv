@@ -3,10 +3,8 @@
 
 # include "../../includes/ether.hpp"
 # include "Request.hpp"
-// # include "Response.hpp"
 
 class	Request;
-class	Response;
 
 class Client
 {
@@ -14,7 +12,6 @@ class Client
 		int 		_sockfd;
 		int			_srvfd;
 		Request		_request;
-		// Response	_response;
 
 	public:
 		Client(int sockfd, int srvfd);

@@ -150,6 +150,8 @@ int	Request::fail(e_http_codes code, std::string info)
 			SWITCH_LOG(info, "ClientError: Media type of requested file is unknown");
 		case HTTP_CE_IM_TEAPOT:
 			SWITCH_LOG(info, "ClientError: Want a cup of tea?" CHARIZARD);
+		case HTTP_CE_CONTENT_UNPROCESSABLE:
+			SWITCH_LOG(info, "ClientError: request cannot be processed");
 		case HTTP_SE_NOT_IMPLEMENTED:
 			SWITCH_LOG(info, "ServerError: Not implemented -->");
 		default :
@@ -168,7 +170,7 @@ void	Request::findRightPath(t_conf_server *srv)
 	typedef std::map<std::string, t_conf_location> maplocation;
 	// controllo se esiste uri nelle location, altrimenti root server
 	std::cout << "\033[33m FINDRIGHTPATH: " COLOR_RESET;
-	std::cout << "url: " << getUrl() << " ";
+	std::cout << "url: " << getUrl() << std::endl;
 	std::string tmpuri;
 
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
@@ -199,14 +201,14 @@ void	Request::findRightPath(t_conf_server *srv)
 			this->setUrl(this->getUrl().erase(0, tmpuri.length()));
 			if (this->getUrl().empty())
 				;//
-			this->setUrl(srv->location[tmpuri].alias.append(this->getUrl()));
+			this->setUrl(srv->location[tmpuri].alias + this->getUrl());
 		}
 		else if (!srv->location[tmpuri].root.empty())
 			this->setUrl(srv->location[tmpuri].root + this->getUrl()); //root
 		else
 			this->setUrl(srv->root + this->getUrl());
 	}
-	std::cout << "---> RESULT: " << this->getUrl() << " " << std::endl << std::endl;
+	std::cout << "\t---> RESULT: " << this->getUrl() << " " << std::endl << std::endl;
 	//casi di uri
 	/*
 		location /

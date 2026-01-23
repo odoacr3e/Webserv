@@ -107,6 +107,21 @@ int checkValidCode(int code)
 	return (HTTP_UNKNOWN);
 }
 
+std::string	file_opener(std::fstream &file)
+{
+	std::string		line;
+	std::string		ret;
+
+	if (file.is_open())
+	{
+		while (std::getline(file, line))
+			ret += line + "\n";
+		file.close();
+	}
+	else
+		std::cout << "Passed file is not opened in file_opener call!\n";
+	return (ret);
+}
 //
 //     /{  :; http    xvzv   dsdcsdf 
 // {

@@ -196,6 +196,8 @@ void	Request::findRightPath(t_conf_server *srv)
 			/www/var/index.html
 			&list[0 + uri[0] == '/'] che sesso che mi fai quando fai così
 		*/
+		if (this->getUrl().rbegin()[0] == '/')//da spostare sopra!
+			manageIndex(srv, NULL);
 		if (!srv->location[tmpuri].alias.empty())
 		{
 			this->setUrl(this->getUrl().erase(0, tmpuri.length()));
@@ -226,19 +228,14 @@ void	Request::findRightPath(t_conf_server *srv)
 
 void	Request::manageIndex(t_conf_server *srv, t_conf_location *loc)
 {
-	// no location: prendi index / autoindex del server
+	// no location:
 	if (!loc)
-	{
-		if (srv->autoindex == true)
-			;//autoindex function
-		else
-			this->setUrl(this->getUrl().append(srv->index));
-		return ;
-	}
+		return(this->setUrl(this->getUrl().append(srv->index)));
+	// casistiche scritte su Notion
 	if (loc->index.empty() == false)
 		this->setUrl(this->getUrl().append(loc->index));
 	else if (loc->autoindex == true)
-		;//autoindex function
+		this->setUrl(this->getUrl().append("autoindex/autoindex.html"));
 	else
 		;//FORBIDDEN: autoindex e location non settate
 }

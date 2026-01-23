@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Index of {{PATH}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #020617;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #1e293b;
+            --hover: #020617;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #020617);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        header span {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #020617;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 8px;
+            opacity: 0.85;
+        }
+
+        .footer {
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(2),
+            td:nth-child(2),
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>Index of <span>{{PATH}}</span></h1>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Ultima modifica</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- Parent directory -->
+            <tr>
+                <td>
+                    <span class="icon">📁</span>
+                    <a href="../">..</a>
+                </td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <!-- File / Directory example -->
+            <tr>
+                <td>
+                    <span class="icon">📁</span>
+                    <a href="docs/">docs/</a>
+                </td>
+                <td>-</td>
+                <td>2026-01-22 14:10</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                    <a href="file.txt">file.txt</a>
+                </td>
+                <td>12 KB</td>
+                <td>2026-01-21 09:45</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Webserver autoindex • {{SERVER_NAME}}
+    </div>
+</div>
+</body>
+</html>

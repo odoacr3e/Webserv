@@ -118,13 +118,10 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
-static void	choose_file(Client &client, std::string &type, std::string fname, std::fstream &file)
+static void	choose_file(Client &client, std::string &type, std::string fname, std::fstream &file, std::string url)
 {
-	std::string		url;
-	
 	type.erase(0, 1);
 	type = "text/" + type;
-	url = client.getRequest().getUrl().erase(0, 1);
 
 	if (client.getRequest().getStatusCode() != 200)
 	{
@@ -150,7 +147,7 @@ static void	choose_file(Client &client, std::string &type, std::string fname, st
 	}
 }
 
-std::string	create_html(Client &client) // create html va messo anche percorso per il file
+std::string	createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	std::string	html;
 	std::fstream file;
@@ -162,9 +159,9 @@ std::string	create_html(Client &client) // create html va messo anche percorso p
 	if (url.find_last_of('.') != std::string::npos)
 		type = url.substr(url.find_last_of('.'));
 	if (type == ".css")
-		choose_file(client, type, "style.css", file);
+		choose_file(client, type, "style.css", file, url);
 	else if (type == ".html")
-		choose_file(client, type, "default.html", file);
+		choose_file(client, type, "index.html", file, url);
 	else
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, "File extension not recognized!");
 	body = file_opener(file);
@@ -229,11 +226,11 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				if (requestParsing(request, buffer))
 				{
 					(*it).events = POLLOUT;
+					//da settare status code corretto senza fare return
 					std::cout << "errore\n";
 					return ;
 				}
-				if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < \
-					request.getBodyLen())
+				if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 						request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 				convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
 				if ((*this->_srvnamemap).count(request.getHost()) == 0)
@@ -243,12 +240,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 					std::cout << "SERVER NOT FOUND\n" << std::endl;
 				}
 				else
-				{
 					request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
-					//funziona che trova location giusta
-					//std::cout << "\033[33m" << "RICHIESTA CLIENT GESTITA DA SERVER " << request.getHost() << "\033[0m" << std::endl;
-					//std::cout << "SERVER DI RIFERIMENTO: " << (*this->_srvnamemap)[request.getHost()] << std::endl;
-				}
 				(*it).events = POLLOUT;
 			}
 		}
@@ -256,7 +248,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		{
 			// Rispondo
 			std::cout << " ----Sent message----" << std::endl;
-			std::string	html = create_html(*(this->_clients[(*it).fd]));
+			std::string	html = createResponse(*(this->_clients[(*it).fd]));
 			send((*it).fd, html.c_str(), html.length(), 0);
 			(*it).events = POLLIN;
 		}

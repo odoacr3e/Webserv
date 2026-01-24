@@ -117,7 +117,6 @@
         }
     </style>
 </head>
-
 <body>
 <div class="container">
     <header>
@@ -127,47 +126,17 @@
     <table>
         <thead>
             <tr>
-                <th>{NAME}</th>
+                <th>Nome</th>
                 <th>Dimensione</th>
                 <th>Ultima modifica</th>
             </tr>
         </thead>
         <tbody>
-
-            <!-- Parent directory -->
-            <tr>
-                <td>
-                    <span class="icon">📁</span>
-                    <a href="../">..</a>
-                </td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-
-            <!-- File / Directory example -->
-            <tr>
-                <td>
-                    <span class="icon">📁</span>
-                    <a href="docs/">docs/</a>
-                </td>
-                <td>-</td>
-                <td>2026-01-22 14:10</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="file.txt">file.txt</a>
-                </td>
-                <td>12 KB</td>
-                <td>2026-01-21 09:45</td>
-            </tr>
-
         </tbody>
     </table>
 
     <div class="footer">
-        Webserver autoindex • {{SERVER_NAME}}
+        Webserver autoindex • {SERVER_NAME}
     </div>
 </div>
 </body>

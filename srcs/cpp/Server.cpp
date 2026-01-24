@@ -166,7 +166,8 @@ static void	choose_file(Client &client, std::string &type, std::string fname, st
 	}
 }
 
-std::string	test(std::string url)
+// 
+dirent	*test(std::string url)
 {
 	static DIR	*dir;
 	dirent		*content;
@@ -176,14 +177,14 @@ std::string	test(std::string url)
 		if (dir)
 			closedir(dir);
 		dir = NULL;
-		return ("");
+		return (NULL);
 	}
 	if (!dir)
 	{
 		url.erase(0, 1);
 		dir = opendir(url.c_str());
 		if (!dir)
-			return ("");
+			return (NULL);
 	}
 	printf("dir %s aperta!\n", url.c_str());
 	content = readdir(dir);
@@ -192,16 +193,122 @@ std::string	test(std::string url)
 		closedir(dir);
 		printf("dir %s chiusa!\n", url.c_str());
 		dir = NULL;
-		return ("");
+		return (NULL);
 	}
 	printf("content name: %s, content type: %s\n", content->d_name, (content->d_type == 4) ? "folder" : "file");
-	return (content->d_name);
+	return (content);
+}
+
+/*
+	createAutoIndex
+	1)	statico
+	2)	WHILE con listDirectories
+
+	
+	listDirectories
+	1)	mainipolare var
+	3)	tornare stringstream
+*/
+
+// std::string formatTimestamp(time_t timestamp) 
+// {
+//     struct tm timeinfo;
+
+//     localtime_r(&timestamp, &timeinfo);
+
+//     std::ostringstream oss;
+//     oss << (timeinfo.tm_year + 1900) << "-"        // anni
+//         << (timeinfo.tm_mon + 1) << "-"           // mesi 1-12
+//         << timeinfo.tm_mday << " "
+//         << timeinfo.tm_hour << ":"
+//         << timeinfo.tm_min << ":"
+//         << timeinfo.tm_sec;
+
+//     return oss.str();
+// }
+
+// bool isLeap(int year) {
+//     return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+// }
+
+// std::string formatTime(time_t t) 
+// {
+//     const int seconds_per_day = 86400;
+//     int days = t / seconds_per_day;
+//     int rem_seconds = t % seconds_per_day;
+
+//     int year = 1970;
+//     while (true) {
+//         int days_in_year = isLeap(year) ? 366 : 365;
+//         if (days >= days_in_year) {
+//             days -= days_in_year;
+//             year++;
+//         } else break;
+//     }
+
+//     int month_lengths[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+//     if (isLeap(year)) month_lengths[1] = 29;
+
+//     int month = 0;
+//     while (days >= month_lengths[month]) {
+//         days -= month_lengths[month];
+//         month++;
+//     }
+
+//     int day = days + 1; // day of month
+//     int hour = rem_seconds / 3600;
+//     int minute = (rem_seconds % 3600) / 60;
+//     int second = rem_seconds % 60;
+
+//     std::ostringstream oss;
+//     oss << year << "-" 
+//         << (month + 1) << "-" 
+//         << day << " "
+//         << hour << ":" 
+//         << minute << ":" 
+//         << second;
+//     return oss.str();
+// }
+
+
+void listDirectories(std::string &body, dirent *cont)
+{
+	std::ifstream var("www/var/autoindex/var.html");
+	std::string line;
+	std::string	s_cont;
+	struct stat	info;
+
+	s_cont = (std::string)cont->d_name + (cont->d_type == 8 ? "" : "/");
+	stat(cont->d_name, &info);
+	if (var.fail())
+	{
+		std::cout << "Could not open html file!\n";
+		return ;
+	}
+	while(std::getline(var, line))
+	{
+		line.append("\n");
+		size_t pos = line.find("href=\"");
+		if (pos != std::string::npos)
+			line.replace(pos, 6, "href=\"" + s_cont);
+		pos = line.find("{NAME}");
+		if (pos != std::string::npos)
+			line.replace(pos, 6, s_cont);
+		pos = line.find("{SIZE}");
+		if (pos != std::string::npos)
+			line.replace(pos, 6, ft_to_string(info.st_size) + " byte");
+		pos = line.find("{MODIFY}");
+		if (pos != std::string::npos)
+			line.replace(pos, 8, ft_to_string(info.st_mtim.tv_sec));
+		body += line;
+	}
 }
 
 void	createAutoindex(Client &client, std::string &body)
 {
 	std::ifstream file("www/var/autoindex/autoindex.html");
 	std::string line;
+	dirent		*content;
 
 	test(client.getRequest().getUrl());
 	while (std::getline(file, line))
@@ -209,16 +316,28 @@ void	createAutoindex(Client &client, std::string &body)
 		line.push_back('\n');
 		if (line.find("{PATH}")	!= std::string::npos)
 			body += line.replace(line.find('{'), 6, client.getRequest().getUrl());
-		else if (line.find("{NAME}") != std::string::npos)
-		{
-			std::string src(test(client.getRequest().getUrl()));
-			body += line.replace(line.find("{NAME}"), 6, src);
-		}
+		else
+			body += line;
+		if (line.find("<tbody>") != std::string::npos)
+			break ;
+	}
+	content = test(client.getRequest().getUrl());
+	while (content)
+	{
+		listDirectories(body, content);
+		content = test(client.getRequest().getUrl());
+	}
+	while (std::getline(file, line))
+		if (line.find("</tbody>") != std::string::npos)
+			break ;
+	body += line;
+	while (std::getline(file, line))
+	{
+		if (line.find("{SERVER_NAME}")	!= std::string::npos)
+			body += line.replace(line.find('{'), 13, "3 UOMINI E 1 WEBSERVER");
 		else
 			body += line;
 	}
-	std::cout << body << "\n";
-	test("");
 }
 
 std::string	createResponse(Client &client) // create html va messo anche percorso per il file

@@ -76,6 +76,8 @@ headermap	&Request::getHeader()
 	return (this->_header);
 }
 
+
+
 //ritorna il valore della chiave, o stringa vuota se non esiste
 std::string	Request::getHeaderVal(std::string key)
 {

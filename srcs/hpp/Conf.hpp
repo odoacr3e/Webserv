@@ -13,6 +13,7 @@ typedef std::vector<std::pair<std::string, int> >	IpPortVector;
 typedef std::pair<std::string, int>	IpPortPair;
 typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
 typedef std::vector<std::pair<std::string, std::string> >	CgiParam;
+typedef std::map<int, std::string> errPages;
 
 //SECTION - default conf settings
 
@@ -145,6 +146,9 @@ class Conf
 		
 		//SECTION - SrvNameMap
 		SrvNameMap		&getSrvNameMap();
+
+		//SECTION - getErrorPages
+		const errPages	&getErrPages() const;
 		
 		//SECTION - setters (utils/conf/setter.cpp)
 		

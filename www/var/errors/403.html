@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<title>403 Forbidden</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			background: #0f172a;
+			color: #e5e7eb;
+			line-height: 1.6;
+		}
+
+		header {
+			text-align: center;
+			padding: 40px 20px;
+			background: #020617;
+			border-bottom: 1px solid #1e293b;
+		}
+
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+		}
+
+		header p {
+			color: #94a3b8;
+		}
+
+		main {
+			max-width: 900px;
+			margin: 40px auto;
+			padding: 0 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 20px;
+		}
+
+		.card {
+			background: #020617;
+			border: 1px solid #1e293b;
+			border-radius: 10px;
+			padding: 20px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+		}
+
+		.card h2 {
+			margin-bottom: 10px;
+			font-size: 1.4rem;
+		}
+
+		footer {
+			text-align: center;
+			padding: 20px;
+			color: #94a3b8;
+			font-size: 0.9rem;
+			border-top: 1px solid #1e293b;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>403 - Forbidden</h1>
+		<p>Accesso negato alla risorsa richiesta</p>
+	</header>
+
+	<main>
+		<div class="card">
+			<h2>Access Denied</h2>
+			<p>
+				Il server ha ricevuto correttamente la richiesta,  
+				ma non sei autorizzato ad accedere a questa risorsa.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		Error 403 - 3 Uomini e 1 web server
+	</footer>
+
+</body>
+</html>

@@ -23,32 +23,6 @@ class Client;
 
 class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 {
-	/*
-		blocco server 1
-		{
-		listen 127.0.0.1:9001;# fd 0
-		listen 127.0.0.2:9002;# fd 1
-		listen 127.0.0.3:9003;# fd 2
-		listen 127.0.0.4:9004;# fd 3
-		}
-
-		blocco server 2
-		{
-		listen 127.0.0.5:9005;# fd 4
-		listen 127.0.0.6:9006;# fd 5
-		listen 127.0.0.7:9007;# fd 6
-		listen 127.0.0.8:9008;# fd 7
-		}
-
-		blocco server 1 --> fd: 0,1,2,3
-		blocco server 2 --> fd: 4,5,6,7
-
-		&blocco server 1
-		&blocco server 2
-
-		connessione fd 2
-		fd 2 ---> &blocco server 1
-	*/
 	private:
 		std::vector<struct pollfd>		_addrs; //pollfd per poll(), una struct per ogni ip:porta in ascolto
 		std::map<int, Client *>			_clients;
@@ -68,6 +42,10 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		SrvNameMap		&getSrvNameMap() const;
 
 		void			printServerConfiguration(Conf &conf, SrvNameMap::iterator it) const;
+		void			choose_file(Client &client, std::string &type, std::string fname, std::fstream &file, std::string url);
+		void			createAutoindex(Client &client, std::string &body);
+		std::string		createResponse(Client &client);
+		std::string		checkErrorPages(Request &request);
 };
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);

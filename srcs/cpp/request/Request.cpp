@@ -180,7 +180,7 @@ void	Request::findRightPath(t_conf_server *srv)
 			(*it).first.length() > tmpuri.length())
 			tmpuri = (*it).first;
 	}
-	if (tmpuri.empty()) // se non trova location corretta
+	if (tmpuri.empty())
 	{
 		if (this->getUrl() == "/")
 			manageIndex(srv, NULL);
@@ -218,14 +218,12 @@ void	Request::findRightPath(t_conf_server *srv)
 
 void	Request::manageIndex(t_conf_server *srv, t_conf_location *loc)
 {
-	// no location:
 	if (!loc)
 		return(this->setUrl(this->getUrl().append(srv->index)));
-	// casistiche scritte su Notion
 	if (loc->index.empty() == false)
 		this->setUrl(this->getUrl().append(loc->index));
 	else if (loc->autoindex == true)
 		this->_autoindex = true;
 	else
-		this->fail(HTTP_CE_FORBIDDEN, "undefined autoindex and index parameters");//FORBIDDEN: autoindex e location non settate
+		this->fail(HTTP_CE_FORBIDDEN, "undefined autoindex and index parameters");
 }

@@ -116,7 +116,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	std::fstream	file;
 	std::string		body;
 	std::string		type("text/");
-	std::string		url = client.getRequest().getUrl().erase(0, 1);
+	std::string		url = client.getRequest().getUrl();
 
 	//TODO Va fatta una funzione che cambi il content-type in base al tipo di file
 	if (url.find_last_of('.') != std::string::npos)
@@ -125,13 +125,17 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 			type = "image/";
 		type += url.substr(url.find_last_of('.')).erase(0, 1);
 	}
-	else if (url.rbegin()[0] == '/')
-		type += "html";
 	else
-		std::cout << "passed a file in choose_file with no extension!" << std::endl;	
-	std::cout << (client.getRequest().getAutoIndexBool() == true ? "autoindex true\n" : "autoindex off\n");
+	{
+		type += "html";
+		if (url.rbegin()[0] != '/')
+			std::cout << "passed a file in choose_file with no extension!" << std::endl;
+	}
+		std::cout << (client.getRequest().getAutoIndexBool() == true ? "autoindex true\n" : "autoindex off\n");
 	if (client.getRequest().getAutoIndexBool())
+	{
 		createAutoindex(client, body);
+	}
 	else
 	{
 		std::cout << "Url della request: " << url << std::endl;
@@ -180,6 +184,7 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	std::string		url;
 
 	url = client.getRequest().getUrl();
+	// TODO - aggiungere parametro alla richiesta (basic_url) che mantenga l'url della richiesta nudo e crudo senza modifiche da displayare nell'autoindex e varie pagine
 	findUrlDirectory(url);
 	while (std::getline(file, line))
 	{
@@ -215,7 +220,7 @@ std::string	createHtml(Client &client, const std::string &body, const std::strin
 {
 	std::ostringstream	response;
 	std::string			http_codes_str[] = VALID_HTTP_STR;
-	std::string			url = client.getRequest().getUrl().erase(0, 1);
+	std::string			url = client.getRequest().getUrl();
 	int 				status = client.getRequest().getStatusCode();
 
 	response << "HTTP/1.1 "
@@ -246,24 +251,26 @@ std::string	Server::checkErrorPages(Request &request)
 	{
 		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
 		{
-			file.open((server->root.substr(1) + server->err_pages[status_code]).c_str());
+			file.open((server->root + server->err_pages[status_code]).c_str());
 			std::cout << "Status code error page: " << status_code << std::endl; 
-			std::cout << "Server prova ad aprire: " << server->root.substr(1) + server->err_pages[status_code] << std::endl;
+			std::cout << "Server prova ad aprire: " << server->root + server->err_pages[status_code] << std::endl;
 			if (file.fail() == true)
-				return (server->root.substr(1) + "/errors/default.html");
-			return (server->root.substr(1) + server->err_pages[status_code]); // ritorni error page server
+				return (app_root_alias("/errors/default.html", *server));
+				// return (server->root + "/errors/default.html");
+			return (app_root_alias(server->err_pages[status_code], *server));
+			// return (server->root + server->err_pages[status_code]); // ritorni error page server
 		}
 	}
 	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
 		loc = &server->location[url];
-		file.open((server->root.substr(1) + server->location[url].err_pages[status_code]).c_str());
+		file.open((server->root + server->location[url].err_pages[status_code]).c_str());
 		std::cout << "Location prova ad aprire: " << loc->root + server->location[url].err_pages[status_code] << std::endl;
 		if (file.fail() == true)
-			return (loc->root.substr(1) + "/errors/default.html");
-		return (loc->root.substr(1) + server->location[url].err_pages[status_code]);
+			return (app_root_alias("/errors/default.html", *loc));
+		return (app_root_alias(server->location[url].err_pages[status_code], *loc));
 	}
-	return (server->root.substr(1) + "/errors/default.html"); // return di default
+	return (server->root + "/errors/default.html"); // return di default
 }
 
 // NOTE - cerca directory dentro l'URL passato come parametro, viene chiamata come gnl e ad ogni ritorno ritorna la cartella successiva
@@ -281,7 +288,6 @@ static dirent	*findUrlDirectory(std::string url)
 	}
 	if (!dir)
 	{
-		url.erase(0, 1);
 		dir = opendir(url.c_str());
 		if (!dir)
 			return (NULL);

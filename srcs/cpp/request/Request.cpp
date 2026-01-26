@@ -184,13 +184,14 @@ void	Request::findRightPath(t_conf_server *srv)
 	{
 		if (this->getUrl() == "/")
 			manageIndex(srv, NULL);
-		this->setUrl(srv->root + this->getUrl());
+		this->setUrl(app_root_alias(this->getUrl(), *srv));
 	}
 	else
 	{
 		if (this->getUrl().rbegin()[0] == '/')
 			manageIndex(srv, &srv->location[tmpuri]);
-		if (!srv->location[tmpuri].alias.empty())
+		this->setUrl(app_root_alias(this->getUrl(), *srv, tmpuri));
+		/*if (!srv->location[tmpuri].alias.empty())
 		{
 			this->setUrl(this->getUrl().erase(0, tmpuri.length()));
 			this->setUrl(srv->location[tmpuri].alias + this->getUrl());
@@ -198,7 +199,7 @@ void	Request::findRightPath(t_conf_server *srv)
 		else if (!srv->location[tmpuri].root.empty())
 			this->setUrl(srv->location[tmpuri].root + this->getUrl()); //root
 		else
-			this->setUrl(srv->root + this->getUrl());
+			this->setUrl(srv->root + this->getUrl());*/
 	}
 	std::cout << "\t---> RESULT: " << this->getUrl() << " " << std::endl << std::endl;
 	//casi di uri

@@ -16,7 +16,7 @@ CPP = $(addprefix cpp/, 		Client.cpp \
 		$(addprefix conf/, 		getter.cpp setter.cpp print.cpp Conf.cpp) \
 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp))
 UTILS = $(addprefix utils/, 	utils_page1.cpp path_checker.cpp value_checker.cpp \
-								string/string.cpp)
+								string/string.cpp add_root_alias.cpp)
 
 all: $(NAME)
 

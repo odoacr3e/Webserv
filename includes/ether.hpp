@@ -30,7 +30,7 @@
 # include "../srcs/utils/print.tpp"
 
 # define COLOR_RESET "\033[0m"
-# define DEBUG 1
+# define DEBUG 0
 
 #if defined(DEBUG) && DEBUG
   #define DBG_MSG(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)
@@ -39,7 +39,8 @@
 #endif
 
 class Request;
-typedef struct s_conf_server	t_conf_server;
+typedef struct s_conf_server    t_conf_server;
+typedef struct s_conf_location	t_conf_location;
 typedef std::pair<std::string, int>	IpPortPair;
 typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
 
@@ -62,21 +63,25 @@ bool        is_there_whitespaces(std::string line);
 bool        charFinder(const std::string literal, int(*check)(int));
 std::string file_opener(std::fstream &file);
 
-size_t		find_first_special_char(std::string line);
-bool		is_there_special_chars(std::string line);
-size_t		find_first_not_special_char(std::string line);
+size_t      find_first_special_char(std::string line);
+bool        is_there_special_chars(std::string line);
+size_t      find_first_not_special_char(std::string line);
 
-bool		trim_equal_left(std::string &s, char c);
-bool		trim_diff_left(std::string &s, char c);
-bool		trim_equal_right(std::string &s, char c);
-bool		trim_diff_right(std::string &s, char c);
+bool		    trim_equal_left(std::string &s, char c);
+bool		    trim_diff_left(std::string &s, char c);
+bool		    trim_equal_right(std::string &s, char c);
+bool		    trim_diff_right(std::string &s, char c);
 
-bool		valid_directory(std::string directory);
-bool		valid_file(std::string file);
-void	  add_root_alias(std::string &file, std::string root, std::string alias);
-int			valid_ip_address(std::string addr);
-int			atohex(std::string s);
-int 		checkValidCode(int code);
+bool		    valid_directory(std::string directory);
+bool		    valid_file(std::string file);
+
+std::string	app_root_alias(std::string file, t_conf_server &srv);
+std::string	app_root_alias(std::string file, t_conf_server &srv, std::string loc);
+std::string	app_root_alias(std::string file, t_conf_location &loc);
+
+int			    valid_ip_address(std::string addr);
+int			    atohex(std::string s);
+int 		    checkValidCode(int code);
 
 #define CHARIZARD "                 .\"-,.__\n\
                  `.     `.  ,\n\

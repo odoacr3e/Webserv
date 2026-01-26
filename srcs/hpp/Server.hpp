@@ -37,6 +37,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void 			addSocket(int index);
 		struct pollfd	*getAddrs(void);
 		size_t			getAddrSize(void) const;
+		void			processRequest(std::vector<struct pollfd>::iterator it, char *buffer);
 		void			checkForConnection();
 		int				getServerNum() const;
 		SrvNameMap		&getSrvNameMap() const;

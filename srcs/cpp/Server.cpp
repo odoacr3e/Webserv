@@ -2,7 +2,7 @@
 #include "../hpp/Server.hpp"//joino su discord
 #include <fstream>
 
-//crea una struct pollfd con l'fd del client, dato da accept()
+//NOTE - crea una struct pollfd con l'fd del client, dato da accept()
 static struct pollfd	setupPollFd(int client)
 {
 	struct pollfd s;
@@ -13,7 +13,8 @@ static struct pollfd	setupPollFd(int client)
 	return (s);
 }
 
-static struct pollfd	createServerSock(int port_n) //successivamente prendera una reference a un oggetto Config con tutti i parametri passati dal config file
+// NOTE - crea un socket listen per il server che vogliamo creare
+static struct pollfd	createServerSock(int port_n)
 {
 	struct sockaddr_in	address;
 	int					server_fd;
@@ -44,6 +45,7 @@ static struct pollfd	createServerSock(int port_n) //successivamente prendera una
 	return (srv);
 }
 
+// NOTE - aggiungiamo il socket del server al vector di server
 Server::Server(Conf &conf)
 {
 	pollfd	port_connection;
@@ -84,18 +86,17 @@ Server::~Server()
 	}
 }
 
-//stampa finche non si blocca
-// TODO - da aggiungere parametro su addSocket con il socket del server di riferimento
+// NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
 void	Server::addSocket(int index)
 {
 	int client = accept(this->_addrs.data()[index].fd, NULL, NULL);
 	if (client == -1)
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
 	this->_addrs.push_back(setupPollFd(client));
-	//creiamo oggetto client e lo aggiungiano alla std::map
 	this->_clients[client] = new Client(client, this->_addrs.data()[index].fd);
 }
 
+// NOTE - restituisce il vettore di strutture di poll sotto forma di array
 struct pollfd *Server::getAddrs(void)
 {
 	return (this->_addrs.data());
@@ -116,6 +117,7 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
+// NOTE - crea html come body per la risposta da inviare al client
 std::string	createHtml(Client &client, const std::string &body, const std::string &type)
 {
 	std::ostringstream	response;
@@ -175,9 +177,9 @@ void	Server::choose_file(Client &client, std::string &type, std::string fname, s
 	}
 	else if (client.getRequest().getRequestErrorBool())
 	{
-		type = ".html";
+		// if (fname.substr(url.find_last_of('.')))
 		file.open(("www/var/errors/dns/" + fname).c_str());
-		// std::cout << "www/var/errors/dns/" + fname << std::endl;
+		std::cout << "STOCAZZO DI FILE: " + fname << std::endl;
 	}
 	else
 	{
@@ -193,8 +195,8 @@ void	Server::choose_file(Client &client, std::string &type, std::string fname, s
 	}
 }
 
-// 
-dirent	*test(std::string url)
+// NOTE - cerca directory dentro l'URL passato come parametro, viene chiamata come gnl e ad ogni ritorno ritorna la cartella successiva
+static dirent	*findUrlDirectory(std::string url)
 {
 	static DIR	*dir;
 	dirent		*content;
@@ -213,20 +215,18 @@ dirent	*test(std::string url)
 		if (!dir)
 			return (NULL);
 	}
-	// printf("dir %s aperta!\n", url.c_str());
 	content = readdir(dir);
 	if (!content)
 	{
 		closedir(dir);
-		// printf("dir %s chiusa!\n", url.c_str());
 		dir = NULL;
 		return (NULL);
 	}
-	// printf("content name: %s, content type: %s\n", content->d_name, (content->d_type == 4) ? "folder" : "file");
 	return (content);
 }
 
-void listDirectories(std::string &body, dirent *cont)
+// NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
+void listDirectoriesAutoIndex(std::string &body, dirent *cont)
 {
 	std::ifstream var("www/var/autoindex/var.html");
 	std::string line;
@@ -259,13 +259,14 @@ void listDirectories(std::string &body, dirent *cont)
 	}
 }
 
+// NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
 void	Server::createAutoindex(Client &client, std::string &body)
 {
 	std::ifstream file("www/var/autoindex/autoindex.html");
 	std::string line;
 	dirent		*content;
 
-	test(client.getRequest().getUrl());
+	findUrlDirectory(client.getRequest().getUrl());
 	while (std::getline(file, line))
 	{
 		line.push_back('\n');
@@ -276,11 +277,11 @@ void	Server::createAutoindex(Client &client, std::string &body)
 		if (line.find("<tbody>") != std::string::npos)
 			break ;
 	}
-	content = test(client.getRequest().getUrl());
+	content = findUrlDirectory(client.getRequest().getUrl());
 	while (content)
 	{
-		listDirectories(body, content);
-		content = test(client.getRequest().getUrl());
+		listDirectoriesAutoIndex(body, content);
+		content = findUrlDirectory(client.getRequest().getUrl());
 	}
 	while (std::getline(file, line))
 		if (line.find("</tbody>") != std::string::npos)
@@ -295,11 +296,12 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	}
 }
 
+// NOTE - crea la risposta html da inviare al client tramite HTTP
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	std::fstream	file;
 	std::string		body;
-	std::string		type/* (".html") */;
+	std::string		type(".html");
 	std::string		url = client.getRequest().getUrl().erase(0, 1);
 
 	// std::cout << "STATUS CODE NOW: " << client.getRequest().getStatusCode() << "\n";
@@ -310,7 +312,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	std::cout << (client.getRequest().getAutoIndexBool() == true ? "autoindex true\n" : "autoindex off\n");
 	if (client.getRequest().getAutoIndexBool())
 		createAutoindex(client, body);
-	else if (type == ".css")
+	if (type == ".css")
 		this->choose_file(client, type, "style.css", file, url);
 	else if (type == ".html")
 		this->choose_file(client, type, "index.html", file, url);
@@ -332,6 +334,33 @@ std::string	fileToString(std::string filename)
 		abort();
 	std::getline(fd, file, '\0');
 	return (file);
+}
+
+void	Server::processRequest(std::vector<struct pollfd>::iterator it, char *buffer)
+{
+	Request	&request = this->_clients[(*it).fd]->getRequest();
+	if (requestParsing(request, buffer))
+	{
+		(*it).events = POLLOUT;
+		// TODO - da settare status code corretto senza fare return
+		std::cout << "errore nel parsing request\n";
+		return ;
+	}
+	convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
+	std::cout << "Server nums: " << (*this->_srvnamemap).count(request.getHost()) << std::endl;
+	if ((*this->_srvnamemap).count(request.getHost()) == 0)//condition
+	{
+		request.setRequestErrorBool(true);
+		request.setStatusCode(HTTP_OK);
+		std::cout << "SERVER NOT FOUND\n" << std::endl;
+	}
+	else
+	{
+		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
+			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
+		request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
+	}
+	(*it).events = POLLOUT;
 }
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
@@ -358,31 +387,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				}
 			}
 			else
-			{
-				Request	&request = this->_clients[(*it).fd]->getRequest();
-				if (requestParsing(request, buffer))
-				{
-					(*it).events = POLLOUT;
-					//da settare status code corretto senza fare return
-					std::cout << "errore\n";
-					return ;
-				}
-				convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
-				std::cout << "Server nums: " << (*this->_srvnamemap).count(request.getHost()) << std::endl;
-				if ((*this->_srvnamemap).count(request.getHost()) == 0)//condition
-				{
-					request.setRequestErrorBool(true);
-					request.setStatusCode(HTTP_OK);
-					std::cout << "SERVER NOT FOUND\n" << std::endl;
-				}
-				else
-				{
-					if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
-						request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
-					request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
-				}
-				(*it).events = POLLOUT;
-			}
+				processRequest(it, buffer);
 		}
 		else if ((*it).fd != -1 && ((*it).revents & POLLOUT))
 		{

@@ -11,11 +11,12 @@ PARSING = $(addprefix parsing/, parseConf.cpp parseRequest.cpp $(CONF_PARSING) $
 CONF_PARSING = $(addprefix conf/, parseEvent.cpp parseMain.cpp parseServer.cpp parseLocation.cpp parseHttp.cpp)
 REQUEST_PARSING = $(addprefix request/, utils.cpp)
 
-CPP = $(addprefix cpp/, Server.cpp Client.cpp \
+CPP = $(addprefix cpp/, 		Client.cpp \
+		$(addprefix Server/,	Server.cpp getter.cpp setter.cpp setup_utils.cpp)\
 		$(addprefix conf/, 		getter.cpp setter.cpp print.cpp Conf.cpp) \
 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp))
-UTILS = $(addprefix utils/, utils_page1.cpp path_checker.cpp value_checker.cpp \
-		string/string.cpp)
+UTILS = $(addprefix utils/, 	utils_page1.cpp path_checker.cpp value_checker.cpp \
+								string/string.cpp)
 
 all: $(NAME)
 

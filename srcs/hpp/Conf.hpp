@@ -8,12 +8,12 @@ class	Conf;
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
 
-typedef std::vector<t_conf_server>	ServerVector;
-typedef std::vector<std::pair<std::string, int> >	IpPortVector;
-typedef std::pair<std::string, int>	IpPortPair;
-typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
+typedef std::vector<t_conf_server>							ServerVector;
+typedef std::vector<std::pair<std::string, int> >			IpPortVector;
+typedef std::pair<std::string, int>							IpPortPair;
+typedef std::map<IpPortPair, t_conf_server> 				SrvNameMap;
 typedef std::vector<std::pair<std::string, std::string> >	CgiParam;
-typedef std::map<int, std::string> errPages;
+typedef std::map<int, std::string> 							errPages;
 
 //SECTION - default conf settings
 

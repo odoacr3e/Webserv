@@ -3,9 +3,12 @@
 
 std::string				createHtml(Client &client, const std::string &body, const std::string &type);
 void 					listDirectoriesAutoIndex(std::string &body, dirent *cont);
-static dirent			*findUrlDirectory(std::string url);
+void					delete_method(Client &client, std::string &body, std::fstream &file);
 struct pollfd			createServerSock(int port_n);
 struct pollfd			setupPollFd(int client);
+std::string				fileToString(std::string filename);
+dirent					*findUrlDirectory(std::string url);
+
 
 // NOTE - aggiungiamo il socket del server al vector di server
 Server::Server(Conf &conf)
@@ -84,9 +87,10 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 }
 
 void	Server::processRequest(std::vector<struct pollfd>::iterator it, char *buffer)
-{
+{//FIXME - TESTING PER POST
+	(void)buffer;
 	Request	&request = this->_clients[(*it).fd]->getRequest();
-	if (requestParsing(request, buffer))
+	if (requestParsing(request, fileToString("test_request")) != 0)
 	{
 		(*it).events = POLLOUT;
 		// TODO - da settare status code corretto senza fare return
@@ -141,12 +145,31 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		std::cout << "Url della request: " << url << std::endl;
 		choose_file(client, file, url);
 	}
-//	else
-//		client.getRequest().fail(HTTP_CE_NOT_FOUND, "File extension not recognized!");
 	std::cout << "URL after: " << url << std::endl;
-	if (body.empty())
-		body = file_opener(file);
+	runMethod(client, body, file);
 	return (createHtml(client, body, type));
+}
+
+void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
+{
+	switch (client.getRequest().getMethodEnum())
+	{
+		case GET:
+			if (body.empty() == false)
+				body = file_opener(file);
+			break ;
+		case DELETE:
+			delete_method(client, body, file);
+			break ;
+		case POST:
+			;//funzione che gestisce POST
+			break ;
+		case HEAD:
+			;//funzione che gestisce HEAD
+			break ;
+		case METH_NUM:
+			break ;
+	}
 }
 
 void	Server::choose_file(Client &client, std::fstream &file, std::string url)
@@ -274,7 +297,7 @@ std::string	Server::checkErrorPages(Request &request)
 }
 
 // NOTE - cerca directory dentro l'URL passato come parametro, viene chiamata come gnl e ad ogni ritorno ritorna la cartella successiva
-static dirent	*findUrlDirectory(std::string url)
+dirent	*findUrlDirectory(std::string url)
 {
 	static DIR	*dir;
 	dirent		*content;

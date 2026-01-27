@@ -137,7 +137,9 @@ static int	bodyParsing(Request &request, std::istringstream &stream)
 		case GET :
 			return (bodyChecker(request, body, true));
 		case DELETE :
-			return (bodyChecker(request, body, true));
+			if (!body.empty())
+				return (request.fail(HTTP_CE_BAD_REQUEST, "delete must have empty body"));
+			return (0);
 		case HEAD :
 			if (!body.empty())
 				return (request.fail(HTTP_CE_BAD_REQUEST, "head must have empty body"));

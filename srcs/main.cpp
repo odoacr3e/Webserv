@@ -49,9 +49,8 @@ void	get_conf_path(int ac, char **av, std::string &path)
 }
 
 /*
-//TODO - 24/01
-[X]	fixed bug problem not found
-[ ]	autoindex
+//TODO - 27/01
+[ ]	DELETE (ci si prova dai)
 */
 int main(int ac, char **av)
 {

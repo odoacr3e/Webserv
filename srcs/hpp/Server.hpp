@@ -47,6 +47,8 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void			createAutoindex(Client &client, std::string &body);
 		std::string		createResponse(Client &client);
 		std::string		checkErrorPages(Request &request);
+		void			runMethod(Client &client, std::string &body, std::fstream &file);
+
 };
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);

@@ -113,7 +113,7 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator it, char *buffe
 		t_conf_server	srv = (*this->_srvnamemap)[request.getHost()];
 		this->_clients[(*it).fd]->getSrvConf() = srv;
 		t_conf_location	*loc = request.findRightLocation(&srv);
-		std::cout << *loc << "\n\n";
+		// std::cout << *loc << "\n\n";
 		if (loc)
 			this->_clients[(*it).fd]->getLocConf() = *loc;
 		request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
@@ -164,7 +164,7 @@ void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
 	{
 		case GET:
 			if (client.getLocConf().run_script == true)
-				run_script(client, body);
+				/*run_script(client, body)*/;
 			else if (body.empty() == true)
 				body = file_opener(file);
 			break ;
@@ -232,7 +232,9 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	content = findUrlDirectory(url);
 	while (content)
 	{
-		listDirectoriesAutoIndex(body, content);
+		std::string dname = content->d_name;
+		if (dname != "..")
+			listDirectoriesAutoIndex(body, content);
 		content = findUrlDirectory(url); 
 	}
 	while (std::getline(file, line))

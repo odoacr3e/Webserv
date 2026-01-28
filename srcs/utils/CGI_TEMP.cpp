@@ -1,7 +1,7 @@
 #include "../../includes/ether.hpp"
 #include "../hpp/Client.hpp"
 
-void	run_script(Client &client, std::string &body)
+/*void	run_script(Client &client, std::string &body)
 {
 	std::string			url;
 	std::ostringstream	stream;
@@ -18,4 +18,4 @@ void	run_script(Client &client, std::string &body)
 	// {
 	// 	dup2(stream.)
 	// }
-}
+}*/

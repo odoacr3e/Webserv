@@ -57,43 +57,43 @@ std::string	fileToString(std::string filename)
 }
 
 /*
-	1) se errore o autoindex ---> 	leggi pagina di errore ed esci.
-	2) se file non esiste ------>	gia gestito prima
-	3) se file non ha per.
-	messi di cancellaz. ----->	401 not allowed OPPURE 403 forbidden	
 
-	4) se directory ------>	cancella tutti file da directory ---|--> SPREAD DEMOCRACY
-							OPPURE dai sempre 403 forbidden		|
-	
-	5) se file ----------->	LIBERATION
 */
 void	delete_method(Client &client, std::string &body, std::fstream &file)
 {
 	std::string	url = client.getRequest().getUrl();
 
 	std::cout << "\033[31mMETHOD DELETE\033[0m\nbody:" << body << "\nurl:" << url << "\n";
-	//1)	errore/autoindex
 	if (client.getRequest().getStatusCode() != 200 || \
-	client.getRequest().getDnsErrorBool() == true || \
-	client.getRequest().getAutoIndexBool() == true)
+		client.getRequest().getDnsErrorBool() == true || \
+		client.getRequest().getAutoIndexBool() == true)
 	{
 		std::cout << "fail" << std::endl;
 		if (body.empty() == false)
 			body = file_opener(file);
 		return ;
 	}
-	//2)	file esiste, gia controllato prima
-	//3)	bisogna controllare si ho mettiamo tutto in un array con va bene ti stavo ascoltanto davero con una v smetti di parlare da solo GOLLUM
-	if (valid_directory(url) == true)//4)	se directory
+	std::cout << "Url in delete method: " << url << std::endl;
+	if (url.rbegin()[0] == '/')
+		url.erase(url.find_last_of('/'), 1);
+	if (std::remove(url.c_str()) == 0)
 	{
-		dirent	*file = findUrlDirectory(url);
-		while (file)
-		{
-			if (file->d_name[0] != '.')
-				std::remove(file->d_name);
-			file = findUrlDirectory(url);
-		}
+		file.open("www/var/index.html");
+		if (file.fail())
+			return ;
+		body = file_opener(file, "delete_method: cannot open file on success");
+		body.replace(body.find("{MSG}"), 5, "file " + url + " deleted successfully!");
+		return ;
 	}
-	else//5)	se file
-		std::remove(url.c_str());
+	if (valid_directory(url))
+	{
+		client.getRequest().setStatusCode(HTTP_CE_FORBIDDEN);
+		file.open("www/var/errors/special/403_DirNotEmpty.html");
+	}
+	else
+	{
+		client.getRequest().setStatusCode(HTTP_SE_INTERNAL);
+		file.open("www/var/errors/special/500_CannotDeleteFile.html");
+	}
+	body = file_opener(file, "delete_method: cannot open file on error");
 }

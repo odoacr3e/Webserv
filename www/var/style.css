@@ -1,82 +1,62 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-    line-height: 1.6;
-}
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			background: #0b3a2a;
+			color: #ecfdf5;
+			line-height: 1.6;
+		}
 
-/* Header */
-header {
-    text-align: center;
-    padding: 40px 20px;
-    background: #020617;
-    border-bottom: 1px solid #1e293b;
-}
+		header {
+			text-align: center;
+			padding: 40px 20px;
+			background: #064e3b;
+			border-bottom: 1px solid #065f46;
+		}
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+		}
 
-header p {
-    color: #94a3b8;
-}
+		header p {
+			color: #a7f3d0;
+		}
 
-/* Main content */
-main {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
+		main {
+			max-width: 700px;
+			margin: 40px auto;
+			padding: 0 20px;
+			display: flex;
+			justify-content: center;
+		}
 
-/* Cards */
-.card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 10px;
-    padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+		.card {
+			background: #064e3b;
+			border: 1px solid #065f46;
+			border-radius: 12px;
+			padding: 30px;
+			text-align: center;
+		}
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
+		.card h2 {
+			margin-bottom: 15px;
+			font-size: 1.6rem;
+		}
 
-.card h2 {
-    margin-bottom: 10px;
-    font-size: 1.4rem;
-}
+		.card p {
+			color: #d1fae5;
+			font-size: 1.1rem;
+		}
 
-.card ul {
-    list-style: none;
-}
-
-.card li {
-    padding: 5px 0;
-}
-
-/* Status */
-.ok {
-    color: #22c55e;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #94a3b8;
-    font-size: 0.9rem;
-    border-top: 1px solid #1e293b;
-}
+		footer {
+			text-align: center;
+			padding: 20px;
+			color: #a7f3d0;
+			font-size: 0.9rem;
+			border-top: 1px solid #065f46;
+		}

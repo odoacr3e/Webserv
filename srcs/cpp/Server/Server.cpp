@@ -166,7 +166,7 @@ void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
 			if (client.getLocConf().run_script == true)
 				run_script(client, body);
 			else if (body.empty() == true)
-				body = file_opener(file);
+				body = file_opener(file, "runMethod GET: Cannot open file");
 			break ;
 		case DELETE:
 			delete_method(client, body, file);
@@ -192,8 +192,6 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 	{
 		fname = checkErrorPages(client.getRequest());
 		file.open((fname).c_str());
-		std::cout << "NAME ERROR: " << fname << std::endl;
-		// std::cout << "fname not 200: " << fname << std::endl;
 	}
 	else
 	{
@@ -203,7 +201,6 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + " file not found!");
 			fname = checkErrorPages(client.getRequest());
 			file.open((fname).c_str());
-			std::cout << "NAME ERROR: " << fname << std::endl;
 		}
 	}
 }
@@ -243,7 +240,7 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	body += line;
 	while (std::getline(file, line))
 	{
-		if (line.find("{SERVER_NAME}")	!= std::string::npos)
+		if (line.find("{SERVER_NAME}") != std::string::npos)
 			body += line.replace(line.find('{'), 13, "3 UOMINI E 1 WEBSERVER");
 		else
 			body += line;

@@ -1,6 +1,18 @@
 #include "../../../includes/ether.hpp"
 #include "../../../includes/status_codes.hpp"
 
+void	trim_from(std::string &s, size_t from)
+{
+	int	i;
+
+	if (s.length() < from)
+		return ;
+	else if (from == 0)
+		return (s.clear());
+	i = s.length() - from;
+	s.erase(from, i);
+}
+
 /*
 	trim a str until s[i] == c, then return 0.
 	if \0 is found, str is set to "", 1 is returned.
@@ -90,7 +102,7 @@ bool	trim_diff_right(std::string &s, char c)
 		return (1);
 	start = s.find_first_of(c, start);
 	if (start == std::string::npos)
-		return (1);
+		return (trim_from(s, s.find_first_not_of(c)), 1);
 	end = s.substr(start).length();
 	end = start + end;
 	s.erase(start, end);

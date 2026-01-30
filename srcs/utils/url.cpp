@@ -7,57 +7,41 @@ typedef struct s_conf_location	t_conf_location;
 
 //SECTION - app root/alias to a file
 
-//DO NOT USE THIS USE OTHERS OVERLOAD
-void	url_rooting(std::string &file, std::string &root)
+//append root to an url from t_conf_server
+std::string	url_rooting(std::string url, t_conf_server &srv)
 {
-	// std::cout << "append_root_alias" << std::endl;
-	// std::cout << "BEFORE " << file << std::endl;
+	std::string		dir;
+	std::string		dir_original;
+	std::string		file;
 
-	if (root.empty() == true)
-		return (std::cout << "no root\n", (void)0);
-	normalize_url(&root);
-	file = root + file;
-	return ;
+	dir = url;
+	file = url;
+	trim_from(dir, dir.find_last_of('/') + 1);//+1 skip /
+	normalize_url(&dir);
+	if (dir == "/")
+		dir.clear();
+	dir = srv.root + dir;
+	file.erase(0, file.find_last_of('/') + 1);//+1 includes /
+	return (dir + file);
 }
 
-//append root or alias to a file
-//this overload appends SERVER root
-std::string	url_rooting(std::string file, t_conf_server &srv)
+//append root or alias to an url from t_conf_location
+std::string	url_rooting(std::string url, t_conf_location &loc)
 {
-	std::string	dir;
+	std::string		dir;
+	std::string		file;
 
-	dir = file;
-	trim_diff_right(dir, '/');
-	dir = normalize_url(dir);
-	return (url_rooting(file, srv, dir));
-}
-
-//append root or alias to a file
-//this overload appends: 
-// if (srv.location.count(loc) == OK) --> append LOCATION alias/root
-// else append SERVER root
-std::string	url_rooting(std::string file, t_conf_server &srv, std::string loc)
-{
-	if (srv.location.count(loc) != 0)
-	{
-		size_t	i = file.find_last_of('/');
-		if (srv.location[loc].alias == true)
-			file.erase(file.find_last_of('/'), )
-		url_rooting(file, srv.location[loc].root);
-	}
-	else
-		url_rooting(file, srv.root);
-	return (file);
-}
-
-//append root or alias to a file
-//this overload appends LOCATION alias/root
-std::string	url_rooting(std::string file, t_conf_location &loc)
-{
-	if (loc.alias == true)
-		file.clear();
-	url_rooting(file, loc.root);
-	return (file);
+	dir = url;
+	file = url;
+	trim_from(dir, dir.find_last_of('/') + 1);//+1 skip /
+	normalize_url(&dir);
+	if (dir == "/")
+		dir.clear();
+	else if (loc.alias == true)
+		dir.erase(0, loc.conf_root.length());
+	dir = loc.root + dir;
+	file.erase(0, file.find_last_of('/') + 1);//+1 includes /
+	return (dir + file);
 }
 
 //SECTION - normalize_url

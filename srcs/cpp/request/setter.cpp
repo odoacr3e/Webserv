@@ -76,6 +76,8 @@ void	Request::setStatusCode(e_http_codes status_code)
 }
 
 void	Request::setRequestErrorBool(bool error)
-{		
-	this->_error = error; 
+{
+	this->_error = error;
+	if (this->_error)
+		DBG_MSG("SERVER NOT FOUND\n");
 }

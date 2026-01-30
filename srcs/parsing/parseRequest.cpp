@@ -122,7 +122,7 @@ static int	bodyParsing(Request &request, std::istringstream &stream)
 	if (!line.empty())
 		return(request.fail(HTTP_CE_BAD_REQUEST, "No \\n between header/body"));
 	if (request.getHeaderVal("Transfer-Encoding") != "")
-		;//FIXME - gestire transfer encoding
+		{;}//FIXME - gestire transfer encoding
 	while (std::getline(stream, line, '\n'))
 	{
 		if (line.rbegin()[0] != '\r')

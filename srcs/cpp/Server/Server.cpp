@@ -91,33 +91,27 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator it, char *buffe
 	(void)buffer;
 	Request	&request = this->_clients[(*it).fd]->getRequest();
 	// if (requestParsing(request, fileToString("test_request")) != 0)
-	if (requestParsing(request, buffer) != 0)
+	if (requestParsing(request, buffer) != 0)//request
 	{
 		(*it).events = POLLOUT;
 		// TODO - da settare status code corretto senza fare return
-		std::cout << "errore nel parsing request\n";
 		return ;
 	}
-	convertDnsToIp(request, request.getHost(), *this->_srvnamemap);
-	std::cout << "Server nums: " << (*this->_srvnamemap).count(request.getHost()) << std::endl;
+	convertDnsToIp(request, request.getHost(), *this->_srvnamemap);//serverFinder
 	if ((*this->_srvnamemap).count(request.getHost()) == 0)//condition
 	{
+		(*it).events = POLLOUT;
 		request.setRequestErrorBool(true);
-		request.setStatusCode(HTTP_OK);
-		std::cout << "SERVER NOT FOUND\n" << std::endl;
+		return ;
 	}
-	else
-	{
-		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
-			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
-		t_conf_server	srv = (*this->_srvnamemap)[request.getHost()];
-		this->_clients[(*it).fd]->getSrvConf() = srv;
-		t_conf_location	*loc = request.findRightLocation(&srv);
-		// std::cout << *loc << "\n\n";
-		if (loc)
-			this->_clients[(*it).fd]->getLocConf() = *loc;
-		request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
-	}
+	if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
+		request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
+	t_conf_server	srv = (*this->_srvnamemap)[request.getHost()];
+	this->_clients[(*it).fd]->getSrvConf() = srv;
+	t_conf_location	*loc = request.findRightLocation(&srv);
+	if (loc)
+		this->_clients[(*it).fd]->getLocConf() = *loc;
+	request.findRightPath(&(*this->_srvnamemap)[request.getHost()]);
 	(*it).events = POLLOUT;
 }
 
@@ -152,7 +146,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	std::cout << "URL after: " << url << std::endl;
 	// std::cout << body << "\n";
 	runMethod(client, body, file);
-	std::cout << body << "\n";
+	//std::cout << body << "\n";
 	return (createHtml(client, body, type));
 }
 
@@ -325,9 +319,6 @@ void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, diren
 	while(std::getline(var, line))
 	{
 		line.append("\n");
-		std::cout << "\033[31m VALGRIND conditional check\033[0m\n";
-		std::cout << info.st_size << info.st_mtim.tv_sec << std::endl;
-		std::cout << "\033[31m VALGRIND END\033[0m\n";
 		find_and_replace(line, "href=\"", "href=\"" + s_cont);
 		find_and_replace(line, "{NAME}", s_cont);
 		find_and_replace(line, "{SIZE}", info.st_size);

@@ -172,9 +172,8 @@ t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 	std::string	url_request;
 
 	url_request = this->_url;
-	if (url_request.rbegin()[0] != '/')
-		trim_diff_right(url_request, '/');
-	url_request = normalize_url(url_request);
+	trim_from(url_request, url_request.find_last_of('/') + 1);//+1 skip /
+	normalize_url(&url_request);
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
 	{
 		url_temp = normalize_url((*it).first);
@@ -200,15 +199,18 @@ void	Request::findRightPath(t_conf_server *srv)
 		manageIndex(srv, loc);
 	else if (loc != NULL && loc->run_script == true)
 		this->_run_script = true;
-	this->_url = url_rooting(this->_url, *srv);
-	std::cout << "\t---> RESULT: " << this->getUrl() << " " << std::endl << std::endl;
+	if (loc)
+		this->_url = url_rooting(this->_url, *loc);
+	else
+		this->_url = url_rooting(this->_url, *srv);
+	std::cout << "\t---> RESULT: " << this->getUrl() << "\n";
 }
 
 // NOTE - controlliamo se autoindex e index sono settati e li impostiamo
 void	Request::manageIndex(t_conf_server *srv, t_conf_location *loc)
 {
 	if (!loc)
-		return(this->setUrl(this->getUrl().append(srv->index)));
+		return (this->setUrl(this->getUrl().append(srv->index)));
 	if (loc->index.empty() == false)
 	{
 		this->setUrl(this->getUrl().append(loc->index));

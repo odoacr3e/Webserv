@@ -66,6 +66,7 @@ static std::string	parse_data(std::ifstream html_files[4], std::string &output, 
 		std::getline(html_files[ID_FIELD], html_str[ID_FIELD], '\0');
 		field = line.substr(0, line.find(':'));
 		line.erase(0, field.length() + 1);
+		values.clear();
 		vect_split(values, line, ',');
 		html_field = html_str[ID_FIELD];
 		find_and_replace(html_field, "{FIELD}", field);
@@ -73,6 +74,7 @@ static std::string	parse_data(std::ifstream html_files[4], std::string &output, 
 			parse_values(values, html_files, html_str, cmd));
 		data += html_field;
 	}
+	return (data);
 }
 
 static std::string	parse_values(std::vector<std::string> values, std::ifstream html_files[4], \
@@ -92,5 +94,7 @@ static std::string	parse_values(std::vector<std::string> values, std::ifstream h
 		find_and_replace(html_temp, "{SCRIPT}", cmd);
 		find_and_replace(html_temp, "{VAL}", (*it));
 		find_and_replace(html_temp, "{VAL}", (*it));
+		html_final += html_temp;
 	}
+	return (html_final);
 }*/

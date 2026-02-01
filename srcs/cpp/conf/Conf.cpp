@@ -94,7 +94,7 @@ void	s_conf_location::set_if_empty(Conf &conf)
 void	s_conf_location::set(std::string path)
 {
 	this->root.clear();
-	this->conf_root = normalize_url(path);
+	this->conf_root = url_normalize(path);
 	this->cgiparam.clear();
 	this->autoindex = false;
 	this->run_script = false;

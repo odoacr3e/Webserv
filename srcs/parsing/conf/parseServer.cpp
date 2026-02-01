@@ -103,7 +103,7 @@ static void	parseRoot(Conf &conf, std::vector<std::string> list, int line)
 		instructionWarning(list, line, "root already defined. Old is replaced");
 	if (valid_directory(list[1]) == false)
 		instructionError(list, line, "not a valid path");
-	conf.getServerBlock().root = normalize_url(list[1]);
+	conf.getServerBlock().root = url_normalize(list[1]);
 }
 
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)

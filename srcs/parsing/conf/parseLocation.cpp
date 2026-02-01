@@ -53,7 +53,7 @@ static void	parseAlias(Conf &conf, std::vector<std::string> &list, int line)
 		instructionError(list, line, "alias must finish with /");
 	if (*(list[1].rbegin()) == '/' && *(conf.getCurrLocation().rbegin()) != '/')
 		instructionError(list, line, "alias can be present only with uri ending with '/'");
-	conf.getLocationBlock().root = normalize_url(list[1]);
+	conf.getLocationBlock().root = url_normalize(list[1]);
 	conf.getLocationBlock().alias = true;
 }
 
@@ -70,7 +70,7 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line)
 	url = list[1] + (conf.getCurrLocation().c_str() + 1);
 	if (valid_directory(url) == false)
 		instructionError(list, line, url + " is not valid");
-	conf.getLocationBlock().root = normalize_url(list[1]);
+	conf.getLocationBlock().root = url_normalize(list[1]);
 }
 
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)

@@ -3,7 +3,6 @@ NAME = webserv
 CC = c++
 FLAGS = -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG
 CPPFLAGS = -std=c++98
-OBJ_DIR = build/
 
 
 SRCS = $(addprefix srcs/, main.cpp $(CPP) $(PARSING) $(UTILS))
@@ -20,42 +19,36 @@ UTILS = $(addprefix utils/, 	utils_page1.cpp path_checker.cpp value_checker.cpp 
 								string/string.cpp url.cpp env.cpp directory.cpp \
 								cgi.cpp html_pokedex.cpp)
 
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
-
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(SRCS)
 	$(CC) $(FLAGS) $(CPPFLAGS) $^ -o $(NAME)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@echo "wassup"
 
-fclean: clean
+fclean:
 	rm -f $(NAME)
 
 re: fclean all
 
-$(OBJ_DIR) : 
-	mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: %.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@
+runner: $(NAME)
+	clear ; ./$(NAME)
 
 # BladeRunner: 
 # 	xgd open https://www.youtube.com/results?search_query=bayblade+sigla
-run: $(NAME)
+run:
 	clear ; ./$(NAME)
 
 spaghetti: re
 	clear ; ./$(NAME)
 
-gdb: $(NAME)
+gdb: re
 	clear ; gdb ./$(NAME)
 
 giddibi: gdb
 
 val: $(NAME)
-	clear ; valgrind --track-fds=yes --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
+	clear ; valgrind ./$(NAME)
 
 .PHONY: all clean fclean run val

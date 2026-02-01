@@ -48,6 +48,7 @@ class Request
 		std::string 	_url_orig;
 		std::string 	_http_version;//sempre uguale a HTTP/1.1
 		std::string		_body;
+		std::string		_body_type;
 		IpPortPair		_ipport;
 		e_http_codes	_status_code;
 		size_t			_max_method_length;
@@ -91,8 +92,9 @@ class Request
 		headermap		&getHeader();
 		std::string		getHeaderVal(std::string key);
 		IpPortPair		&getHost();
-		size_t			getBodyLen() const;
 		std::string 	getBody() const;
+		size_t			getBodyLen() const;
+		std::string 	getBodyType() const;
 		e_http_codes	getStatusCode() const;
 		bool			getDnsErrorBool() const;
 		bool			getAutoIndexBool() const;
@@ -102,8 +104,9 @@ class Request
 		void 			setUrl(std::string);
 		void			setHttpVersion(std::string version);
 		bool			setHeaderVal(std::string key, std::string val);
-		void			setBodyLen(size_t len);
 		void			setBody(std::string);
+		void			setBodyLen(size_t len);
+		void 			setBodyType(std::string type);
 		void			setStatusCode(e_http_codes status_code);
 		void			setRequestErrorBool(bool error);
 	//ANCHOR - print.cpp

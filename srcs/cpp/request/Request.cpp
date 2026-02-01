@@ -173,10 +173,10 @@ t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 
 	url_request = this->_url;
 	trim_from(url_request, url_request.find_last_of('/') + 1);//+1 skip /
-	normalize_url(&url_request);
+	url_normalize(&url_request);
 	for (maplocation::iterator it = srv->location.begin(); it != srv->location.end(); ++it)
 	{
-		url_temp = normalize_url((*it).first);
+		url_temp = url_normalize((*it).first);
 		if (url_temp == (url_request.substr(0, url_temp.length())) && \
 		url_temp.length() > url_longest.length())
 			url_longest = url_temp;

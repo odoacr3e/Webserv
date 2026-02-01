@@ -72,9 +72,10 @@ bool		    valid_file(std::string file);
 
 std::string		url_rooting(std::string url, t_conf_server &srv);
 std::string		url_rooting(std::string url, t_conf_location &loc);
-std::string		url_rooting(std::string url, t_conf_server &srv, std::string loc);
-void			normalize_url(std::string *url);
-std::string		normalize_url(std::string url);
+void			url_normalize(std::string *url);
+std::string		url_normalize(std::string url);
+std::string		url_arg_remove(std::string url, char limiter);
+std::string		url_arg_get(std::string url, char limiter);
 
 int			    valid_ip_address(std::string addr);
 int			    atohex(std::string s);
@@ -85,7 +86,7 @@ void	  ft_ls(std::string path, std::string &files);
 
 void		run_script(Client &client, std::string &body);
 std::string	env_value(const char **env, std::string key);
-void		vect_split(std::vector<std::string> vect, std::string s, char c);
+void		vect_split(std::vector<std::string> &vect, std::string s, char c);
 
 #define CHARIZARD "                 .\"-,.__\n\
                  `.     `.  ,\n\

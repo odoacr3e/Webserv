@@ -138,7 +138,7 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 		case (Conf::B_LOCATION) :
 			// if (!valid_directory(list[1]))
 			// 	blockError(list[1], line, CONF_PATH_INVALID);
-			normalize_url(&list[1]);//NOTE - location checks removed!
+			url_normalize(&list[1]);//NOTE - location checks removed!
 			if (conf.getServerBlock().location.count(list[1]) > 0)
 				blockError(list[1], line, CONF_MULT_LOCATION);
 			conf.setLocation(true, list[1]);

@@ -41,15 +41,14 @@ static void	print_field(char **field)
 
 	key = field[0];
 	href_flag = false;
-	ft_printf("|%s: ", key);
+	ft_printf("|%s:", key);
 	for (int i = 0; href_keys[i]; i++)
 	{
 		if (ft_strncmp(key, href_keys[i], INT_MAX) == 0)
 			href_flag = true;
 	}
 	for (int i = 1; field[i]; i++)
-		ft_printf("?%p-%d-%p?%s, ", hypertext, href_flag, field[i], field[i]);
-	ft_printf("\b\b  \n");
+		ft_printf("?%p-%d-%p?%s,", hypertext, href_flag, field[i], field[i]);
 }
 
 static void	hypertext(bool href_flag, char *val)

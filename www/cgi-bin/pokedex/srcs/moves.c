@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 	}
 	for (int i = 1; data[i]; i++)
 	{
-		ft_printf("|%s: %s\n", info[i], data[i]);
+		ft_printf("|%s:%s", info[i], data[i]);
 	}
 	return (str_terminate(), free_matrix(info), daft_quit(), 0);
 }

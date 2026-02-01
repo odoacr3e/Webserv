@@ -1,7 +1,7 @@
 
 #include "../../hpp/Server.hpp"
 
-std::string				createHtml(Client &client, const std::string &body, const std::string &type);
+std::string				createHtml(Client &client, const std::string &body);
 struct pollfd			createServerSock(int port_n);
 struct pollfd			setupPollFd(int client);
 std::string				fileToString(std::string filename);
@@ -142,11 +142,12 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		createAutoindex(client, body);
 	else
 		choose_file(client, file, url);
+	client.getRequest().setBodyType(type);
 	std::cout << "URL after: " << url << std::endl;
 	// std::cout << body << "\n";
 	runMethod(client, body, file);
 	//std::cout << body << "\n";
-	return (createHtml(client, body, type));
+	return (createHtml(client, body));
 }
 
 void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
@@ -239,7 +240,7 @@ void	Server::createAutoindex(Client &client, std::string &body)
 }
 
 // NOTE - crea html come body per la risposta da inviare al client
-std::string	createHtml(Client &client, const std::string &body, const std::string &type)
+std::string	createHtml(Client &client, const std::string &body)
 {
 	std::ostringstream	response;
 	std::string			http_codes_str[] = VALID_HTTP_STR;
@@ -249,7 +250,7 @@ std::string	createHtml(Client &client, const std::string &body, const std::strin
 	response << "HTTP/1.1 "
 	         << status << " "
 	         << http_codes_str[checkValidCode(status)] << "\r\n";
-	response << "Content-Type: " << type << "\r\n";
+	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
 	response << "Content-Length: " << body.size() << "\r\n\r\n";
 	response << body << "\n\n";
 

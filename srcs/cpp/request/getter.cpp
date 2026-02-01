@@ -110,6 +110,12 @@ IpPortPair	&Request::getHost()
 
 //SECTION - body
 
+//torna il body come stringa unica
+std::string Request::getBody() const
+{
+	return (this->_body);
+}
+
 //torna la lunghezza del body.
 //in fase di parsing request, puo essere diverso dalla body.length()
 size_t	Request::getBodyLen(void) const
@@ -117,10 +123,9 @@ size_t	Request::getBodyLen(void) const
 	return (this->_body_len);
 }
 
-//torna il body come stringa unica
-std::string Request::getBody() const
+std::string Request::getBodyType(void) const
 {
-	return (this->_body);
+	return (this->_body_type);
 }
 
 //SECTION - Status code, error bool

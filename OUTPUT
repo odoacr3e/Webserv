@@ -1,0 +1,670 @@
+<!-- VARIABLES -->
+<!-- 
+	NAME: the key of the field in the database
+	DATA: the data found with the cgi
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PRINPLUP</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+	<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Name</span>
+	<ul>
+		<li>Prinplup</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Types</span>
+	<ul>
+		<li>WATER</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseStats</span>
+	<ul>
+		<li>64</li>
+<li>66</li>
+<li>68</li>
+<li>50</li>
+<li>81</li>
+<li>76</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GenderRatio</span>
+	<ul>
+		<li>FemaleOneEighth</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GrowthRate</span>
+	<ul>
+		<li>Parabolic</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseExp</span>
+	<ul>
+		<li>142</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EVs</span>
+	<ul>
+		<li>SPECIAL_ATTACK</li>
+<li>2</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">CatchRate</span>
+	<ul>
+		<li>45</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Happiness</span>
+	<ul>
+		<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Abilities</span>
+	<ul>
+		<li>TORRENT</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HiddenAbilities</span>
+	<ul>
+		<li>DEFIANT</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Moves</span>
+	<ul>
+		<li>0</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=METALCLAW'>METALCLAW</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=POUND'>POUND</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=TACKLE'>TACKLE</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=GROWL'>GROWL</a></li>
+<li>4</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=GROWL'>GROWL</a></li>
+<li>8</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WATERGUN'>WATERGUN</a></li>
+<li>11</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=CHARM'>CHARM</a></li>
+<li>15</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=PECK'>PECK</a></li>
+<li>19</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=BUBBLEBEAM'>BUBBLEBEAM</a></li>
+<li>24</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li>28</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=FURYATTACK'>FURYATTACK</a></li>
+<li>33</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=BRINE'>BRINE</a></li>
+<li>37</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WHIRLPOOL'>WHIRLPOOL</a></li>
+<li>42</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=MIST'>MIST</a></li>
+<li>46</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=DRILLPECK'>DRILLPECK</a></li>
+<li>50</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=HYDROPUMP'>HYDROPUMP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">TutorMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=AERIALACE'>AERIALACE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=BLIZZARD'>BLIZZARD</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=BRINE'>BRINE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=CONFIDE'>CONFIDE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=COVET'>COVET</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=CUT'>CUT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=DEFOG'>DEFOG</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=DIG'>DIG</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=DIVE'>DIVE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ENDURE'>ENDURE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=FACADE'>FACADE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=FLING'>FLING</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=GRASSKNOT'>GRASSKNOT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=HAIL'>HAIL</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=HONECLAWS'>HONECLAWS</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ICEBEAM'>ICEBEAM</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ICYWIND'>ICYWIND</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=MIMIC'>MIMIC</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=MUDSLAP'>MUDSLAP</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=PLUCK'>PLUCK</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=PROTECT'>PROTECT</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=QUASH'>QUASH</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=RAINDANCE'>RAINDANCE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=REST'>REST</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=RETURN'>RETURN</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SCALD'>SCALD</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SHADOWCLAW'>SHADOWCLAW</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SIGNALBEAM'>SIGNALBEAM</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SNORE'>SNORE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=STEALTHROCK'>STEALTHROCK</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=STRENGTH'>STRENGTH</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SURF'>SURF</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WATERFALL'>WATERFALL</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WATERPLEDGE'>WATERPLEDGE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WATERPULSE'>WATERPULSE</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WHIRLPOOL'>WHIRLPOOL</a></li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=WORKUP'>WORKUP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggGroups</span>
+	<ul>
+		<li>Water1</li>
+<li>Field</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HatchSteps</span>
+	<ul>
+		<li>5120</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Height</span>
+	<ul>
+		<li>0.8</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Weight</span>
+	<ul>
+		<li>23.0</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Color</span>
+	<ul>
+		<li>Blue</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Shape</span>
+	<ul>
+		<li>BipedalTail</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Penguin</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>It lives alone</li>
+<li> away from others. Apparently</li>
+<li> every one of them believes it is the most important.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>4</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=EMPOLEON'>EMPOLEON</a></li>
+<li>Level</li>
+<li>36</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+xt or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=PRINPLUP'>PRINPLUP</a></li>
+<li>Level</li>
+<li>16</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+i>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=VENUSAUR'>VENUSAUR</a></li>
+<li>Level</li>
+<li>32</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Seed</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays</li>
+<li> the seed grows progressively larger.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=IVYSAUR'>IVYSAUR</a></li>
+<li>Level</li>
+<li>16</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+ischarges excess energy and calms itself down.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+l">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+</a></li>
+<li>Item</li>
+<li><a href='/www/cgi-bin/pokedex/output/pokemon.cgi?value=THUNDERSTONE'>THUNDERSTONE</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD: 		the name of the field
+	HTML_VAL: 	html of the value (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+</div>
+
+</body>
+</html>
+

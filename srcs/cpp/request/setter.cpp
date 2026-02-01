@@ -58,14 +58,19 @@ bool	Request::setHeaderVal(std::string key, std::string val)
 
 //SECTION - body
 
+void	Request::setBody(std::string body)
+{
+	this->_body = body;
+}
+
 void	Request::setBodyLen(size_t len)
 {
 	this->_body_len = len;
 }
 
-void	Request::setBody(std::string body)
+void 	Request::setBodyType(std::string type)
 {
-	this->_body = body;
+	this->_body_type = type;
 }
 
 //SECTION - Status code, error bool

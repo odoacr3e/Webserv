@@ -1,11 +1,17 @@
 
 #include "../../hpp/Server.hpp"
 
+#define SIZE_STR "B", "KB", "MG", "GB", "TB"
+
 std::string				createHtml(Client &client, const std::string &body);
 struct pollfd			createServerSock(int port_n);
 struct pollfd			setupPollFd(int client);
 std::string				fileToString(std::string filename);
 dirent					*findUrlDirectory(std::string url);
+
+void			run_cmd(Server &srv, char *const argv[], std::string &output);
+void			get_argv(Client &client, std::string argv[2], std::string &url);
+std::string		createHtmlPokedex(std::string &key, std::string &output);
 
 
 // NOTE - aggiungiamo il socket del server al vector di server
@@ -39,8 +45,11 @@ Server::Server(Conf &conf, const char **env):_env(env)
 Server::~Server()
 {
 	std::cout << "\033[32mserver destructor!\033[0m" << std::endl;
-	if (this->_addrs.data()[0].fd != -1)
-		close(this->_addrs.data()[0].fd);
+	this->suppressSocket();
+}
+
+void Server::suppressSocket()
+{
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
 		close((*it).fd);
@@ -48,6 +57,8 @@ Server::~Server()
 		this->_clients.erase((*it).fd);
 		it = this->_addrs.erase(it) - 1;
 	}
+	for (int i = 0; i != this->_server_num; i++)
+		close(this->_addrs[i].fd);
 }
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
@@ -138,7 +149,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 			// std::cout << "passed a file in choose_file with no extension!" << std::endl;
 	}
 		// std::cout << (client.getRequest().getAutoIndexBool() == true ? "autoindex true\n" : "autoindex off\n");
-	if (client.getRequest().getAutoIndexBool())
+	if (client.getRequest().getAutoIndexBool() && valid_directory(url))
 		createAutoindex(client, body);
 	else
 		choose_file(client, file, url);
@@ -158,7 +169,7 @@ void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
 	{
 		case GET:
 			if (client.getRequest().getRunScriptBool() == true)
-				run_script(client, body);
+				run_script(*this, client, body);
 			else
 				body = file_opener(file, "runMethod GET: Cannot open file");
 			break ;
@@ -297,6 +308,27 @@ std::string	Server::checkErrorPages(Request &request)
 	return (server->root + "/errors/default.html"); // return di default
 }
 
+
+std::string	calculateSize(size_t s)
+{
+	int 	len = 0;
+	size_t	tmp = s;
+	static std::string	size_str[] = {SIZE_STR, ""}; 
+
+	while (tmp > 0)
+	{
+		tmp /= 10;
+		len++;
+	}
+	std::string type = size_str[(len - 1) / 3];
+	while (len > 3)
+	{
+		s /= 1000;
+		len -= 3;
+	}
+	return (ft_to_string(s) + " " + type);
+}
+
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
 void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, dirent *cont)
 {
@@ -321,8 +353,8 @@ void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, diren
 		line.append("\n");
 		find_and_replace(line, "href=\"", "href=\"" + s_cont);
 		find_and_replace(line, "{NAME}", s_cont);
-		find_and_replace(line, "{SIZE}", info.st_size);
-		find_and_replace(line, "{MODIFY}", info.st_mtim.tv_sec);
+		find_and_replace(line, "{SIZE}", calculateSize(info.st_size));
+		find_and_replace(line, "{MODIFY}", std::ctime(&info.st_mtim.tv_sec));
 		body += line;
 	}
 }

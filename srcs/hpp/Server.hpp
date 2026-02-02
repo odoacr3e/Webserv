@@ -55,6 +55,8 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				runMethod(Client &client, std::string &body, std::fstream &file);
 		void				deleteMethod(Client &client, std::string &body, std::fstream *file);
 
+		// NOTE - close all sockets
+		void				suppressSocket();
 };
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);

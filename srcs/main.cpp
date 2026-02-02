@@ -1,4 +1,3 @@
-
 #include "hpp/Server.hpp"
 #include "hpp/Conf.hpp"
 #include "../includes/ether.hpp"
@@ -50,6 +49,7 @@ void	get_conf_path(int ac, char **av, std::string &path)
 
 /*
 //TODO - 27/01
+
 */
 int main(int ac, char **av, const char **env)
 {
@@ -83,6 +83,14 @@ int main(int ac, char **av, const char **env)
 	}
 	return (0);
 }
+
+/*
+- 	Your server must remain non-blocking at all times 
+	and properly handle client disconnections when 
+	necessary.
+-	Clients must be able to upload files.
+-	
+*/
 
 // int	main(int ac, char **av)
 // {

@@ -1,7 +1,7 @@
 #include "../../includes/ether.hpp"
 
-#define ID_DATA 0 
-#define ID_FIELD 1 
+#define ID_DATA 0
+#define ID_FIELD 1
 #define ID_HREF 2
 #define ID_STATIC 3
 #define HTML_NUMBER 4

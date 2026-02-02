@@ -24,7 +24,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <fstream>
+# include <ctime>
 
 # include "../srcs/hpp/Conf.hpp"
 # include "../srcs/utils/print.tpp"
@@ -41,6 +41,7 @@
 
 class Request;
 class Client;
+class Server;
 typedef struct s_conf_server    t_conf_server;
 typedef struct s_conf_location	t_conf_location;
 typedef std::pair<std::string, int>	IpPortPair;
@@ -84,7 +85,7 @@ int 		    checkValidCode(int code);
 dirent	*findUrlDirectory(std::string url);
 void	  ft_ls(std::string path, std::string &files);
 
-void		run_script(Client &client, std::string &body);
+void	run_script(Server &srv, Client &client, std::string &body);
 std::string	env_value(const char **env, std::string key);
 void		vect_split(std::vector<std::string> &vect, std::string s, char c);
 

@@ -1,12 +1,14 @@
+
 #include "../../includes/ether.hpp"
 #include "../hpp/Client.hpp"
+#include "../hpp/Server.hpp"
 #include <sys/wait.h>
 
-static void		run_cmd(char *const argv[], std::string &output);
 static void		get_argv(Client &client, std::string argv[2], std::string &url);
+static void		run_cmd(Server &srv, char *const argv[], std::string &output);
 std::string		createHtmlPokedex(std::string &key, std::string &output);
 
-void	run_script(Client &client, std::string &body)
+void	run_script(Server &srv, Client &client, std::string &body)
 {
 	std::string	argv_str[2];
 	std::string	url;
@@ -16,7 +18,7 @@ void	run_script(Client &client, std::string &body)
 	char const	*argv[3] = {argv_str[0].c_str(), argv_str[1].c_str(), NULL};
 	std::cout << "cmd: " << argv[0] << "\n";
 	std::cout << "arg: " << argv[1] << "\n";
-	run_cmd((char *const *)argv, body);
+	run_cmd(srv, (char *const *)argv, body);
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
 		body = createHtmlPokedex(argv_str[1], body);
@@ -46,7 +48,7 @@ static void		get_argv(Client &client, std::string argv[2], std::string &url)
 	}
 }
 
-static void	run_cmd(char *const argv[], std::string &output)
+static void	run_cmd(Server &srv, char *const argv[], std::string &output)
 {
 	std::string			url;
 	int					pipe_fd[2];
@@ -62,9 +64,10 @@ static void	run_cmd(char *const argv[], std::string &output)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
+		srv.suppressSocket();
 		execve(argv[0], argv, NULL);
 		std::cerr << "run_script fatal error\n";
-		exit(1);//FIXME - exit non è ammesso, bisogna uccidere figlio con kill
+		std::exit(1);
 	}
 	close(pipe_fd[1]);
 	wait(NULL);

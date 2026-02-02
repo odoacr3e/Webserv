@@ -4,6 +4,8 @@ request_testing.sh
 Makefile
 -----------------
 -
+- srcs_bash
+	run_test.sh
 - srcs_cpp	
 	*	utils
 	*	conf

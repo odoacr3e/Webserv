@@ -18,11 +18,10 @@
  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{ID}.png", \
  "https://media.pokemoncentral.it/wiki/0/02/Sprrz0000.png"
 
+static bool			get_files(std::string html_files[4]);
 static std::string	get_img(std::string &output);
-static bool			get_files(std::ifstream html_files[4]);
-static std::string	parse_fields(std::ifstream html_files[4], std::string &output);
-static std::string	parse_values(std::vector<std::string> &values, std::ifstream html_files[4], \
-								std::string html_str[4]);
+static std::string	parse_fields(std::string html_files[4], std::string &output);
+static std::string	parse_values(std::vector<std::string> &values, std::string html_files[4]);
 
 /*SECTION - data.html structure
 
@@ -49,12 +48,12 @@ static std::string	parse_values(std::vector<std::string> &values, std::ifstream 
 /// @return html data
 std::string	createHtmlPokedex(std::string &key, std::string &output)
 {
-	std::ifstream	html_files[4];
+	std::string		html_files[4];
 	std::string		html;
 
 	if (get_files(html_files))
 		return ("<p>missing files!</p>");
-	std::getline(html_files[ID_DATA], html, '\0');
+	html = html_files[ID_DATA];
 	while (find_and_replace(html, "{KEY}", key));
 	find_and_replace(html, "{IMG}", get_img(output));
 	find_and_replace(html, "{FIELDS}", parse_fields(html_files, output));
@@ -64,20 +63,23 @@ std::string	createHtmlPokedex(std::string &key, std::string &output)
 }
 
 /// @brief open html files from macro HTML_FILES
-/// @param html_files the ifstream of the html files
+/// @param html_files std::string array that stores the html files content
 /// @return 
-static bool	get_files(std::ifstream html_files[4])
+static bool	get_files(std::string html_files[4])
 {
 	std::string		html_names[] = {HTML_FILES, ""};
+	std::ifstream 	html_stream[4];
 
 	for (int i = 0; i != HTML_NUMBER; i++)
 	{
-		html_files[i].open(HTML_PATH + html_names[i]);
-		if (html_files[i].fail())
+		html_stream[i].open(HTML_PATH + html_names[i]);
+		if (html_stream[i].fail())
 		{
 			std::cerr << "cannot open " << html_names[i] << "\n";
 			return (1);
 		}
+		std::getline(html_stream[i], html_files[i], '\0');
+		html_stream[i].close();
 	}
 	return (0);
 }
@@ -129,16 +131,15 @@ static std::string	get_img(std::string &output)
 */
 
 /// @brief parse output, generates dinamic part of the html
-/// @param html_files the ifstream of the static html files
+/// @param html_files std::string array that stores the html files content
 /// @param output the output of the cgi
 /// @return html dinamic fields
-static std::string	parse_fields(std::ifstream html_files[4], std::string &output)
+static std::string	parse_fields(std::string html_files[4], std::string &output)
 {
 	std::stringstream			output_stream;
-	std::string					html_str[4];
+	std::string					line;
 	std::string					html_temp;
 	std::string					html_fields;
-	std::string					line;
 	std::string					field;
 	std::vector<std::string>	values;
 
@@ -147,16 +148,13 @@ static std::string	parse_fields(std::ifstream html_files[4], std::string &output
 	{
 		if (line == "|" || line.find(':') == std::string::npos)
 			continue ;
-		html_files[ID_FIELD].seekg(0);
-		std::getline(html_files[ID_FIELD], html_str[ID_FIELD], '\0');
-		html_temp = html_str[ID_FIELD];
+		html_temp = html_files[ID_FIELD];
 		field = line.substr(0, line.find(':'));
 		line.erase(0, field.length() + 1);
 		values.clear();
 		vect_split(values, line, ',');
 		find_and_replace(html_temp, "{FIELD_NAME}", field);
-		find_and_replace(html_temp, "{FIELD_DATA}", \
-		parse_values(values, html_files, html_str));
+		find_and_replace(html_temp, "{FIELD_DATA}", parse_values(values, html_files));
 		html_fields += html_temp;
 	}
 	return (html_fields);
@@ -187,11 +185,10 @@ static_val.html
 
 /// @brief parse values, generates dinamic part of the html
 /// @param values vector in which cgi output values are split 
-/// @param html_files the ifstream of the static html files
+/// @param html_files std::string array that stores the html files content
 /// @param html_str the string of the static html files
 /// @return 
-static std::string	parse_values(std::vector<std::string> &values, std::ifstream html_files[4], \
-								std::string html_str[4])
+static std::string	parse_values(std::vector<std::string> &values, std::string html_files[4])
 {
 	std::string			html_values;
 	std::string			html_temp;
@@ -207,9 +204,7 @@ static std::string	parse_values(std::vector<std::string> &values, std::ifstream 
 			cgi = cgi_names[std::atoi((*it).c_str() + 1)];
 			(*it).erase(0, 2);
 		}
-		html_files[type].seekg(0);
-		std::getline(html_files[type], html_str[type], '\0');
-		html_temp = html_str[type];
+		html_temp = html_files[type];
 		find_and_replace(html_temp, "{CGI_NAME}", cgi);
 		while (find_and_replace(html_temp, "{VAL}", (*it)));
 		html_values += html_temp;

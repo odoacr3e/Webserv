@@ -1,6 +1,17 @@
+#SECTION - debug commands
+conf_test: all
+	chmod +x conf_testing.sh
+	./conf_testing.sh
+
+request_test: all
+	chmod +x request_testing.sh
+	./request_testing.sh
+
+#SECTION - global variables
 PROJ_ROOT = ..
 PROJ_OBJ_DIR = $(PROJ_ROOT)/build/srcs
 OBJ_DIR = build
+OUTPUT_DIR = output
 UTILS_DIR = utils_dir
 CONF_DIR = conf_dir
 REQUEST_DIR = request_dir
@@ -48,15 +59,7 @@ $(OBJ_DIR)/conf: $(OBJ_CONF) $(WEB_OBJ) | $(OBJ_DIR)
 $(OBJ_DIR)/request: $(OBJ_REQUEST) $(WEB_OBJ) | $(OBJ_DIR)
 	$(CC) $(FLAGS) $(CPPFLAGS) $(OBJ_REQUEST) $(WEB_OBJ) -o $@
 
-$(OBJ_DIR)/$(CONF_DIR)/%.o: srcs_cpp/$(CONF_DIR)/%.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/$(UTILS_DIR)/%.o: srcs_cpp/$(UTILS_DIR)/%.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/$(REQUEST_DIR)/%.o: srcs_cpp/$(REQUEST_DIR)/%.cpp
+$(OBJ_DIR)/%.o: srcs_cpp/%.cpp
 	@mkdir -p $(dir $@)
 	$(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@
 
@@ -74,6 +77,8 @@ clean:
 	rm -rf $(OBJ_DIR)/conf $(OBJ_DIR)/request
 
 fclean: clean
-	rm -rf build
+	rm -rf $(OBJ_DIR) $(OUTPUT_DIR)
 
-.PHONY: compile_web
+re: fclean all
+
+.PHONY: compile_web conf_test request_test

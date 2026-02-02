@@ -36,6 +36,7 @@ Read configuration file. Parse it. Saves data in Conf class.
 									-	;	instruction end sign
 									-	{	open block sign
 									-	}	close block sign
+									-	!	DEBUG: stop parsing
 [vector<std::string> list]->	list of all tokens.
 								When a token separator is found,
 								list is processed and reset.
@@ -47,12 +48,12 @@ void	confParse(Conf &conf, std::ifstream &fd)
 	std::vector<std::string>	list;
 	int i = 0;
 
-	while (std::getline(fd, line))
+	while (std::getline(fd, line))//LINE:	\t  \t	 alias /www/var/;
 	{
 		i++;
 		while (!line.empty())
 		{
-			line = removeWhitespaces(line);
+			line = removeWhitespaces(line);//LINE:alias /www/var/;
 			if (line[0] == ';')
 				instructionBlock(conf, list, i);
 			else if (line[0] == '{')
@@ -61,11 +62,13 @@ void	confParse(Conf &conf, std::ifstream &fd)
 				closeBlock(conf, list, i);
 			else if (line[0] == '#')
 				break ;
+			else if (line[0] == '!')
+				fd.seekg(0, std::ios_base::end), line.clear();
 			else 
 				token = line.substr(0, find_first_special_char(line));
-			if (!token.empty())
-				list.push_back(token);
-			line = line.substr(find_first_special_char(line));
+			if (!token.empty() && line[0] != '!')
+				list.push_back(token);//list[0] = alias
+			line = line.substr(find_first_special_char(line));//LINE: /www/var/;
 			token = "";
 		}
 	}
@@ -172,15 +175,15 @@ static void	closeBlock(Conf &conf, std::vector<std::string> &list, int line)
 		case (Conf::B_HTTP) :
 			conf.setHttp(false);
 			break ;
-		case (Conf::B_LOCATION) :
-			conf.getLocationBlock().set_if_empty(conf);
-			conf.getServerBlock().location[conf.getCurrLocation()] = conf.getCopyLocationBlock();
-			conf.setLocation(false, "");
-			break ;
 		case (Conf::B_SERVER) :
 			conf.getServerBlock().set_if_empty(conf);
 			conf.getConfServer().push_back(conf.getServerBlock());
 			conf.setServer(false);
+			break ;
+		case (Conf::B_LOCATION) :
+			conf.getLocationBlock().set_if_empty(conf);
+			conf.getServerBlock().location[conf.getCurrLocation()] = conf.getCopyLocationBlock();
+			conf.setLocation(false, "");
 			break ;
 		default :
 			blockError("", line, CONF_BLOCK_CLOSE);

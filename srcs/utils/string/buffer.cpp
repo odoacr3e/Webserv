@@ -17,7 +17,10 @@ int	ft_recv(int fd, std::vector<char *> &packets, size_t packet_size)
 	{
 		if (bytes < 0)
 			return (-1);
-		total += bytes;
+		total += bytes;	
+		// print_file("REQUEST", "------BEGIN-----\n");
+		print_file("REQUEST", packets[i]);
+		// print_file("REQUEST", "\n------END-----\n");
 		if ((size_t)bytes < packet_size)
 			break ;
 		alloc_packets(packets, ++i, packet_size);
@@ -28,6 +31,7 @@ int	ft_recv(int fd, std::vector<char *> &packets, size_t packet_size)
 	if (i < packets.size() && packets[i] != NULL)
 		packets[i][0] = 0;
 	print_packets(packets, total);
+	print_file("REQUEST", "---DELIMITATORE LEGGIBILE DA UN UMANO---");
 	return (total);
 }
 

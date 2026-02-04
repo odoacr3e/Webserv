@@ -115,20 +115,15 @@ static int	headerParsing(Request &request, std::istringstream &header)
 //FIXME - non va letta una nuova linea
 static int	bodyParsing(Request &request, std::istringstream &stream)
 {
-	std::string line;
 	std::string	body;
 
 	request.setBodyLen(std::atoi(request.getHeaderVal("Content-Length").c_str()));
-	if (!line.empty())
-		return(request.fail(HTTP_CE_BAD_REQUEST, "No \\n between header/body"));
+	//if (!line.empty())
+	//	return(request.fail(HTTP_CE_BAD_REQUEST, "No \\n between header/body"));
 	if (request.getHeaderVal("Transfer-Encoding") != "")
 		{;}//FIXME - gestire transfer encoding
-	while (std::getline(stream, line, '\n'))
-	{
-		// if (line.rbegin()[0] != '\r')
-		//	return(request.fail(HTTP_CE_BAD_REQUEST, "No \\r in body"));
-		body += line;
-	}
+	while (std::getline(stream, body));
+	std::cout << "bodyParsing: raw body:\n" << body << "---\nBODY_END\n---";
 	request.setBody(body);
 	switch (request.getMethodEnum())
 	{

@@ -28,10 +28,15 @@ run_test()
 	"$exec_path" "$@" > "$TEMP" 2> /dev/null
 	local exit_code="$?"
 	if [ $exit_code -eq 0 ];then
-		printf "$COL_OK""Success!""$RESET"
+		printf "$COL_OK""OK""$RESET"
+	elif [ $exit_code -eq 1 ];then
+		printf "tester failed!""$RESET"
 	else
-		printf "$COL_ERROR""Failed with exit code %d""$RESET" $exit_code
-		printf "ERROR %d:\n\n" $test_num >> errors.txt
+		printf "$COL_ERROR""KO""$RESET"
+		printf "ERROR in test number %d\n" $test_num >> "$ERRORS"
+		printf "test: %s%s:\n" "$@" >> "$ERRORS"
+		echo "---------------------------------" >> "$ERRORS"
 		cat "$TEMP" >> "$ERRORS"
+		echo "---------------------------------" >> "$ERRORS"
 	fi
 }

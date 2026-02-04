@@ -6,6 +6,7 @@ source srcs_bash/run_test.sh
 CMD="build/conf"
 TEST_DIR="tester/tests/conf"
 TEST_DIR_LOCAL="tests/conf"
+OUT_DIR_LOCAL="output"
 counter=0
 all=("$TEST_DIR_LOCAL"/*.conf)
 all=("${all[@]##*/}")
@@ -16,8 +17,10 @@ run()
 	((counter++))
 }
 
-#SECTION - test list
+#SECTION - bash code
 
+rm -f "$OUT_DIR_LOCAL/errors.txt"
+rm -f "$OUT_DIR_LOCAL/temp.txt"
 if [[ "$1" == "all" ]];then
 	for conf in "${all[@]}"; do
 		run "$conf"
@@ -30,4 +33,7 @@ if [[ "$1" == "update" ]];then
 	done
 	exit
 fi
-run test.conf
+
+#SECTION - list test
+
+run miss1.conf

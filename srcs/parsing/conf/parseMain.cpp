@@ -16,6 +16,5 @@ void	confParseMain(Conf &conf, std::vector<std::string> list, int line)
 	if (list[0] == "user")
 		userInstruction(conf, list, line);
 	else
-		std::cerr << "\033[31mConf main, line " << line << ":\t\
-		unrecognized instruction:\t" << list[0] << "\n\033[0m";
+		instructionError(list, line, "unrecognized instruction");
 }

@@ -73,7 +73,6 @@ int		compare_result(std::string filename, std::string &output)
 	erase_space(output);
 	if (output == file_output)
 		return (0);
-	std::cout << "ERROR LOG: test " << filename << "\n";
 	std::cout << ft_diff(temp[0], temp[1]);
 	return (2);
 }

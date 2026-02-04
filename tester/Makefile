@@ -4,15 +4,21 @@ make: all
 	
 
 help: 
-	@echo "make help\nmake conf_test\nmake request_test"
+	@echo "make help\nmake conf_test\nmake request_test\nmake update"
+
+update: all
+	chmod +x conf_testing.sh
+	chmod +x request_testing.sh
+	./conf_testing.sh update
+	./request_testing.sh update
 
 conf_test: all
 	chmod +x conf_testing.sh
-	./conf_testing.sh
+	./conf_testing.sh all
 
 request_test: all
 	chmod +x request_testing.sh
-	./request_testing.sh
+	./request_testing.sh all
 
 #SECTION - global variables
 PROJ_ROOT = ..

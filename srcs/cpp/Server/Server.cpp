@@ -85,6 +85,12 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			}
 			else
 				processRequest(it);
+			// {
+			// 	parsing
+			//  processazione della richiesta
+			//  lettura del body
+			// 	...
+			// }
 		}
 		else if ((*it).fd != -1 && ((*it).revents & POLLOUT))
 		{

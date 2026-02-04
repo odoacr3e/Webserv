@@ -70,4 +70,17 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 	return (stream);
 }
 
+template <typename T>
+void	print_file(std::string filename, T content)
+{
+	std::fstream	stream(filename, std::ios_base::app);
+
+	if (stream.fail())
+	{
+		abort();
+		return (std::cerr << "cannot open " + filename + "\n", (void)0);
+	}
+	stream << content << "\n";
+}
+
 #endif

@@ -213,7 +213,7 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	for (size_t i = 0; i < list.size(); i++)
 		error += list[i] + " ";
 	error += "\033[31m\b:\n" + s + COLOR_RESET;
-	std::cerr << error << std::endl;
+	std::cout << error << std::endl;
 }
 
 // NOTE - throw exception for block errors

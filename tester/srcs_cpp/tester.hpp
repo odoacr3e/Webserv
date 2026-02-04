@@ -32,8 +32,9 @@
 # define PROG_NAME "webserv"
 # define PROG_PATH ".."
 
-void	run_cmd(char *const argv[], std::string &output, int second);
+void	run_cmd(char *const argv[], std::string &output, bool kill_bool);
 void	erase_space(std::string &s);
+void	erase_ansi(std::string &s);
 int		update_result(std::string file, std::string &output);
 int		compare_result(std::string file, std::string &output);
 

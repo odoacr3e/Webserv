@@ -1,12 +1,12 @@
 #include "../tester.hpp"
 
-void	run_cmd(char *const argv[], std::string &output, int second);
+void	run_cmd(char *const argv[], std::string &output, bool kill_bool);
 
-void	run_cmd(char *const argv[], std::string &output, int second)
+void	run_cmd(char *const argv[], std::string &output, bool kill_bool)
 {
-	int					pipe_fd[2];
-
+	int		pipe_fd[2];
 	pid_t	pid;
+
 	if (pipe(pipe_fd) != 0)
 		return (std::cout << "run_script fatal error\n", (void)0);
 	pid = fork();
@@ -17,40 +17,25 @@ void	run_cmd(char *const argv[], std::string &output, int second)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
-		//free
 		execve(argv[0], argv, NULL);
 		std::cerr << "run_cmd fatal error\n";
 		std::exit(1);
 	}
 	close(pipe_fd[1]);
-	sleep(second);
-	kill(pid, SIGINT);
+	if (kill_bool)
+	{
+		sleep(1);
+		kill(pid, SIGINT);
+	}
 	std::string	filename("/dev/fd/" + ft_to_string(pipe_fd[0]));
-	std::cout << filename << std::endl;
 	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
 	std::getline(output_fd, output, '\0');
 	close(pipe_fd[0]);
 }
 
-void	erase_space(std::string &s)
-{
-	size_t	i;
-	size_t	j;
-
-	i = s.find_first_of(" \f\n\r\t\v");
-	while (i != s.npos)
-	{
-		j = s.find_first_not_of(" \f\n\r\t\v", i);
-		if (j == s.npos)
-			j = s.length();
-		j -= i;
-		s.erase(i, j);
-		i = s.find_first_of(" \f\n\r\t\v", i);
-	}
-}
-
-static int	get_file_input(std::string filename, std::string &input);
-static int	get_file_output(std::string filename, std::string &output);
+static int			get_file_input(std::string filename, std::string &input);
+static int			get_file_output(std::string filename, std::string &output);
+static std::string	ft_diff(std::string &output, std::string &correct);
 
 int		update_result(std::string filename, std::string &output)
 {
@@ -60,12 +45,13 @@ int		update_result(std::string filename, std::string &output)
 
 	if (get_file_input(filename, file_input) != 0)
 		return (1);
-	fd.open(filename.c_str(), std::ios_base::trunc);
+	fd.open(filename.c_str(), std::ios::out | std::ios_base::trunc);
 	if (fd.fail())
 	{
 		std::cerr << "cannot update " << filename << std::endl;
 		return (1);
 	}
+	erase_ansi(output);
 	fd << file_input << output;
 	return (0);
 }
@@ -73,19 +59,47 @@ int		update_result(std::string filename, std::string &output)
 int		compare_result(std::string filename, std::string &output)
 {
 	std::fstream	fd;
-	std::string		temp;
+	std::string		temp[2];
 	std::string		file_input;
 	std::string		file_output;
 
 	if (get_file_output(filename, file_output) != 0)
 		return (1);
+	erase_ansi(file_output);
+	erase_ansi(output);
+	temp[0] = file_output;
+	temp[1] = output;
 	erase_space(file_output);
+	erase_space(output);
 	if (output == file_output)
 		return (0);
 	std::cout << "ERROR LOG: test " << filename << "\n";
-	std::cout << "CORRECT: " << file_output << "\n";
-	std::cout << "OUTPUT: " << output << "\n";
+	std::cout << ft_diff(temp[0], temp[1]);
 	return (2);
+}
+
+static std::string	ft_diff(std::string &output, std::string &correct)
+{
+	std::string		diff;
+	std::istringstream	fd_out(output);
+	std::istringstream	fd_corr(correct);
+
+	output.clear();
+	correct.clear();
+	diff += "\n";
+	while (std::getline(fd_out, output, '\n'))
+	{
+		std::getline(fd_corr, correct, '\n');
+		if (output == correct)
+			diff += output + "\n";
+		else
+		{
+			diff += "|KO|" + output + "|\n";
+			diff += "|OK|" + correct + "|\n";
+		}
+	}
+	diff += "\n";
+	return (diff);
 }
 
 static int	get_file_input(std::string filename, std::string &input)
@@ -95,13 +109,14 @@ static int	get_file_input(std::string filename, std::string &input)
 
 	if (fd.fail())
 	{
+		std::cout << getcwd(NULL, 0) << "\0";
 		std::cerr << "fail to open " << filename << std::endl;
 		return (1);
 	}
 	std::getline(fd, temp, '!');
-	input += temp;
+	input += temp + "!";
 	std::getline(fd, temp, '\n');
-	input += temp;
+	input += temp + "\n";
 	return (0);
 }
 

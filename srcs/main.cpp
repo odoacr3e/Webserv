@@ -58,6 +58,7 @@ int main(int ac, char **av, const char **env)
 	{
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
+		std::cout << config << std::endl;
 		Server server(config, env);
 		// return (test_request(config, server));
 		while (server_run)
@@ -75,7 +76,7 @@ int main(int ac, char **av, const char **env)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << e.what() << '\n';
 	}
 	return (0);
 }

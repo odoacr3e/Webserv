@@ -1,4 +1,11 @@
 #SECTION - debug commands
+
+make: all
+	
+
+help: 
+	@echo "make help\nmake conf_test\nmake request_test"
+
 conf_test: all
 	chmod +x conf_testing.sh
 	./conf_testing.sh
@@ -46,7 +53,6 @@ OBJ_REQUEST = 	$(addprefix $(OBJ_DIR)/, $(SRC_REQUEST:.cpp=.o) $(SRC_UTILS:.cpp=
 
 #SECTION - execs
 NAME = conf request
-
 
 all: compile_web $(OBJ_DIR)/conf $(OBJ_DIR)/request
 

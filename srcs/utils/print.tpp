@@ -77,10 +77,11 @@ void	print_file(std::string filename, T content)
 
 	if (stream.fail())
 	{
-		abort();
+		std::abort();
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
-	stream << content << "\n";
+	stream << content;
 }
+
 
 #endif

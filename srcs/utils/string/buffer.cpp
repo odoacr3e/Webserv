@@ -22,36 +22,81 @@ int	ft_recv(int fd, Request &request)
 		return (-69);
 
 	size_t				tot = 0;
-	char				buf[2048] = {0};
 	size_t				bodyLength = request.getBodyLen();
-	std::vector<char>	body(bodyLength + 1);
+	char				buf[2048] = {0};
+	std::vector<char>	body;
+	body.reserve(bodyLength + 1);
 	std::string			bound;
 	std::string			contType = request.getHeaderVal("Content-Type");
-	int					left;
-	int					DEBUG_COUNTER = 0;
+	// int					DEBUG_COUNTER = 0;
+	// int					left = bodyLength;
+	int bytes;
 
-	// print_file("REQUEST", std::ios_base::trunc);
+	std::fstream	destroyer("REQUEST", std::ios_base::trunc);
+	print_file("REQUEST", request.getBody());
 	if (contType.find("boundary") != std::string::npos)
 	{
-		bound = contType.substr(contType.find("boundary="));
+		bound = contType.substr(contType.find("boundary=") + std::string("boundary=").length());
 		std::cout << "BOUNDARY TROVATO: " << bound << std::endl;
 	}
-	left = bodyLength;
+	std::cout << "2 - ft_recv, fd is: " << fd << "\n";
+	// while (tot < bodyLength)
+	// {
+	// 	/* std::cout << "left: " << left << "\n";
+	// 	if (left >= 2048)
+	// 		bytes = recv(fd, buf, 2048, 0);
+	// 	else
+	// 		bytes = recv(fd, buf, bodyLength - tot, 0);
+	// 	std::cout << "Bytes: " << bytes << std::endl;
+	// 	std::cout << "Tot bytes: " << tot << std::endl;
+	// 	if (std::string(buf).find(bound) != std::string::npos)
+	// 	{
+	// 		std::cout << "HO TROVATO IL ONE PIECE" << std::endl;
+	// 	}
+	// 	print_file("REQUEST", buf);
+	// 	if (bytes <= 0)
+	// 	{
+	// 		std::cout << "left: " << left << "\n";
+	// 		std::cout << "ft_recv: exit with bytes " << bytes << ", counter " << DEBUG_COUNTER << "\n";
+	// 		std::cout << "ft_recv: fd is " << fd << "\n";
+	// 		break ; 
+	// 	}
+	// 	left -= bytes;
+	// 	tot += bytes;
+	// 	body.insert(body.end(), buf, buf + bytes); */
+	// 	size_t to_read = std::min(bodyLength - tot, (size_t)2048);
+	// 	bytes = recv(fd, buf, to_read, 0);
+		
+	// 	if (bytes <= 0)
+	// 		break;
+		
+	// 	tot += bytes;
+	// 	body.insert(body.end(), buf, buf + bytes);
+	// }
+	std::cout << "=== INIZIO RECV ===" << std::endl;
+	std::cout << "Content-Length: " << bodyLength << std::endl;
+
 	while (tot < bodyLength)
 	{
-		int bytes = recv(fd, buf, left, 0);//!check size!		
-		std::cout << "Bytes: " << bytes << std::endl;
-		std::cout << "Tot bytes: " << tot << std::endl;
+		size_t to_read = std::min(bodyLength - tot, (size_t)2048);
+		std::cout << "Provo a leggere " << to_read << " bytes (tot finora: " << tot << ")" << std::endl;
+		
+		bytes = recv(fd, buf, to_read, 0);
+		std::cout << "recv() ha ritornato: " << bytes << std::endl;
+		
 		if (bytes <= 0)
-		{
-			std::cout << "ft_recv: exit with bytes " << bytes << ", counter " << DEBUG_COUNTER << "\n";
-			std::cout << "ft_recv: fd is " << fd << "\n";
-			break ; 
-		}
+			break;
+		
 		tot += bytes;
-		left -= bytes;
-		body.insert(body.end(), buf, buf + bytes);
 	}
+
+	std::cout << "=== FINE RECV: tot=" << tot << ", bodyLength=" << bodyLength << " ===" << std::endl;
+	// for (size_t i = 0; i != body.size(); i++)
+	// {
+	// 	print_file("PORNO_EMMA_WATSON.ico", body[i]);
+	// }
+	// std::remove("PORNO_EMMA_WATSON.ico");
+	// print_file("PORNO_EMMA_WATSON.ico", body.data());
 	std::cout << "MEGA GABIBBO\n";
 	exit(0);
 	return (69 - 69);

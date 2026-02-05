@@ -18,6 +18,7 @@ int	requestParsing(Client &client, std::string input)
 	std::istringstream	s(input);
 	Request				&request = client.getRequest();
 
+	std::remove("MEGA_RAYQUAZA");
 	while (lines == "\r")//NOTE - linee vuote iniziali accettate da RFC
 	{
 		std::getline(s, lines, '\n');

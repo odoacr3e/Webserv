@@ -53,6 +53,11 @@
 //     return 0;
 // }
 
+void	print_bin(std::ofstream &ofile, const char *content, size_t size)
+{
+	ofile.write(content, size);
+}
+
 int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 {
 	std::cout << "ft_recv, fd is: " << fd << "\n";
@@ -71,26 +76,19 @@ int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 	(void)tot;
 	//SECTION - recv
 	std::remove("PORNO_EMMA_WATSON.ico");
-	std::cout << "body.size(): " << body.size() << std::endl;
-	std::cout << "body: " << body.data()[0] << body.data()[1] << body.data()[2] << body.data()[3] << std::endl;
-	print_bin("PORNO_EMMA_WATSON.ico", body.data(), body.size());
-	
+	std::ofstream		ofile("PORNO_EMMA_WATSON.ico", std::ios_base::binary);
 	while (left)
 	{
 		bytes = recv(fd, buf, 2048, MSG_DONTWAIT);
 		if (bytes == -1)
 		{
-			static bool print_in_file = true;
-			if (print_in_file == true)
-			{
-				//print_file("PORNO_EMMA_WATSON.ico", body);
-				//print_in_file = false;
-				//perror("failed because ");
-				//std::cout << "errno is " << errno << "\n";
-				std::cout << "Continue: left is " << left << "\n";
-				break;
-			// continue ;
-			}
+			//print_file("PORNO_EMMA_WATSON.ico", body);
+			//print_in_file = false;
+			//perror("failed because ");
+			//std::cout << "errno is " << errno << "\n";
+			std::cout << "Continue: left is " << left << "\n";
+			break;
+			// continue;
 		}
 		if (bytes == 0)
 		{
@@ -106,10 +104,8 @@ int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 		body.insert(body.end(), buf, buf + bytes);
 	}
 	//SECTION - print result
-	for (size_t i = 0; i != body.size(); i++)
-	{
-		print_file("PORNO_EMMA_WATSON.ico", body[i]);
-	}
+		// print_file("PORNO_EMMA_WATSON.ico", body[i]);
+	ofile.write(body.data(), body.size());
 	//print_file("PORNO_EMMA_WATSON.ico", body.data());
 	std::cout << "MEGA GABIBBO\n";
 	exit(0);

@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <malloc.h>
+#include <string.h>
 #include <fcntl.h>
 #include <stdbool.h>
 
@@ -17,7 +19,7 @@ typedef struct s_diff
 	int		left;
 }		t_diff;
 
-static char	*ft_itoa(int num, int *len);
+static char	*itoa(int n, int *len);
 static bool	ft_getline(t_diff *f);
 static int	bin_strcmp(char *tmp1, char *tmp2, int len1, int len2);
 static void	print_diff(t_diff *f1, t_diff *f2, int newline_counter);
@@ -31,16 +33,17 @@ int	main()
 
 	f1 = (t_diff){0};
 	f2 = (t_diff){0};
-	f1.fd = open(FILE_1, O_RDONLY);
-	f2.fd = open(FILE_2, O_RDONLY);
+	f1.fd = open(FILE_1, O_RDONLY);//"../PORNO_EMMA_WATSON.ico"
+	f2.fd = open(FILE_2, O_RDONLY);//"../www/var/favicon.ico"
 	newline_counter = 0;
 	if (!f1.fd || !f2.fd)
 		return (end(&f1, &f2, 1));
 	if (read(f1.fd, f1.bf, SIZE) != SIZE)
+		//{;}
 		return (end(&f1, &f2, 2));
 	if (read(f2.fd, f2.bf, SIZE) != SIZE)
 		return (end(&f1, &f2, 3));
-	f1.left = SIZE, f2.left = SIZE; 
+	f1.left = SIZE + 3, f2.left = SIZE + 3; 
 	f1.bf[SIZE] = 'E', f2.bf[SIZE] = 'E';
 	f1.bf[SIZE + 1] = 'O', f2.bf[SIZE + 1] = 'O';
 	f1.bf[SIZE + 2] = 'F', f2.bf[SIZE + 2] = 'F';
@@ -52,6 +55,8 @@ int	main()
 			return (end(&f1, &f2, 5));
 		if (bin_strcmp(f1.tmp, f2.tmp, f1.tmplen, f2.tmplen))
 			print_diff(&f1, &f2, newline_counter);
+		// else
+		// 	write(1, "DIFF_OK!\n", 9);
 		free(f1.tmp);
 		free(f2.tmp);
 		newline_counter++;
@@ -77,12 +82,13 @@ static bool	ft_getline(t_diff *f)
 		++endline;
 	}
 	f->tmplen = endline;
+	++endline;
+	f->left -= endline;//trim
 	f->tmp = malloc(endline);
 	if (!f->tmp)
 		return (1);
 	for (int i = 0; i != endline; i++)
 		f->tmp[i] = f->bf[i];
-	f->left -= endline;//trim
 	for (int i = 0; i != f->left; i++)
 		f->bf[i] = f->bf[i + endline];
 	return (0);
@@ -102,19 +108,35 @@ static int	bin_strcmp(char *tmp1, char *tmp2, int len1, int len2)
 
 static void	print_diff(t_diff *f1, t_diff *f2, int newline_counter)
 {
-	char	*char_counter;
-	int		counter_len;
+	char	*temp;
+	int		len;
 
-	write(1, "\033[31mdiff in line\033[0m ", 22);
-	char_counter = ft_itoa(newline_counter, &counter_len);
-	write(1, char_counter, counter_len);
-	free(char_counter);
-	write(1, ":\n", 2);
-	write(1, "f1: |", 5);
+	temp = itoa(newline_counter, &len);
+	write(1, "diff in line: ", 14);
+	write(1, temp, len);
+	write(1, "\n", 1);
+	free(temp);
+	temp = calloc(100, sizeof(char));
+	write(1, "Our: |", 6);
 	write(1, f1->tmp, f1->tmplen);
-	write(1, "|\nf2: |", 7);
+	write(1, "|\nOri: |", 8);
 	write(1, f2->tmp, f2->tmplen);
+	write(1, "|\nhexa dump:\n", 13);
+	for (int i = 0; i != f1->tmplen; i++)
+	{
+		sprintf(temp, "%d", f1->tmp[i]);
+		write(1, temp, strlen(temp));
+		write(1, " ", 1);
+	}
+	write(1, "\n---\n", 5);
+	for (int i = 0; i != f2->tmplen; i++)
+	{
+		sprintf(temp, "%d", f2->tmp[i]);
+		write(1, temp, strlen(temp));
+		write(1, " ", 1);
+	}
 	write(1, "|\n---------------\n", 18);
+	free(temp);
 }
 
 static int	end(t_diff *f1, t_diff *f2, int ecode)
@@ -135,33 +157,50 @@ static int	end(t_diff *f1, t_diff *f2, int ecode)
 	return (ecode);
 }
 
-static char	*ft_itoa(int num, int *len)
+static void	reverse(char *str, int len)
 {
-	int		temp_num;
-	int		index;
-	char	*str;
+	int i = 0;
+	int j = len - 1;
+	char tmp;
 
-	index = 0;
-	temp_num = num;
-	while ((temp_num > 9) || (temp_num < -9))
+	while (i < j)
 	{
-		index++;
-		temp_num /= 10;
+		tmp = str[i];
+		str[i] = str[j];
+		str[j] = tmp;
+		i++;
+		j--;
 	}
-	if (num == 0)
-		index = 1;
-	*len = index;
-	str = calloc(20, 1);
+}
+
+static char	*itoa(int n, int *len)
+{
+	char	*str;
+	int		i = 0;
+	int		sign;
+	long	nb;
+
+	nb = n;
+	sign = 0;
+	if (nb < 0)
+	{
+		sign = 1;
+		nb = -nb;
+	}
+	str = malloc(12);
 	if (!str)
-		return (NULL);
-	str[0] = '0';
-	while (num != 0)
+		return NULL;
+	while (nb > 0)
 	{
-		if (num < 0)
-			str[index--] = (((num % 10) * -1) + 48);
-		else
-			str[index--] = ((num % 10) + 48);
-		num /= 10;
+		str[i++] = (nb % 10) + '0';
+		nb /= 10;
 	}
-	return (str);
+	if (i == 0)
+		str[i++] = '0';
+	if (sign)
+		str[i++] = '-';
+	str[i] = '\0';
+	reverse(str, i);
+	*len = i;
+	return str;
 }

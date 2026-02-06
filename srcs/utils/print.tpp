@@ -70,21 +70,15 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 	return (stream);
 }
 
-template <typename T>
-void	print_bin(std::string filename, T content, size_t size)
-{
-	std::fstream	stream(filename, std::ios_base::app | std::ios_base::binary);
 
-	if (stream.fail())
-	{
-		std::abort();
-		return (std::cerr << "cannot open " + filename + "\n", (void)0);
-	}
-	stream.write(reinterpret_cast<const char*>(content), size);
-}
+// template <typename T>
+// void	print_file(std::ofstream &stream, T content)
+// {
+// 	stream << content;
+// }
 
 template <typename T>
-void	print_file(std::string filename, T content)
+void	print_file(std::string &filename, T content)
 {
 	std::fstream	stream(filename, std::ios_base::app);
 

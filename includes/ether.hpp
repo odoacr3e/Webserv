@@ -87,7 +87,7 @@ dirent	*findUrlDirectory(std::string url);
 void	  ft_ls(std::string path, std::string &files);
 
 // int			ft_recv(int fd, std::vector<char *> &packets, size_t packet_size);
-int	ft_recv(int fd, Request &request);
+int	ft_recv(int fd, Request &request, char *buf, int bytes);
 
 void	run_script(Server &srv, Client &client, std::string &body);
 std::string	env_value(const char **env, std::string key);

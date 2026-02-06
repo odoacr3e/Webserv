@@ -80,7 +80,7 @@ void	print_bin(std::string filename, T content, size_t size)
 		std::abort();
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
-	stream.write(reinterpret_cast<const char*>(&content), size);
+	stream.write(reinterpret_cast<const char*>(content), size);
 }
 
 template <typename T>

@@ -140,16 +140,7 @@ static int	bodyParsing(Client &client, Request &request, std::istringstream &hea
 			s[i] = s[i + h_len]
 		bytes -= h_len
 	*/
-
-			std::string	temp;
-			while (std::getline(header, temp, '\n'))
-			{
-				if (temp == "\r")
-					break ;
-			}
-			size_t	len = header.tellg();
-			for (int i = 0; i != len; i++)
-				buf[i] = buf[i + len];	/*
+/*
 , buff, lbytes	header
 
 	altri header
@@ -157,17 +148,36 @@ static int	bodyParsing(Client &client, Request &request, std::istringstream &hea
 	--boundary--
 	PNG
 	*/
-	while (std::getline(header, ))
-	size_t	h_len = header.tellg();
-	bytes -= (int)h_len;
-	for (int i = 0; i != bytes; i++)
-		buf[i] = buf[i + h_len];
-	//body.erase(0, header.tellg());
+// Content-Disposition: form-data; name="file"; filename="favicon.ico"
+// Content-Type: application/octet-stream\r\n
+// \r\n
+// �PNG
+// 
+	std::remove("REQUEST");
+	print_bin("REQUEST", buf, bytes);
+	std::string	body = buf;
+	body.erase(0, header.tellg());
 	request.setBody(body);
+	size_t	h_len;
+	std::string	line;
+	size_t	header_leftover[2];
 	switch (request.getMethodEnum())
 	{
 		case POST :
-			return (ft_recv(client.getSockFd(), request));
+			header_leftover[0] = header.tellg();
+			while (std::getline(header, line, '\n'))
+			{
+				if (line == "\r")
+					break ;
+			}
+			header_leftover[1] = header.tellg();
+			request.setBodyLen(request.getBodyLen() - (header_leftover[1] - header_leftover[0]));
+			h_len = header.tellg();
+			bytes -= (int)h_len; //161 -> left
+			//request.setBodyLen(request.getBodyLen() - )
+			for (int i = 0; i != bytes; i++)
+				buf[i] = buf[i + h_len];
+			return (ft_recv(client.getSockFd(), request, buf, bytes));
 			// return (bodyChecker(request, body, false));
 		case GET :
 			return (bodyChecker(request, body, true));

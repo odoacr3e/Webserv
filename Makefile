@@ -55,6 +55,8 @@ gdb: $(NAME)
 
 giddibi: gdb
 
+r3: re
+
 val: $(NAME)
 	clear ; valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
 

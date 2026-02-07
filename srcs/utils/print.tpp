@@ -78,9 +78,9 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 // }
 
 template <typename T>
-void	print_file(std::string &filename, T content)
+void	print_file(std::string filename, T content)
 {
-	std::fstream	stream(filename, std::ios_base::app);
+	std::fstream	stream(filename.c_str(), std::ios_base::app);
 
 	if (stream.fail())
 	{

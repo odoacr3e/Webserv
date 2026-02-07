@@ -1,4 +1,5 @@
 #include "../../hpp/Server.hpp"
+#include "../../hpp/Request.hpp"
 
 static void execute_delete(Client &client, std::string &body, std::fstream *file);
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file);
@@ -78,14 +79,18 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 
 //SECTION - POST
 
-int	Server::postMethod()
-{//questa funzione verra chiamata da runMethod
-//semplicemente sceglie quale html displayare
-//in base allo status code della richiesta
-	return (0);
-}
+/*
+	1)	decidere dove buttare roba
+	2)	fare hT(ETTE)ml
+*//*
+void	Server::postMethod(Client &client, std::string &body, std::fstream *file)
+{
+	
+	
+}*/
 
 static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv);
+int			headerParsing(Request &request, bool reset);
 
 int	executePost(Request &request)
 {
@@ -93,12 +98,11 @@ int	executePost(Request &request)
 	std::string	line;
 	size_t		header_leftover[2];
 
+	std::remove("REQUEST");
+	print_file("REQUEST", request.getSockBuff());
 	header_leftover[0] = request.getRequestStream().tellg();
-	while (std::getline(request.getRequestStream(), line, '\n'))
-	{
-		if (line == "\r")
-			break ;
-	}
+	std::getline(request.getRequestStream(), line, '\n');
+	headerParsing(request, false);
 	header_leftover[1] = request.getRequestStream().tellg();
 	request.setBodyLen(request.getBodyLen() - (header_leftover[1] - header_leftover[0]));
 	h_len = request.getRequestStream().tellg();
@@ -113,21 +117,24 @@ static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 	size_t				bodyLength = request.getBodyLen() - bytes_first_recv;
 	int					left = bodyLength;
 	char				buf[2048] = {0};
-	std::vector<char>	body;
+	std::vector<char>	&body = request.getBinBody();
 	int 				bytes;
 
 	if (fd < 0)
 		return (-69);
 	body.insert(body.begin(), input, input + bytes_first_recv);
+	// if (request.checkKey("Content-Type") && request.getHeader()["Content-Type"] == "multipart/form-data")
+	// {
+	// 	std::ofstream	ofile("newfile.ico", std::ios_base::binary);
+
+	// }
 	//SECTION - recv
-	std::remove("newfile.ico");
-	std::ofstream	ofile("newfile.ico", std::ios_base::binary);
 	while (left)
 	{
 		bytes = recv(fd, buf, 2048, MSG_DONTWAIT);
 		if (bytes == -1)
 		{//non dovrebbe entrare qui, da capire se fare break o exit
-			std::cout << "Continue: left is " << left << "\n";
+			std::cout << "Error in ft_recv by recv, left: " << left << "\n";
 			break;
 			// continue;
 		}
@@ -145,6 +152,6 @@ static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 		body.insert(body.end(), buf, buf + bytes);
 	}
 	//SECTION - print result
-	ofile.write(body.data(), body.size());
-	return (0);
+	// ofile.write(body.data(), body.size());
+	return (69 - 69);
 }

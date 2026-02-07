@@ -92,7 +92,7 @@ int main(int ac, char **av, const char **env)
 	it remains available at all times.
 -	Uploading files from the clients to the server is 
 	authorized, and storage location is provided
--	Just remember that, for chunked requests, 
+-	Just remember that, for chunked requests,
 	your server needs to un-chunk them, 
 	the CGI will expect EOF as the end of the body.
 - 	The same applies to the output of the CGI. 

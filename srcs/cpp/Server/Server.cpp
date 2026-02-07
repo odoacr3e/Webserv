@@ -180,7 +180,9 @@ void	Server::runMethod(Client &client, std::string &body, std::fstream &file)
 			this->deleteMethod(client, body, &file);
 			break ;
 		case POST:
-			;//funzione che gestisce POST
+			//parseData
+			//se script lancia lo script
+			//funzione che gestisce POST
 			break ;
 		case HEAD:
 			;//funzione che gestisce HEAD
@@ -214,7 +216,7 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 }
 
 // NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
-void	Server::createAutoindex(Client &client, std::string &body)
+void	Server::createAutoindex(Client &client, std::string &resp_body)
 {
 	std::ifstream	file("www/var/autoindex/autoindex.html");
 	std::string		line;
@@ -228,7 +230,7 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	{
 		line.push_back('\n');
 		find_and_replace(line, "{PATH}", client.getRequest().getUrlOriginal());
-		body += line;
+		resp_body += line;
 		if (line.find("<tbody>") != std::string::npos)
 			break ;
 	}
@@ -237,19 +239,19 @@ void	Server::createAutoindex(Client &client, std::string &body)
 	{
 		std::string dname = content->d_name;
 		if (dname != "..")
-			listDirectoriesAutoIndex(body, url, content);//FIXME - da vedere qui per stat
+			listDirectoriesAutoIndex(resp_body, url, content);//FIXME - da vedere qui per stat
 		content = findUrlDirectory(url); 
 	}
 	while (std::getline(file, line))
 		if (line.find("</tbody>") != std::string::npos)
 			break ;
-	body += line;
+	resp_body += line;
 	while (std::getline(file, line))
 	{
 		if (line.find("{SERVER_NAME}") != std::string::npos)
-			body += line.replace(line.find('{'), 13, "3 UOMINI E 1 WEBSERVER");
+			resp_body += line.replace(line.find('{'), 13, "3 UOMINI E 1 WEBSERVER");
 		else
-			body += line;
+			resp_body += line;
 	}
 }
 

@@ -6,8 +6,8 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-#define FILE_1 "../PORNO_EMMA_WATSON.ico"
-#define FILE_2 "../www/var/favicon.ico"
+#define FILE_1 "../newfile.ico"
+#define FILE_2 "../newfile.ico"
 #define SIZE 233816
 
 typedef struct s_diff
@@ -39,10 +39,11 @@ int	main()
 	if (!f1.fd || !f2.fd)
 		return (end(&f1, &f2, 1));
 	if (read(f1.fd, f1.bf, SIZE) != SIZE)
-		//{;}
-		return (end(&f1, &f2, 2));
+		{;}
+		//return (end(&f1, &f2, 2));
 	if (read(f2.fd, f2.bf, SIZE) != SIZE)
-		return (end(&f1, &f2, 3));
+		{;}
+		//return (end(&f1, &f2, 3));
 	f1.left = SIZE + 3, f2.left = SIZE + 3; 
 	f1.bf[SIZE] = 'E', f2.bf[SIZE] = 'E';
 	f1.bf[SIZE + 1] = 'O', f2.bf[SIZE + 1] = 'O';
@@ -55,8 +56,8 @@ int	main()
 			return (end(&f1, &f2, 5));
 		if (bin_strcmp(f1.tmp, f2.tmp, f1.tmplen, f2.tmplen))
 			print_diff(&f1, &f2, newline_counter);
-		// else
-		// 	write(1, "DIFF_OK!\n", 9);
+		else
+			print_diff(&f1, &f2, newline_counter);
 		free(f1.tmp);
 		free(f2.tmp);
 		newline_counter++;

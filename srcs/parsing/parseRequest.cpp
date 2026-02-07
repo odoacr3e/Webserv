@@ -5,7 +5,7 @@
 #include "../hpp/Server.hpp"
 
 static int	lineParsing(Request &request, std::string line);
-static int	headerParsing(Request &request);
+int			headerParsing(Request &request, bool reset);
 static int	bodyParsing(Request &request);
 bool		bodyChecker(Request &request, std::string &body, bool accept_empty);
 bool		getNextFirstLineField(std::string &line, std::string &field);
@@ -25,7 +25,7 @@ int	requestParsing(Client &client, char *input, int bytes)
 	}
 	if (lineParsing(request, lines) != 0) // first line parsing
 		return (request.getStatusCode());
-	if (headerParsing(request) != 0) // header parsing
+	if (headerParsing(request, true) != 0) // header parsing
 		return (request.getStatusCode());
 	if (bodyParsing(request) != 0)
 		return (request.getStatusCode());
@@ -76,16 +76,17 @@ static int	lineParsing(Request &request, std::string line)
 	richiesta di connessione e si assicura che ci siano tutti i membri necessari in
 	in base ai metodi che dobbiamo gestire -GET -POST -DELETE -HEAD
 */
-static int	headerParsing(Request &request)
+int			headerParsing(Request &request, bool reset)
 {
 	std::string		line;
 	std::string		key;
 	size_t			sep;
 
-	request.resetRequest();
+	if (reset == true)
+		request.resetRequest();
 	while (std::getline(request.getRequestStream(), line) && line != "\r") // da trimmare \r
 	{
-//SECTION - Key
+		//SECTION - Key
 		if (line[0] == '\t')
 			return (request.fail(HTTP_CE_BAD_REQUEST, "Line folding is deprecated"));
 		if (line.rbegin()[0] != '\r')
@@ -99,7 +100,7 @@ static int	headerParsing(Request &request)
 		key = line.substr(0, sep);
 		if (find_first_whitespace(key) != key.length())
 			return (request.fail(HTTP_CE_BAD_REQUEST, "Key with WS"));
-//SECTION - val
+		//SECTION - val
 		line = line.substr(key.length() + 1);
 		line = removeWhitespaces(line);
 		if (line.empty())

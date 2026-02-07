@@ -178,3 +178,8 @@ std::istringstream	&Request::getRequestStream()
 {
 	return (*this->_requestStream);
 }
+
+std::vector<char>	&Request::getBinBody()
+{
+	return (this->_bin_body);
+}

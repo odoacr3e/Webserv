@@ -48,6 +48,7 @@ class Request
 		std::string 		_url_orig;
 		std::string 		_http_version;//sempre uguale a HTTP/1.1
 		std::string			_body;
+		std::vector<char>	_bin_body;
 		std::string			_body_type;
 		IpPortPair			_ipport;
 		e_http_codes		_status_code;
@@ -105,8 +106,9 @@ class Request
 		char						*getSockBuff();
 		int							&getSockBytes();
 		int							&getSockFd();
-		std::istringstream	&getRequestStream();
-		
+		std::istringstream			&getRequestStream();
+		std::vector<char>			&getBinBody();
+
 	//ANCHOR - setters.cpp
 		void			setMethod(std::string method);
 		void 			setUrl(std::string);

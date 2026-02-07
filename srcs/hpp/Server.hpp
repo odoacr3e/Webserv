@@ -59,7 +59,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		// NOTE - Methods functions
 		void				runMethod(Client &client, std::string &body, std::fstream &file);
 		void				deleteMethod(Client &client, std::string &body, std::fstream *file);
-		void				postMethod(Client &client, std::string &body, std::fstream *file);
+		void				postMethod(Client &client, std::string &body, std::fstream *resp_file);
 
 		// NOTE - close all sockets
 		void				suppressSocket();

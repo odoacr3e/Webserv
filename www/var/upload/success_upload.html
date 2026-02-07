@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<title>Upload completato</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			background: #0f172a;
+			color: #e5e7eb;
+			line-height: 1.6;
+		}
+
+		header {
+			text-align: center;
+			padding: 40px 20px;
+			background: #020617;
+			border-bottom: 1px solid #1e293b;
+		}
+
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+			color: #22c55e;
+		}
+
+		header p {
+			color: #94a3b8;
+		}
+
+		main {
+			max-width: 900px;
+			margin: 40px auto;
+			padding: 0 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 20px;
+		}
+
+		.card {
+			background: #020617;
+			border: 1px solid #1e293b;
+			border-radius: 10px;
+			padding: 20px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+		}
+
+		.card h2 {
+			margin-bottom: 10px;
+			font-size: 1.4rem;
+			color: #22c55e;
+		}
+
+		footer {
+			text-align: center;
+			padding: 20px;
+			color: #94a3b8;
+			font-size: 0.9rem;
+			border-top: 1px solid #1e293b;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>Upload completato</h1>
+		<p>Il file è stato caricato correttamente sul server</p>
+	</header>
+
+	<main>
+		<div class="card">
+			<h2>Operazione riuscita</h2>
+			<p>
+				Il file è stato ricevuto ed elaborato con successo.
+				Puoi continuare la navigazione oppure effettuare un nuovo upload.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		Success - 3 Uomini e 1 web server
+	</footer>
+
+</body>
+</html>

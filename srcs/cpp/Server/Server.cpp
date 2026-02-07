@@ -91,7 +91,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		else if ((*it).fd != -1 && ((*it).revents & POLLOUT))
 		{
 			std::string	html = createResponse(*(this->_clients[(*it).fd]));
-			std::cout << "checkForConnection: response: " << html << std::endl;
+			// std::cout << "checkForConnection: response: " << html << std::endl;
 			send((*it).fd, html.c_str(), html.length(), 0);
 			(*it).events = POLLIN;
 		}
@@ -140,11 +140,9 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	std::string		url;
 
 	url = client.getRequest().getUrl();
-	// std::cout << "createResponse " << url << std::endl;
-	//TODO Va fatta una funzione che cambi il content-type in base al tipo di file
 	if (url.find_last_of('.') != std::string::npos)
 	{
-		if (url.substr(url.find_last_of('.')) == ".ico")
+		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
 			type = "image/";
 		type += url.substr(url.find_last_of('.')).erase(0, 1);
 	}
@@ -154,15 +152,13 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		// if (url.rbegin()[0] != '/')
 			// std::cout << "passed a file in choose_file with no extension!" << std::endl;
 	}
-	if (client.getRequest().getAutoIndexBool() && valid_directory(url))
+	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client, body);
-	else
+	else if (client.getRequest().getMethodEnum() != POST)
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
-	std::cout << "URL after: " << url << std::endl;
-	// std::cout << body << "\n";
+	// std::cout << "URL after: " << url << std::endl;
 	runMethod(client, body, file);
-	//std::cout << body << "\n";
 	return (createHtml(client, body));
 }
 
@@ -211,7 +207,7 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 		file.open(url.c_str());
 		if (file.fail())
 		{
-			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + " file not found!");
+			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + ": File not found!");
 			fname = checkErrorPages(client.getRequest());
 			file.open((fname).c_str());
 		}

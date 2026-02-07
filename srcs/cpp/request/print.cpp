@@ -5,8 +5,7 @@ void	Request::printHeader(void)
 {
 	for (headermap::const_iterator it = _header.begin(); it != _header.end(); it++)
 	{
-		std::cout << "Key: " << it->first << std::endl;
-		std::cout << "Value: " << it->second << std::endl;
+		std::cout << "Key: " << it->first << "\tValue: " << it->second << std::endl;
 	}
 }
 

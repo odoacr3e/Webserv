@@ -3,6 +3,8 @@
 
 static void execute_delete(Client &client, std::string &body, std::fstream *file);
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file);
+static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv);
+int			headerParsing(Request &request, bool reset);
 
 /*NOTE - summary
 
@@ -39,8 +41,8 @@ static int	check_delete(Client &client, std::string &body, Server &srv, std::fst
 	}
 	else if (protected_files.find(url) != std::string::npos)
 	{
-		(*file).close();
-		(*file).open("www/var/errors/403.html");
+		file->close();
+		file->open("www/var/errors/403.html");
 		body = file_opener(*file);
 		client.getRequest().fail(HTTP_CE_FORBIDDEN);
 	}
@@ -58,7 +60,7 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 		url.erase(url.find_last_of('/'), 1);
 	if (std::remove(url.c_str()) == 0)//file cancellato
 	{
-		(*file).open("www/var/2xx.html");
+		file->open("www/var/2xx.html");
 		body = file_opener(*file, "delete_method: cannot open file on success");
 		find_and_replace(body, "{MSG}", "file " + url + " deleted successfully!");
 		find_and_replace(body, "{CODE}", HTTP_OK_NO_CONTENT);
@@ -67,12 +69,12 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 	if (valid_directory(url))
 	{
 		client.getRequest().fail(HTTP_CE_FORBIDDEN);
-		(*file).open("www/var/errors/special/403_DirNotEmpty.html");
+		file->open("www/var/errors/special/403_DirNotEmpty.html");
 	}
 	else
 	{
 		client.getRequest().fail(HTTP_SE_INTERNAL);
-		(*file).open("www/var/errors/special/500_CannotDeleteFile.html");
+		file->open("www/var/errors/special/500_CannotDeleteFile.html");
 	}
 	body = file_opener(*file, "delete_method: cannot open file on error");
 }
@@ -83,25 +85,22 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 	1)	decidere dove buttare roba
 	2)	fare hT(ETTE)ml
 */
-void	Server::postMethod(Client &client, std::string &body, std::fstream *file)
+void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_file)
 {
 	Request	&request = client.getRequest();
 
-	(void)body, (void)file;
-	std::cout << "Location: " << client.getLocConf().root << std::endl;
-	std::cout << "Location2: " << client.getRequest().getUrl() << std::endl;
-	std::cout << "Content-Type: " << request.getHeader()["Content-Type"] << std::endl;
-	std::cout << "Content-Disposition: " << request.getHeader()["Content-Disposition"] << std::endl;
+	// NOTE - trova file e fa upload in base alla location
 	if (request.checkKey("Content-Type") && request.getHeader()["Content-Type"].find("multipart/form-data") != std::string::npos)
 	{
 		std::string file;
 		std::string val = request.getHeader()["Content-Disposition"];
+		// std::cout << "VAL: " << val << std::endl;
+		// std::cout << request << std::endl;
 		if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
 		{
 			file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
-			if (file.rbegin()[0] == '\"')
-				file.erase(file.length() - 1, 1);				
-			std::cout << "file: " << file << std::endl;
+			if (file.rbegin()[0] == '\"')//Mi vergogno, ma papà ha detto che va bene
+				file.erase(file.length() - 1, 1);
 		}
 		else
 			request.fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
@@ -109,18 +108,22 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *file)
 			file = client.getLocConf().root + file;
 		else
 			file = client.getSrvConf().root + file;
-		std::cout << "file path: " << file << std::endl;
 		if (file_checker(file))
 			request.fail(HTTP_CE_CONFLICT, "File already exists!");
 		std::ofstream	ofile(file.c_str(), std::ios_base::binary);
 		if (ofile.fail())
 			std::cout << "Error opening file\n";
 		ofile.write(request.getBinBody().data(), request.getBinBody().size());
+		resp_file->open("www/var/upload/index.html");
+		if (resp_file->fail())
+		{
+			client.getRequest().fail(HTTP_CE_NOT_FOUND, ": upload file not found!");
+			resp_file->open((checkErrorPages(client.getRequest())).c_str());
+		}
+		std::cout << "FAILE: " << file << std::endl;
+		body = file_opener(*resp_file);
 	}
 }
-
-static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv);
-int			headerParsing(Request &request, bool reset);
 
 int	executePost(Request &request)
 {
@@ -170,7 +173,7 @@ static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 		if (left < 0)
 		{
 			std::cout << "muori JOJO! \n";
-			std::abort();
+			std::cout << "abort\n";
 		}
 		left -= bytes;
 		body.insert(body.end(), buf, buf + bytes);

@@ -48,6 +48,7 @@ class Request
 		std::string 		_url_orig;
 		std::string 		_http_version;//sempre uguale a HTTP/1.1
 		std::string			_body;
+		std::string			_fail_msg;
 		std::vector<char>	_bin_body;
 		std::string			_body_type;
 		IpPortPair			_ipport;
@@ -76,10 +77,10 @@ class Request
 		void			findRightUrl(t_conf_server *srv);
 		t_conf_location	*findRightLocation(t_conf_server *srv);
 		bool			checkVal(std::string key);
+		int				fail(e_http_codes code);
 		bool			checkKey(std::string key);
 		int				checkHeader(void);
 	//SECTION - fail
-		int				fail(e_http_codes code);
 		int				fail(e_http_codes code, std::string info);
 	//SECTION - request uri modifiers
 		void			manageIndex(t_conf_server *srv, t_conf_location *loc);
@@ -87,20 +88,21 @@ class Request
 
 	//ANCHOR - getters.cpp
 		std::string					getValidMethod(int idx) const;
+		std::string 				getUrl() const;
 		std::string					getMethod() const;
+		std::string 				getHttpVersion() const;
+		std::string					getHeaderVal(std::string key);
+		std::string 				getBody() const;
+		std::string 				getUrlOriginal() const;
 		int							getMethNum() const;
 		e_methods					getMethodEnum() const;
-		std::string 				getUrl() const;
-		std::string 				getUrlOriginal() const;
-		std::string 				getHttpVersion() const;
 		headermap					&getHeader();
-		std::string					getHeaderVal(std::string key);
 		IpPortPair					&getHost();
-		std::string 				getBody() const;
 		size_t						getBodyLen() const;
 		std::string 				getBodyType() const;
 		e_http_codes				getStatusCode() const;
 		bool						getDnsErrorBool() const;
+		std::string					getFailMsg() const;
 		bool						getAutoIndexBool() const;
 		bool						getRunScriptBool() const;
 		char						*getSockBuff();

@@ -146,6 +146,11 @@ bool	Request::getDnsErrorBool() const
 	return (this->_error);
 }
 
+std::string	Request::getFailMsg() const
+{
+	return (this->_fail_msg);
+}
+
 //SECTION - Flags (autoindex)
 
 bool	Request::getAutoIndexBool() const

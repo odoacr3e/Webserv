@@ -350,3 +350,2311 @@ Content-Type: application/octet-stream
 
 ‰PNG
 
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247421
+Content-Type: multipart/form-data; boundary=------------------------OKnb2viTDbHQqGpriLi0vt
+
+--------------------------OKnb2viTDbHQqGpriLi0vt
+Content-Disposition: form-data; name="file"; filename="favicon.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247475
+Content-Type: multipart/form-data; boundary=------------------------Uch2zmhnwe2zaSx2J5wDP5
+
+--------------------------Uch2zmhnwe2zaSx2J5wDP5
+Content-Disposition: form-data; name="file"; filename="favicon.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247529
+Content-Type: multipart/form-data; boundary=------------------------VgfcnNYvBRVbIjRIrvjYel
+
+--------------------------VgfcnNYvBRVbIjRIrvjYel
+Content-Disposition: form-data; name="file"; filename="favicon.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247513
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAkKuoRFcEAHq7jIg
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247513
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAkKuoRFcEAHq7jIg
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247513
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7IMYtnX2xjKgXObS
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247529
+Content-Type: multipart/form-data; boundary=------------------------is64avKSUtcUBNKeMF1mpX
+
+--------------------------is64avKSUtcUBNKeMF1mpX
+Content-Disposition: form-data; name="file"; filename="favicon.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247583
+Content-Type: multipart/form-data; boundary=------------------------t6RjbYeHrJZ46BUXO6q9oP
+
+--------------------------t6RjbYeHrJZ46BUXO6q9oP
+Content-Disposition: form-data; name="file"; filename="favicon.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247635
+Content-Type: multipart/form-data; boundary=------------------------O5iZY9RQHFzRxWyyu9JpxZ
+
+--------------------------O5iZY9RQHFzRxWyyu9JpxZ
+Content-Disposition: form-data; name="file"; filename="PIPPO.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+POST / HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.18.0-DEV
+Accept: */*
+Content-Length: 247689
+Content-Type: multipart/form-data; boundary=------------------------Y7tGWPecKJDtbcGX6tcxB6
+
+--------------------------Y7tGWPecKJDtbcGX6tcxB6
+Content-Disposition: form-data; name="file"; filename="PIPPO.ico"
+Content-Type: application/octet-stream
+
+‰PNG
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary4HqTAJhszBxveEby
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarypneVzdN2dUS55BV6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryLY6H6mAdKfKP2PmA
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryLY6H6mAdKfKP2PmA
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryT7s5AutLBDOoyByc
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryT7s5AutLBDOoyByc
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryzPF7wAXaFkPT5pXw
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryH2yJncydwCy55IVj
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryH2yJncydwCy55IVj
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryMtFU1cgzEO7Fn21p
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryMtFU1cgzEO7Fn21p
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /? HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/?
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /? HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/?
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/?
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarya2LsbAwGbogF67h7
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryOMKWGHsVpDjIrBrq
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryOMKWGHsVpDjIrBrq
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarycaotH5b3hTBKqPwr
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarycaotH5b3hTBKqPwr
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+POST /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247673
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarysWietivL42z2HId1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+parseRequest:
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+

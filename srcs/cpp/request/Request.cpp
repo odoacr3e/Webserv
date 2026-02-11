@@ -162,6 +162,7 @@ int	Request::fail(e_http_codes code, std::string info)
 		default :
 			SWITCH_LOG(info, "ClientError: Wtf" PIEDI_DELLA_ZIA_DEL_TUO_RAGAZZO);	
 	}
+	this->_fail_msg = info;
 	this->setStatusCode(code);
 	return (1);
 }

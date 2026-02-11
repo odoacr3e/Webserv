@@ -79,6 +79,14 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 	body = file_opener(*file, "delete_method: cannot open file on error");
 }
 
+void	TEST(Request &request)
+{
+	std::ofstream	ofile("PIPPO.ico", std::ios_base::binary);
+	if (ofile.fail())
+		std::cout << "Error opening file\n";
+	ofile.write(request.getBinBody().data(), request.getBinBody().size());
+}
+
 //SECTION - POST
 
 /*
@@ -89,13 +97,12 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 {
 	Request	&request = client.getRequest();
 
+	// return (TEST(request));
 	// NOTE - trova file e fa upload in base alla location
 	if (request.checkKey("Content-Type") && request.getHeader()["Content-Type"].find("multipart/form-data") != std::string::npos)
 	{
-		std::string file("pippo");
+		std::string file;
 		std::string val = request.getHeader()["Content-Disposition"];
-		// std::cout << "VAL: " << val << std::endl;
-		// std::cout << request << std::endl;
 		if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
 		{
 			file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
@@ -114,7 +121,10 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		if (ofile.fail())
 			std::cout << "Error opening file\n";
 		ofile.write(request.getBinBody().data(), request.getBinBody().size());
-		resp_file->open("www/var/upload/index.html");
+		if (request.getStatusCode() == 200)
+			resp_file->open("www/var/upload/success_upload.html");
+		else
+			resp_file->open("www/var/errors/fail_upload.html");
 		if (resp_file->fail())
 		{
 			client.getRequest().fail(HTTP_CE_NOT_FOUND, ": upload file not found!");
@@ -122,6 +132,7 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		}
 		std::cout << "FAILE: " << file << std::endl;
 		body = file_opener(*resp_file);
+		find_and_replace(body, "{MSG}", request.getFailMsg());
 	}
 }
 
@@ -212,3 +223,37 @@ static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
 	}
 	return (69 - 69);
 }
+
+// static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv)
+// {
+// 	size_t				bodyLength = request.getBodyLen() - bytes_first_recv;
+// 	static int			left = bodyLength;
+// 	char				buf[2048] = {0};
+// 	std::vector<char>	&body = request.getBinBody();
+// 	int 				bytes;
+
+// 	if (fd < 0)
+// 		return (-69);
+// 	body.insert(body.begin(), input, input + bytes_first_recv);
+// 	//SECTION - recv
+// 	bytes = recv(fd, buf, 2048, 0);
+// 	if (bytes == -1)
+// 	{
+// 		std::cout << "Error in ft_recv by recv, left: " << left << "\n";
+// 		return;
+// 	}
+// 	if (bytes == 0)
+// 	{//FIXME - gestire se client chiude connessione mentre leggiamo
+// 		std::cout << "connessione chiusa\n";
+// 		return;
+// 	}
+// 	if (left < 0)
+// 	{
+// 		std::cout << "muori JOJO! \n";
+// 		std::cout << "abort\n";
+// 	}
+// 	print_file("REQUEST_post", buf);
+// 	left -= bytes;
+// 	body.insert(body.end(), buf, buf + bytes);
+// 	return (69 - 69);
+// }

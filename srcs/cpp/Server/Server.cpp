@@ -73,7 +73,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			int bytes = recv((*it).fd, buffer, sizeof(buffer) - 1, 0);
 			// this)->_clients[(*it).fd]->getRequest()->str(buffer);
 			// if (stream->fail()){;}//500 server error out of memory
-			std::cout << " recv bytes: " << bytes << std::endl;
+			// std::cout << " recv bytes: " << bytes << std::endl;
 			if (bytes <= 0)
 			{
 				static int	n;
@@ -139,7 +139,8 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 		if (loc)
 			this->_clients[(*it).fd]->getLocConf() = *loc;
 		request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
-		//request.getBytesLeft() -= std::atoi(request.getHeaderVal("Content-Length").c_str());
+		// TODO - da aggiungere questo controllo se la POST non è per UPLOAD FILE
+		// request.getBytesLeft() -= std::atoi(request.getHeaderVal("Content-Length").c_str());
 	}
 	else // Ci sono ancora bytes da leggere
 	{
@@ -155,8 +156,8 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 			// std::cout << "BYTES IN BIN BODY: " << std::string(request.getBinBody().data()).find("--") << std::endl;
 			//2) modifica bytes_read
 			request.getBytesLeft() -= request.getSockBytes();
-			std::cout << "RequestBytesLeft: " << request.getBytesLeft() << std::endl;
-			std::cout << "Getsockbytes(): " << request.getSockBytes() << std::endl;
+			// std::cout << "RequestBytesLeft: " << request.getBytesLeft() << std::endl;
+			// std::cout << "Getsockbytes(): " << request.getSockBytes() << std::endl;
 			// std::cout << "Bytes left: " << request.getBytesLeft() << std::endl;
 		}
 	}
@@ -164,11 +165,17 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 	// if !content_length || content_length = bytes_read || request.fail == true
 	if (request.getBytesLeft() == 0/* && request.getStatusCode() != 200 */)
 	{
+		// std::cout << "--------------\n" << "BINBODY PALLE\n";
+		// for (size_t i = 0; i < request.getBinBody().size(); i++)
+		// {
+		// 	std::cout << request.getBinBody().data()[i];
+		// }
+		// std::cout << "----------------- PALLE\n";
 		std::cout << "Sto andando in POLLOUT" << std::endl;
 		(*it).events = POLLOUT;
+		std::ofstream	ALL("REQUEST.ico", std::iostream::binary | std::iostream::trunc);
+		ALL.write(request.getBinBody().data(), request.getBinBody().size());
 	}
-	std::ofstream	ALL("REQUEST.ico", std::iostream::binary | std::iostream::trunc);
-	ALL.write(request.getBinBody().data(), request.getBinBody().size());
 }
 
 // NOTE - crea la risposta html da inviare al client tramite HTTP

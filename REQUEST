@@ -145,3 +145,488 @@ Sec-Fetch-Dest: document
 Referer: http://localhost:9021/upload/index.html
 Accept-Encoding: gzip, deflate, br, zstd
 
+parseRequest:
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarykkUSjaB6mdRb5UJX
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Origin: http://localhost:9021
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarykkUSjaB6mdRb5UJX
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryc6z6wB5WiQhjQYTv
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/ HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Content-Length: 4
+Content-Type: application/x-www-form-urlencoded
+
+CIAOparseRequest:
+POST /upload/ HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Content-Length: 4
+Content-Type: application/x-www-form-urlencoded
+
+CIAOparseRequest:
+POST /upload/ HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Content-Length: 6
+Content-Type: application/x-www-form-urlencoded
+
+[200~parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryEhDe6ZazmRSaY1nV
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryarpoYn3w9w6z4Ggc
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryC6Bdu1nKO9PYbBq1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/ HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Content-Length: 0
+Content-Type: application/x-www-form-urlencoded
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryBBl5uprRHjcXunAz
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryRMuG48PSXAN7mD87
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryGALY4tIosYjgvIlr
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary3IQIL9C2Fq656JbT
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary0Vxkeoqc6gcpEl65
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryyyClWXzC7vJj2uHf
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryD8oByiPWr3yHKkDJ
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarykQK0gFFNslh9M6OD
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAEMHwDjAm3rltAVE
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary6c6ExgRIvA4C3BcL
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryEq8aXpC6yRBThb5L
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+parseRequest:
+POST /upload/success_upload.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 247135
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarym6bgY9x1hrzoekgU
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+

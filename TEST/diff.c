@@ -6,8 +6,8 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-#define FILE_1 "../www/var/PIPPO.ico"
-#define FILE_2 "../REQUEST"
+#define FILE_1 "../REQUEST.ico"
+#define FILE_2 "../favicon.ico"
 #define SIZE 233816
 
 typedef struct s_diff

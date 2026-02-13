@@ -152,7 +152,7 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 	}
 	if (request.getBytesLeft() == 0)
 	{
-		std::cout << "Sto andando in POLLOUT" << std::endl;
+		// std::cout << "Sto andando in POLLOUT" << std::endl;
 		(*it).events = POLLOUT;
 	}
 }
@@ -273,10 +273,8 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	resp_body += line;
 	while (std::getline(file, line))
 	{
-		if (line.find("{SERVER_NAME}") != std::string::npos)
-			resp_body += line.replace(line.find('{'), 13, "3 UOMINI E 1 WEBSERVER");
-		else
-			resp_body += line;
+		find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
+		resp_body += line;
 	}
 }
 

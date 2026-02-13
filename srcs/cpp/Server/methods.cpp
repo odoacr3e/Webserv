@@ -82,8 +82,6 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 
 //SECTION - POST
 
-#define UPLOAD_ROOT "www/Files/"
-
 /*
 	1)	decidere dove buttare roba
 	2)	fare hT(ETTE)ml
@@ -98,7 +96,7 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 	{
 		std::string file;
 		std::string val = request.getHeader()["Content-Disposition"];
-		std::cout << "postMethod() Cont-Disp: " << val << "\n";
+		// std::cout << "postMethod() Cont-Disp: " << val << "\n";
 		if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
 		{
 			file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
@@ -107,11 +105,11 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		}
 		else
 			request.fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
-		/*if (!client.getLocConf().root.empty())
-			file = client.getLocConf().root + file;
+		if (!client.getLocConf().root.empty())
+			file = client.getLocConf().root /* + "Files/" */ + file;
 		else
-			file = client.getSrvConf().root + file;*/
-		file = UPLOAD_ROOT + file;
+			file = client.getSrvConf().root /* + "Files/" */ + file;
+		std::cout << "postMethod(): " << file << std::endl;
 		if (file_checker(file))
 			request.fail(HTTP_CE_CONFLICT, "File already exists!");
 		std::ofstream	ofile(file.c_str(), std::ios_base::binary);
@@ -134,6 +132,12 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		find_and_replace(body, "{MSG}", request.getFailMsg());
 	}
 }
+
+// POST /srcs/ pippo
+// : www/var/Files/pippo
+// GET /srcs/ pippo
+// : www/var/pippo
+// : www/var/Files/pippo
 
 void	print_bin(std::string filename, char *bin_data, size_t len);
 
@@ -190,7 +194,7 @@ bool	trimBody(Request &request)//se finisce di leggere torna true
 		return (false);
 	else if ("--" + boundary + '\r' == temp)
 	{
-		std::cout << "trimBody " << request.getHeaderVal("Content-Type") << std::endl;
+		// std::cout << "trimBody " << request.getHeaderVal("Content-Type") << std::endl;
 		if (headerParsing(request, false) != 0)
 			{;}//dare 400: errore bodyHeaderParsing
 		//salva la posizione del cursore dopo headerParsing
@@ -199,7 +203,7 @@ bool	trimBody(Request &request)//se finisce di leggere torna true
 	}//else: è un body normale senza immagine, niente headerBodyParsing
 	else
 		request.getBytesLeft() -= (request.getSockBytes() - h_len);
-	std::cout << "TROVATO \r\n! adesso trimmo il body\n";
+	// std::cout << "TROVATO \r\n! adesso trimmo il body\n";
 	request.getSockBytes() -= (int)h_len;
 	for (int i = 0; i != request.getSockBytes(); i++)
 		request.getSockBuff()[i] = request.getSockBuff()[i + h_len];

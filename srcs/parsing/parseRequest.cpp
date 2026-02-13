@@ -118,10 +118,10 @@ int			headerParsing(Request &request, bool reset)
 	if (request.getHeaderVal("Content-Type").find("boundary=") != std::string::npos)
 	{
 		size_t		start = request.getHeaderVal("Content-Type").find("boundary=") + 9;
-		std::cout << "headerParsing() FIND RESULT: " << start << "Value: " << request.getHeaderVal("Content-Type")[start] << std::endl;
+		// std::cout << "headerParsing() FIND RESULT: " << start << "Value: " << request.getHeaderVal("Content-Type")[start] << std::endl;
 		std::string temp = request.getHeaderVal("Content-Type").substr(start);
 		request.setHeaderVal("Boundary", temp);
-		std::cout << "headerParsing(): BOUNDARY: " << request.getHeaderVal("Boundary");
+		// std::cout << "headerParsing(): BOUNDARY: " << request.getHeaderVal("Boundary");
 	}
 	return (line != "\r");//NOTE - se linea diversa da \r, torna errore
 }

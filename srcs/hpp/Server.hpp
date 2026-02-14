@@ -21,6 +21,7 @@
 
 class Client;
 typedef std::vector<char *>	packetBuffer;
+typedef std::map<IpPortPair, s_cgi>	ipPortCgiMap;
 
 class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 {
@@ -29,6 +30,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::map<int, Client *>			_clients;
 		std::map<int, t_conf_server *>	_server_data;
 		SrvNameMap						*_srvnamemap;
+		ipPortCgiMap					_ipPortCgiPair;
 		packetBuffer					_packet_buffer;
 		std::string						_request_buffer;
 		std::string						_protected_files;
@@ -46,6 +48,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				checkForConnection();
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;
+		ipPortCgiMap		&getIpPortCgiMap();
 		packetBuffer		&getPacketBuffer();
 		const std::string	&getProtectedFiles() const;
 
@@ -65,28 +68,19 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				suppressSocket();
 };
 
+typedef	struct s_cgi
+{
+//	s_cgi	&operator=(s_cgi &other){return (other);};
+	std::string	output;
+	Client		*client;
+	char		*argv[3];
+	int			argv_len[2];
+	int			pipe[2];
+	int			pid;
+	int			client_fd;
+}		t_cgi;
+
 void		ft_to_string(std::vector<char *> &packets, std::string &request_buff);
 void		convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);
 
 #endif
-
-// Tu stai facendo cose tipo:
-
-// usare std::string(buf) su dati binari
-
-// cercare il boundary dentro un buffer non terminato
-
-// trattare un file binario come se fosse testo UTF-8 educato
-
-// Il risultato?
-
-// std::string(buf) si ferma al primo \0
-
-// il favicon contiene zero byte
-
-// metà file sparisce nel nulla cosmico
-
-// il boundary “non esiste” perché è stato segato da un \0
-
-// Non è che il boundary non arriva.
-// È che tu lo stai cancellando con un sorriso.

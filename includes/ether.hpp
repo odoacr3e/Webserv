@@ -9,6 +9,7 @@
 # include <poll.h>
 # include <sys/unistd.h>
 # include <errno.h>
+# include <signal.h>
 # include <sys/socket.h>
 # include <sys/epoll.h>
 # include <sys/poll.h>

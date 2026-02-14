@@ -21,6 +21,11 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
+ipPortCgiMap	&Server::getIpPortCgiMap()
+{
+	return (this->_ipPortCgiPair);
+}
+
 packetBuffer	&Server::getPacketBuffer()
 {
 	return (this->_packet_buffer);

@@ -3,3 +3,7 @@ webserv
 build
 .vscode
 CGI_HTML_OUTPUT.html
+www/cgi-bin/cub3D/cub3D.cgi
+www/cgi-bin/cub3D/init_ok
+www/cgi-bin/cub3D/srcs
+render.bmp

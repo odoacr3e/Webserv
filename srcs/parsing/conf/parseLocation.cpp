@@ -33,10 +33,10 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 		parseAutoindex(conf, list, line);
 	else if (list[0] == "error_page")
 		parseErrorPages(conf, list, line);
-	else if (list[0] == "script")
+	else if (list[0] == "script" || list[0] == "script_daemon")
 		parseScriptBool(conf, list, line);
 	else if (list[0] == "script_type")
-		parseScriptType(conf, list, line);
+		parseScriptType(conf, list, line);	
 	else
 		instructionError(list, line, "unrecognized instruction");
 }
@@ -184,12 +184,20 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
 
 static void	parseScriptBool(Conf &conf, std::vector<std::string> list, int line)
 {
+	bool	*ptr;
+
 	if (list.size() != 2)
 		instructionError(list, line, "bad script params number");
-	else if (list[1] == "on")
-		conf.getLocationBlock().run_script = true;
+	if (list[0] == "script")
+		ptr = &conf.getLocationBlock().run_script;
+	else if (list[0] == "script_daemon")
+		ptr = &conf.getLocationBlock().script_daemon;
+	else
+		instructionError(list, line, "unrecognized ScriptBool");
+	if (list[1] == "on")
+		*ptr = true;
 	else if (list[1] == "off")
-		conf.getLocationBlock().run_script = false;
+		*ptr = false;
 	else
 		instructionError(list, line, "script accepts on \"or\" \"off\" only");
 }

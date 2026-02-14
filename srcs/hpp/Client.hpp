@@ -10,6 +10,7 @@ typedef struct s_conf_location	t_conf_location;
 
 struct s_conf_server;
 struct s_conf_location;
+struct s_cgi;
 class	Request;
 
 class Client

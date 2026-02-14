@@ -155,7 +155,6 @@ header pippo
 
 header gabibbo
 */
-
 bool	trimBody(Request &request);
 
 int	bodyHeaderParsing(Request &request)

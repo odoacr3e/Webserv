@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>cub3D HUD</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f12;
+    font-family: monospace;
+    color: #c7d5e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-wrapper {
+    display: grid;
+    grid-template-columns: 120px auto 120px;
+    grid-template-rows: auto 80px;
+    gap: 20px;
+    align-items: center;
+}
+
+.screen-container {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 10px;
+    background: linear-gradient(145deg, #1a2228, #0d1318);
+    border: 4px solid #2a3942;
+    box-shadow: 0 0 25px #000;
+}
+
+#screen {
+    display: block;
+    width: 640px;
+    height: 480px;
+    image-rendering: pixelated;
+}
+
+.controls-left,
+.controls-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.controls-bottom {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    background: #1a2228;
+    border: 2px solid #2a3942;
+    color: #c7d5e0;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.1s;
+}
+
+button:hover {
+    background: #2a3942;
+    box-shadow: 0 0 8px #00ffcc;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.label {
+    font-size: 12px;
+    text-align: center;
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game-wrapper">
+
+    <!-- LEFT -->
+    <div class="controls-left">
+        <button onclick="sendInput('restart')">X<br><span class="label">Restart</span></button>
+    </div>
+
+    <!-- CENTER SCREEN -->
+    <div class="screen-container">
+        <!-- Aggiornato per leggere BMP statico -->
+        <img id="screen" src="/static/render.bmp">
+    </div>
+
+    <!-- RIGHT -->
+    <div class="controls-right">
+        <button onclick="sendInput('w')">W</button>
+        <button onclick="sendInput('a')">A</button>
+        <button onclick="sendInput('d')">D</button>
+        <button onclick="sendInput('s')">S</button>
+    </div>
+
+    <!-- BOTTOM (MINIGAME) -->
+    <div class="controls-bottom">
+        <button onclick="sendInput('1')">1<br><span class="label">Sasso</span></button>
+        <button onclick="sendInput('2')">2<br><span class="label">Carta</span></button>
+        <button onclick="sendInput('3')">3<br><span class="label">Forbici</span></button>
+        <button onclick="sendInput('4')">4<br><span class="label">Cerchio</span></button>
+    </div>
+
+</div>
+
+<script>
+const FPS = 30;
+const screen = document.getElementById("screen");
+
+// path statico già aggiornato dal server/CGI
+// aggiunge timestamp per bypassare cache se necessario
+function refreshImage() {
+    screen.src = "/static/render.bmp?t=" + Date.now();
+}
+
+// invia richieste al server per input, log, heartbeat
+function serverPing() {
+    fetch("/script/cub3D/cub3D.cgi?www/cgi-bin/cub3D/debug.cub")
+        .then(resp => resp.text())
+        .then(text => console.log("server update:", text))
+        .catch(err => console.error(err));
+}
+
+// loop principale
+setInterval(() => {
+    refreshImage();  // aggiorna immagine
+    serverPing();    // aggiorna server
+}, 1000 / FPS);
+
+// gestione input dai pulsanti
+function sendInput(action) {
+    fetch("/input?action=" + action)
+        .then(resp => resp.text())
+        .then(text => console.log("input:", action, "resp:", text))
+        .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>

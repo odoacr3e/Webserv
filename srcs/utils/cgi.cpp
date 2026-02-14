@@ -4,24 +4,28 @@
 #include "../hpp/Server.hpp"
 #include <sys/wait.h>
 
-static void		get_argv(Client &client, std::string argv[2], std::string &url);
-static void		run_cmd(Server &srv, char *const argv[], std::string &output);
-std::string		createHtmlPokedex(std::string &key, std::string &output);
+static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2]);
+static void		run_cmd(Server &srv, t_cgi &cgi_data);
+static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data);
+std::string		createHtmlPokedex(std::string key, std::string &output);
+std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
-	std::string	argv_str[2];
-	std::string	url;
+	t_cgi					cgi_data{};
+	std::string 			argv[2];
 
 	std::cout << "run_script\n";
-	get_argv(client, argv_str, url);
-	char const	*argv[3] = {argv_str[0].c_str(), argv_str[1].c_str(), NULL};
-	std::cout << "cmd: " << argv[0] << "\n";
-	std::cout << "arg: " << argv[1] << "\n";
-	run_cmd(srv, (char *const *)argv, body);
+	get_argv(client, cgi_data, argv);
+	if (client.getLocConf().script_daemon == true)
+		run_daemon(srv, client, cgi_data);
+	else
+		run_cmd(srv, cgi_data);
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
-		body = createHtmlPokedex(argv_str[1], body);
+		body = createHtmlPokedex(cgi_data.argv[1], cgi_data.output);
+	else if (client.getLocConf().script_type == "cub3D")
+		body = createHtmlCub(cgi_data, srv, client);
 	else
 	{
 		client.getRequest().setBodyType("text/plain");
@@ -29,10 +33,12 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	}
 }
 
-static void		get_argv(Client &client, std::string argv[2], std::string &url)
+static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2])
 {
+	std::string	url;
+
 	url = client.getRequest().getUrl();
-	if (url.find('?'))
+	if (url.find('?') != std::string::npos && url.find('&') == std::string::npos)
 	{
 		argv[0] = url.substr(0, url.find_last_of('?'));
 		argv[1] = url.substr(url.find_last_of('?') + 1, url.length());
@@ -46,34 +52,81 @@ static void		get_argv(Client &client, std::string argv[2], std::string &url)
 		url = argv[0] + '/';
 		url = url_arg_remove(client.getRequest().getUrlOriginal(), '/');
 	}
+	std::cout << "cmd: " << argv[0] << "\n";
+	std::cout << "arg: " << argv[1] << "\n";
+	cgi_data.argv[0] = (char *)(void *)argv[0].c_str();
+	cgi_data.argv_len[0] = argv[0].length();
+	cgi_data.argv[1] = (char *)(void *)argv[1].c_str();
+	cgi_data.argv_len[1] = argv[1].length();
+	cgi_data.argv[2] = NULL;
 }
 
-static void	run_cmd(Server &srv, char *const argv[], std::string &output)
+static void		run_cmd(Server &srv, t_cgi &cgi_data)
 {
-	std::string			url;
-	int					pipe_fd[2];
-
-	pid_t	pid;
-	if (pipe(pipe_fd) != 0)
+	if (pipe(cgi_data.pipe) != 0)
 		return (std::cout << "run_script fatal error\n", (void)0);
-	pid = fork();
-	if (pid == -1)
+	cgi_data.pid = fork();
+	if (cgi_data.pid == -1)
 		return (std::cout << "run_script fatal error\n", (void)0);
-	else if (pid == 0)
+	else if (cgi_data.pid == 0)
 	{
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
+		dup2(cgi_data.pipe[1], STDOUT_FILENO);
+		close(cgi_data.pipe[0]);
+		close(cgi_data.pipe[1]);
 		srv.suppressSocket();
-		execve(argv[0], argv, NULL);
+		execve(cgi_data.argv[0], cgi_data.argv, NULL);
 		std::cerr << "run_script fatal error\n";
 		std::exit(1);
 	}
-	close(pipe_fd[1]);
+	close(cgi_data.pipe[1]);
 	wait(NULL);
-	std::string	filename("/dev/fd/" + ft_to_string(pipe_fd[0]));
+	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
 	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
-	std::getline(output_fd, output, '\0');
-	close(pipe_fd[0]);
+	std::getline(output_fd, cgi_data.output, '\0');
+	close(cgi_data.pipe[0]);
+}
+
+static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
+{
+	ipPortCgiMap::iterator	cgi_exist;
+
+	cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
+	if (cgi_exist != srv.getIpPortCgiMap().end())
+		cgi_data = cgi_exist->second;
+	else
+	{
+		int		pipes[2][2];
+
+		if (pipe(pipes[0]) != 0 || pipe(pipes[1]) != 0)
+			return (std::cout << "run_script fatal error: pipe\n", (void)0);
+		cgi_data.pipe[0] = pipes[0][0];
+		cgi_data.pipe[1] = pipes[1][1];
+		cgi_data.pid = fork();
+		if (cgi_data.pid == -1)
+			return (std::cout << "run_script fatal error: fork\n", (void)0);
+		else if (cgi_data.pid == 0)
+		{
+			std::cout << "|" << cgi_data.argv[0] << "|" << cgi_data.argv[1] << "|" << (cgi_data.argv[2] == NULL) << std::endl;
+			std::cout << "dir: " << getcwd(NULL, 0) << std::endl;
+			dup2(pipes[0][1], STDOUT_FILENO);
+			dup2(pipes[1][0], STDIN_FILENO);
+			close(pipes[0][0]);
+			close(pipes[1][1]);
+			srv.suppressSocket();
+			execve(cgi_data.argv[0], cgi_data.argv, NULL);
+			perror("execve");
+			std::cerr << "run_script fatal error: execve\n";
+			std::exit(1);
+		}
+		close(pipes[0][1]);
+		close(pipes[1][0]);
+		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
+	}
+	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
+	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
+	std::cout << filename << std::endl;
+	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
+	std::getline(output_fd, cgi_data.output, '\0');
+	cgi_data.client = &client;
 }

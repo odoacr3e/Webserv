@@ -1,0 +1,39 @@
+#ifndef MINI_PLAYER_140_H
+# define MINI_PLAYER_140_H
+
+# define MINI_PLAYER_140_data \
+"/* XPM */" \
+"\"24 24 4 1 \"," \
+"\"  c gray1\"," \
+"\". c #860000\"," \
+"\"X c #DC0000\"," \
+"\"o c black\"," \
+"/* pixels */" \
+"\"oooooooooooooooooooooooo\"," \
+"\"oooooooooooooooooooooooo\"," \
+"\"oooooooooooooooooooooooo\"," \
+"\"oooooooooooooooooooooooo\"," \
+"\"ooo   oooooooooooooooooo\"," \
+"\"ooo .      ooooooooooooo\"," \
+"\"ooo  ....X       ooooooo\"," \
+"\"oooo ...XXXXXXXX       o\"," \
+"\"oooo ..X.XXXXXXXXXXXX  o\"," \
+"\"oooo  XXX.XXXXXXXXXX  oo\"," \
+"\"ooooo XXXX.XXXXXXXX  ooo\"," \
+"\"ooooo  XXXX.XXXXXX  oooo\"," \
+"\"oooooo XXXXX.XXXXX ooooo\"," \
+"\"oooooo XXXXXX.XXX  ooooo\"," \
+"\"oooooo  XXXXXX.X  oooooo\"," \
+"\"ooooooo XXXXXXX  ooooooo\"," \
+"\"ooooooo XXXXXX  oooooooo\"," \
+"\"ooooooo  XXXX  ooooooooo\"," \
+"\"oooooooo XXXX oooooooooo\"," \
+"\"oooooooo XXX  oooooooooo\"," \
+"\"oooooooo  X  ooooooooooo\"," \
+"\"ooooooooo   oooooooooooo\"," \
+"\"ooooooooo  ooooooooooooo\"," \
+"\"oooooooooooooooooooooooo\"" \
+"};" \
+""
+
+#endif

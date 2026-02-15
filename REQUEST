@@ -1,0 +1,138 @@
+GET / HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Host: localhost:9020
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/
+X-Request-ID: 222172f2f2bca84a9d97e1c2462a9959
+X-Real-IP: 79.11.16.138
+X-Forwarded-Port: 443
+X-Forwarded-Scheme: https
+X-Original-URI: /
+X-Scheme: https
+sec-fetch-dest: document
+sec-fetch-mode: navigate
+sec-fetch-site: same-origin
+sec-fetch-user: ?1
+priority: u=0, i
+X-Forwarded-Proto: https
+X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
+X-Forwarded-For: 79.11.16.138
+Proxy-Connection: Keep-Alive
+
+======================================
+chiudo connessione 0
+======================================
+GET /style.css HTTP/1.1
+Accept: text/css,*/*;q=0.1
+Host: localhost:9020
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/
+X-Request-ID: f536aedd17a32297cbd1335d6f1f38d1
+X-Real-IP: 79.11.16.138
+X-Forwarded-Port: 443
+X-Forwarded-Scheme: https
+X-Original-URI: /style.css
+X-Scheme: https
+sec-fetch-dest: style
+sec-fetch-mode: no-cors
+sec-fetch-site: same-origin
+priority: u=2
+X-Forwarded-Proto: https
+X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
+X-Forwarded-For: 79.11.16.138
+Proxy-Connection: Keep-Alive
+
+======================================
+chiudo connessione 1
+======================================
+GET /upload/index.html HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Host: localhost:9020
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/
+X-Request-ID: 7e7444a08c38a7484d26f39279aa4cb2
+X-Real-IP: 79.11.16.138
+X-Forwarded-Port: 443
+X-Forwarded-Scheme: https
+X-Original-URI: /upload/index.html
+X-Scheme: https
+sec-fetch-dest: document
+sec-fetch-mode: navigate
+sec-fetch-site: same-origin
+sec-fetch-user: ?1
+priority: u=0, i
+X-Forwarded-Proto: https
+X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
+X-Forwarded-For: 79.11.16.138
+Proxy-Connection: Keep-Alive
+
+======================================
+chiudo connessione 2
+======================================
+POST /upload/ HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Host: localhost:9020
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/index.html
+X-Request-ID: 5ccbe40ab5e84b3fe00fb40be4c505df
+X-Real-IP: 79.11.16.138
+X-Forwarded-Port: 443
+X-Forwarded-Scheme: https
+X-Original-URI: /upload/
+X-Scheme: https
+sec-fetch-dest: document
+sec-fetch-mode: navigate
+sec-fetch-site: same-origin
+sec-fetch-user: ?1
+priority: u=0, i
+X-Forwarded-Proto: https
+X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
+X-Forwarded-For: 79.11.16.138
+Origin: http://localhost:9020
+Proxy-Connection: Keep-Alive
+Content-Type: multipart/form-data; boundary=----geckoformboundary3f586bceea63f911686db66bdd9f13c9
+Content-Length: 254
+
+------geckoformboundary3f586bceea63f911686db66bdd9f13c9
+Content-Disposition: form-data; name="file"; filename="hbo.txt"
+Content-Type: text/plain
+
+alessandro.russo.epk@gmail.com
+Ermenegildo
+------geckoformboundary3f586bceea63f911686db66bdd9f13c9--
+======================================
+chiudo connessione 3
+======================================
+GET /upload/favicon.ico HTTP/1.1
+Accept: image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5
+Host: localhost:9020
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/
+X-Request-ID: 1b97124ff5158ef48294c01287727f40
+X-Real-IP: 79.11.16.138
+X-Forwarded-Port: 443
+X-Forwarded-Scheme: https
+X-Original-URI: /upload/favicon.ico
+X-Scheme: https
+sec-fetch-dest: image
+sec-fetch-mode: no-cors
+sec-fetch-site: same-origin
+priority: u=6
+X-Forwarded-Proto: https
+X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
+X-Forwarded-For: 79.11.16.138
+Proxy-Connection: Keep-Alive
+
+======================================
+chiudo connessione 4
+======================================

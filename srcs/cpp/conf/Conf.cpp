@@ -86,6 +86,7 @@ void	s_conf_server::set(void)
 void	s_conf_location::set_if_empty(Conf &conf)
 {
 	(void)conf;
+	this->exist = true;
 	if (this->conf_root.empty())
 		this->conf_root = "/";
 	if (this->root.empty())
@@ -108,6 +109,7 @@ void	s_conf_location::set(std::string path)
 
 s_conf_location::s_conf_location()
 {
+	this->exist = false;
 	this->set("");
 }
 

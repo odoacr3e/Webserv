@@ -73,9 +73,6 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			char buffer[2048] = {0};
 			// std::cout << "bytes left: " << this->_clients[(*it).fd]->getRequest().getBytesLeft() << "\n";
 			int bytes = recv((*it).fd, buffer, sizeof(buffer) - 1, 0);
-			// this)->_clients[(*it).fd]->getRequest()->str(buffer);
-			// if (stream->fail()){;}//500 server error out of memory
-			// std::cout << " recv bytes: " << bytes << std::endl;
 			print_file("REQUEST", buffer, bytes);
 			if (bytes <= 0)
 			{
@@ -110,12 +107,35 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	}
 }
 
+void	Server::setupRequestEnvironment(Client &client)
+{
+	Request			&request = client.getRequest();
+	t_conf_server	*srv;
+	t_conf_location	*loc;
+	unsigned char	allowed_methods;
+
+	srv = &(*this->_srvnamemap)[request.getHost()];
+	client.getSrvConf() = *srv;
+	loc = request.findRightLocation(srv);
+	if (loc)
+		client.getLocConf() = *loc;
+	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
+	if (loc)
+		allowed_methods = loc->mask_methods;
+	else
+		allowed_methods = srv->mask_methods;
+	if ((allowed_methods & (1 << request.getMethodEnum())) == MASK_NO_METHODS)
+		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
+}
+
 void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buffer, int bytes)
 {
 	Request	&request = this->_clients[(*it).fd]->getRequest();
-	this->_clients[(*it).fd]->getRequest().getRequestStream().str(buffer);
-	this->_clients[(*it).fd]->getRequest().getRequestStream().clear();
-	this->_clients[(*it).fd]->getRequest().getSockBytes() = bytes;
+	t_conf_server	srv;
+	t_conf_location	loc;
+	request.getRequestStream().str(buffer);
+	request.getRequestStream().clear();
+	request.getSockBytes() = bytes;
 
 	if (request.getFirstRead() == true) // legge la prima volta
 	{//TODO - refactoring: per favore splittiamo sti controlli
@@ -138,19 +158,7 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 			if (!(request.getHeaderVal("Content-Type").find("multipart/form-data") != std::string::npos && request.getMethodEnum() == POST))
 				request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		}
-		t_conf_server	srv = (*this->_srvnamemap)[request.getHost()];
-		this->_clients[(*it).fd]->getSrvConf() = srv;
-		t_conf_location	*loc = request.findRightLocation(&srv);
-		if (loc)
-			this->_clients[(*it).fd]->getLocConf() = *loc;
-		request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
-		unsigned char	allowed_methods;
-		if (loc)
-			allowed_methods = loc->mask_methods;
-		else
-			allowed_methods = srv.mask_methods;
-		if ((allowed_methods & (1 << request.getMethodEnum())) == MASK_NO_METHODS)
-			request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
+		this->setupRequestEnvironment(*this->_clients[(*it).fd]);
 	}
 	else
 	{
@@ -206,11 +214,11 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 	resp_body = file_opener(file, "runMethod GET: Cannot open file");
 	if (client.getRequest().getFailMsg().empty() == false)
 		return ;
+	if (client.getRequest().getRunScriptBool() == true)
+		run_script(*this, client, resp_body);
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			if (client.getRequest().getRunScriptBool() == true)
-				run_script(*this, client, resp_body);
 			break ;
 		case DELETE:
 			this->deleteMethod(client, resp_body, &file);

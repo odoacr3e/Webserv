@@ -56,6 +56,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				printServerConfiguration(SrvNameMap::iterator it) const;
 		void				choose_file(Client &client, std::fstream &file, std::string url);
 		void				createAutoindex(Client &client, std::string &body);
+		void				setupRequestEnvironment(Client &client);
 		std::string			createResponse(Client &client);
 		std::string			checkErrorPages(Request &request);
 

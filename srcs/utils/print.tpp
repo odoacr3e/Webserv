@@ -80,7 +80,35 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 template <typename T>
 void	print_file(std::string filename, T content)
 {
-	std::fstream	stream(filename.c_str(), std::ios_base::app);
+	std::ofstream	stream(filename.c_str(), std::ios_base::app);
+
+	if (stream.fail())
+	{
+		std::cerr << "Errore: " << std::strerror(errno) << std::endl;
+		std::abort();
+		return (std::cerr << "cannot open " + filename + "\n", (void)0);
+	}
+	stream << content;
+}
+
+template <typename T>
+void	print_file(std::string filename, T content, int bytes)
+{
+	std::ofstream	stream(filename.c_str(), std::ios_base::app | std::ios_base::binary);
+
+	if (stream.fail())
+	{
+		std::cerr << "Errore: " << std::strerror(errno) << std::endl;
+		std::abort();
+		return (std::cerr << "cannot open " + filename + "\n", (void)0);
+	}
+	stream.write(content, bytes);
+}
+
+template <typename T>
+void	print_file(std::string filename, T content, std::ios_base flags)
+{
+	std::ofstream	stream(filename.c_str(), flags);
 
 	if (stream.fail())
 	{

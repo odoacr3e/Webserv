@@ -143,13 +143,15 @@ int	bodyHeaderParsing(Request &request)
 }
 
 static void	trimBody(Request &request)
-{
-	size_t		h_len;
+{//cursore 
+	size_t		h_len[2];
+	size_t		bodyHeaderContentLen;
+	size_t		bodyContentLen;
 	std::string	temp;
 	std::string	boundary;
 
 	boundary = request.getHeaderVal("Boundary");
-	h_len = file_cursor_pos(request.getRequestStream());
+	h_len[0] = file_cursor_pos(request.getRequestStream());
 	std::getline(request.getRequestStream(), temp, '\n');
 	// std::cout << "TrimBody()\n";
 	// std::cout << "temp: " << temp <<std::endl;
@@ -158,22 +160,18 @@ static void	trimBody(Request &request)
 		return ;
 	else if ("--" + boundary + '\r' == temp)
 	{
-		// std::cout << "trimBody " << request.getHeaderVal("Content-Type") << std::endl;
 		headerParsing(request, false);
 		//salva la posizione del cursore dopo headerParsing
-		h_len = file_cursor_pos(request.getRequestStream()) - h_len;
-		request.getBytesLeft() -= request.getSockBytes();
+		h_len[1] = file_cursor_pos(request.getRequestStream());
 	}//else: è un body normale senza immagine, niente headerBodyParsing
 	else
-		request.getBytesLeft() -= (request.getSockBytes() - h_len);
+		h_len[1] = h_len[0];
 	// std::cout << "TROVATO \r\n! adesso trimmo il body\n";
-	request.getSockBytes() -= (int)h_len;
-	for (int i = 0; i != request.getSockBytes(); i++)
-		request.getSockBuff()[i] = request.getSockBuff()[i + h_len];
-	request.getSockBytes() += (int)h_len;
-	request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes() - (int)h_len);
-	
-	//request.getBytesLeft() -= request.getSockBytes();
+	bodyHeaderContentLen = request.getSockBytes() - h_len[0];
+	bodyContentLen = request.getSockBytes() - h_len[1];
+	request.getBytesLeft() -= bodyHeaderContentLen;
+	for (size_t i = 0; i != bodyContentLen; i++)
+		request.getSockBuff()[i] = request.getSockBuff()[i + h_len[1]];
+	request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + bodyContentLen);
 	request.getBodyHeaders() = true;
-	return ;
 }

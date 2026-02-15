@@ -5,34 +5,6 @@
 
 bool	server_run = true;
 
-void	convertDnsToIp(IpPortPair &ipport, SrvNameMap &srvmap);
-
-/*
-int		test_request(Conf &conf, Server &server)
-{
-	std::ifstream	file("test_request");
-	std::string		input;
-	Request			request;
-	// ok, quindi il buffer lo prende bene però nel tot
-//sisi, è il delete finale che al secondo buffer esplode vai in test()
-	(void)conf;//crasha quando si libera la memoria finale della matrice di buffer
-	if (file.fail())
-		return (std::cout << "cannot open test_request\n" << std::endl, 1);
-	std::getline(file, input, '\0');
-	std::cout << "\033[0;2m\n-------REQUEST PARSING STARTED------...\n" COLOR_RESET << "\n";
-	if (requestParsing(request, input) != 0)
-		return (1);
-	convertDnsToIp(request, request.getHost(), server.getSrvNameMap());
-	std::cout << "\033[0;2mEnd." COLOR_RESET << "\n";
-	std::cout << "\033[33m[RESULT]" COLOR_RESET << "\n";
-	std::cout << request << "\n";
-	if (server.getSrvNameMap().count(request.getHost()) == 0)
-		return (std::cout << "server not found\n", 1);
-	else
-		std:: cout << server.getSrvNameMap()[request.getHost()] << std::endl;
-	return (0);
-}*/
-
 void	stopServer(int sig)
 {
 	std::cout << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
@@ -49,21 +21,9 @@ void	get_conf_path(int ac, char **av, std::string &path)
 		throw std::runtime_error("\033[1;31mToo many configuration files\nPlease pass only one!\033[0m");
 }
 
-void	print_bin(std::string filename, char *bin_data, size_t len)
-{
-	std::fstream	stream(filename.c_str(), std::ios_base::app | std::ios_base::binary);
-
-	if (stream.fail())
-	{
-		std::abort();
-		return (std::cerr << "cannot open " + filename + "\n", (void)0);
-	}
-	stream.write(bin_data, len);
-}
-
 int main(int ac, char **av, const char **env)
 {
-	std::remove("REQUEST.ico");//FIXME - togliere, solo per debug
+	std::remove("REQUEST");//FIXME - togliere, solo per debug
 	std::string	conf_path;
 
 	signal(SIGINT, stopServer);

@@ -75,6 +75,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			// this)->_clients[(*it).fd]->getRequest()->str(buffer);
 			// if (stream->fail()){;}//500 server error out of memory
 			// std::cout << " recv bytes: " << bytes << std::endl;
+			print_file("REQUEST", buffer, bytes);
 			if (bytes <= 0)
 			{
 				static int	n;
@@ -140,6 +141,7 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 		t_conf_location	*loc = request.findRightLocation(&srv);
 		if (loc)
 			this->_clients[(*it).fd]->getLocConf() = *loc;
+		request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
 		unsigned char	allowed_methods;
 		if (loc)
 			allowed_methods = loc->mask_methods;
@@ -147,7 +149,6 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 			allowed_methods = srv.mask_methods;
 		if ((allowed_methods & (1 << request.getMethodEnum())) == MASK_NO_METHODS)
 			request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
-		request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
 	}
 	else
 	{

@@ -141,7 +141,7 @@ static int	bodyParsing(Request &request)
 	switch (request.getMethodEnum())
 	{
 		case POST :
-			if (bodyHeaderParsing(request) == true)//NOTE - aggiungo questa cosa anche in parseRequest
+			if (bodyHeaderParsing(request) == true)
 			{
 				request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
 				request.getBytesLeft() -= request.getSockBytes();

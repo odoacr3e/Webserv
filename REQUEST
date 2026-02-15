@@ -1,138 +1,193 @@
-GET / HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Host: localhost:9020
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: en-US,en;q=0.9
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/
-X-Request-ID: 222172f2f2bca84a9d97e1c2462a9959
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /
-X-Scheme: https
-sec-fetch-dest: document
-sec-fetch-mode: navigate
-sec-fetch-site: same-origin
-sec-fetch-user: ?1
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
+DELETE /storage/favicon.ico HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Authorization: Giorno Giovanna
 
 ======================================
 chiudo connessione 0
 ======================================
-GET /style.css HTTP/1.1
-Accept: text/css,*/*;q=0.1
-Host: localhost:9020
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+GET / HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/
 Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: en-US,en;q=0.9
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/
-X-Request-ID: f536aedd17a32297cbd1335d6f1f38d1
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /style.css
-X-Scheme: https
-sec-fetch-dest: style
-sec-fetch-mode: no-cors
-sec-fetch-site: same-origin
-priority: u=2
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 1
 ======================================
-GET /upload/index.html HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Host: localhost:9020
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+GET /style.css HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: text/css,*/*;q=0.1
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: style
+Referer: http://localhost:9021/
 Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: en-US,en;q=0.9
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/
-X-Request-ID: 7e7444a08c38a7484d26f39279aa4cb2
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /upload/index.html
-X-Scheme: https
-sec-fetch-dest: document
-sec-fetch-mode: navigate
-sec-fetch-site: same-origin
-sec-fetch-user: ?1
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 2
 ======================================
-POST /upload/ HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Host: localhost:9020
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/
 Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: en-US,en;q=0.9
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/index.html
-X-Request-ID: 5ccbe40ab5e84b3fe00fb40be4c505df
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /upload/
-X-Scheme: https
-sec-fetch-dest: document
-sec-fetch-mode: navigate
-sec-fetch-site: same-origin
-sec-fetch-user: ?1
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Origin: http://localhost:9020
-Proxy-Connection: Keep-Alive
-Content-Type: multipart/form-data; boundary=----geckoformboundary3f586bceea63f911686db66bdd9f13c9
-Content-Length: 254
 
-------geckoformboundary3f586bceea63f911686db66bdd9f13c9
-Content-Disposition: form-data; name="file"; filename="hbo.txt"
-Content-Type: text/plain
-
-alessandro.russo.epk@gmail.com
-Ermenegildo
-------geckoformboundary3f586bceea63f911686db66bdd9f13c9--
 ======================================
 chiudo connessione 3
 ======================================
-GET /upload/favicon.ico HTTP/1.1
-Accept: image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5
-Host: localhost:9020
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+GET /upload/index.html HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/
 Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: en-US,en;q=0.9
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev/upload/
-X-Request-ID: 1b97124ff5158ef48294c01287727f40
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /upload/favicon.ico
-X-Scheme: https
-sec-fetch-dest: image
-sec-fetch-mode: no-cors
-sec-fetch-site: same-origin
-priority: u=6
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9020.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 4
+======================================
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+======================================
+chiudo connessione 5
+======================================
+POST /upload/ HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+Content-Length: 987
+Cache-Control: max-age=0
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9021
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarywvhbJzBOc0i9zJtY
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9021/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+
+------WebKitFormBoundarywvhbJzBOc0i9zJtY
+Content-Disposition: form-data; name="file"; filename="argv.json"
+Content-Type: application/json
+
+// This configuration file allows you to pass permanent command line arguments to VS Code.
+// Only a subset of arguments is currently supported to reduce the likelihood of breaking
+// the installation.
+//
+// PLEASE DO NOT CHANGE WITHOUT UNDERSTANDING THE IMPACT
+//
+// NOTE: Changing this file requires a restart of VS Code.
+{
+	// Use software rendering instead of hardware accelerated rendering.
+	// This can help in cases where you see rendering issues in VS Code.
+	// "disable-hardware-acceleration": true,
+
+	// Allows to disable crash reporting.
+	// Should restart the app if the value is changed.
+	"enable-crash-reporter": true,
+
+	// Unique id used for correlating crash reports sent from this instance.
+	// Do not edit this value.
+	"crash-reporter-id": "928f8a59-a613-48cb-b50e-55efc720b7d4"
+}
+------WebKitFormBoundarywvhbJzBOc0i9zJtY--
+======================================
+chiudo connessione 6
+======================================
+GET /favicon.ico HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="143", "Chromium";v="143", "Not A(Brand";v="24"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-GPC: 1
+Accept-Language: en-US,en;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/upload/
+Accept-Encoding: gzip, deflate, br, zstd
+
+======================================
+chiudo connessione 7
+======================================
+DELETE /storage/argv.json HTTP/1.1
+Host: localhost:9021
+User-Agent: curl/8.12.1
+Accept: */*
+Authorization: Giorno Giovanna
+
+======================================
+chiudo connessione 8
 ======================================

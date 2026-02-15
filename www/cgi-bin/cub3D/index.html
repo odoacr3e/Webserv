@@ -117,13 +117,15 @@ button:active {
 </div>
 
 <script>
-const FPS = 30;
+const FPS = 10;
 const screen = document.getElementById("screen");
 
 // path statico già aggiornato dal server/CGI
 // aggiunge timestamp per bypassare cache se necessario
 function refreshImage() {
-    screen.src = "/render.bmp?t=" + Date.now();
+    // Usa un URL completo o assicurati che il timestamp cambi ogni millisecondo
+    const newSrc = "/render.bmp?update=" + new Date().getTime();
+    screen.src = newSrc;
 }
 
 // invia richieste al server per input, log, heartbeat

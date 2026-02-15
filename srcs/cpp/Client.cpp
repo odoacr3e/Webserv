@@ -5,6 +5,7 @@ Client::Client(int sockfd, int srvfd)
 {
 	this->_sockfd = sockfd;
 	this->_srvfd = srvfd;
+	this->_send_content = false;
 }
 
 Client::~Client()
@@ -51,6 +52,11 @@ std::vector<char>	&Client::getBuffer()
 char				*Client::getBufferChar()
 {
 	return (this->_buffer.data());
+}
+
+bool				&Client::sendContentBool()
+{
+	return (this->_send_content);
 }
 
 	// void 	setRequest(std::string); // format request

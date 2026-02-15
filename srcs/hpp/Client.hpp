@@ -16,6 +16,7 @@ class	Request;
 class Client
 {
 	private:
+		bool				_send_content;
 		int 				_sockfd;
 		int					_srvfd;
 		Request				_request;
@@ -36,6 +37,7 @@ class Client
 		t_conf_location		&getLocConf();
 		std::vector<char>	&getBuffer();
 		char				*getBufferChar();
+		bool				&sendContentBool();
 };
 
 #endif

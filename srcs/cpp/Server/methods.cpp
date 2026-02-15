@@ -83,51 +83,51 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 //SECTION - POST
 
 void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_file)
-{
+{(void)resp_file;//FIXME - togliere da prototipo
 	Request	&request = client.getRequest();
+	std::fstream		html;
 
 	// return (TEST(request));
 	// NOTE - trova file e fa upload in base alla location
-	if (request.checkKey("Content-Type") && request.getHeader()["Content-Type"].find("multipart/form-data") != std::string::npos)
+	if (request.checkKey("Boundary") == false)
+		return ;
+	std::string file;
+	std::string val = request.getHeader()["Content-Disposition"];
+	// std::cout << "postMethod() Cont-Disp: " << val << "\n";
+	if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
 	{
-		std::string file;
-		std::string val = request.getHeader()["Content-Disposition"];
-		// std::cout << "postMethod() Cont-Disp: " << val << "\n";
-		if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
-		{
-			file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
-			if (file.rbegin()[0] == '\"')
-				file.erase(file.length() - 1, 1);
-		}
-		else
-			request.fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
-		if (client.getLocConf().post_storage.empty() == false)
-			file = client.getLocConf().post_storage + file;
-		else
-			file = client.getSrvConf().post_storage + file;
-		//file = url_arg_remove(client.getRequest().getUrl(), '/') + file;
-		std::cout << "postMethod(): " << file << std::endl;
-		if (file_checker(file))
-			request.fail(HTTP_CE_CONFLICT, "File already exists!");
-		std::ofstream	ofile(file.c_str(), std::ios_base::binary);
-		if (ofile.fail())
-			std::cout << "Error opening file\n";
-		//- Aggiungiamo il numero di carattteri aggiunti dal protocollo al boundary (\r\n--boundary--\r\n)
-		size_t	bound_len = request.getHeaderVal("Boundary").length() + 8;
-		ofile.write(request.getBinBody().data(), request.getBinBody().size() - bound_len);
-		if (request.getStatusCode() == 200)
-			resp_file->open("www/var/upload/success_upload.html");
-		else
-			resp_file->open("www/var/errors/fail_upload.html");
-		if (resp_file->fail())
-		{
-			client.getRequest().fail(HTTP_CE_NOT_FOUND, ": upload file not found!");
-			resp_file->open((checkErrorPages(client.getRequest())).c_str());
-		}
-		// std::cout << "FAILE: " << file << std::endl;
-		body = file_opener(*resp_file);
-		find_and_replace(body, "{MSG}", request.getFailMsg());
+		file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
+		if (file.rbegin()[0] == '\"')
+			file.erase(file.length() - 1, 1);
 	}
+	else
+		request.fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
+	if (client.getLocConf().post_storage.empty() == false)
+		file = client.getLocConf().post_storage + file;
+	else
+		file = client.getSrvConf().post_storage + file;
+	//file = url_arg_remove(client.getRequest().getUrl(), '/') + file;
+	std::cout << "postMethod(): " << file << std::endl;
+	if (file_checker(file))
+		request.fail(HTTP_CE_CONFLICT, "File already exists!");
+	std::ofstream	ofile(file.c_str(), std::ios_base::binary);
+	if (ofile.fail())
+		std::cout << "Error opening file\n";
+	//- Aggiungiamo il numero di carattteri aggiunti dal protocollo al boundary (\r\n--boundary--\r\n)
+	size_t	bound_len = request.getHeaderVal("Boundary").length() + 8;
+	ofile.write(request.getBinBody().data(), request.getBinBody().size() - bound_len);
+	if (request.getStatusCode() == 200)
+		html.open("www/var/upload/success_upload.html");
+	else
+		html.open("www/var/errors/fail_upload.html");
+	if (resp_file->fail())
+	{
+		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
+		html.open((checkErrorPages(client.getRequest())).c_str());
+	}
+	// std::cout << "FAILE: " << file << std::endl;
+	body = file_opener(html);
+	find_and_replace(body, "{MSG}", request.getFailMsg());
 }
 
 void	print_bin(std::string filename, char *bin_data, size_t len);

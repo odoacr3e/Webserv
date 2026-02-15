@@ -5,7 +5,8 @@ all:
 
 init:
 	@cat init_ok && exit 0 || touch init_ok && \
-	git clone -b webserv git@github.com:alerusso42/Culed3d.git && \
+	git clone -b webserv git@github.com:alerusso42/Culed3d.git || \
+	git clone -b webserv https://github.com/alerusso42/Culed3d.git && \
 	rm -rf srcs/ && \
 	mv  Culed3d/cub3D_bonus/ ./srcs && \
 	rm -rf Culed3d || \

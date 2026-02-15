@@ -76,19 +76,22 @@ bool        charFinder(const std::string literal, int(*check)(int));
 std::string file_opener(std::fstream &file);
 std::string	file_opener(std::fstream &file, std::string msg);
 bool      	file_checker(std::string filename);
+int			read_file(std::ifstream &stream, std::vector<char> &vect);
+int			read_file(std::fstream &stream, std::vector<char> &vect);
+int			read_file(std::string name, std::vector<char> &vect);
 
 size_t      find_first_special_char(std::string line);
 bool        is_there_special_chars(std::string line);
 size_t      find_first_not_special_char(std::string line);
 
 void			trim_from(std::string &s, size_t from);
-bool		    trim_equal_left(std::string &s, char c);
-bool		    trim_diff_left(std::string &s, char c);
-bool		    trim_equal_right(std::string &s, char c);
-bool		    trim_diff_right(std::string &s, char c);
+bool			trim_equal_left(std::string &s, char c);
+bool			trim_diff_left(std::string &s, char c);
+bool			trim_equal_right(std::string &s, char c);
+bool			trim_diff_right(std::string &s, char c);
 
-bool		    valid_directory(std::string directory);
-bool		    valid_file(std::string file);
+bool			valid_directory(std::string directory);
+bool			valid_file(std::string file);
 
 std::string		url_rooting(std::string url, t_conf_server &srv);
 std::string		url_rooting(std::string url, t_conf_location &loc);

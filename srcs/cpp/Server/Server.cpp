@@ -102,6 +102,9 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			//	std::cout << this->_clients[(*it).fd]->getRequest().getBinBody().data()[i];
 			//std::cout << "\n";
 			send((*it).fd, html.c_str(), html.length(), 0);
+			std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
+			if (this->_clients[(*it).fd]->sendContentBool() == true)
+				send((*it).fd, contentData.data(), contentData.size(), 0);
 			(*it).events = POLLIN;
 		}
 	}
@@ -203,6 +206,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	else
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
+	client.getBuffer().clear();
 	runMethod(client, body, file);
 	return (createHtml(client, body));
 }
@@ -211,14 +215,24 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 {
 	if (resp_body.empty() == false)
 		return ;
-	resp_body = file_opener(file, "runMethod GET: Cannot open file");
 	if (client.getRequest().getFailMsg().empty() == false)
+	{
+		resp_body = file_opener(file, "runMethod GET: Cannot open file");
 		return ;
+	}
 	if (client.getRequest().getRunScriptBool() == true)
 		run_script(*this, client, resp_body);
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
+			if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
+				break ;
+			std::cout << "runMethod(): reading file..\n";
+			client.sendContentBool() = true;
+			//std::string file = client.getRequest().getUrl();
+			read_file(file, client.getBuffer());
+			client.getBuffer().push_back('\n');
+			client.getBuffer().push_back('\n');
 			break ;
 		case DELETE:
 			this->deleteMethod(client, resp_body, &file);
@@ -248,7 +262,7 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 		fname = checkErrorPages(client.getRequest());
 		file.open((fname).c_str());
 	}
-	else
+	else if (client.getRequest().getRunScriptBool() == false)
 	{
 		file.open(url.c_str());
 		if (file.fail())
@@ -309,9 +323,16 @@ std::string	createHtml(Client &client, const std::string &body)
 	         << status << " "
 	         << http_codes_str[checkValidCode(status)] << "\r\n";
 	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
-	response << "Content-Length: " << body.size() << "\r\n\r\n";
-	response << body << "\n\n";
-
+	if (client.sendContentBool() == true)
+	{
+		response << "Content-Length: " << client.getBuffer().size();
+		response << "\r\n\r\n";
+	}
+	else
+	{
+		response << "Content-Length: " << body.size() << "\r\n\r\n";
+		response << body << "\n\n";
+	}
 	std::cout << "createHtml() URL: " << url << std::endl;
 	return (response.str());
 }

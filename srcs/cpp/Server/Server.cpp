@@ -2,6 +2,7 @@
 #include "../../hpp/Server.hpp"
 
 #define SIZE_STR "B", "KB", "MB", "GB", "TB"
+#define MSG_END_CONNECTION "======================================\nchiudo connessione {INDEX}\n======================================\n"
 
 std::string				createHtml(Client &client, const std::string &body);
 struct pollfd			createServerSock(int port_n);
@@ -80,9 +81,10 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			{
 				static int	n;
 				//da mettere in una funzione a parte
-				std::cout << "chiudo connessione " << n++ << std::endl;
-				std::cout << "======================================" << std::endl;
-				std::cout << "\033[2J\033[H";
+				std::string msgEndCon(MSG_END_CONNECTION);
+				find_and_replace(msgEndCon, "{INDEX}", n++);
+				std::cout << msgEndCon << "\033[2J\033[H";
+				print_file("REQUEST", msgEndCon);
 				close((*it).fd);
 				if (this->_clients[(*it).fd])
 				{

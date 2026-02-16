@@ -14,6 +14,46 @@ int			headerParsing(Request &request, bool reset);
 
 //SECTION - DELETE
 
+void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &file)
+{
+	if (resp_body.empty() == false)
+		return ;
+	if (client.getRequest().getFailMsg().empty() == false)
+	{
+		resp_body = file_opener(file, "runMethod GET: Cannot open file");
+		return ;
+	}
+	if (client.getRequest().getRunScriptBool() == true)
+		run_script(*this, client, resp_body);
+	switch (client.getRequest().getMethodEnum())
+	{
+		case GET:
+			if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
+				break ;
+			std::cout << "runMethod(): reading file..\n";
+			client.sendContentBool() = true;
+			//std::string file = client.getRequest().getUrl();
+			read_file(file, client.getBuffer());
+			client.getBuffer().push_back('\n');
+			client.getBuffer().push_back('\n');
+			break ;
+		case DELETE:
+			this->deleteMethod(client, resp_body, &file);
+			break ;
+		case POST:
+			//parseData
+			this->postMethod(client, resp_body, &file);
+			//se script lancia lo script
+			//funzione che gestisce POST
+			break ;
+		case HEAD:
+			;//funzione che gestisce HEAD
+			break ;
+		case METH_NUM:
+			break ;
+	}
+}
+
 void	Server::deleteMethod(Client &client, std::string &body, std::fstream *file)
 {
 	if (check_delete(client, body, *this, file) != 0)

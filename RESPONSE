@@ -1,5 +1,8 @@
 HTTP/1.1 200 OK
 Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 1361
 
 ======================================
@@ -7,6 +10,9 @@ chiudo connessione 0
 ======================================
 HTTP/1.1 200 OK
 Content-Type: text/css
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 2362
 
 ======================================
@@ -14,6 +20,9 @@ chiudo connessione 1
 ======================================
 HTTP/1.1 200 OK
 Content-Type: image/ico
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 246938
 
 ======================================
@@ -21,170 +30,160 @@ chiudo connessione 2
 ======================================
 HTTP/1.1 200 OK
 Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 2080
 
 ======================================
 chiudo connessione 3
 ======================================
 HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 3710
+Content-Type: image/ico
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 246938
 
-<!--NAME=home_autoindex-->
+======================================
+chiudo connessione 4
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 3627
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Index of /script/</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Upload completato</title>
     <style>
         :root {
             --bg: #0f172a;
-            --panel: #020617;
-            --text: #e5e7eb;
+            --surface: #1e293b;
+            --border: #334155;
+            --text: #48e9fb;
             --muted: #94a3b8;
-            --accent: #38bdf8;
-            --border: #1e293b;
-            --hover: #020617;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #22c55e;
         }
 
-        * {
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+        /* RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        /* BASE */
         body {
-            margin: 0;
-            background: linear-gradient(180deg, var(--bg), #020617);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at top, #111827, var(--bg));
             color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px 16px;
+            line-height: 1.6;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background: var(--panel);
-            border-radius: 14px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-            overflow: hidden;
-        }
-
+        /* HEADER */
         header {
-            padding: 24px 28px;
+            text-align: center;
+            padding: 70px 20px 50px;
             border-bottom: 1px solid var(--border);
         }
+        header h1 { color: var(--success); font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
+        header p { color: var(--muted); font-size: 1.05rem; }
 
-        header h1 {
-            font-size: 1.4rem;
-            margin: 0;
-            font-weight: 600;
+        /* MAIN */
+        main {
+            max-width: 520px;
+            margin: 90px auto;
+            padding: 0 20px;
         }
 
-        header span {
-            color: var(--accent);
+        /* CARD */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 45px rgba(0,0,0,0.35);
         }
+        .card h2 { color: var(--success); margin-bottom: 25px; font-size: 1.4rem; font-weight: 600; }
+        .card p { margin-bottom: 40px; }
 
-        thead {
-            background: #020617;
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            gap: 25px;
+            margin-top: 30px; /* margine sopra i bottoni */
+            justify-content: center;
+            flex-wrap: wrap;
         }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        th {
-            color: var(--muted);
-            font-weight: 500;
-        }
-
-        tbody tr:hover {
-            background: rgba(56, 189, 248, 0.06);
-        }
-
-        a {
-            color: var(--accent);
+        .btn {
+            padding: 14px 26px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 500;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .icon {
-            width: 20px;
-            display: inline-block;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            min-width: 170px;
             text-align: center;
-            margin-right: 8px;
-            opacity: 0.85;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
 
-        .footer {
-            padding: 16px;
+        /* FOOTER */
+        footer {
             text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
             color: var(--muted);
-            font-size: 0.85rem;
             border-top: 1px solid var(--border);
-        }
-
-        @media (max-width: 600px) {
-            th:nth-child(2),
-            td:nth-child(2),
-            th:nth-child(3),
-            td:nth-child(3) {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
-<div class="container">
     <header>
-        <h1>Index of <span>/script/</span></h1>
+        <h1>Upload completato</h1>
+        <p>File caricato con successo</p>
     </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Dimensione</th>
-                <th>Ultima modifica</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="pokedex/">pokedex/</a>
-                </td>
-                <td>119 B</td>
-                <td>Mon Feb 16 13:52:47 2026
-</td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="cub3D/">cub3D/</a>
-                </td>
-                <td>169 B</td>
-                <td>Mon Feb 16 14:37:22 2026
-</td>
-            </tr>
-        </tbody>    </table>    <div class="footer">        Webserver autoindex • 3 UOMINI E 1 WEBSERVER    </div></div></body></html>
+    <main>
+        <div class="card">
+            <h2>Operazione riuscita</h2>
+            <p>
+                File ricevuto ed elaborato con successo.
+                Puoi continuare la navigazione oppure effettuare un nuovo upload.
+            </p>
+            <div class="actions">
+                <a href="/" class="btn btn-secondary">Torna alla home</a>
+                <a href="/upload/index.html" class="btn btn-primary">Nuovo upload</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Success - 3 Uomini e 1 web server
+    </footer>
+</body>
+</html>
+
 
 ======================================
-chiudo connessione 4
+chiudo connessione 5
+======================================
+HTTP/1.1 200 OK
+Content-Type: image/ico
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 246938
+
+======================================
+chiudo connessione 6
 ======================================

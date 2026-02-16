@@ -1,7 +1,7 @@
 #include "../../hpp/Server.hpp"
 #define SIZE_STR "B", "KB", "MB", "GB", "TB"
 
-std::string	calculateSize(size_t s);
+static std::string	calculateSize(size_t s);
 
 // NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
 //TODO - refactoring file a parte queste funzioni
@@ -40,26 +40,6 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	}
 }
 
-std::string	calculateSize(size_t s)
-{
-	int 	len = 0;
-	size_t	tmp = s;
-	static std::string	size_str[] = {SIZE_STR, ""}; 
-
-	while (tmp > 0)
-	{
-		tmp /= 10;
-		len++;
-	}
-	std::string type = size_str[(len - 1) / 3];
-	while (len > 3)
-	{
-		s /= 1000;
-		len -= 3;
-	}
-	return (ft_to_string(s) + " " + type);
-}
-
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
 void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, dirent *cont)
 {
@@ -87,4 +67,24 @@ void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, diren
 		find_and_replace(line, "{MODIFY}", std::ctime(&info.st_mtim.tv_sec));
 		body += line;
 	}
+}
+
+static std::string	calculateSize(size_t s)
+{
+	int 	len = 0;
+	size_t	tmp = s;
+	static std::string	size_str[] = {SIZE_STR, ""}; 
+
+	while (tmp > 0)
+	{
+		tmp /= 10;
+		len++;
+	}
+	std::string type = size_str[(len - 1) / 3];
+	while (len > 3)
+	{
+		s /= 1000;
+		len -= 3;
+	}
+	return (ft_to_string(s) + " " + type);
 }

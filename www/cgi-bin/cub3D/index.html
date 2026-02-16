@@ -124,7 +124,8 @@ const screen = document.getElementById("screen");
 // aggiunge timestamp per bypassare cache se necessario
 function refreshImage() {
     // Usa un URL completo o assicurati che il timestamp cambi ogni millisecondo
-    const newSrc = "/render.bmp?update=" + new Date().getTime();
+    // const newSrc = "/render.bmp?update=" + new Date().getTime();
+    const newSrc = "/render.bmp";
     screen.src = newSrc;
 }
 

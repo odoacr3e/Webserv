@@ -1,7 +1,6 @@
 GET / HTTP/1.1
 Host: localhost:9020
 Connection: keep-alive
-Cache-Control: max-age=0
 sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Linux"
@@ -62,26 +61,110 @@ Referer: http://localhost:9020/
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
-======================================
-chiudo connessione 0
-======================================
-GET /script/ HTTP/1.1
+GET /favicon.ico HTTP/1.1
 Host: localhost:9020
 Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
 sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
 sec-ch-ua-mobile: ?0
-sec-ch-ua-platform: "Linux"
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
-Sec-Purpose: prefetch;prerender
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Sec-Fetch-Site: none
-Sec-Fetch-Mode: navigate
-Sec-Fetch-User: ?1
-Sec-Fetch-Dest: document
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9020/upload/index.html
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
+POST /upload/ HTTP/1.1
+Host: localhost:9020
+Connection: keep-alive
+Content-Length: 2041
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Origin: http://localhost:9020
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary9d6sHjDZBVJiKrhp
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://localhost:9020/upload/index.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+------WebKitFormBoundary9d6sHjDZBVJiKrhp
+Content-Disposition: form-data; name="file"; filename="ft_malloc.h"
+Content-Type: text/x-chdr
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alerusso <alessandro.russo.frc@gmail.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/29 17:21:38 by alerusso          #+#    #+#             */
+/*   Updated: 2025/12/29 17:21:38 by alerusso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FT_MALLOC_H
+# define FT_MALLOC_H
+# include <stdint.h>
+# include <stdbool.h>
+# include <stddef.h>
+# define MALLOC_WARNINGS true
+
+typedef struct s_alloc	t_alloc;
+
+typedef	enum e_show_alloc_mem_flags
+{
+	MALL_SHOW_PRINT_ALL = 1,
+	MALL_SHOW_PRINT_BIT = 2,
+	MALL_SHOW_PRINT_HEX = 16,
+	MALL_SHOW_PRINT_BYTE = 256,
+	MALL_SHOW_FREED = 1 << 9,
+}		e_show_alloc_mem_flags;
+
+void 	*malloc(size_t size);
+void 	free(void *ptr);
+void 	*realloc(void *ptr, size_t size);
+void	show_alloc_mem();
+void	show_alloc_mem_ex(uint32_t flags);
+void 	*calloc(size_t nmemb, size_t size);
+int 	mallopt(int __param, int __val);
+//SECTION - funzioni inutili da overlodare
+void	*xmalloc(size_t size);
+void 	*reallocarray(void *ptr, size_t nmemb, size_t size);
+void	*memalign(size_t __alignment, size_t __size);
+void 	*valloc(size_t __size);
+void 	*pvalloc(size_t __size);
+
+//FIXME - togliere: solo debug
+t_alloc	*malloc_global_data();
+
+#endif
+------WebKitFormBoundary9d6sHjDZBVJiKrhp--
 ======================================
-chiudo connessione 1
+chiudo connessione 0
 ======================================
+GET /favicon.ico HTTP/1.1
+Host: localhost:9020
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Google Chrome";v="144"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9020/upload/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+

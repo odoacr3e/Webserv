@@ -87,7 +87,6 @@ void	print_file(std::string filename, T content)
 	if (stream.fail())
 	{
 		std::cerr << "Errore: " << std::strerror(errno) << std::endl;
-		std::abort();
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
 	stream << content;
@@ -101,7 +100,6 @@ void	print_file(std::string filename, T content, int bytes)
 	if (stream.fail())
 	{
 		std::cerr << "Errore: " << std::strerror(errno) << std::endl;
-		std::abort();
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
 	stream.write(content, bytes);
@@ -114,7 +112,6 @@ void	print_file(std::string filename, T content, std::ios_base::openmode flags)
 
 	if (stream.fail())
 	{
-		std::abort();
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
 	stream << content;

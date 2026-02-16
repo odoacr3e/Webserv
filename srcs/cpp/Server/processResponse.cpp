@@ -49,6 +49,9 @@ std::string	createHtml(Client &client, const std::string &body)
 	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
 	if (client.sendContentBool() == true)
 	{
+		response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
+		response << "Pragma: no-cache" << "\r\n";
+		response << "Expires: 0" << "\r\n";
 		response << "Content-Length: " << client.getBuffer().size();
 		response << "\r\n\r\n";
 	}

@@ -8,6 +8,7 @@ int			headerParsing(Request &request, bool reset);
 
 /*NOTE - summary
 
+	-	GET
 	-	DELETE
 	-	POST
 */
@@ -28,14 +29,7 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
-				break ;
-			std::cout << "runMethod(): reading file..\n";
-			client.sendContentBool() = true;
-			//std::string file = client.getRequest().getUrl();
-			read_file(file, client.getBuffer());
-			client.getBuffer().push_back('\n');
-			client.getBuffer().push_back('\n');
+			this->getMethod(client, resp_body, &file);
 			break ;
 		case DELETE:
 			this->deleteMethod(client, resp_body, &file);
@@ -52,6 +46,19 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 		case METH_NUM:
 			break ;
 	}
+}
+
+void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
+{
+	(void)body;
+	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
+		return ;
+	std::cout << "runMethod(): reading file..\n";
+	client.sendContentBool() = true;
+	//std::string file = client.getRequest().getUrl();
+	read_file(*file, client.getBuffer());
+	client.getBuffer().push_back('\n');
+	client.getBuffer().push_back('\n');
 }
 
 void	Server::deleteMethod(Client &client, std::string &body, std::fstream *file)

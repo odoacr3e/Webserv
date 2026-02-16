@@ -102,6 +102,7 @@ void	s_conf_location::set(std::string path)
 	this->cgiparam.clear();
 	this->autoindex = false;
 	this->run_script = false;
+	this->script_daemon = false;
 	this->mask_methods = 0;
 	this->alias = false;
 	this->ret_code = 0, this->ret_uri.clear(), this->ret_text.clear();

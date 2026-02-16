@@ -101,7 +101,13 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			//for (size_t i = 0; i != this->_clients[(*it).fd]->getRequest().getBinBody().size();i++)
 			//	std::cout << this->_clients[(*it).fd]->getRequest().getBinBody().data()[i];
 			//std::cout << "\n";
+			std::cout << "bodyfinal\n" << html << "\n\n\n";
 			send((*it).fd, html.c_str(), html.length(), 0);
+			static int	n_resp;
+			print_file("RESPONSE", html);
+			std::string msgEndCon(MSG_END_CONNECTION);
+			find_and_replace(msgEndCon, "{INDEX}", n_resp++);
+			print_file("RESPONSE", msgEndCon);
 			std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
 			if (this->_clients[(*it).fd]->sendContentBool() == true)
 				send((*it).fd, contentData.data(), contentData.size(), 0);
@@ -333,6 +339,7 @@ std::string	createHtml(Client &client, const std::string &body)
 		response << "Content-Length: " << body.size() << "\r\n\r\n";
 		response << body << "\n\n";
 	}
+	client.sendContentBool() = false;
 	std::cout << "createHtml() URL: " << url << std::endl;
 	return (response.str());
 }

@@ -13,6 +13,8 @@
 #ifndef PRINT_TPP
 # define PRINT_TPP
 
+#include "../../includes/ether.hpp"
+
 template <typename F, typename S>
 std::ostream	&operator<<(std::ostream &stream, const std::pair<F, S> &pair);
 
@@ -106,9 +108,9 @@ void	print_file(std::string filename, T content, int bytes)
 }
 
 template <typename T>
-void	print_file(std::string filename, T content, std::ios_base flags)
+void	print_file(std::string filename, T content, std::ios_base::openmode flags)
 {
-	std::ofstream	stream(filename.c_str(), flags);
+	std::ofstream	stream(filename, flags);
 
 	if (stream.fail())
 	{

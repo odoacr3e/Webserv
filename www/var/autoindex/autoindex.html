@@ -142,19 +142,22 @@
 </body>
 <script>
 function deleteFile(fileName) {
-    if (confirm("Sei sicuro di voler eliminare " + fileName + "?")) {
+    if (confirm("Sei sicuro de cancellà " + fileName + "? Daje che poi nun torni indietro!")) {
         fetch('/storage/' + fileName, {
             method: 'DELETE',
         })
         .then(response => {
             if (response.ok) {
+                alert("File eliminato! Come 'n gol alla Lazio!");
                 location.reload();
+            } else if (response.status === 403) {
+                alert("Aò, er server dice 403! Nun c'hai i permessi, sei in fuorigioco!");
             } else {
-                alert("Errore durante l'eliminazione");
+                alert("Errore strano: " + response.status);
             }
-        });
+        })
+        .catch(err => console.error("Problema de rete, stamo a perde er segnale:", err));
     }
-	return (false);
 }
 </script>
 

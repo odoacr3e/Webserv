@@ -35,7 +35,7 @@
 
 # define COLOR_RESET "\033[0m"
 # define DEBUG true
-# define CONF true
+# define CONF false
 # define SERVER true
 
 #if defined(DEBUG) && DEBUG

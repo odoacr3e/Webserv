@@ -57,10 +57,13 @@ int main(int ac, char **av, const char **env)
 
 /*
 	[X]	upload con autorizzazioni, html bellino
-	[]	GESTIRE IL TEAPOT PERCHE SIAMO VERI UOMINI CAZZO
 	[]	cgi non bloccanti
+	[]	crypter
+	[]	cub3D
 	[]	cookie
 	[]	refactoring
+	[]	GESTIRE IL TEAPOT PERCHE SIAMO VERI UOMINI CAZZO
+	[]	tester
 	[]	test
 */
 /*

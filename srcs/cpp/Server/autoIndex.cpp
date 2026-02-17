@@ -25,7 +25,7 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	{
 		std::string dname = content->d_name;
 		if (dname[0] != '.')
-			listDirectoriesAutoIndex(resp_body, url, content);
+			listDirectoriesAutoIndex(resp_body, url, content, client.getRequest().getMethodEnum());
 		content = findUrlDirectory(url);
 	}
 	while (std::getline(file, line))
@@ -40,9 +40,9 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 }
 
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
-void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, dirent *cont)
+void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, dirent *cont, int method)
 {
-	std::ifstream var("www/var/autoindex/del.html");
+	std::ifstream var;
 	std::string	path;
 	std::string line;
 	std::string	s_cont;
@@ -52,6 +52,10 @@ void Server::listDirectoriesAutoIndex(std::string &body, std::string &url, diren
 	std::memset(&info, 0, sizeof(struct stat));
 	path = url + '/' + cont->d_name;
 	stat(path.c_str(), &info);
+	if (method == DELETE)
+		var.open("www/var/autoindex/del.html");
+	else
+		var.open("www/var/autoindex/var.html");
 	if (var.fail())
 	{
 		std::cout << "Could not open html file!\n";

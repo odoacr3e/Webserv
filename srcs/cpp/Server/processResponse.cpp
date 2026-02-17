@@ -4,16 +4,17 @@ std::string	createHtml(Client &client, const std::string &body);
 
 void	Server::processResponse(std::vector<pollfd>::iterator &it)
 {
-	std::string	html = createResponse(*(this->_clients[(*it).fd]));
-	send((*it).fd, html.c_str(), html.length(), 0);
 	static int	n_resp;
-	print_file("RESPONSE", html);
 	std::string msgEndCon(MSG_END_CONNECTION);
+	std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
+	std::string	html = createResponse(*(this->_clients[(*it).fd]));
+
+	send((*it).fd, html.c_str(), html.length(), 0);
+	print_file("RESPONSE", html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	print_file("RESPONSE", msgEndCon);
-	std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
 	if (this->_clients[(*it).fd]->sendContentBool() == true)
-	send((*it).fd, contentData.data(), contentData.size(), 0);
+		send((*it).fd, contentData.data(), contentData.size(), 0);
 	this->_clients[(*it).fd]->sendContentBool() = false;
 	(*it).events = POLLIN;
 }
@@ -36,12 +37,9 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	else
 	{
 		type += "html";
-		// if (url.rbegin()[0] != '/')
-			// std::cout << "passed a file in choose_file with no extension!" << std::endl;
 	}
 	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client, body);
-	//else if (client.getRequest().getMethodEnum() != POST)
 	else
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
@@ -50,6 +48,59 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	return (createHtml(client, body));
 }
 
+void	Server::choose_file(Client &client, std::fstream &file, std::string url)
+{
+	std::string	fname;
+
+	if (client.getRequest().getDnsErrorBool())
+		file.open("www/var/errors/dns/index.html");
+	else if (client.getRequest().getStatusCode() != 200)
+	{
+		fname = checkErrorPages(client.getRequest());
+		file.open((fname).c_str());
+	}
+	else if (client.getRequest().getRunScriptBool() == false)
+	{
+		file.open(url.c_str());
+		if (file.fail())
+		{
+			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + ": File not found!");
+			fname = checkErrorPages(client.getRequest());
+			file.open((fname).c_str());
+		}
+	}
+}
+
+//FIXME - da inserire append root/alias in config file
+std::string	Server::checkErrorPages(Request &request)
+{
+	std::ifstream	file;
+	s_conf_server 	*server = &(*this->_srvnamemap)[request.getHost()];
+	s_conf_location	*loc;
+	int				status_code = request.getStatusCode();
+	std::string 	url = request.getUrl();
+
+	if (server->location.count(url) == 0) // check se non ci sono location
+	{
+		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
+		{
+			file.open((server->root + server->err_pages[status_code]).c_str());
+			if (file.fail() == true)
+				return (url_rooting("/errors/default.html", *server));
+			return (url_rooting(server->err_pages[status_code], *server));
+		}
+	}
+	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
+	{
+		loc = &server->location[url];
+		file.open((server->root + server->location[url].err_pages[status_code]).c_str());
+		std::cout << "Location prova ad aprire: " << loc->root + server->location[url].err_pages[status_code] << std::endl;
+		if (file.fail() == true)
+			return (url_rooting("/errors/default.html", *loc));
+		return (url_rooting(server->location[url].err_pages[status_code], *loc));
+	}
+	return (server->root + "/errors/default.html"); // return di default
+}
 
 // NOTE - crea html come body per la risposta da inviare al client
 std::string	createHtml(Client &client, const std::string &body)

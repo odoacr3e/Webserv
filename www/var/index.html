@@ -39,17 +39,30 @@
             </ul>
         </section>
         <div class="actions">
-            <a href="upload/index.html">
+
+            <a href="/script/">
+                <button>Script</button>
+            </a>
+			<a href="/srcs/">
+                <button>srcs</button>
+            </a>
+			<a href="/storage/">
+                <button>Storage</button>
+            </a>
+			<a href="upload/index.html">
                 <button>Upload file</button>
             </a>
+			<button onclick="
+				fetch('/storage/', {method: 'DELETE'})
+				.then(res => res.text()) // Pijamo l'HTML che m'hai mannato
+				.then(html => {
+					document.open();    // Aprimo er documento
+					document.write(html); // Ce scrivemo sopra tutto l'autoindex nuovo
+					document.close();   // Chiudemo e godemo
+				})">
+				Delete file
+			</button>
 
-            <a href="delete/index.html">
-                <button>Delete file</button>
-            </a>
-
-            <a href="/storage/">
-                <button>Explore</button>
-            </a>
         </div>
             </main>
                 <footer>

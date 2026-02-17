@@ -113,7 +113,7 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 	std::cout << std::endl << "\033[1;37m" << "Creating server " << this->_server_num + 1<< "\033[0m" << std::endl;
 	std::cout << "Listening on -> \033[1;32m" << (*it).first.first << ":" << (*it).first.second << "\033[0m" << std::endl;
 	//NOTE - questa linea stampa tutto l'universo
-	//std::cout << (*it).second;
+	std::cout << (*it).second;
 }
 
 // NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 

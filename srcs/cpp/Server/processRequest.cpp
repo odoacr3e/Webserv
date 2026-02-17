@@ -30,8 +30,9 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 	request.getRequestStream().clear();
 	request.getSockBytes() = bytes;
 
+	print_file("REQUEST", buffer, bytes);
 	if (request.getFirstRead() == true) // legge la prima volta
-	{//TODO - refactoring: per favore splittiamo sti controlli
+	{
 		request.getFirstRead() = false;
 		if (requestParsing(*this->_clients[(*it).fd], buffer, bytes) != 0)//request
 		{

@@ -140,21 +140,21 @@
     </div>
 </div>
 </body>
-
 <script>
 function deleteFile(fileName) {
     if (confirm("Sei sicuro di voler eliminare " + fileName + "?")) {
-        fetch('/files/' + fileName, {
+        fetch('/storage/' + fileName, {
             method: 'DELETE',
         })
         .then(response => {
             if (response.ok) {
-                location.reload(); // Ricarica la pagina dopo l'eliminazione
+                location.reload();
             } else {
                 alert("Errore durante l'eliminazione");
             }
         });
     }
+	return (false);
 }
 </script>
 

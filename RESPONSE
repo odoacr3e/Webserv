@@ -1,197 +1,339 @@
 HTTP/1.1 200 OK
 Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 1656
+Content-Length: 7152
+
+<!--NAME=home_autoindex-->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Index of /storage/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #020617;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #1e293b;
+            --hover: #020617;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #020617);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        header span {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #020617;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 8px;
+            opacity: 0.85;
+        }
+
+        .footer {
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(2),
+            td:nth-child(2),
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Index of <span>/storage/</span></h1>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Ultima modifica</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="giorgio.jpegjavascript:void(0)" onclick="deleteFile('giorgio.jpeg')">Elimina giorgio.jpeg</a>
+                </td>
+                <td>357 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="code.shjavascript:void(0)" onclick="deleteFile('code.sh')">Elimina code.sh</a>
+                </td>
+                <td>32 B</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="Shocked Sound Effect #2.mp3javascript:void(0)" onclick="deleteFile('Shocked Sound Effect #2.mp3')">Elimina Shocked Sound Effect #2.mp3</a>
+                </td>
+                <td>125 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="BitcoinExchange.cppjavascript:void(0)" onclick="deleteFile('BitcoinExchange.cpp')">Elimina BitcoinExchange.cpp</a>
+                </td>
+                <td>9 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="VertexZoom.csjavascript:void(0)" onclick="deleteFile('VertexZoom.cs')">Elimina VertexZoom.cs</a>
+                </td>
+                <td>8 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="Street fighter ryu hadouken sound effect.mp3javascript:void(0)" onclick="deleteFile('Street fighter ryu hadouken sound effect.mp3')">Elimina Street fighter ryu hadouken sound effect.mp3</a>
+                </td>
+                <td>168 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="favicon.icojavascript:void(0)" onclick="deleteFile('favicon.ico')">Elimina favicon.ico</a>
+                </td>
+                <td>246 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="RealLiveEn.exejavascript:void(0)" onclick="deleteFile('RealLiveEn.exe')">Elimina RealLiveEn.exe</a>
+                </td>
+                <td>3 MB</td>
+                <td>Tue Feb 17 11:28:35 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="argv.jsonjavascript:void(0)" onclick="deleteFile('argv.json')">Elimina argv.json</a>
+                </td>
+                <td>798 B</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                   <a href="Screenshot from 2025-12-17 22-14-05.pngjavascript:void(0)" onclick="deleteFile('Screenshot from 2025-12-17 22-14-05.png')">Elimina Screenshot from 2025-12-17 22-14-05.png</a>
+                </td>
+                <td>95 KB</td>
+                <td>Tue Feb 17 10:06:54 2026
+</td>
+            </tr>
+        </tbody>    </table>    <div class="footer">        Webserver autoindex • 3 UOMINI E 1 WEBSERVER    </div></div></body><script>function deleteFile(fileName) {    if (confirm("Sei sicuro di voler eliminare " + fileName + "?")) {        fetch('/storage/' + fileName, {            method: 'DELETE',        })        .then(response => {            if (response.ok) {                location.reload();            } else {                alert("Errore durante l'eliminazione");            }        });    }	return (false);}</script></html>
 
 ======================================
 chiudo connessione 0
 ======================================
-HTTP/1.1 200 OK
-Content-Type: text/css
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2362
+HTTP/1.1 403 Forbidden
+Content-Type: image/jpeg
+Content-Length: 1606
 
-======================================
-chiudo connessione 1
-======================================
-HTTP/1.1 200 OK
-Content-Type: image/ico
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 246938
-
-======================================
-chiudo connessione 2
-======================================
-HTTP/1.1 404 Not Found
-Content-Type: text/html
-Content-Length: 2805
-
-<!--NAME=error_default-->
+<!--NAME=error_403-->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<title>My C++ Web Server</title>
-<meta charset="utf-8">
-<link rel="icon" href="favicon.ico">
+	<link rel="icon" href="favicon.ico">
+	<title>403 Forbidden</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-<style type="text/css">
-:root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --border: #334155;
-    --text: #ff0000;
-    --muted: #94a3b8;
-    --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    --success: #22c55e;
-}
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			background: #0f172a;
+			color: #e5e7eb;
+			line-height: 1.6;
+		}
 
-/* RESET */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+		header {
+			text-align: center;
+			padding: 40px 20px;
+			background: #020617;
+			border-bottom: 1px solid #1e293b;
+		}
 
-/* BASE */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: radial-gradient(circle at top, #111827, var(--bg));
-    color: var(--text);
-    line-height: 1.6;
-}
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+		}
 
-/* HEADER */
-header {
-    text-align: center;
-    padding: 70px 20px 50px;
-    border-bottom: 1px solid var(--border);
-}
+		header p {
+			color: #94a3b8;
+		}
 
-header h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
+		main {
+			max-width: 900px;
+			margin: 40px auto;
+			padding: 0 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 20px;
+		}
 
-header p {
-    color: var(--muted);
-    font-size: 1.05rem;
-}
+		.card {
+			background: #020617;
+			border: 1px solid #1e293b;
+			border-radius: 10px;
+			padding: 20px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
 
-/* MAIN */
-main {
-    max-width: 520px;
-    margin: 90px auto;
-    padding: 0 20px;
-}
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+		}
 
-/* CARD */
-.card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 30px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+		.card h2 {
+			margin-bottom: 10px;
+			font-size: 1.4rem;
+		}
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-}
-
-.card h2 {
-    margin-bottom: 25px;
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
-/* FILE INPUT */
-input[type="file"] {
-    width: 100%;
-    margin-bottom: 25px;
-    padding: 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    cursor: pointer;
-    transition: border 0.2s ease;
-}
-
-input[type="file"]:hover {
-    border-color: var(--primary);
-}
-
-input[type="file"]:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-/* BUTTON */
-button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-button:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 0.9rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-}
-</style>
-
+		footer {
+			text-align: center;
+			padding: 20px;
+			color: #94a3b8;
+			font-size: 0.9rem;
+			border-top: 1px solid #1e293b;
+		}
+	</style>
 </head>
 
 <body>
 
-<header>
-	<h1>My C++ Web Server</h1>
-	<p>Minimal • Fast • Handmade</p>
-</header>
+	<header>
+		<h1>403 - Forbidden</h1>
+		<p>Accesso negato alla risorsa richiesta</p>
+	</header>
 
-<main>
-	<div class="card">
-		<div class="error-code">⚠️</div>
-		<h2>Errore di default</h2>
-		<p>
-			Il server ha ricevuto una richiesta non valida oppure
-			la risorsa non è disponibile.
-		</p>
-		<a href="/" class="btn">Torna alla home</a>
-	</div>
-</main>
+	<main>
+		<div class="card">
+			<h2>Access Denied</h2>
+			<p>
+				Il server ha ricevuto correttamente la richiesta,  
+				ma non sei autorizzato ad accedere a questa risorsa.
+			</p>
+		</div>
+	</main>
 
-<footer>
-	© 2026 • Custom C++ HTTP Server
-</footer>
+	<footer>
+		Error 403 - 3 Uomini e 1 web server
+	</footer>
 
 </body>
 </html>
 
 
 ======================================
-chiudo connessione 3
+chiudo connessione 1
 ======================================

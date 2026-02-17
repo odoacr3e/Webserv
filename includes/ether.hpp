@@ -34,8 +34,8 @@
 # include "../srcs/utils/string/string.tpp"
 
 # define COLOR_RESET "\033[0m"
-# define DEBUG false
-# define CONF false
+# define DEBUG true
+# define CONF true
 # define SERVER true
 
 #if defined(DEBUG) && DEBUG

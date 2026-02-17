@@ -99,8 +99,8 @@ int	Request::_checkGet(void)
 
 int	Request::_checkDelete(void)
 {
-	if (this->checkVal("Authorization") == false)
-		return (this->fail(HTTP_CE_BAD_REQUEST, "Missing Authorization"));
+	//if (this->checkVal("Authorization") == false)
+	//	return (this->fail(HTTP_CE_BAD_REQUEST, "Missing Authorization"));
 	return (0);
 }
 
@@ -223,12 +223,10 @@ void	Request::manageIndex(t_conf_server *srv, t_conf_location *loc)
 {
 	if (!loc)
 		return (this->setUrl(this->getUrl().append(srv->index)));
-	if (loc->index.empty() == false)
+	if (loc->autoindex == true)
 	{
-		this->setUrl(this->getUrl().append(loc->index));
-	}
-	else if (loc->autoindex == true)
 		this->_autoindex = true;
+	}
 	else
-		this->fail(HTTP_CE_FORBIDDEN, "undefined autoindex and index parameters");
+		this->setUrl(this->getUrl().append(loc->index));
 }

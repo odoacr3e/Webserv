@@ -60,6 +60,20 @@ void Server::suppressSocket()
 		delete [] (*it);
 }
 
+/*
+	socket SERVER
+	socket CLIENT
+	pipe[0] lettura
+	pipe[1] scrittura
+
+	struct fds {
+					struct pollfd data 
+					ENUM tipo
+				}
+
+	socket CLIENT --> solito
+	socket pipe ----> dire a CLIENT che può fare response
+*/
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)

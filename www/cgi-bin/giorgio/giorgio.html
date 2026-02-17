@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Search • My C++ Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.youtube.com/s/desktop/28212166/img/favicon_32x32.png">
+
+    <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f9f9f9; /* Grigetto YouTube */
+        color: #0f0f0f;
+        line-height: 1.6;
+    }
+
+    /* Header stile Navbar YouTube */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e5e5e5;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        color: #ff0000; /* Rosso YouTube */
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Er triangolino del Play */
+    header h1::before {
+        content: "►";
+        background-color: #ff0000;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 1.2rem;
+    }
+
+    main {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .search-container {
+        background: transparent;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .search-container img {
+        border-radius: 50%; /* Foto profilo tonda */
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    /* La barra de ricerca vera e propria */
+    form {
+        display: flex;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 40px 0 0 40px; /* Arrotondato solo a sinistra */
+        font-size: 1rem;
+        outline: none;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"]:focus {
+        border-color: #0556bf;
+    }
+
+    button {
+        background: #f8f8f8;
+        color: #333;
+        border: 1px solid #ccc;
+        border-left: none;
+        border-radius: 0 40px 40px 0; /* Arrotondato solo a destra */
+        padding: 0 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-size: 0.9rem;
+    }
+
+    button:hover {
+        background: #f0f0f0;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px;
+        color: #606060;
+        font-size: 0.8rem;
+    }
+
+    footer span {
+        color: #ff0000;
+        font-weight: 500;
+    }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>YouTube <span style="color: #0f0f0f; font-weight: normal; margin-left: -5px; letter-spacing: -1px;">Search</span></h1>
+</header>
+
+<main>
+    <div class="search-container">
+        <img src="https://m.media-amazon.com/images/I/51HY4OFmmhL._SY679_.jpg" height="80" width="80" alt="Profile">
+        <h2>Cerca video su YouTube</h2>
+        
+        <form method="GET" action="giorgio.cgi">
+            <input type="text" name="value" placeholder="Cerca..." required>
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 My Web Server • <span>I PIEDI DELLA ZIA DEL TUO RAGAZZO</span> Production</p>
+</footer>
+
+</body>
+</html>

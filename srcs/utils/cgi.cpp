@@ -1,4 +1,3 @@
-
 #include "../../includes/ether.hpp"
 #include "../hpp/Client.hpp"
 #include "../hpp/Server.hpp"
@@ -9,6 +8,7 @@ static void		run_cmd(Server &srv, t_cgi &cgi_data);
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data);
 std::string		createHtmlPokedex(std::string key, std::string &output);
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
+std::string		createHtmlYouTube(t_cgi &cgi_data);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
@@ -26,10 +26,13 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		body = createHtmlPokedex(cgi_data.argv[1], cgi_data.output);
 	else if (client.getLocConf().script_type == "cub3D")
 		body = createHtmlCub(cgi_data, srv, client);
+	else if (client.getLocConf().script_type == "giorgio")
+		body = createHtmlYouTube(cgi_data);
 	else
 	{
 		client.getRequest().setBodyType("text/plain");
 		std::cout << "script_type undefined. no html created." << std::endl;
+		std::cout << cgi_data.output << std::endl;
 	}
 }
 

@@ -10,8 +10,11 @@ dirent					*findUrlDirectory(std::string url);
 // NOTE - aggiungiamo il socket del server al vector di server
 Server::Server(Conf &conf, const char **env):_env(env)
 {
-	pollfd	port_connection;
+	pollfd		port_connection;
+	s_fd_data	fd_data;
 
+	fd_data.type = FD_SERVER;
+	this->_fd_data.resize(MAX_CONNECTION + 1);
 	this->_server_num = 0;
 	if (conf.getSrvNameMap().size() == 0)
 		throw (std::runtime_error("\nSpecify at least one listen in conf file"));
@@ -25,6 +28,7 @@ Server::Server(Conf &conf, const char **env):_env(env)
 			this->_server_data[port_connection.fd] = &(*it).second;
 			this->_addrs.push_back(port_connection);
 			printServerConfiguration(it);
+			this->_fd_data[port_connection.fd] = fd_data;
 			this->_server_num++;
 		}
 		else
@@ -60,20 +64,6 @@ void Server::suppressSocket()
 		delete [] (*it);
 }
 
-/*
-	socket SERVER
-	socket CLIENT
-	pipe[0] lettura
-	pipe[1] scrittura
-
-	struct fds {
-					struct pollfd data 
-					ENUM tipo
-				}
-
-	socket CLIENT --> solito
-	socket pipe ----> dire a CLIENT che può fare response
-*/
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
@@ -133,9 +123,15 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 // NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
 void	Server::addSocket(int index)
 {
+	pollfd		polldata;
+	s_fd_data	fd_data;
+
+	fd_data.type = FD_CLIENT;
 	int client = accept(this->_addrs.data()[index].fd, NULL, NULL);
 	if (client == -1)
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
-	this->_addrs.push_back(setupPollFd(client));
+	polldata = setupPollFd(client);
+	this->_addrs.push_back(polldata);
+	this->_fd_data[polldata.fd] = fd_data;
 	this->_clients[client] = new Client(client, this->_addrs.data()[index].fd);
 }

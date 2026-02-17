@@ -22,6 +22,7 @@ std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client)
 		//info_len += 
 		std::cout << "new song " << output << "\n";
 	}
-	(void)info_len;
+	client.sendContentBool() = true;
+	client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin() + info_len);
 	return ("");
 }

@@ -126,6 +126,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
 	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
-	read_file(filename, client.getBuffer());
+	read_file(filename, client.getBuffer());//8294403
+	std::cout << client.getBuffer() << std::endl;
+	print_file("RESPONSE", client.getBuffer().data(), 1000);
 	cgi_data.client = &client;
 }

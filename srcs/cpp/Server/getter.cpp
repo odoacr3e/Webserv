@@ -1,6 +1,6 @@
 #include "../../hpp/Server.hpp"
 
-// NOTE - restituisce il vettore di strutture di poll sotto forma di array
+
 struct pollfd *Server::getAddrs(void)
 {
 	return (this->_addrs.data());
@@ -34,4 +34,9 @@ packetBuffer	&Server::getPacketBuffer()
 const std::string	&Server::getProtectedFiles() const
 {
 	return (this->_protected_files);
+}
+
+std::vector<struct s_fd_data>	&Server::getFdData()
+{
+	return (this->_fd_data);
 }

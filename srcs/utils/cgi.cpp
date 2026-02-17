@@ -79,7 +79,6 @@ static void		run_cmd(Server &srv, t_cgi &cgi_data)
 		std::exit(1);
 	}
 	close(cgi_data.pipe[1]);
-	wait(NULL);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
 	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
@@ -124,7 +123,6 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
 	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
-	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
-	std::getline(output_fd, cgi_data.output, '\0');
+	read_file(filename, client.getBuffer());
 	cgi_data.client = &client;
 }

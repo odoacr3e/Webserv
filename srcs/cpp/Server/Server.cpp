@@ -1,9 +1,6 @@
 
 #include "../../hpp/Server.hpp"
 
-#define SIZE_STR "B", "KB", "MB", "GB", "TB"
-#define MSG_END_CONNECTION "======================================\nchiudo connessione {INDEX}\n======================================\n"
-
 std::string				createHtml(Client &client, const std::string &body);
 struct pollfd			createServerSock(int port_n);
 struct pollfd			setupPollFd(int client);
@@ -63,7 +60,6 @@ void Server::suppressSocket()
 		delete [] (*it);
 }
 
-//TODO - refactoring: spostare funzioni poll, request, response file(?)
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
@@ -71,46 +67,45 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere
 		{
 			char buffer[2048] = {0};
-			// std::cout << "bytes left: " << this->_clients[(*it).fd]->getRequest().getBytesLeft() << "\n";
 			int bytes = recv((*it).fd, buffer, sizeof(buffer) - 1, 0);
-			print_file("REQUEST", buffer, bytes);
+			// print_file("REQUEST", buffer, bytes);
 			if (bytes <= 0)
-			{
-				static int	n;
-				//da mettere in una funzione a parte
-				std::string msgEndCon(MSG_END_CONNECTION);
-				find_and_replace(msgEndCon, "{INDEX}", n++);
-				std::cout << msgEndCon << "\033[2J\033[H";
-				print_file("REQUEST", msgEndCon);
-				close((*it).fd);
-				if (this->_clients[(*it).fd])
-				{
-					delete this->_clients[(*it).fd];
-					this->_clients.erase((*it).fd);
-					it = this->_addrs.erase(it) - 1;
-				}
-			}
+				eraseClient(it);
 			else
 				processRequest(it, buffer, bytes);
 		}
 		else if ((*it).fd != -1 && ((*it).revents & POLLOUT)) // revents & POLLOUT -> pronto per ricevere
-		{
-			std::string	html = createResponse(*(this->_clients[(*it).fd]));
-			send((*it).fd, html.c_str(), html.length(), 0);
-			static int	n_resp;
-			print_file("RESPONSE", html);
-			std::string msgEndCon(MSG_END_CONNECTION);
-			find_and_replace(msgEndCon, "{INDEX}", n_resp++);
-			print_file("RESPONSE", msgEndCon);
-			std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
-			if (this->_clients[(*it).fd]->sendContentBool() == true)
-				send((*it).fd, contentData.data(), contentData.size(), 0);
-			this->_clients[(*it).fd]->sendContentBool() = false;
-			(*it).events = POLLIN;
-		}
+			processResponse(it);
 	}
 }
 
+/**
+ * @brief Erases the connection of *it client after the request reading is done
+ * 
+ * @param it Client iterator 
+ */
+void		Server::eraseClient(std::vector<pollfd>::iterator &it)
+{
+	static int	n;
+	std::string msgEndCon(MSG_END_CONNECTION);
+
+	find_and_replace(msgEndCon, "{INDEX}", n++);
+	std::cout << msgEndCon << "\033[2J\033[H";
+	print_file("REQUEST", msgEndCon);
+	close((*it).fd);
+	if (this->_clients[(*it).fd])
+	{
+		delete this->_clients[(*it).fd];
+		this->_clients.erase((*it).fd);
+		it = this->_addrs.erase(it) - 1;
+	}
+}
+
+/**
+ * @brief Prints all location configuration and parameters of a server
+ * 
+ * @param it 
+ */
 void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 {
 	if (!SERVER)
@@ -120,51 +115,6 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 	//NOTE - questa linea stampa tutto l'universo
 	//std::cout << (*it).second;
 }
-
-
-
-/* // NOTE - crea un socket listen per il server che vogliamo creare
-struct pollfd	createServerSock(int port_n)
-{
-	struct sockaddr_in	address;
-	int					server_fd;
-	struct pollfd		srv;
-	int					opt = 1;
-
-	server_fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (server_fd < 0)
-		throw std::runtime_error("\033[31mSocket ha fallito.\033[0m");
-	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = INADDR_ANY;// 7F000001 
-	address.sin_port = htons(port_n);
-	setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-	fcntl(server_fd, F_SETFL, O_NONBLOCK);
-	if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) != 0)
-	{
-		close(server_fd);
-		return (CONNECTION_FAIL);
-	}
-	if (listen(server_fd, MAX_CONNECTION) != 0)
-	{
-		close(server_fd);
-		throw std::runtime_error("\033[31mIl server ha le orecchie tappate.\033[0m");
-	}
-	srv.fd = server_fd;
-	srv.events = POLLIN;
-	srv.revents = 0;
-	return (srv);
-} */
-
-/* std::string	fileToString(std::string filename)
-{
-	std::ifstream	fd(filename.c_str());
-	std::string		file;
-
-	if (fd.fail())
-		abort();
-	std::getline(fd, file, '\0');
-	return (file);
-} */
 
 // NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
 void	Server::addSocket(int index)

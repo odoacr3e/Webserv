@@ -137,22 +137,3 @@ bool	file_checker(std::string filename)
 	else
 		return (true);
 }
-//
-//     /{  :; http    xvzv   dsdcsdf 
-// {
-//  	server
-// 	{
-// 		location
-// 		{
-		
-// 		}
-// 		location
-// 		{
-		
-// 		}
-// 	}
-// 	server
-// 	{
-		
-// 	}
-// }"OK

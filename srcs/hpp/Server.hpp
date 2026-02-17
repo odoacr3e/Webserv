@@ -7,6 +7,8 @@
 # include "Conf.hpp"
 # include "Request.hpp"
 
+#define MSG_END_CONNECTION "======================================\nchiudo connessione {INDEX}\n======================================\n"
+
 //	1024 perché lo fa anche nginx
 # define MAX_CONNECTION 1024
 
@@ -45,7 +47,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		struct pollfd		*getAddrs(void);
 		size_t				getAddrSize(void) const;
 		void				processRequest(std::vector<struct pollfd>::iterator &it, char *buffer, int bytes);
+		void				processResponse(std::vector<pollfd>::iterator &it);
 		void				checkForConnection();
+		void				eraseClient(std::vector<pollfd>::iterator &it);
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;
 		ipPortCgiMap		&getIpPortCgiMap();

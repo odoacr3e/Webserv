@@ -16,9 +16,6 @@ static void	parseMethodsList(Conf &conf, std::vector<std::string> &list, int lin
 static void	parseStorage(Conf &conf, std::vector<std::string> &list, int line);
 
 //NOTE - Allowed location instructions
-/*
-	//FIXME - aggiungere
-*/
 void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 {
 	if (list[0] == "alias")

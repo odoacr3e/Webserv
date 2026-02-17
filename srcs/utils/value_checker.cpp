@@ -20,14 +20,13 @@ int	valid_ip_address(std::string addr)
 	if (dots != 3)
 		return (false);
 	for (int i = 4; i; i--)
-	{//FIXME - BLOCCO per IP che non iniziano con 127
+	{
 		ip = std::atoi(addr.c_str());
 		// NOTE - da togliere commento sotto se vogliamo ascoltare solo su 127.x.x.x
 		if (/* (i == 4 && ip != 127) || */ ip > UINT8_MAX || (ip != 0 && addr[0] == '0'))
 			return (false);
 		while (addr[0] != '.' && addr[0] != ':' && !addr.empty())
 			addr.erase(0, 1);
-		// FIXME - da controllare perche non funziona con ip tipo 100.xxx.xxx.xxx con il controllo sotto
 		// separator_index = addr.find_first_of(".:", 1);
 	//	if (addr[0] == '.' && separator_index > 3 && separator_index != addr.npos)
 	//		return (false);

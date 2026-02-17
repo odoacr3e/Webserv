@@ -125,6 +125,7 @@ int			headerParsing(Request &request, bool reset)
 }
 
 //FIXME - non va letta una nuova linea
+
 static int	bodyParsing(Request &request)
 {
 	std::string	body;
@@ -141,11 +142,7 @@ static int	bodyParsing(Request &request)
 	switch (request.getMethodEnum())
 	{
 		case POST :
-			if (bodyHeaderParsing(request) == true)
-			{
-				request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
-				request.getBytesLeft() -= request.getSockBytes();
-			}
+			bodyHeaderParsing(request);
 			return (0);
 		case GET :
 			return (bodyChecker(request, body, true));

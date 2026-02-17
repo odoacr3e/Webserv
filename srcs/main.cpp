@@ -28,14 +28,13 @@ int main(int ac, char **av, const char **env)
 	std::string	conf_path;
 
 	signal(SIGINT, stopServer);
-	std::cout << "\033[1;32mStarting web server ...\033[0m" << std::endl;
+	DBG_SRV("\033[32mStarting web server ...");
 	try
 	{
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
 		std::cout << config << std::endl;
 		Server server(config, env);
-		// return (test_request(config, server));
 		while (server_run)
 		{
 			int ready = poll(server.getAddrs(), server.getAddrSize(), -1);
@@ -57,7 +56,7 @@ int main(int ac, char **av, const char **env)
 }
 
 /*
-	[]	upload con autorizzazioni, html bellino
+	[X]	upload con autorizzazioni, html bellino
 	[]	cgi non bloccanti
 	[]	cookie
 	[]	refactoring
@@ -72,7 +71,7 @@ X	Clients must be able to upload files.
 X	You need at least the GET, POST, and DELETE methods
 -	Stress test your server to ensure 
 	it remains available at all times.
--	Uploading files from the clients to the server is 
+X	Uploading files from the clients to the server is 
 	authorized, and storage location is provided
 -	Just remember that, for chunked requests,
 	your server needs to un-chunk them, 

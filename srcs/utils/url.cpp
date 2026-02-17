@@ -7,7 +7,10 @@ typedef struct s_conf_location	t_conf_location;
 
 //SECTION - app root/alias to a file
 
-//append root to an url from t_conf_server
+/// @brief append root to an url from t_conf_server
+/// @param url the url received in requests
+/// @param srv server configuration
+/// @return resolved url
 std::string	url_rooting(std::string url, t_conf_server &srv)
 {
 	std::string		file;
@@ -23,7 +26,10 @@ std::string	url_rooting(std::string url, t_conf_server &srv)
 	return (dir + file);
 }
 
-//append root or alias to an url from t_conf_location
+/// @brief append root or alias to an url from t_conf_location
+/// @param url the url received in requests
+/// @param srv server configuration
+/// @return resolved url
 std::string	url_rooting(std::string url, t_conf_location &loc)
 {
 	std::string		file;
@@ -42,10 +48,8 @@ std::string	url_rooting(std::string url, t_conf_location &loc)
 
 //SECTION - url_normalize
 
-//normalize an url in this form: /dir/dir/file/
-//@url: address of url
-//----------------------
-//@ret: void
+/// @brief normalize an url in this form: dir/dir/file/
+/// @param url address of url
 void	url_normalize(std::string *url)
 {
 	if ((*url)[0] == '/')
@@ -54,10 +58,8 @@ void	url_normalize(std::string *url)
 		(*url).push_back('/');
 }
 
-//normalize an url in this form: /dir/dir/file/
-//@url: copy of url
-//----------------------
-//@ret: new url
+/// @brief normalize an url in this form: dir/dir/file/
+/// @param url copy of url
 std::string	url_normalize(std::string url)
 {
 	url_normalize(&url);

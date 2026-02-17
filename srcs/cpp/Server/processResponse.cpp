@@ -2,6 +2,22 @@
 
 std::string	createHtml(Client &client, const std::string &body);
 
+void	Server::processResponse(std::vector<pollfd>::iterator &it)
+{
+	std::string	html = createResponse(*(this->_clients[(*it).fd]));
+	send((*it).fd, html.c_str(), html.length(), 0);
+	static int	n_resp;
+	print_file("RESPONSE", html);
+	std::string msgEndCon(MSG_END_CONNECTION);
+	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
+	print_file("RESPONSE", msgEndCon);
+	std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
+	if (this->_clients[(*it).fd]->sendContentBool() == true)
+	send((*it).fd, contentData.data(), contentData.size(), 0);
+	this->_clients[(*it).fd]->sendContentBool() = false;
+	(*it).events = POLLIN;
+}
+
 // NOTE - crea la risposta html da inviare al client tramite HTTP
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {

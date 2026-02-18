@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Autoindex</title>
+</head>
+
+<body>
+
+<h2>File caricati</h2>
+
+<table border="1">
+<thead>
+<tr>
+<th>Select</th>
+<th>File</th>
+</tr>
+</thead>
+
+<tbody id="fileList">
+{INSERIRE}
+<!-- C++ qui inserisce righe dinamiche -->
+
+
+
+</tbody>
+</table>
+
+<br>
+
+<button onclick="deleteSelected()">Elimina selezionati</button>
+
+<script>
+
+async function deleteSelected() {
+
+    let checked = document.querySelectorAll("input[type=checkbox]:checked");
+
+    let files = [];
+
+    checked.forEach(cb => {
+        files.push(cb.value);
+    });
+
+    if(files.length === 0) {
+        alert("Nessun file selezionato");
+        return;
+    }
+
+    let response = await fetch("/deleteFiles", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ files })
+    });
+
+    let result = await response.json();
+
+    if(result.success) {
+        location.reload();
+    } else {
+        alert("Errore eliminazione");
+    }
+}
+
+</script>
+
+</body>
+</html>

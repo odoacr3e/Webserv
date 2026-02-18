@@ -57,6 +57,17 @@ giddibi: gdb
 
 r3: re
 
+#ottiene tutte le cgi
+cgi:
+	@for dir in www/cgi-bin/*/ ; do \
+		if [ -f "$$dir/Makefile" ]; then \
+			echo "Cleaning $$dir"; \
+			$(MAKE) -C "$$dir" clean; \
+			$(MAKE) -C "$$dir"; \
+		fi \
+	done
+
+
 val: $(NAME)
 	clear ; valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
 

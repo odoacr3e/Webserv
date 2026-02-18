@@ -37,6 +37,8 @@ class Client
 		t_conf_location		&getLocConf();
 		std::vector<char>	&getBuffer();
 		char				*getBufferChar();
+		int					getAllowedMethods() const;
+		int					isAllowedMethod();
 		bool				&sendContentBool();
 };
 

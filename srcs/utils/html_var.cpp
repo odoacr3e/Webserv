@@ -16,6 +16,7 @@ std::string	createHtmlYouTube(t_cgi &cgi_data)
 {
 	std::string body(GIANLUIGI_BUFFON);
 
+	std::cout << "youtube link: " << cgi_data.output << "\n";
 	find_and_replace(body, "{NAME}", "YouTube");
 	find_and_replace(body, "{LINK}", cgi_data.output);
 	return (body);

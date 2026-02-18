@@ -68,7 +68,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		packetBuffer		&getPacketBuffer();
 		const std::string	&getProtectedFiles() const;
 
-		void				listDirectoriesAutoIndex(std::string &body, std::string &url, dirent *cont, int method);
+		void				listDirectoriesAutoIndex(Client &client, std::string &body, std::string &url, dirent *cont);
 		void				printServerConfiguration(SrvNameMap::iterator it) const;
 		void				choose_file(Client &client, std::fstream &file, std::string url);
 		void				createAutoindex(Client &client, std::string &body);

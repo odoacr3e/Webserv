@@ -52,16 +52,19 @@
 			<a href="upload/index.html">
                 <button>Upload file</button>
             </a>
-			<button onclick="
+			<!-- <button onclick="
 				fetch('/storage/', {method: 'DELETE'})
 				.then(res => res.text()) // Pijamo l'HTML che m'hai mannato
 				.then(html => {
 					document.open();    // Aprimo er documento
 					document.write(html); // Ce scrivemo sopra tutto l'autoindex nuovo
 					document.close();   // Chiudemo e godemo
-				})">
-				Delete file
-			</button>
+				})"> -->
+            <a href="/storage/">
+                <button>
+                    Delete file
+                </button>
+            </a>
 
         </div>
             </main>

@@ -105,6 +105,7 @@ void	print_file(std::string filename, T content, int bytes)
 	stream.write(content, bytes);
 }
 
+/*
 template <typename T>
 void	print_file(std::string filename, T content, std::ios_base::openmode flags)
 {
@@ -115,6 +116,6 @@ void	print_file(std::string filename, T content, std::ios_base::openmode flags)
 		return (std::cerr << "cannot open " + filename + "\n", (void)0);
 	}
 	stream << content;
-}
+}*/
 
 #endif

@@ -1,0 +1,46 @@
+GET /script/giorgio/giorgio.cgi?value=giorgio HTTP/1.1
+Host: 10.12.5.12:9020
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://10.12.5.12:9020/script/giorgio/giorgio.cgi?value=giorgio
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+======================================
+chiudo connessione 0
+======================================
+GET /favicon.ico HTTP/1.1
+Host: 10.12.5.12:9020
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://10.12.5.12:9020/script/giorgio/giorgio.cgi?value=giorgio
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/giorgio/ HTTP/1.1
+Host: 10.12.5.12:9020
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://10.12.5.12:9020/script/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/giorgio/giorgio.cgi?value=ciao+giorgio HTTP/1.1
+Host: 10.12.5.12:9020
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://10.12.5.12:9020/script/giorgio/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+======================================
+chiudo connessione 1
+======================================

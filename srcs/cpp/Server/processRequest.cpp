@@ -77,7 +77,6 @@ void	Server::setupRequestEnvironment(Client &client)
 	Request			&request = client.getRequest();
 	t_conf_server	*srv;
 	t_conf_location	*loc;
-	unsigned char	allowed_methods;
 
 	srv = &(*this->_srvnamemap)[request.getHost()];
 	client.getSrvConf() = *srv;
@@ -85,10 +84,6 @@ void	Server::setupRequestEnvironment(Client &client)
 	if (loc)
 		client.getLocConf() = *loc;
 	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
-	if (loc)
-		allowed_methods = loc->mask_methods;
-	else
-		allowed_methods = srv->mask_methods;
-	if ((allowed_methods & (1 << request.getMethodEnum())) == MASK_NO_METHODS)
+	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
 }

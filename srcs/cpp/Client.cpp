@@ -54,6 +54,24 @@ char				*Client::getBufferChar()
 	return (this->_buffer.data());
 }
 
+int		Client::getAllowedMethods() const
+{
+	if (this->_loc_config.exist)
+		return (this->_loc_config.mask_methods);
+	else
+		return (this->_srv_config.mask_methods);
+}
+
+//returns 0 if not allowed
+//else returns method mask
+int	Client::isAllowedMethod()
+{
+	e_methods	request_method;
+
+	request_method = this->getRequest().getMethodEnum();
+	return (this->getAllowedMethods() & (1 << request_method));
+}
+
 bool				&Client::sendContentBool()
 {
 	return (this->_send_content);

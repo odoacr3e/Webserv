@@ -1,16 +1,227 @@
 HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 193
+Content-Length: 5805
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>YouTube</title>
-    <meta http-equiv="refresh" content="0; url=https://www.youtube.com/results?search_query=giorgio">
+<meta charset="UTF-8">
+<title>Autoindex</title>
+    <meta charset="UTF-8">
+    <title>Index of /storage/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #020617;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #1e293b;
+            --hover: #020617;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #020617);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        header span {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #020617;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 8px;
+            opacity: 0.85;
+        }
+
+        .footer {
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(2),
+            td:nth-child(2),
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    </body>
-</html>
+
+<h2>File caricati</h2>
+
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Seleziona</th>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Ultima modifica</th>
+            </tr>
+        </thead>
+
+    <tbody id="fileList">
+<tr>
+	<td>
+		<input type="checkbox" value="BitcoinExchange.cpp">
+	</td>
+	<td><a href="BitcoinExchange.cpp">BitcoinExchange.cpp</a></td>
+	<td>9 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="Screenshot from 2025-12-17 22-14-05.png">
+	</td>
+	<td><a href="Screenshot from 2025-12-17 22-14-05.png">Screenshot from 2025-12-17 22-14-05.png</a></td>
+	<td>95 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="Shocked Sound Effect #2.mp3">
+	</td>
+	<td><a href="Shocked Sound Effect #2.mp3">Shocked Sound Effect #2.mp3</a></td>
+	<td>125 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="Street fighter ryu hadouken sound effect.mp3">
+	</td>
+	<td><a href="Street fighter ryu hadouken sound effect.mp3">Street fighter ryu hadouken sound effect.mp3</a></td>
+	<td>168 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="VertexZoom.cs">
+	</td>
+	<td><a href="VertexZoom.cs">VertexZoom.cs</a></td>
+	<td>8 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="argv.json">
+	</td>
+	<td><a href="argv.json">argv.json</a></td>
+	<td>798 B</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="code.sh">
+	</td>
+	<td><a href="code.sh">code.sh</a></td>
+	<td>32 B</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="giorgio.jpeg">
+	</td>
+	<td><a href="giorgio.jpeg">giorgio.jpeg</a></td>
+	<td>357 KB</td>
+    <td>Wed Feb 18 14:25:36 2026
+</td>
+</tr>
+<tr>
+	<td>
+		<input type="checkbox" value="PIPPO.ico">
+	</td>
+	<td><a href="PIPPO.ico">PIPPO.ico</a></td>
+	<td>246 KB</td>
+    <td>Wed Feb 18 17:38:15 2026
+</td>
+</tr>
+    </tbody>    </table></div><br><button onclick="deleteSelected()">Elimina selezionati</button><script>    async function deleteSelected() 	{        const checked = document.querySelectorAll("input[type=checkbox]:checked");        if(checked.length === 0) 		{            alert("Nessun file selezionato");            return;        }        for(const cb of checked)        {            const filename = cb.value;            try 			{                const response = await fetch(`/storage/${encodeURIComponent(filename)}`,                {                    method: 'DELETE'                });                if(response.ok)				{                    cb.closest("tr").remove();                }				else 				{                    window.location.href = `/storage/${encodeURIComponent(filename)}`;                }            } catch(err) {                console.error(`Errore rete per ${filename}: ${err}`);            }        }    }</script></body></html>
 
 ======================================
 chiudo connessione 0
@@ -25,29 +236,117 @@ Content-Length: 246938
 ======================================
 chiudo connessione 1
 ======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 3580
+HTTP/1.1 403 Forbidden
+Content-Type: image/ico
+Content-Length: 1606
+
+<!--NAME=error_403-->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<link rel="icon" href="favicon.ico">
+	<title>403 Forbidden</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			background: #0f172a;
+			color: #e5e7eb;
+			line-height: 1.6;
+		}
+
+		header {
+			text-align: center;
+			padding: 40px 20px;
+			background: #020617;
+			border-bottom: 1px solid #1e293b;
+		}
+
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+		}
+
+		header p {
+			color: #94a3b8;
+		}
+
+		main {
+			max-width: 900px;
+			margin: 40px auto;
+			padding: 0 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 20px;
+		}
+
+		.card {
+			background: #020617;
+			border: 1px solid #1e293b;
+			border-radius: 10px;
+			padding: 20px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+		}
+
+		.card h2 {
+			margin-bottom: 10px;
+			font-size: 1.4rem;
+		}
+
+		footer {
+			text-align: center;
+			padding: 20px;
+			color: #94a3b8;
+			font-size: 0.9rem;
+			border-top: 1px solid #1e293b;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>403 - Forbidden</h1>
+		<p>Accesso negato alla risorsa richiesta</p>
+	</header>
+
+	<main>
+		<div class="card">
+			<h2>Access Denied</h2>
+			<p>
+				Il server ha ricevuto correttamente la richiesta,  
+				ma non sei autorizzato ad accedere a questa risorsa.
+			</p>
+		</div>
+	</main>
+
+	<footer>
+		Error 403 - 3 Uomini e 1 web server
+	</footer>
+
+</body>
+</html>
+
 
 ======================================
 chiudo connessione 2
 ======================================
 HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 198
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>YouTube</title>
-    <meta http-equiv="refresh" content="0; url=https://www.youtube.com/results?search_query=ciao+giorgio">
-</head>
-<body>
-    </body>
-</html>
+Content-Type: image/ico
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 246938
 
 ======================================
 chiudo connessione 3

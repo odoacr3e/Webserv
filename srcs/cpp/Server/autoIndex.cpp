@@ -6,18 +6,22 @@ static std::string	calculateSize(size_t s);
 // NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
 void	Server::createAutoindex(Client &client, std::string &resp_body)
 {
-	std::ifstream	file("www/var/autoindex/autoindex.html");
+	std::ifstream	file;
 	std::string		line;
 	dirent			*content;
 	std::string		url;
 
+	if (client.getAllowedMethods() & MASK_DELETE)
+		file.open("www/var/autoindex/TEST.html");
+	else
+		file.open("www/var/autoindex/autoindex.html");
 	url = client.getRequest().getUrl();
 	while (std::getline(file, line))
 	{
 		line.push_back('\n');
 		find_and_replace(line, "{PATH}", client.getRequest().getUrlOriginal());
 		resp_body += line;
-		if (line.find("<tbody>") != std::string::npos)
+		if (line.find("<tbody") != std::string::npos)
 			break ;
 	}
 	content = findUrlDirectory(url);
@@ -32,8 +36,11 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 		if (line.find("</tbody>") != std::string::npos)
 			break ;
 	resp_body += line;
+	std::cout << "createAutoindex()\n";
+	std::cout << client.getRequest().getUrlOriginal() << "\n";
 	while (std::getline(file, line))
 	{
+		find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
 		find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
 		resp_body += line;
 	}
@@ -52,8 +59,10 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &body, std::st
 	std::memset(&info, 0, sizeof(struct stat));
 	path = url + '/' + cont->d_name;
 	stat(path.c_str(), &info);
-	if (client.isAllowedMethod() & MASK_DELETE)
-		var.open("www/var/autoindex/del.html");
+	if (client.getAllowedMethods() & MASK_DELETE)
+	{
+		var.open("www/var/autoindex/TEST_VAR.html");
+	}
 	else
 		var.open("www/var/autoindex/var.html");
 	if (var.fail())
@@ -65,7 +74,6 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &body, std::st
 	{
 		line.append("\n");
 		find_and_replace(line, "href=\"", "href=\"" + s_cont);
-		find_and_replace(line, "{NAME}", s_cont);
 		find_and_replace(line, "{NAME}", s_cont);
 		find_and_replace(line, "{SIZE}", calculateSize(info.st_size));
 		find_and_replace(line, "{MODIFY}", std::ctime(&info.st_mtim.tv_sec));

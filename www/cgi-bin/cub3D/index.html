@@ -22,7 +22,7 @@
 
 <div class="game-wrapper">
     <div class="controls-left">
-        <button onclick="sendInput('restart')">X<br><span class="label">Restart</span></button>
+        <button onclick="sendInput('x')">X<br><span class="label">Restart</span></button>
     </div>
 
     <div class="screen-container">
@@ -34,6 +34,7 @@
         <button onclick="sendInput('a')">A</button>
         <button onclick="sendInput('d')">D</button>
         <button onclick="sendInput('s')">S</button>
+        <button onclick="sendInput(' ')">Enter</button>
     </div>
 
     <div class="controls-bottom">
@@ -53,7 +54,8 @@ const cgiPath = "cub3D.cgi"; // Metti er percorso giusto der tuo eseguibile C++
 function refreshFrame() {
     // Aggiungiamo un timestamp per evità che er browser faccia er pigro (Cache Busting)
     const timestamp = new Date().getTime();
-    screenImg.src = cgiPath + "?comando=\0&t=" + timestamp;
+    screenImg.src = cgiPath + "?-" + action + "-";
+	action = 0;
 }
 
 // Gestione input: manda er comando e aggiorna subito l'immagine col risultato
@@ -63,7 +65,7 @@ function sendInput(action) {
     
     // Mandiamo l'input. Il server deve risponne co l'header "Content-Type: image/bmp"
     // e er corpo del file .bmp
-    screenImg.src = cgiPath + "?comando=" + action + "&t=" + timestamp;
+    screenImg.src = cgiPath + "?-" + action + "-";
 }
 
 // Loop principale: se nun premi gnente, lui continua a chiede frame con \0

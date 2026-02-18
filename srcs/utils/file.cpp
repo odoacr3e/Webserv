@@ -46,3 +46,13 @@ int read_file(std::string name, std::vector<char> &vect)
 
 	return (read_file(stream, vect));
 }
+
+int read_file(std::string name, std::vector<char> &vect, int bytes)
+{
+	std::ifstream stream(name.c_str(), std::ios_base::binary);
+
+	vect.resize(bytes);
+	stream.read(vect.data(), bytes);
+	vect.resize(stream.gcount());
+	return (0);
+}

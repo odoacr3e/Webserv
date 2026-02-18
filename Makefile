@@ -67,6 +67,13 @@ cgi:
 		fi \
 	done
 
+cgi_clean: 
+	@for dir in www/cgi-bin/*/ ; do \
+		if [ -f "$$dir/Makefile" ]; then \
+			echo "Cleaning $$dir"; \
+			$(MAKE) -C "$$dir" clean; \
+		fi \
+	done
 
 val: $(NAME)
 	clear ; valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)

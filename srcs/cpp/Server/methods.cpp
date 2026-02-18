@@ -35,10 +35,7 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 			this->deleteMethod(client, resp_body, &file);
 			break ;
 		case POST:
-			//parseData
 			this->postMethod(client, resp_body, &file);
-			//se script lancia lo script
-			//funzione che gestisce POST
 			break ;
 		case HEAD:
 			;//funzione che gestisce HEAD
@@ -199,6 +196,7 @@ static void	trimBody(Request &request)
 
 	boundary = request.getHeaderVal("Boundary");
 	h_len[0] = file_cursor_pos(request.getRequestStream());
+	std::cout << h_len[0] << std::endl;
 	std::getline(request.getRequestStream(), temp, '\n');
 	// std::cout << "TrimBody()\n";
 	// std::cout << "temp: " << temp <<std::endl;
@@ -210,6 +208,7 @@ static void	trimBody(Request &request)
 		headerParsing(request, false);
 		//salva la posizione del cursore dopo headerParsing
 		h_len[1] = file_cursor_pos(request.getRequestStream());
+		std::cout << h_len[1] << std::endl;
 	}//else: è un body normale senza immagine, niente headerBodyParsing
 	else
 		h_len[1] = h_len[0];

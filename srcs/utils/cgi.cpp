@@ -46,14 +46,11 @@ static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2])
 		argv[0] = url.substr(0, url.find_last_of('?'));
 		argv[1] = url.substr(url.find_last_of('?') + 1, url.length());
 		find_and_replace(argv[1], "value=", "");
-		url = url_arg_remove(client.getRequest().getUrlOriginal(), '=');
 	}
 	else
 	{
 		argv[0] = client.getLocConf().cgiparam[0].second;
 		argv[1] = url.substr(url.find_last_of('/') + 1, url.length());
-		url = argv[0] + '/';
-		url = url_arg_remove(client.getRequest().getUrlOriginal(), '/');
 	}
 	std::cout << "cmd: " << argv[0] << "\n";
 	std::cout << "arg: " << argv[1] << "\n";
@@ -89,13 +86,19 @@ static void		run_cmd(Server &srv, t_cgi &cgi_data)
 	close(cgi_data.pipe[0]);
 }
 
+int read_file(std::string name, std::vector<char> &vect, int bytes);
+
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
 {
 	ipPortCgiMap::iterator	cgi_exist;
+	std::string 			argv[2];
 
 	cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
 	if (cgi_exist != srv.getIpPortCgiMap().end())
+	{
 		cgi_data = cgi_exist->second;
+		get_argv(client, cgi_data, argv);
+	}
 	else
 	{
 		int		pipes[2][2];
@@ -126,8 +129,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
 	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
-	read_file(filename, client.getBuffer());//8294403
-	std::cout << client.getBuffer() << std::endl;
+	read_file(filename, client.getBuffer(), 14745718);
 	print_file("RESPONSE", client.getBuffer().data(), 1000);
 	cgi_data.client = &client;
 }

@@ -1,8 +1,10 @@
 <tr>
-	<td>
-		<input type="checkbox" value="{NAME}">
-	</td>
 	<td><a href="">{NAME}</a></td>
 	<td>{SIZE}</td>
     <td>{MODIFY}</td>
+	<td>
+		<button class="delete-btn" onclick="deleteFile(this, '{NAME}')">
+    		&times;
+		</button>
+	</td>
 </tr>

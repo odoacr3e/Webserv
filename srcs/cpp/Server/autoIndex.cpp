@@ -38,12 +38,10 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	resp_body += line;
 	std::cout << "createAutoindex()\n";
 	std::cout << client.getRequest().getUrlOriginal() << "\n";
-	while (std::getline(file, line))
-	{
-		find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
-		find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
-		resp_body += line;
-	}
+	std::getline(file, line, '\0');
+	find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
+	find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
+	resp_body += line;
 }
 
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html

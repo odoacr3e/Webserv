@@ -16,6 +16,8 @@ void	Server::processResponse(std::vector<pollfd>::iterator &it)
 	if (this->_clients[(*it).fd]->sendContentBool() == true)
 		send((*it).fd, contentData.data(), contentData.size(), 0);
 	this->_clients[(*it).fd]->sendContentBool() = false;
+	std::cout << "processResponse() " << this->_clients[(*it).fd]->getRequest().getStatusCode() << " ";
+	std::cout << this->_clients[(*it).fd]->getRequest().getMethod() << "\n";
 	(*it).events = POLLIN;
 }
 

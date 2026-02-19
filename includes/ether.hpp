@@ -37,6 +37,10 @@
 # define DEBUG true
 # define CONF false
 # define SERVER true
+# define RED     "\033[1;91m"
+# define BLUE    "\033[1;94m"
+# define WHITE   "\033[1;97m"
+# define RESET   "\033[0m"
 
 #if defined(DEBUG) && DEBUG
   #define DBG_MSG(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)

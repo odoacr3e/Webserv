@@ -64,6 +64,13 @@ void Server::suppressSocket()
 		delete [] (*it);
 }
 
+void Server::print_info(std::vector<struct pollfd>::iterator it)
+{
+	std::cout << WHITE"Client_fd from cgi_data: " RED << this->getFdData()[it->fd].cgi_data.client_fd << RESET"" << std::endl;
+	std::cout << WHITE"it->fd: " RED << it->fd << RESET"" << std::endl;
+	std::cout << WHITE"static fd on 8th pos: " RED << this->getFdData()[8].cgi_data.client_fd << RESET"" << std::endl;
+}
+
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
@@ -73,7 +80,20 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			case FD_CLIENT:case FD_SERVER:case FD_PIPE_WR:
 				break ;
 			case FD_PIPE_RD:
-				std::cout << "PIPE READ!\n";
+				// this->getFdData()[client.getSockFd()].cgi_data.client_fd
+				Client *client = this->getFdData()[it->fd].cgi_data.client;
+				print_info(it);
+				// std::cout << "PIPPO: " << this->getFdData()[it->fd].cgi_data.client_fd << std::endl;
+				std::string filename("/dev/fd/" + ft_to_string(it->fd));
+				std::cout << "filename" << filename << "\n";
+				char	TEST[4000];
+				read(it->fd, TEST, 4000);
+				std::cout << TEST << "\n";
+				sleep(1);
+				std::cout << "client_fd " << client->getSockFd() << "\n";
+				read_file(filename, client->getBuffer());
+				std::remove("CGI");
+				print_file("CGI", client->getBuffer());
 				break ;
 		}
 		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere

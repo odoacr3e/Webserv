@@ -47,6 +47,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	client.getRequest().setBodyType(type);
 	client.getBuffer().clear();
 	runMethod(client, body, file);
+	std::cout << "createResponse(): client fd orig " << client.getSockFd() << "\n";
 	return (createHtml(client, body));
 }
 

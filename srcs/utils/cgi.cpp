@@ -23,6 +23,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 			run_daemon(srv, client, cgi_data);
 		else
 			run_cmd(srv, client, cgi_data);
+		std::cout << "pipe fd post: " << srv.getFdData()[client.getSockFd()].cgi_data.pipe[0] << std::endl;
 		return ;
 	}
 	client.getRequest().setBodyType("text/html");
@@ -101,7 +102,15 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 	srv.getFdData()[cgi_data.pipe[0]].type = FD_PIPE_RD;
 	// 2
 	std::cout << "2" << "\n";
+	cgi_data.client = &client;
+	cgi_data.client_fd = client.getSockFd();
+	srv.getFdData()[client.getSockFd()].client = &client;
+	srv.getFdData()[cgi_data.pipe[0]].client = &client;
+	std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";
+	std::cout << WHITE"client_fd " RED << srv.getFdData()[cgi_data.pipe[0]].client->getSockFd() << RESET"\n";
 	std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
+	std::cout << WHITE"client fd orig " RED << cgi_data.client_fd << RESET"\n";
+	std::cout << WHITE"client copied: " RED << srv.getFdData()[cgi_data.pipe[0]].cgi_data.client_fd << RESET"\n";
 	// 3
 	std::cout << "3" << "\n";
 	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;

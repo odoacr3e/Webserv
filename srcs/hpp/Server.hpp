@@ -84,6 +84,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 
 		// NOTE - close all sockets
 		void				suppressSocket();
+		void 				print_info(std::vector<struct pollfd>::iterator it);
 };
 
 typedef	struct s_cgi
@@ -101,6 +102,7 @@ typedef	struct s_cgi
 typedef struct s_fd_data
 {
 	t_cgi			cgi_data;
+	Client			*client;
 	enum e_fd_type	type;
 	bool			cgi_ready;
 }		t_fd_data;

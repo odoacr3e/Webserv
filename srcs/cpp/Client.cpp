@@ -26,7 +26,7 @@ Client	Client::operator=(const Client &other)
 
 int	Client::getSockFd() const
 {
-	std::cout << "fd restituito: " << this->_sockfd << std::endl;
+	// std::cout << "fd restituito: " << this->_sockfd << std::endl;
 	return (this->_sockfd);
 }
 

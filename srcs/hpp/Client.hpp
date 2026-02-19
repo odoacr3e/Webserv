@@ -22,6 +22,7 @@ class Client
 		Request				_request;
 		t_conf_server		_srv_config;
 		t_conf_location		_loc_config;
+		struct pollfd		*_poll_fd;
 		std::vector<char>	_buffer;
 
 	public:
@@ -36,11 +37,13 @@ class Client
 		t_conf_server		&getSrvConf();
 		t_conf_location		&getLocConf();
 		std::vector<char>	&getBuffer();
-		struct pollfd		*getPollData();
+		struct pollfd		*getPollFd();
 		char				*getBufferChar();
 		int					getAllowedMethods() const;
 		int					isAllowedMethod();
 		bool				&sendContentBool();
+
+		void				setPollFd(struct pollfd *p);
 };
 
 #endif

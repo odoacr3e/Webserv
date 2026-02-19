@@ -49,6 +49,12 @@ std::vector<char>	&Client::getBuffer()
 {
 	return (this->_buffer);
 }
+
+struct pollfd		*Client::getPollFd()
+{
+	return (this->_poll_fd);
+}
+
 char				*Client::getBufferChar()
 {
 	return (this->_buffer.data());
@@ -77,28 +83,7 @@ bool				&Client::sendContentBool()
 	return (this->_send_content);
 }
 
-	// void 	setRequest(std::string); // format request
-	// void	setMethNum(int);
-	// void 	setMethod(int);
-	// void 	setUrl(std::string);
-	// void 	setHttpVersion(std::string);
-	// void 	setHost(std::string);
-	// void	setContentLenght(int);
-	// void	setContentType(std::string);
-	// void	setConnection(std::string);
-	// void 	setEncoding(std::string);
-	// void 	setPort(int);
-	// void	setBody(std::string);
-
-	// int 		_method;
-	// std::string _url;
-	// std::string _http_version;
-	// std::string _host;
-	// int 		_contentlength;
-	// std::string _contenttype;
-	// std::string _connection;
-	// std::string _encoding;
-	// int 		_port;
-	// std::string _body;
-
-
+void				Client::setPollFd(struct pollfd *p)
+{
+	this->_poll_fd = p;
+}

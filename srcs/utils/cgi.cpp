@@ -88,7 +88,7 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;
 	srv.addSocket(cgi_data.pipe[0], srv.getFdData()[cgi_data.pipe[0]].type);
 	// srv.getAddrs()[srv.getAddrs()[1].]
-	//client stai zitto
+	// client stai zitto
 	std::getline(output_fd, cgi_data.output, '\0');
 	close(cgi_data.pipe[0]);
 }

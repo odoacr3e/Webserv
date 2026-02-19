@@ -136,5 +136,8 @@ void	Server::addSocket(int index, e_fd_type type)
 	this->_addrs.push_back(polldata);
 	this->_fd_data[polldata.fd] = fd_data;
 	if (type == FD_CLIENT)
+	{
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
+		(*this->_clients[socket]).setPollFd(&this->_addrs[this->_addrs.size() - 1]);
+	}
 }

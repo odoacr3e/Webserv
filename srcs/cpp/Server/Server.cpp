@@ -68,8 +68,14 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
-		// std::vector<struct s_fd_data>
-		// this->_fd_data[(*it).fd].type
+		switch (this->getFdData()[it->fd].type)
+		{
+			case FD_CLIENT:case FD_SERVER:case FD_PIPE_WR:
+				break ;
+			case FD_PIPE_RD:
+				std::cout << "PIPE READ!\n";
+				break ;
+		}
 		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere
 		{
 			char buffer[2048] = {0};

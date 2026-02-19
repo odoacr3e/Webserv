@@ -97,16 +97,22 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 		7)	client stai zitto
 	*/
 	// 1
+	std::cout << "1" << "\n";
 	srv.getFdData()[cgi_data.pipe[0]].type = FD_PIPE_RD;
 	// 2
+	std::cout << "2" << "\n";
 	std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
 	// 3
+	std::cout << "3" << "\n";
 	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;
 	// 4
+	std::cout << "4" << "\n";
 	std::memcpy(&srv.getFdData()[client.getSockFd()].cgi_data, &cgi_data, sizeof(t_cgi)); // di cgi_data
 	// 5
+	std::cout << "5" << "\n";
 	srv.getFdData()[client.getSockFd()].cgi_ready = true;
 	// 6
+	std::cout << "6" << "\n";
 	srv.addSocket(cgi_data.pipe[0], srv.getFdData()[cgi_data.pipe[0]].type);
 	// 7 client stai zitto
 	client.getPollFd()->events = 0;

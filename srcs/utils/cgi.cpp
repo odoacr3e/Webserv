@@ -16,11 +16,15 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	std::string 			argv[2];
 
 	std::cout << "run_script\n";
-	get_argv(client, cgi_data, argv);
-	if (client.getLocConf().script_daemon == true)
-		run_daemon(srv, client, cgi_data);
-	else
-		run_cmd(srv, client, cgi_data);
+	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)
+	{
+		get_argv(client, cgi_data, argv);
+		if (client.getLocConf().script_daemon == true)
+			run_daemon(srv, client, cgi_data);
+		else
+			run_cmd(srv, client, cgi_data);
+		return ;
+	}
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
 		body = createHtmlPokedex(cgi_data.argv[1], cgi_data.output);
@@ -83,14 +87,31 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
 	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
+	/*
+		1)	pipe[0] setta 	FD_TYPE
+		2)	pipe[0] copia 	cgi_data
+		3)	pipe[0] copia 	client
+		4)	client 	copia 	cgi_data
+		5)	client	ON		cgi_ready
+		6)	ADDSOCKET
+		7)	client stai zitto
+	*/
+	// 1
 	srv.getFdData()[cgi_data.pipe[0]].type = FD_PIPE_RD;
+	// 2
 	std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
+	// 3
 	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;
+	// 4
+	std::memcpy(&srv.getFdData()[client.getSockFd()].cgi_data, &cgi_data, sizeof(t_cgi)); // di cgi_data
+	// 5
+	srv.getFdData()[client.getSockFd()].cgi_ready = true;
+	// 6
 	srv.addSocket(cgi_data.pipe[0], srv.getFdData()[cgi_data.pipe[0]].type);
-	// srv.getAddrs()[srv.getAddrs()[1].]
-	// client stai zitto
-	std::getline(output_fd, cgi_data.output, '\0');
-	close(cgi_data.pipe[0]);
+	// 7 client stai zitto
+	client.getPollFd()->events = 0;
+	//std::getline(output_fd, cgi_data.output, '\0');
+	//close(cgi_data.pipe[0]);
 }
 
 int read_file(std::string name, std::vector<char> &vect, int bytes);

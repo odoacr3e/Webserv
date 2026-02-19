@@ -102,6 +102,7 @@ typedef struct s_fd_data
 {
 	t_cgi			cgi_data;
 	enum e_fd_type	type;
+	bool			cgi_ready;
 }		t_fd_data;
 
 void		ft_to_string(std::vector<char *> &packets, std::string &request_buff);

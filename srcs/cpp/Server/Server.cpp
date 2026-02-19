@@ -129,6 +129,7 @@ void	Server::addSocket(int index, e_fd_type type)
 	s_fd_data	fd_data;
 
 	fd_data.type = type;
+	fd_data.cgi_ready = false;
 	int socket = accept(this->_addrs.data()[index].fd, NULL, NULL);
 	if (socket == -1)
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");

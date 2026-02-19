@@ -43,7 +43,7 @@ int main(int ac, char **av, const char **env)
 			for (int i = 0; i < server.getServerNum(); i++)
 			{
 				if (server.getAddrs()[i].revents & POLLIN)
-					server.addSocket(i);
+					server.addSocket(i, FD_CLIENT);
 			}
 			server.checkForConnection();
 		}

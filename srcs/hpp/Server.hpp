@@ -54,7 +54,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		Server(Conf &conf, const char **env);
 		~Server();
 
-		void 				addSocket(int index);
+		void 				addSocket(int index, e_fd_type type);
 		struct pollfd		*getAddrs(void);
 		fdData				&getFdData(void);
 		size_t				getAddrSize(void) const;
@@ -100,6 +100,7 @@ typedef	struct s_cgi
 
 typedef struct s_fd_data
 {
+	t_cgi			cgi_data;
 	enum e_fd_type	type;
 }		t_fd_data;
 

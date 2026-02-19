@@ -3,11 +3,11 @@
 dirent	*findUrlDirectory(std::string url);
 
 //NOTE - crea una struct pollfd con l'fd del client, dato da accept()
-struct pollfd	setupPollFd(int client)
+struct pollfd	setupPollFd(int socket)
 {
 	struct pollfd s;
 
-	s.fd = client;
+	s.fd = socket;
 	s.events = POLLIN;
 	s.revents = 0;
 	return (s);

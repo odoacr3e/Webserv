@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 
 static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2]);
-static void		run_cmd(Server &srv, t_cgi &cgi_data);
+static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data);
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data);
 std::string		createHtmlPokedex(std::string key, std::string &output);
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
@@ -20,7 +20,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	if (client.getLocConf().script_daemon == true)
 		run_daemon(srv, client, cgi_data);
 	else
-		run_cmd(srv, cgi_data);
+		run_cmd(srv, client, cgi_data);
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
 		body = createHtmlPokedex(cgi_data.argv[1], cgi_data.output);
@@ -61,10 +61,11 @@ static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2])
 	cgi_data.argv[2] = NULL;
 }
 
-static void		run_cmd(Server &srv, t_cgi &cgi_data)
+static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 {
 	if (pipe(cgi_data.pipe) != 0)
 		return (std::cout << "run_script fatal error\n", (void)0);
+	//gia eseguito allora finisci response
 	cgi_data.pid = fork();
 	if (cgi_data.pid == -1)
 		return (std::cout << "run_script fatal error\n", (void)0);
@@ -82,6 +83,12 @@ static void		run_cmd(Server &srv, t_cgi &cgi_data)
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
 	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
+	srv.getFdData()[cgi_data.pipe[0]].type = FD_PIPE_RD;
+	std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
+	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;
+	srv.addSocket(cgi_data.pipe[0], srv.getFdData()[cgi_data.pipe[0]].type);
+	// srv.getAddrs()[srv.getAddrs()[1].]
+	//client stai zitto
 	std::getline(output_fd, cgi_data.output, '\0');
 	close(cgi_data.pipe[0]);
 }

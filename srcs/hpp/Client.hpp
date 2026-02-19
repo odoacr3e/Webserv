@@ -36,6 +36,7 @@ class Client
 		t_conf_server		&getSrvConf();
 		t_conf_location		&getLocConf();
 		std::vector<char>	&getBuffer();
+		struct pollfd		*getPollData();
 		char				*getBufferChar();
 		int					getAllowedMethods() const;
 		int					isAllowedMethod();

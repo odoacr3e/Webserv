@@ -1,125 +1,564 @@
 HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 3627
+Content-Length: 16448
 
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-    <title>Upload completato</title>
+    <meta charset="UTF-8">
+    <title>pikachu</title>
     <style>
-        :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --border: #334155;
-            --text: #48e9fb;
-            --muted: #94a3b8;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #22c55e;
-        }
-
-        /* RESET */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        /* BASE */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: radial-gradient(circle at top, #111827, var(--bg));
-            color: var(--text);
-            line-height: 1.6;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
         }
 
-        /* HEADER */
-        header {
-            text-align: center;
-            padding: 70px 20px 50px;
-            border-bottom: 1px solid var(--border);
-        }
-        header h1 { color: var(--success); font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
-        header p { color: var(--muted); font-size: 1.05rem; }
-
-        /* MAIN */
-        main {
-            max-width: 520px;
-            margin: 90px auto;
-            padding: 0 20px;
-        }
-
-        /* CARD */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-        }
-        .card h2 { color: var(--success); margin-bottom: 25px; font-size: 1.4rem; font-weight: 600; }
-        .card p { margin-bottom: 40px; }
-
-        /* BUTTONS */
-        .actions {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px; /* margine sopra i bottoni */
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 14px 26px;
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
             border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            min-width: 170px;
-            text-align: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
 
-        /* FOOTER */
-        footer {
+        h1 {
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
         }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
     </style>
 </head>
 <body>
-    <header>
-        <h1>Upload completato</h1>
-        <p>File caricato con successo</p>
-    </header>
 
-    <main>
-        <div class="card">
-            <h2>Operazione riuscita</h2>
-            <p>
-                File ricevuto ed elaborato con successo.
-                Puoi continuare la navigazione oppure effettuare un nuovo upload.
-            </p>
-            <div class="actions">
-                <a href="/" class="btn btn-secondary">Torna alla home</a>
-                <a href="/upload/index.html" class="btn btn-primary">Nuovo upload</a>
-            </div>
-        </div>
-    </main>
+	<div class="image-wrapper">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="pikachu">
+	</div>
+	<div class="container">
 
-    <footer>
-        Success - 3 Uomini e 1 web server
-    </footer>
+		<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">ID</span>
+	<ul>
+		<li>25</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Name</span>
+	<ul>
+		<li>Pikachu</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Types</span>
+	<ul>
+		<li>ELECTRIC</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseStats</span>
+	<ul>
+		<li>35</li>
+<li>55</li>
+<li>40</li>
+<li>90</li>
+<li>50</li>
+<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GenderRatio</span>
+	<ul>
+		<li>Female50Percent</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GrowthRate</span>
+	<ul>
+		<li>Medium</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseExp</span>
+	<ul>
+		<li>112</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EVs</span>
+	<ul>
+		<li>SPEED</li>
+<li>2</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">CatchRate</span>
+	<ul>
+		<li>190</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Happiness</span>
+	<ul>
+		<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Abilities</span>
+	<ul>
+		<li>STATIC</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HiddenAbilities</span>
+	<ul>
+		<li>LIGHTNINGROD</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Moves</span>
+	<ul>
+		<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PLAYNICE'>PLAYNICE</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWEETKISS'>SWEETKISS</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NUZZLE'>NUZZLE</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERSHOCK'>THUNDERSHOCK</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=TAILWHIP'>TAILWHIP</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=QUICKATTACK'>QUICKATTACK</a></li>
+<li>4</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
+<li>8</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li>12</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
+<li>16</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FEINT'>FEINT</a></li>
+<li>20</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SPARK'>SPARK</a></li>
+<li>24</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+<li>28</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLAM'>SLAM</a></li>
+<li>32</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DISCHARGE'>DISCHARGE</a></li>
+<li>36</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li>40</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
+<li>44</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">TutorMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CHARGEBEAM'>CHARGEBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COVET'>COVET</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAININGKISS'>DRAININGKISS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ELECTRICTERRAIN'>ELECTRICTERRAIN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROWEB'>ELECTROWEB</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ENCORE'>ENCORE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLASH'>FLASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GRASSKNOT'>GRASSKNOT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=KNOCKOFF'>KNOCKOFF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=LASERFOCUS'>LASERFOCUS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MAGNETRISE'>MAGNETRISE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PAYDAY'>PAYDAY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PLAYROUGH'>PLAYROUGH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REFLECT'>REFLECT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REVERSAL'>REVERSAL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RISINGVOLTAGE'>RISINGVOLTAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROLLOUT'>ROLLOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHOCKWAVE'>SHOCKWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SIGNALBEAM'>SIGNALBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SURF'>SURF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THIEF'>THIEF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=UPROAR'>UPROAR</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=VOLTSWITCH'>VOLTSWITCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=VOLTTACKLE'>VOLTTACKLE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WILDCHARGE'>WILDCHARGE</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggGroups</span>
+	<ul>
+		<li>Field</li>
+<li>Fairy</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HatchSteps</span>
+	<ul>
+		<li>2560</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Height</span>
+	<ul>
+		<li>0.4</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Weight</span>
+	<ul>
+		<li>6.0</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Color</span>
+	<ul>
+		<li>Yellow</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Shape</span>
+	<ul>
+		<li>Quadruped</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Habitat</span>
+	<ul>
+		<li>Forest</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Mouse</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>It stores electricity in the electric sacs on its cheeks. When it releases pent-up energy in a burst</li>
+<li> the electric power is equal to a lightning bolt.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">WildItemUncommon</span>
+	<ul>
+		<li>LIGHTBALL</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=RAICHU'>RAICHU</a></li>
+<li>Item</li>
+<li><a href='/script/pokedex/output/pokemon.cgi?value=THUNDERSTONE'>THUNDERSTONE</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+	</div>
+
 </body>
 </html>
 
@@ -137,174 +576,566 @@ Content-Length: 0
 chiudo connessione 1
 ======================================
 HTTP/1.1 200 OK
-Content-Type: text/html
+Content-Type: image/ico
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 2080
+Content-Length: 246938
 
 ======================================
 chiudo connessione 2
 ======================================
-HTTP/1.1 400 Bad Request
-Content-Type: image/json
-Content-Length: 2805
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 16085
 
-<!--NAME=error_default-->
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-<title>My C++ Web Server</title>
-<meta charset="utf-8">
-<link rel="icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <title>squirtle</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
 
-<style type="text/css">
-:root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --border: #334155;
-    --text: #ff0000;
-    --muted: #94a3b8;
-    --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    --success: #22c55e;
-}
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
 
-/* RESET */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
 
-/* BASE */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: radial-gradient(circle at top, #111827, var(--bg));
-    color: var(--text);
-    line-height: 1.6;
-}
+        .section {
+            margin-bottom: 20px;
+        }
 
-/* HEADER */
-header {
-    text-align: center;
-    padding: 70px 20px 50px;
-    border-bottom: 1px solid var(--border);
-}
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
 
-header h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
 
-header p {
-    color: var(--muted);
-    font-size: 1.05rem;
-}
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
 
-/* MAIN */
-main {
-    max-width: 520px;
-    margin: 90px auto;
-    padding: 0 20px;
-}
+        li {
+            margin-bottom: 5px;
+        }
 
-/* CARD */
-.card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 30px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-}
+        a:hover {
+            text-decoration: underline;
+        }
 
-.card h2 {
-    margin-bottom: 25px;
-    font-size: 1.4rem;
-    font-weight: 600;
-}
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
 
-/* FILE INPUT */
-input[type="file"] {
-    width: 100%;
-    margin-bottom: 25px;
-    padding: 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    cursor: pointer;
-    transition: border 0.2s ease;
-}
-
-input[type="file"]:hover {
-    border-color: var(--primary);
-}
-
-input[type="file"]:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-/* BUTTON */
-button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-button:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 0.9rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-}
-</style>
-
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
 </head>
-
 <body>
 
-<header>
-	<h1>My C++ Web Server</h1>
-	<p>Minimal ‚Ä¢ Fast ‚Ä¢ Handmade</p>
-</header>
-
-<main>
-	<div class="card">
-		<div class="error-code">‚ö†Ô∏è</div>
-		<h2>Errore di default</h2>
-		<p>
-			Il server ha ricevuto una richiesta non valida oppure
-			la risorsa non √® disponibile.
-		</p>
-		<a href="/" class="btn">Torna alla home</a>
+	<div class="image-wrapper">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png" alt="squirtle">
 	</div>
-</main>
+	<div class="container">
 
-<footer>
-	¬© 2026 ‚Ä¢ Custom C++ HTTP Server
-</footer>
+		<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">ID</span>
+	<ul>
+		<li>7</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Name</span>
+	<ul>
+		<li>Squirtle</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Types</span>
+	<ul>
+		<li>WATER</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseStats</span>
+	<ul>
+		<li>44</li>
+<li>48</li>
+<li>65</li>
+<li>43</li>
+<li>50</li>
+<li>64</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GenderRatio</span>
+	<ul>
+		<li>FemaleOneEighth</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GrowthRate</span>
+	<ul>
+		<li>Parabolic</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseExp</span>
+	<ul>
+		<li>63</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EVs</span>
+	<ul>
+		<li>DEFENSE</li>
+<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">CatchRate</span>
+	<ul>
+		<li>45</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Happiness</span>
+	<ul>
+		<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Abilities</span>
+	<ul>
+		<li>TORRENT</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HiddenAbilities</span>
+	<ul>
+		<li>RAINDISH</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Moves</span>
+	<ul>
+		<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=TACKLE'>TACKLE</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=TAILWHIP'>TAILWHIP</a></li>
+<li>3</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERGUN'>WATERGUN</a></li>
+<li>6</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WITHDRAW'>WITHDRAW</a></li>
+<li>9</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RAPIDSPIN'>RAPIDSPIN</a></li>
+<li>12</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BITE'>BITE</a></li>
+<li>15</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERPULSE'>WATERPULSE</a></li>
+<li>18</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
+<li>21</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
+<li>24</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AQUATAIL'>AQUATAIL</a></li>
+<li>27</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHELLSMASH'>SHELLSMASH</a></li>
+<li>30</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONDEFENSE'>IRONDEFENSE</a></li>
+<li>33</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HYDROPUMP'>HYDROPUMP</a></li>
+<li>36</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SKULLBASH'>SKULLBASH</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">TutorMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AQUATAIL'>AQUATAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AURASPHERE'>AURASPHERE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BLIZZARD'>BLIZZARD</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRINE'>BRINE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DIVE'>DIVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONPULSE'>DRAGONPULSE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FALSESWIPE'>FALSESWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLIPTURN'>FLIPTURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GYROBALL'>GYROBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HAIL'>HAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HYDROPUMP'>HYDROPUMP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ICEBEAM'>ICEBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ICEPUNCH'>ICEPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ICYWIND'>ICYWIND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONDEFENSE'>IRONDEFENSE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDDYWATER'>MUDDYWATER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=POWERUPPUNCH'>POWERUPPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROLLOUT'>ROLLOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCALD'>SCALD</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SURF'>SURF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERFALL'>WATERFALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERPLEDGE'>WATERPLEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERPULSE'>WATERPULSE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WEATHERBALL'>WEATHERBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WHIRLPOOL'>WHIRLPOOL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WORKUP'>WORKUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ZENHEADBUTT'>ZENHEADBUTT</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AQUAJET'>AQUAJET</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AQUARING'>AQUARING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AURASPHERE'>AURASPHERE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FAKEOUT'>FAKEOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAIL'>FLAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HAZE'>HAZE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=LIFEDEW'>LIFEDEW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIRRORCOAT'>MIRRORCOAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIST'>MIST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDDYWATER'>MUDDYWATER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WATERSPOUT'>WATERSPOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=YAWN'>YAWN</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggGroups</span>
+	<ul>
+		<li>Monster</li>
+<li>Water1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HatchSteps</span>
+	<ul>
+		<li>5120</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Height</span>
+	<ul>
+		<li>0.5</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Weight</span>
+	<ul>
+		<li>9.0</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Color</span>
+	<ul>
+		<li>Blue</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Shape</span>
+	<ul>
+		<li>BipedalTail</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Habitat</span>
+	<ul>
+		<li>WatersEdge</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Tiny Turtle</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>Its shell is not just for protection. Its rounded shape and the grooves on its surface minimize resistance in water</li>
+<li> enabling Squirtle to swim at high speeds.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=WARTORTLE'>WARTORTLE</a></li>
+<li>Level</li>
+<li>16</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+	</div>
 
 </body>
 </html>
@@ -313,1136 +1144,821 @@ footer {
 ======================================
 chiudo connessione 3
 ======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 3627
+HTTP/1.1 400 Bad Request
+Content-Type: image/json
+Content-Length: 0
 
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <title>Upload completato</title>
-    <style>
-        :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --border: #334155;
-            --text: #48e9fb;
-            --muted: #94a3b8;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #22c55e;
-        }
-
-        /* RESET */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        /* BASE */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: radial-gradient(circle at top, #111827, var(--bg));
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* HEADER */
-        header {
-            text-align: center;
-            padding: 70px 20px 50px;
-            border-bottom: 1px solid var(--border);
-        }
-        header h1 { color: var(--success); font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
-        header p { color: var(--muted); font-size: 1.05rem; }
-
-        /* MAIN */
-        main {
-            max-width: 520px;
-            margin: 90px auto;
-            padding: 0 20px;
-        }
-
-        /* CARD */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-        }
-        .card h2 { color: var(--success); margin-bottom: 25px; font-size: 1.4rem; font-weight: 600; }
-        .card p { margin-bottom: 40px; }
-
-        /* BUTTONS */
-        .actions {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px; /* margine sopra i bottoni */
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 14px 26px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            min-width: 170px;
-            text-align: center;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Upload completato</h1>
-        <p>File caricato con successo</p>
-    </header>
-
-    <main>
-        <div class="card">
-            <h2>Operazione riuscita</h2>
-            <p>
-                File ricevuto ed elaborato con successo.
-                Puoi continuare la navigazione oppure effettuare un nuovo upload.
-            </p>
-            <div class="actions">
-                <a href="/" class="btn btn-secondary">Torna alla home</a>
-                <a href="/upload/index.html" class="btn btn-primary">Nuovo upload</a>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        Success - 3 Uomini e 1 web server
-    </footer>
-</body>
-</html>
 
 
 ======================================
 chiudo connessione 4
 ======================================
-HTTP/1.1 400 Bad Request
-Content-Type: image/json
-Content-Length: 0
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 17568
 
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charizard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="charizard">
+	</div>
+	<div class="container">
+
+		<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">ID</span>
+	<ul>
+		<li>6</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Name</span>
+	<ul>
+		<li>Charizard</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Types</span>
+	<ul>
+		<li>FIRE</li>
+<li>FLYING</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseStats</span>
+	<ul>
+		<li>78</li>
+<li>84</li>
+<li>78</li>
+<li>100</li>
+<li>109</li>
+<li>85</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GenderRatio</span>
+	<ul>
+		<li>FemaleOneEighth</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GrowthRate</span>
+	<ul>
+		<li>Parabolic</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseExp</span>
+	<ul>
+		<li>267</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EVs</span>
+	<ul>
+		<li>SPECIAL_ATTACK</li>
+<li>3</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">CatchRate</span>
+	<ul>
+		<li>45</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Happiness</span>
+	<ul>
+		<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Abilities</span>
+	<ul>
+		<li>BLAZE</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HiddenAbilities</span>
+	<ul>
+		<li>SOLARPOWER</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Moves</span>
+	<ul>
+		<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AIRSLASH'>AIRSLASH</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONCLAW'>DRAGONCLAW</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATWAVE'>HEATWAVE</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCRATCH'>SCRATCH</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=EMBER'>EMBER</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SMOKESCREEN'>SMOKESCREEN</a></li>
+<li>12</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONBREATH'>DRAGONBREATH</a></li>
+<li>19</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li>24</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLASH'>SLASH</a></li>
+<li>30</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li>39</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
+<li>46</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li>54</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INFERNO'>INFERNO</a></li>
+<li>62</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">TutorMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=ACROBATICS'>ACROBATICS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AERIALACE'>AERIALACE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AIRCUTTER'>AIRCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AIRSLASH'>AIRSLASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BLASTBURN'>BLASTBURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BLAZEKICK'>BLAZEKICK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BREAKINGSWIPE'>BREAKINGSWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRUTALSWING'>BRUTALSWING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BULLDOZE'>BULLDOZE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CUT'>CUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONCLAW'>DRAGONCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONPULSE'>DRAGONPULSE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONTAIL'>DRAGONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DUALWINGBEAT'>DUALWINGBEAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=EARTHQUAKE'>EARTHQUAKE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FALSESWIPE'>FALSESWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREBLAST'>FIREBLAST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPLEDGE'>FIREPLEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPUNCH'>FIREPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMECHARGE'>FLAMECHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLY'>FLY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSBLAST'>FOCUSBLAST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FURYCUTTER'>FURYCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GIGAIMPACT'>GIGAIMPACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATCRASH'>HEATCRASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATWAVE'>HEATWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HONECLAWS'>HONECLAWS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HURRICANE'>HURRICANE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HYPERBEAM'>HYPERBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INCINERATE'>INCINERATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MYSTICALFIRE'>MYSTICALFIRE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OMINOUSWIND'>OMINOUSWIND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OVERHEAT'>OVERHEAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=POWERUPPUNCH'>POWERUPPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROAR'>ROAR</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSLIDE'>ROCKSLIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROOST'>ROOST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCALESHOT'>SCALESHOT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCORCHINGSANDS'>SCORCHINGSANDS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHADOWCLAW'>SHADOWCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SKYDROP'>SKYDROP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SOLARBEAM'>SOLARBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=STEELWING'>STEELWING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUNNYDAY'>SUNNYDAY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWORDSDANCE'>SWORDSDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=TAILWIND'>TAILWIND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=TWISTER'>TWISTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WEATHERBALL'>WEATHERBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WILLOWISP'>WILLOWISP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WORKUP'>WORKUP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggGroups</span>
+	<ul>
+		<li>Monster</li>
+<li>Dragon</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HatchSteps</span>
+	<ul>
+		<li>5120</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Height</span>
+	<ul>
+		<li>1.7</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Weight</span>
+	<ul>
+		<li>90.5</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Color</span>
+	<ul>
+		<li>Red</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Shape</span>
+	<ul>
+		<li>BipedalTail</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Habitat</span>
+	<ul>
+		<li>Mountain</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Flame</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>A Charizard flies about in search of strong opponents. It breathes intense flames that can melt any material. However</li>
+<li> it will never torch a weaker foe.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">#-------------------------------</span>
+	<ul>
+		
+	</ul>
+</div>
+
+
+	</div>
+
+</body>
+</html>
 
 
 ======================================
 chiudo connessione 5
 ======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2165
+HTTP/1.1 400 Bad Request
+Content-Type: image/json
+Content-Length: 0
+
+
 
 ======================================
 chiudo connessione 6
 ======================================
 HTTP/1.1 200 OK
-Content-Type: text/css
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2362
-
-======================================
-chiudo connessione 7
-======================================
-HTTP/1.1 400 Bad Request
-Content-Type: image/json
-Content-Length: 0
-
-
-
-======================================
-chiudo connessione 8
-======================================
-HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 8180
+Content-Length: 4715
 
-<!DOCTYPE html>
-<html lang="it">
-    <head>
-        <meta charset="UTF-8">
-        <title>Index of /storage/</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <style>
-            :root {
-                --bg: #0f172a;
-                --panel: #020617;
-                --text: #e5e7eb;
-                --muted: #94a3b8;
-                --accent: #38bdf8;
-                --border: #1e293b;
-                --hover: #020617;
-            }
-
-            * {
-                box-sizing: border-box;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            }
-
-            body {
-                margin: 0;
-                background: linear-gradient(180deg, var(--bg), #020617);
-                color: var(--text);
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                padding: 40px 16px;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 900px;
-                background: var(--panel);
-                border-radius: 14px;
-                box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-                overflow: hidden;
-            }
-
-            header {
-                padding: 24px 28px;
-                border-bottom: 1px solid var(--border);
-            }
-
-            header h1 {
-                font-size: 1.4rem;
-                margin: 0;
-                font-weight: 600;
-            }
-
-            header span {
-                color: var(--accent);
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            thead {
-                background: #020617;
-            }
-
-            th, td:not(:first-child) {
-                padding: 14px 18px;
-                text-align: center;
-                border-bottom: 1px solid var(--border);
-                font-size: 0.95rem;
-            }
-
-            td:first-child {
-                padding: 14px 18px;
-                text-align: left;
-                border-bottom: 1px solid var(--border);
-                font-size: 0.95rem;
-            }
-
-            th {
-                color: var(--muted);
-                font-weight: 500;
-            }
-
-            tbody tr:hover {
-                background: rgba(56, 189, 248, 0.06);
-            }
-
-            a {
-                color: var(--accent);
-                text-decoration: none;
-                font-weight: 500;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .footer {
-                padding: 16px;
-                text-align: center;
-                color: var(--muted);
-                font-size: 0.85rem;
-                border-top: 1px solid var(--border);
-            }
-
-            .delete-bar {
-                padding: 16px 28px;
-                border-top: 1px solid var(--border);
-            }
-
-            button {
-                background: var(--accent);
-                color: #000;
-                border: none;
-                padding: 10px 16px;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-            }
-
-            button:hover {
-                opacity: 0.85;
-            }
-
-            @media (max-width: 600px) {
-                th:nth-child(3),
-                td:nth-child(3),
-                th:nth-child(4),
-                td:nth-child(4) {
-                    display: none;
-                }
-            }
-
-            .delete-btn {
-                background: transparent;
-                border: none;
-                color: #ef4444;
-                font-size: 16px;
-                font-weight: 600;
-                cursor: pointer;
-                padding: 4px;
-                line-height: 1;
-                transition: 0.2s ease;
-            }
-
-            .delete-btn:hover {
-                color: #dc2626;
-                transform: scale(1.2);
-            }
-
-
-            </style>
-    </head>
-
-    <body>
-
-        <div class="container">
-
-            <header>
-                <h1>Index of <span>/storage/</span></h1>
-            </header>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Dimensione</th>
-                        <th>Ultima modifica</th>
-                        <th>Azione</th>
-                    </tr>
-                </thead>
-                <tbody id="fileList">
-<tr>
-	<td><a href="PIPPO.ico">PIPPO.ico</a></td>
-	<td>246 KB</td>
-    <td>Wed Feb 18 17:38:15 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'PIPPO.ico')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="BitcoinExchange.cpp">BitcoinExchange.cpp</a></td>
-	<td>5 KB</td>
-    <td>Thu Feb 19 11:11:02 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'BitcoinExchange.cpp')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Screenshot from 2025-12-17 22-14-05.png">Screenshot from 2025-12-17 22-14-05.png</a></td>
-	<td>95 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Screenshot from 2025-12-17 22-14-05.png')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Shocked Sound Effect #2.mp3">Shocked Sound Effect #2.mp3</a></td>
-	<td>125 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Shocked Sound Effect #2.mp3')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Street fighter ryu hadouken sound effect.mp3">Street fighter ryu hadouken sound effect.mp3</a></td>
-	<td>168 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Street fighter ryu hadouken sound effect.mp3')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="VertexZoom.cs">VertexZoom.cs</a></td>
-	<td>8 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'VertexZoom.cs')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="argv.json">argv.json</a></td>
-	<td>798 B</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'argv.json')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="code.sh">code.sh</a></td>
-	<td>32 B</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'code.sh')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="giorgio.jpeg">giorgio.jpeg</a></td>
-	<td>357 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'giorgio.jpeg')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="en.subject.pdf">en.subject.pdf</a></td>
-	<td>1 MB</td>
-    <td>Thu Feb 19 11:28:12 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'en.subject.pdf')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="favicon.ico">favicon.ico</a></td>
-	<td>246 KB</td>
-    <td>Thu Feb 19 11:28:19 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'favicon.ico')">
-    		&times;
-		</button>
-	</td>
-</tr>
-                </tbody>            </table>
-            <div class="footer">
-                Webserver autoindex ‚Ä¢ 3 UOMINI E 1 WEBSERVER
-            </div>
-
-        </div>
-
-        <script>
-        async function deleteFile(button, filename)
-        {
-            if (!confirm("Sei sicuro di voler eliminare " + filename + "?"))
-                return;
-
-            try {
-                const response = await fetch(`/storage/${encodeURIComponent(filename)}`, {
-                    method: "DELETE"
-                });
-
-                if (response.ok) {
-                    button.closest("tr").remove();
-                }
-                else if (response.status === 403) {
-                    alert("Errore: " + response.status);
-                }
-
-            } catch (err) {
-                console.error("Errore rete:", err);
-            }
-        }
-
-</script>
-
-    </body>
-</html>
-
-
-======================================
-chiudo connessione 9
-======================================
-HTTP/1.1 400 Bad Request
-Content-Type: image/json
-Content-Length: 0
-
-
-
-======================================
-chiudo connessione 10
-======================================
-HTTP/1.1 200 OK
-Content-Type: image/ico
-Content-Length: 459
-
-<!--NAME=2xx-->
+<!--NAME=home_autoindex-->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-	<link rel="icon" href="favicon.ico">
-	<title>Operazione completata</title>
-</head>
-<body>
+    <meta charset="UTF-8">
+    <title>Index of /script/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<header>
-		<h1>Operazione completata</h1>
-		<p>Tutto √® andato a buon fine</p>
-	</header>
-
-	<main>
-		<div class="card">
-			<h2>Successo</h2>
-			<p>
-				file www/storage/favicon.ico deleted successfully!
-			</p>
-		</div>
-	</main>
-
-	<footer>
-		204 OK, Il server ha fatto il suo dovere
-	</footer>
-
-</body>
-</html>
-
-======================================
-chiudo connessione 11
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2165
-
-======================================
-chiudo connessione 12
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/css
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2362
-
-======================================
-chiudo connessione 13
-======================================
-HTTP/1.1 200 OK
-Content-Type: image/pdf
-Content-Length: 462
-
-<!--NAME=2xx-->
-<!DOCTYPE html>
-<html lang="it">
-<head>
-	<link rel="icon" href="favicon.ico">
-	<title>Operazione completata</title>
-</head>
-<body>
-
-	<header>
-		<h1>Operazione completata</h1>
-		<p>Tutto √® andato a buon fine</p>
-	</header>
-
-	<main>
-		<div class="card">
-			<h2>Successo</h2>
-			<p>
-				file www/storage/en.subject.pdf deleted successfully!
-			</p>
-		</div>
-	</main>
-
-	<footer>
-		204 OK, Il server ha fatto il suo dovere
-	</footer>
-
-</body>
-</html>
-
-======================================
-chiudo connessione 14
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2080
-
-======================================
-chiudo connessione 15
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 3627
-
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <title>Upload completato</title>
     <style>
         :root {
             --bg: #0f172a;
-            --surface: #1e293b;
-            --border: #334155;
-            --text: #48e9fb;
+            --panel: #020617;
+            --text: #e5e7eb;
             --muted: #94a3b8;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #22c55e;
+            --accent: #38bdf8;
+            --border: #1e293b;
+            --hover: #020617;
         }
 
-        /* RESET */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
 
-        /* BASE */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: radial-gradient(circle at top, #111827, var(--bg));
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #020617);
             color: var(--text);
-            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
         }
 
-        /* HEADER */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
         header {
-            text-align: center;
-            padding: 70px 20px 50px;
+            padding: 24px 28px;
             border-bottom: 1px solid var(--border);
         }
-        header h1 { color: var(--success); font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
-        header p { color: var(--muted); font-size: 1.05rem; }
 
-        /* MAIN */
-        main {
-            max-width: 520px;
-            margin: 90px auto;
-            padding: 0 20px;
-        }
-
-        /* CARD */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-        }
-        .card h2 { color: var(--success); margin-bottom: 25px; font-size: 1.4rem; font-weight: 600; }
-        .card p { margin-bottom: 40px; }
-
-        /* BUTTONS */
-        .actions {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px; /* margine sopra i bottoni */
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 14px 26px;
-            border-radius: 12px;
-            text-decoration: none;
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0;
             font-weight: 600;
-            transition: all 0.2s ease;
-            min-width: 170px;
-            text-align: center;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
 
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
+        header span {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #020617;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
             color: var(--muted);
+            font-weight: 500;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 8px;
+            opacity: 0.85;
+        }
+
+        .footer {
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
             border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(2),
+            td:nth-child(2),
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+<div class="container">
     <header>
-        <h1>Upload completato</h1>
-        <p>File caricato con successo</p>
+        <h1>Index of <span>/script/</span></h1>
     </header>
 
-    <main>
-        <div class="card">
-            <h2>Operazione riuscita</h2>
-            <p>
-                File ricevuto ed elaborato con successo.
-                Puoi continuare la navigazione oppure effettuare un nuovo upload.
-            </p>
-            <div class="actions">
-                <a href="/" class="btn btn-secondary">Torna alla home</a>
-                <a href="/upload/index.html" class="btn btn-primary">Nuovo upload</a>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        Success - 3 Uomini e 1 web server
-    </footer>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Ultima modifica</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="icon">üìÑ</span>
+                    <a href="pokedex/">pokedex/</a>
+                </td>
+                <td>119 B</td>
+                <td>Thu Feb 19 10:34:40 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">üìÑ</span>
+                    <a href="cub3D/">cub3D/</a>
+                </td>
+                <td>169 B</td>
+                <td>Thu Feb 19 10:34:45 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">üìÑ</span>
+                    <a href="giorgio/">giorgio/</a>
+                </td>
+                <td>80 B</td>
+                <td>Thu Feb 19 10:34:45 2026
+</td>
+            </tr>
+        </tbody>    </table>
+    <div class="footer">
+        Webserver autoindex ‚Ä¢ 3 UOMINI E 1 WEBSERVER
+    </div>
+</div>
 </body>
-</html>
-
-
-======================================
-chiudo connessione 16
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2165
-
-======================================
-chiudo connessione 17
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/css
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 2362
-
-======================================
-chiudo connessione 18
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 7945
-
-<!DOCTYPE html>
-<html lang="it">
-    <head>
-        <meta charset="UTF-8">
-        <title>Index of /storage/</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <style>
-            :root {
-                --bg: #0f172a;
-                --panel: #020617;
-                --text: #e5e7eb;
-                --muted: #94a3b8;
-                --accent: #38bdf8;
-                --border: #1e293b;
-                --hover: #020617;
+<script>
+function deleteFile(fileName) {
+    if (confirm("Sei sicuro de cancell√† " + fileName + "? Daje che poi nun torni indietro!")) {
+        fetch('/storage/' + fileName, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("File eliminato! Come 'n gol alla Lazio!");
+                location.reload();
+            } else if (response.status === 403) {
+                alert("A√≤, er server dice 403! Nun c'hai i permessi, sei in fuorigioco!");
+            } else {
+                alert("Errore strano: " + response.status);
             }
-
-            * {
-                box-sizing: border-box;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            }
-
-            body {
-                margin: 0;
-                background: linear-gradient(180deg, var(--bg), #020617);
-                color: var(--text);
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                padding: 40px 16px;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 900px;
-                background: var(--panel);
-                border-radius: 14px;
-                box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-                overflow: hidden;
-            }
-
-            header {
-                padding: 24px 28px;
-                border-bottom: 1px solid var(--border);
-            }
-
-            header h1 {
-                font-size: 1.4rem;
-                margin: 0;
-                font-weight: 600;
-            }
-
-            header span {
-                color: var(--accent);
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            thead {
-                background: #020617;
-            }
-
-            th, td:not(:first-child) {
-                padding: 14px 18px;
-                text-align: center;
-                border-bottom: 1px solid var(--border);
-                font-size: 0.95rem;
-            }
-
-            td:first-child {
-                padding: 14px 18px;
-                text-align: left;
-                border-bottom: 1px solid var(--border);
-                font-size: 0.95rem;
-            }
-
-            th {
-                color: var(--muted);
-                font-weight: 500;
-            }
-
-            tbody tr:hover {
-                background: rgba(56, 189, 248, 0.06);
-            }
-
-            a {
-                color: var(--accent);
-                text-decoration: none;
-                font-weight: 500;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .footer {
-                padding: 16px;
-                text-align: center;
-                color: var(--muted);
-                font-size: 0.85rem;
-                border-top: 1px solid var(--border);
-            }
-
-            .delete-bar {
-                padding: 16px 28px;
-                border-top: 1px solid var(--border);
-            }
-
-            button {
-                background: var(--accent);
-                color: #000;
-                border: none;
-                padding: 10px 16px;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-            }
-
-            button:hover {
-                opacity: 0.85;
-            }
-
-            @media (max-width: 600px) {
-                th:nth-child(3),
-                td:nth-child(3),
-                th:nth-child(4),
-                td:nth-child(4) {
-                    display: none;
-                }
-            }
-
-            .delete-btn {
-                background: transparent;
-                border: none;
-                color: #ef4444;
-                font-size: 16px;
-                font-weight: 600;
-                cursor: pointer;
-                padding: 4px;
-                line-height: 1;
-                transition: 0.2s ease;
-            }
-
-            .delete-btn:hover {
-                color: #dc2626;
-                transform: scale(1.2);
-            }
-
-
-            </style>
-    </head>
-
-    <body>
-
-        <div class="container">
-
-            <header>
-                <h1>Index of <span>/storage/</span></h1>
-            </header>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Dimensione</th>
-                        <th>Ultima modifica</th>
-                        <th>Azione</th>
-                    </tr>
-                </thead>
-                <tbody id="fileList">
-<tr>
-	<td><a href="PIPPO.ico">PIPPO.ico</a></td>
-	<td>246 KB</td>
-    <td>Wed Feb 18 17:38:15 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'PIPPO.ico')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="BitcoinExchange.cpp">BitcoinExchange.cpp</a></td>
-	<td>5 KB</td>
-    <td>Thu Feb 19 11:11:02 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'BitcoinExchange.cpp')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Screenshot from 2025-12-17 22-14-05.png">Screenshot from 2025-12-17 22-14-05.png</a></td>
-	<td>95 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Screenshot from 2025-12-17 22-14-05.png')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Shocked Sound Effect #2.mp3">Shocked Sound Effect #2.mp3</a></td>
-	<td>125 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Shocked Sound Effect #2.mp3')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="Street fighter ryu hadouken sound effect.mp3">Street fighter ryu hadouken sound effect.mp3</a></td>
-	<td>168 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'Street fighter ryu hadouken sound effect.mp3')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="VertexZoom.cs">VertexZoom.cs</a></td>
-	<td>8 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'VertexZoom.cs')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="argv.json">argv.json</a></td>
-	<td>798 B</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'argv.json')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="code.sh">code.sh</a></td>
-	<td>32 B</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'code.sh')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="giorgio.jpeg">giorgio.jpeg</a></td>
-	<td>357 KB</td>
-    <td>Thu Feb 19 10:34:40 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'giorgio.jpeg')">
-    		&times;
-		</button>
-	</td>
-</tr>
-<tr>
-	<td><a href="ft_malloc.h">ft_malloc.h</a></td>
-	<td>1 KB</td>
-    <td>Thu Feb 19 11:28:45 2026
-</td>
-	<td>
-		<button class="delete-btn" onclick="deleteFile(this, 'ft_malloc.h')">
-    		&times;
-		</button>
-	</td>
-</tr>
-                </tbody>            </table>
-            <div class="footer">
-                Webserver autoindex ‚Ä¢ 3 UOMINI E 1 WEBSERVER
-            </div>
-
-        </div>
-
-        <script>
-        async function deleteFile(button, filename)
-        {
-            if (!confirm("Sei sicuro di voler eliminare " + filename + "?"))
-                return;
-
-            try {
-                const response = await fetch(`/storage/${encodeURIComponent(filename)}`, {
-                    method: "DELETE"
-                });
-
-                if (response.ok) {
-                    button.closest("tr").remove();
-                }
-                else if (response.status === 403) {
-                    alert("Errore: " + response.status);
-                }
-
-            } catch (err) {
-                console.error("Errore rete:", err);
-            }
-        }
-
+        })
+        .catch(err => console.error("Problema de rete, stamo a perde er segnale:", err));
+    }
+}
 </script>
 
-    </body>
 </html>
 
 
 ======================================
-chiudo connessione 19
+chiudo connessione 7
 ======================================
 HTTP/1.1 200 OK
-Content-Type: image/h
-Content-Length: 459
-
-<!--NAME=2xx-->
-<!DOCTYPE html>
-<html lang="it">
-<head>
-	<link rel="icon" href="favicon.ico">
-	<title>Operazione completata</title>
-</head>
-<body>
-
-	<header>
-		<h1>Operazione completata</h1>
-		<p>Tutto √® andato a buon fine</p>
-	</header>
-
-	<main>
-		<div class="card">
-			<h2>Successo</h2>
-			<p>
-				file www/storage/ft_malloc.h deleted successfully!
-			</p>
-		</div>
-	</main>
-
-	<footer>
-		204 OK, Il server ha fatto il suo dovere
-	</footer>
-
-</body>
-</html>
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 3126
 
 ======================================
-chiudo connessione 20
+chiudo connessione 8
+======================================
+OK|MUSIC-OP|                                                    BM6 ñ     6   (   Ä   ˚ˇˇ         ñ             ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' %  %  %  ' ' ' %  %  %  %  %  %  %  %  %  %  ' ' ' ' ' ' ' ' %  %  -
+ -
+ -
+ -
+ -
+ -
+ %  %  %  %  %  ' ' ' ' ' %  %  %  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' %  %  %  %  %  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' 'HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 14745654
+
+======================================
+chiudo connessione 9
+======================================
+OK|                                                             BM6 ñ     6   (   Ä   ˚ˇˇ         ñ             ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' %  %  %  ' ' ' %  %  %  %  %  %  %  %  %  %  ' ' ' ' ' ' ' ' %  %  -
+ -
+ -
+ -
+ -
+ -
+ %  %  %  %  %  ' ' ' ' ' %  %  %  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' %  %  %  %  %  ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' 'HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 14745654
+
+======================================
+chiudo connessione 10
 ======================================

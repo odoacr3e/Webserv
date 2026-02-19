@@ -68,6 +68,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
+		// std::vector<struct s_fd_data>
+		// this->_fd_data[(*it).fd].type
 		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere
 		{
 			char buffer[2048] = {0};
@@ -121,17 +123,18 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 }
 
 // NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
-void	Server::addSocket(int index)
+void	Server::addSocket(int index, e_fd_type type)
 {
 	pollfd		polldata;
 	s_fd_data	fd_data;
 
-	fd_data.type = FD_CLIENT;
-	int client = accept(this->_addrs.data()[index].fd, NULL, NULL);
-	if (client == -1)
+	fd_data.type = type;
+	int socket = accept(this->_addrs.data()[index].fd, NULL, NULL);
+	if (socket == -1)
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
-	polldata = setupPollFd(client);
+	polldata = setupPollFd(socket);
 	this->_addrs.push_back(polldata);
 	this->_fd_data[polldata.fd] = fd_data;
-	this->_clients[client] = new Client(client, this->_addrs.data()[index].fd);
+	if (type == FD_CLIENT)
+		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 }

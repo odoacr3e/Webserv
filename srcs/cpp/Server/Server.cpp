@@ -127,10 +127,14 @@ void	Server::addSocket(int index, e_fd_type type)
 {
 	pollfd		polldata;
 	s_fd_data	fd_data;
+	int 		socket;
 
 	fd_data.type = type;
 	fd_data.cgi_ready = false;
-	int socket = accept(this->_addrs.data()[index].fd, NULL, NULL);
+	if (type == FD_CLIENT)
+		socket = accept(this->_addrs.data()[index].fd, NULL, NULL);
+	else
+		socket = index;
 	if (socket == -1)
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
 	polldata = setupPollFd(socket);

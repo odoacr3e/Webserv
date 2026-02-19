@@ -50,22 +50,19 @@ const FPS = 15; // Alzamo un po' er ritmo?
 const screenImg = document.getElementById("screen");
 const cgiPath = "cub3D.cgi"; // Metti er percorso giusto der tuo eseguibile C++
 
-// Questa funzione aggiorna l'immagine chiedendo er BMP con comando \0
-function refreshFrame() {
-    // Aggiungiamo un timestamp per evità che er browser faccia er pigro (Cache Busting)
-    const timestamp = new Date().getTime();
-    screenImg.src = cgiPath + "?-" + action + "-";
-	action = 0;
+let currentAction = "\0"; // Azione di default (idle)
+
+function sendInput(action) {
+    currentAction = action;
 }
 
-// Gestione input: manda er comando e aggiorna subito l'immagine col risultato
-function sendInput(action) {
-    console.log("Invio comando:", action);
-    const timestamp = new Date().getTime();
+function refreshFrame() {
+    const ts = new Date().getTime();
+    // Attacchiamo l'azione e il timestamp per forzare l'aggiornamento
+    screenImg.src = `${cgiPath}?${currentAction}&t=${ts}`;
     
-    // Mandiamo l'input. Il server deve risponne co l'header "Content-Type: image/bmp"
-    // e er corpo del file .bmp
-    screenImg.src = cgiPath + "?-" + action + "-";
+    // Se vuoi che l'input sia "one-shot" (premuto una volta sola):
+    currentAction = "\0"; 
 }
 
 // Loop principale: se nun premi gnente, lui continua a chiede frame con \0

@@ -3,7 +3,7 @@ NAME = webserv
 CC = c++
 FLAGS = -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG
 CPPFLAGS = -std=c++98
-OBJ_DIR = build/
+OBJ_DIR = build
 
 
 SRCS = $(addprefix srcs/, main.cpp $(CPP) $(PARSING) $(UTILS))

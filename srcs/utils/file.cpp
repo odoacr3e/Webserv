@@ -1,5 +1,12 @@
 #include "../../includes/ether.hpp"
 
+void	close_fd(int *fd)
+{
+	if (*fd > 0)
+		close(*fd);
+	*fd = 0;
+}
+
 int read_file(std::fstream &stream, std::vector<char> &vect)
 {
 	static char		buf[2048];

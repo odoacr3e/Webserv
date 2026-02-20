@@ -6,13 +6,14 @@
 static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2]);
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data);
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data);
-std::string		createHtmlPokedex(std::string key, std::string &output);
+std::string		createHtmlPokedex(s_cgi &cgi);
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
 std::string		createHtmlYouTube(t_cgi &cgi_data);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
-	t_cgi					cgi_data{};
+	t_cgi					cgi_data(client);
+	t_cgi					*cgi_ptr = NULL;
 	std::string 			argv[2];
 
 	std::cout << "run_script\n";
@@ -23,22 +24,26 @@ void	run_script(Server &srv, Client &client, std::string &body)
 			run_daemon(srv, client, cgi_data);
 		else
 			run_cmd(srv, client, cgi_data);
-		std::cout << "pipe fd post: " << srv.getFdData()[client.getSockFd()].cgi_data.pipe[0] << std::endl;
 		return ;
 	}
+	else
+		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
-		body = createHtmlPokedex(cgi_data.argv[1], cgi_data.output);
+		body = createHtmlPokedex(*cgi_ptr);
 	else if (client.getLocConf().script_type == "cub3D")
-		body = createHtmlCub(cgi_data, srv, client);
+		body = createHtmlCub(*cgi_ptr, srv, client);
 	else if (client.getLocConf().script_type == "giorgio")
-		body = createHtmlYouTube(cgi_data);
+		body = createHtmlYouTube(*cgi_ptr);
 	else
 	{
 		client.getRequest().setBodyType("text/plain");
 		std::cout << "script_type undefined. no html created." << std::endl;
 		std::cout << cgi_data.output << std::endl;
 	}
+	delete cgi_ptr;
+	srv.getFdData()[client.getSockFd()].cgi = NULL;
+	srv.getFdData()[client.getSockFd()].cgi_ready = false;
 }
 
 static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2])
@@ -66,11 +71,16 @@ static void		get_argv(Client &client, t_cgi &cgi_data, std::string argv[2])
 	cgi_data.argv[2] = NULL;
 }
 
+	/*std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";
+	std::cout << WHITE"client_fd " RED << srv.getFdData()[cgi_data.pipe[0]].client->getSockFd() << RESET"\n";
+	//std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
+	std::cout << WHITE"client fd orig " RED << cgi_data.client_fd << RESET"\n";
+	std::cout << WHITE"client copied: " RED << srv.getFdData()[cgi_data.pipe[0]].cgi_data.client_fd << RESET"\n";*/
+
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 {
 	if (pipe(cgi_data.pipe) != 0)
 		return (std::cout << "run_script fatal error\n", (void)0);
-	//gia eseguito allora finisci response
 	cgi_data.pid = fork();
 	if (cgi_data.pid == -1)
 		return (std::cout << "run_script fatal error\n", (void)0);
@@ -84,49 +94,27 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 		std::cerr << "run_script fatal error\n";
 		std::exit(1);
 	}
-	close(cgi_data.pipe[1]);
+	close_fd(&cgi_data.pipe[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
-	std::ifstream	output_fd(filename.c_str(), std::ios_base::in);
 	/*
-		1)	pipe[0] setta 	FD_TYPE
-		2)	pipe[0] copia 	cgi_data
-		3)	pipe[0] copia 	client
-		4)	client 	copia 	cgi_data
-		5)	client	ON		cgi_ready
-		6)	ADDSOCKET
-		7)	client stai zitto
+		1)	ADDSOCKET
+		2)	client stai zitto
+		3)	setting fdData[pipe[0]]
+		4)	setting fdData[client]
 	*/
 	// 1
-	std::cout << "1" << "\n";
-	srv.getFdData()[cgi_data.pipe[0]].type = FD_PIPE_RD;
-	// 2
-	std::cout << "2" << "\n";
-	cgi_data.client = &client;
-	cgi_data.client_fd = client.getSockFd();
-	srv.getFdData()[client.getSockFd()].client = &client;
-	srv.getFdData()[cgi_data.pipe[0]].client = &client;
-	std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";
-	std::cout << WHITE"client_fd " RED << srv.getFdData()[cgi_data.pipe[0]].client->getSockFd() << RESET"\n";
-	std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
-	std::cout << WHITE"client fd orig " RED << cgi_data.client_fd << RESET"\n";
-	std::cout << WHITE"client copied: " RED << srv.getFdData()[cgi_data.pipe[0]].cgi_data.client_fd << RESET"\n";
-	// 3
-	std::cout << "3" << "\n";
-	srv.getFdData()[cgi_data.pipe[0]].cgi_data.client = &client;
-	// 4
-	std::cout << "4" << "\n";
-	std::memcpy(&srv.getFdData()[client.getSockFd()].cgi_data, &cgi_data, sizeof(t_cgi)); // di cgi_data
-	// 5
-	std::cout << "5" << "\n";
-	srv.getFdData()[client.getSockFd()].cgi_ready = true;
-	// 6
-	std::cout << "6" << "\n";
-	srv.addSocket(cgi_data.pipe[0], srv.getFdData()[cgi_data.pipe[0]].type);
-	// 7 client stai zitto
+	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
+	// 2 client stai zitto
 	client.getPollFd()->events = 0;
-	//std::getline(output_fd, cgi_data.output, '\0');
-	//close(cgi_data.pipe[0]);
+	// 3
+	s_cgi	*cgi_ptr = new s_cgi(cgi_data);
+	srv.getFdData()[cgi_data.pipe[0]].client = &client;
+	srv.getFdData()[cgi_data.pipe[0]].cgi = cgi_ptr;
+	// 4
+	srv.getFdData()[client.getSockFd()].cgi_ready = true;
+	srv.getFdData()[client.getSockFd()].client = &client;
+	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
 }
 
 int read_file(std::string name, std::vector<char> &vect, int bytes);

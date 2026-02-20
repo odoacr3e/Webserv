@@ -9,6 +9,8 @@ void	Server::processResponse(std::vector<pollfd>::iterator &it)
 	std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
 	std::string	html = createResponse(*(this->_clients[(*it).fd]));
 
+	if ((it->events & POLLOUT) == 0)
+		return ;
 	send((*it).fd, html.c_str(), html.length(), 0);
 	print_file("RESPONSE", html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
@@ -47,8 +49,9 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	client.getRequest().setBodyType(type);
 	client.getBuffer().clear();
 	runMethod(client, body, file);
-	std::cout << "createResponse(): client fd orig " << client.getSockFd() << "\n";
-	return (createHtml(client, body));
+	if (client.getPollFd()->events & POLLOUT)
+		return (createHtml(client, body));
+	return ("");
 }
 
 void	Server::choose_file(Client &client, std::fstream &file, std::string url)

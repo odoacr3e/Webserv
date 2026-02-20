@@ -2,6 +2,7 @@
 # define CLIENT_HPP
 
 # include "Request.hpp"
+# include "Server.hpp"
 # include "Conf.hpp"
 # include <vector>
 
@@ -43,7 +44,33 @@ class Client
 		int					isAllowedMethod();
 		bool				&sendContentBool();
 
+		//SECTION - setters
+
 		void				setPollFd(struct pollfd *p);
+
+		//SECTION - cgi
+		void				readToCgi(Server &srv, s_cgi &cgi);
+		void				writeToCgi(Server &srv, s_cgi &cgi);
 };
+
+typedef	struct s_cgi
+{
+	s_cgi(void);
+	s_cgi(Client &client);
+	s_cgi(const s_cgi &other);
+	s_cgi	&operator=(const s_cgi &other);
+	void	clear(Server &srv, Client &client);
+	void	removeFromPoll(bool is_pipe_out, Server &srv);
+
+	Client		*client;
+	std::string	input;
+	char		*output;
+	char		*argv[3];
+	int			argv_len[2];
+	int			pipe[2];
+	int			poll_index[2];
+	int			pid;
+	bool		isFastCgiBool;
+}		t_cgi;
 
 #endif

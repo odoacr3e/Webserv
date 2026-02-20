@@ -30,6 +30,7 @@ enum e_fd_type
 };
 
 class Client;
+struct s_cgi;
 typedef std::vector<char *>	packetBuffer;
 typedef std::map<IpPortPair, s_cgi>	ipPortCgiMap;
 struct s_fd_data;
@@ -54,8 +55,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		Server(Conf &conf, const char **env);
 		~Server();
 
-		void 				addSocket(int index, e_fd_type type);
+		int					addSocket(int index, e_fd_type type);
 		struct pollfd		*getAddrs(void);
+		std::vector<pollfd>	&getAddrsVector(void);
 		fdData				&getFdData(void);
 		size_t				getAddrSize(void) const;
 		void				processRequest(std::vector<struct pollfd>::iterator &it, char *buffer, int bytes);
@@ -87,21 +89,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void 				print_info(std::vector<struct pollfd>::iterator it);
 };
 
-typedef	struct s_cgi
-{
-//	s_cgi	&operator=(s_cgi &other){return (other);};
-	std::string	output;
-	Client		*client;
-	char		*argv[3];
-	int			argv_len[2];
-	int			pipe[2];
-	int			pid;
-	int			client_fd;
-}		t_cgi;
-
 typedef struct s_fd_data
 {
-	t_cgi			cgi_data;
+	s_cgi			*cgi;
 	Client			*client;
 	enum e_fd_type	type;
 	bool			cgi_ready;

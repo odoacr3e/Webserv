@@ -87,3 +87,110 @@ void				Client::setPollFd(struct pollfd *p)
 {
 	this->_poll_fd = p;
 }
+
+void	Client::readToCgi(Server &srv, s_cgi &cgi)
+{
+	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
+	std::cout << "readToCgi():\nfilename: " << filename << "\n";
+	read_file(filename, this->getBuffer());
+	print_file("CGI", "----\nREAD FROM CGI:\n----\n");
+	print_file("CGI", this->getBuffer());
+	print_file("CGI", "\n----\n");
+	cgi.output = this->getBufferChar();
+	this->getPollFd()->events = POLLOUT;
+	if (cgi.isFastCgiBool == false)
+		cgi.clear(srv, *this);
+}
+
+void	Client::writeToCgi(Server &srv, s_cgi &cgi)
+{
+	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[1]));
+	std::cout << "writeToCgi():\nfilename: " << filename << "\n";
+	write(cgi.pipe[1], cgi.input.c_str(), cgi.input.length());
+	print_file("CGI", "----\nWRITE TO CGI:\n----\n");
+	print_file("CGI", cgi.input);
+	print_file("CGI", "\n----\n");
+	if (cgi.isFastCgiBool == false)
+		cgi.removeFromPoll(true, srv);
+}
+
+s_cgi::s_cgi(void)
+{
+	this->client = NULL;
+	this->isFastCgiBool = false;
+	this->pid = 0;
+	this->pipe[0] = 0;
+	this->pipe[1] = 0;
+	this->poll_index[0] = 0;
+	this->poll_index[1] = 0;
+}
+
+s_cgi::s_cgi(Client &client)
+{
+	this->client = &client;
+	this->pipe[0] = 0;
+	this->pipe[1] = 0;
+	this->poll_index[0] = 0;
+	this->poll_index[1] = 0;
+	this->pid = 0;
+	if (client.getLocConf().exist == true && client.getLocConf().script_daemon == true)
+		this->isFastCgiBool = true;
+	else
+		this->isFastCgiBool = false;
+}
+
+s_cgi::s_cgi(const s_cgi &other)
+{
+	*this = other;
+}
+
+s_cgi	&s_cgi::operator=(const s_cgi &other)
+{
+	if (this == &other)
+		return (*this);
+	this->client = other.client; 
+	this->poll_index[0] = other.poll_index[0];
+	this->poll_index[1] = other.poll_index[1];
+	this->pid = other.pid;
+	this->pipe[0] = other.pipe[0];
+	this->pipe[1] = other.pipe[1];
+	this->input = other.argv[1];
+	this->output = other.output;
+	this->isFastCgiBool = other.isFastCgiBool;
+	return (*this);
+}
+
+void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
+{
+	int			fd_last;
+	int			poll_index;
+
+	poll_index = this->poll_index[is_pipe_out];
+	fd_last = srv.getAddrsVector().back().fd;
+	if (srv.getFdData()[fd_last].cgi)
+	{
+		srv.getFdData()[fd_last].cgi->poll_index[0] = this->poll_index[0];
+		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
+	}
+	std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
+	srv.getAddrsVector().pop_back();
+	if (is_pipe_out == false)
+		close_fd(&this->pipe[0]);
+	else
+		close_fd(&this->pipe[1]);
+}
+
+void	s_cgi::clear(Server &srv, Client &client)
+{
+	IpPortPair	&ipPort = client.getRequest().getHost();
+
+	if (this->pid != 0 && this->isFastCgiBool == true)
+		kill(this->pid, SIGKILL);
+	this->pid = 0;
+	if (this->pipe[0])
+		this->removeFromPoll(false, srv);
+	if (this->pipe[1])
+		this->removeFromPoll(true, srv);
+	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
+		srv.getIpPortCgiMap().erase(ipPort);
+}

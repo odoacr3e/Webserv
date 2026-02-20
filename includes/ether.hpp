@@ -80,6 +80,7 @@ bool        charFinder(const std::string literal, int(*check)(int));
 std::string file_opener(std::fstream &file);
 std::string	file_opener(std::fstream &file, std::string msg);
 bool      	file_checker(std::string filename);
+void		close_fd(int *fd);
 int			read_file(std::ifstream &stream, std::vector<char> &vect);
 int			read_file(std::fstream &stream, std::vector<char> &vect);
 int			read_file(std::string name, std::vector<char> &vect);

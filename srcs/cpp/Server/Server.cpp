@@ -64,50 +64,43 @@ void Server::suppressSocket()
 		delete [] (*it);
 }
 
+/*
 void Server::print_info(std::vector<struct pollfd>::iterator it)
 {
-	std::cout << WHITE"Client_fd from cgi_data: " RED << this->getFdData()[it->fd].cgi_data.client_fd << RESET"" << std::endl;
+	std::cout << WHITE"Client_fd from cgi_data: " RED << this->getFdData()[it->fd].cgi->client_fd << RESET"" << std::endl;
 	std::cout << WHITE"it->fd: " RED << it->fd << RESET"" << std::endl;
-	std::cout << WHITE"static fd on 8th pos: " RED << this->getFdData()[8].cgi_data.client_fd << RESET"" << std::endl;
-}
+	std::cout << WHITE"static fd on 8th pos: " RED << this->getFdData()[8].cgi->client_fd << RESET"" << std::endl;
+}*/
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
-		switch (this->getFdData()[it->fd].type)
-		{
-			case FD_CLIENT:case FD_SERVER:case FD_PIPE_WR:
-				break ;
-			case FD_PIPE_RD:
-				// this->getFdData()[client.getSockFd()].cgi_data.client_fd
-				Client *client = this->getFdData()[it->fd].cgi_data.client;
-				print_info(it);
-				// std::cout << "PIPPO: " << this->getFdData()[it->fd].cgi_data.client_fd << std::endl;
-				std::string filename("/dev/fd/" + ft_to_string(it->fd));
-				std::cout << "filename" << filename << "\n";
-				char	TEST[4000];
-				read(it->fd, TEST, 4000);
-				std::cout << TEST << "\n";
-				sleep(1);
-				std::cout << "client_fd " << client->getSockFd() << "\n";
-				read_file(filename, client->getBuffer());
-				std::remove("CGI");
-				print_file("CGI", client->getBuffer());
-				break ;
-		}
 		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere
 		{
+			if (this->getFdData()[it->fd].type == FD_PIPE_RD)
+			{
+				Client *client = this->getFdData()[it->fd].client;
+				client->readToCgi(*this, *this->getFdData()[it->fd].cgi);
+				return ;
+			}
 			char buffer[2048] = {0};
 			int bytes = recv((*it).fd, buffer, sizeof(buffer) - 1, 0);
-			// print_file("REQUEST", buffer, bytes);
 			if (bytes <= 0)
 				eraseClient(it);
 			else
 				processRequest(it, buffer, bytes);
 		}
 		else if ((*it).fd != -1 && ((*it).revents & POLLOUT)) // revents & POLLOUT -> pronto per ricevere
+		{
+			if (this->getFdData()[it->fd].type == FD_PIPE_WR)
+			{
+				Client *client = this->getFdData()[it->fd].client;
+				client->writeToCgi(*this, *this->getFdData()[it->fd].cgi);
+				return ;
+			}
 			processResponse(it);
+		}
 	}
 }
 
@@ -149,12 +142,13 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 }
 
 // NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
-void	Server::addSocket(int index, e_fd_type type)
+int	Server::addSocket(int index, e_fd_type type)
 {
 	pollfd		polldata;
 	s_fd_data	fd_data;
 	int 		socket;
 
+	std::memset(&fd_data, 0, sizeof(s_fd_data));
 	fd_data.type = type;
 	fd_data.cgi_ready = false;
 	if (type == FD_CLIENT)
@@ -171,4 +165,7 @@ void	Server::addSocket(int index, e_fd_type type)
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		(*this->_clients[socket]).setPollFd(&this->_addrs[this->_addrs.size() - 1]);
 	}
+	else if (type == FD_PIPE_WR)
+		this->_addrs.back().events = POLLOUT;
+	return (this->_addrs.size() - 1);
 }

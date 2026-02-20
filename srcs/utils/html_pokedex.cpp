@@ -1,4 +1,5 @@
 #include "../../includes/ether.hpp"
+#include "../../srcs/hpp/Server.hpp"
 
 #define ID_DATA 0
 #define ID_FIELD 1
@@ -46,11 +47,15 @@ static std::string	parse_values(std::vector<std::string> &values, std::string ht
 /// @param key the argument given to the cgi
 /// @param output the output of the cgi
 /// @return html data
-std::string	createHtmlPokedex(std::string key, std::string &output)
+std::string	createHtmlPokedex(s_cgi &cgi)
 {
 	std::string		html_files[4];
+	std::string		key;
+	std::string		output;
 	std::string		html;
 
+	key = cgi.input;
+	output = cgi.output;
 	if (get_files(html_files))
 		return ("<p>missing files!</p>");
 	html = html_files[ID_DATA];

@@ -6,6 +6,11 @@ struct pollfd *Server::getAddrs(void)
 	return (this->_addrs.data());
 }
 
+std::vector<pollfd>	&Server::getAddrsVector(void)
+{
+	return (this->_addrs);
+}
+
 size_t	Server::getAddrSize(void) const
 {
 	return (this->_addrs.size());

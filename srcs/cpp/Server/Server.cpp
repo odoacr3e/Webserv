@@ -74,32 +74,37 @@ void Server::print_info(std::vector<struct pollfd>::iterator it)
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
-	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
+	Client	*client;
+	pollfd	poll_data;
+
+	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
 	{
-		if ((*it).fd != -1 && ((*it).revents & POLLIN)) // revents & POLLIN -> pronto per leggere
+		poll_data = this->_addrs[i];
+		client = this->getFdData()[poll_data.fd].client;
+		if (poll_data.revents & POLLIN) // revents & POLLIN -> pronto per leggere
 		{
-			if (this->getFdData()[it->fd].type == FD_PIPE_RD)
+			if (this->getFdData()[poll_data.fd].type == FD_PIPE_RD)
 			{
-				Client *client = this->getFdData()[it->fd].client;
-				client->readToCgi(*this, *this->getFdData()[it->fd].cgi);
-				return ;
+				client->readToCgi(*this, *this->getFdData()[poll_data.fd].cgi);
+				i--;
+				continue ;
 			}
 			char buffer[2048] = {0};
-			int bytes = recv((*it).fd, buffer, sizeof(buffer) - 1, 0);
+			int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
 			if (bytes <= 0)
-				eraseClient(it);
+				eraseClient(*client, i--);
 			else
-				processRequest(it, buffer, bytes);
+				processRequest(*client, buffer, bytes);
 		}
-		else if ((*it).fd != -1 && ((*it).revents & POLLOUT)) // revents & POLLOUT -> pronto per ricevere
+		else if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per ricevere
 		{
-			if (this->getFdData()[it->fd].type == FD_PIPE_WR)
+			if (this->getFdData()[poll_data.fd].type == FD_PIPE_WR)
 			{
-				Client *client = this->getFdData()[it->fd].client;
-				client->writeToCgi(*this, *this->getFdData()[it->fd].cgi);
-				return ;
+				client->writeToCgi(*this, *this->getFdData()[poll_data.fd].cgi);
+				i--;
+				continue ;
 			}
-			processResponse(it);
+			processResponse(*client);
 		}
 	}
 }
@@ -109,21 +114,23 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
  * 
  * @param it Client iterator 
  */
-void		Server::eraseClient(std::vector<pollfd>::iterator &it)
+void		Server::eraseClient(Client &client, int i)
 {
 	static int	n;
+	int			fd;
 	std::string msgEndCon(MSG_END_CONNECTION);
 
 	find_and_replace(msgEndCon, "{INDEX}", n++);
 	std::cout << msgEndCon << "\033[2J\033[H";
 	print_file("REQUEST", msgEndCon);
-	close((*it).fd);
-	if (this->_clients[(*it).fd])
+	fd = client.getSockFd();
+	if (this->_clients[fd])
 	{
-		delete this->_clients[(*it).fd];
-		this->_clients.erase((*it).fd);
-		it = this->_addrs.erase(it) - 1;
+		delete this->_clients[fd];
+		this->_clients.erase(fd);
 	}
+	std::swap(this->_addrs.back(), this->_addrs[i]);
+	this->_addrs.pop_back();
 }
 
 /**
@@ -164,6 +171,7 @@ int	Server::addSocket(int index, e_fd_type type)
 	{
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		(*this->_clients[socket]).setPollFd(&this->_addrs[this->_addrs.size() - 1]);
+		this->_fd_data[polldata.fd].client = this->_clients[socket];
 	}
 	else if (type == FD_PIPE_WR)
 		this->_addrs.back().events = POLLOUT;

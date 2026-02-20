@@ -44,6 +44,7 @@ int read_file(std::ifstream &stream, std::vector<char> &vect)
 		if (bytes > 0)
 			vect.insert(vect.end(), buf, buf + bytes);
 	}
+	vect.rbegin()[0] = 0;
 	return (0);
 }
 

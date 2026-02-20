@@ -2,25 +2,25 @@
 
 std::string	createHtml(Client &client, const std::string &body);
 
-void	Server::processResponse(std::vector<pollfd>::iterator &it)
+void	Server::processResponse(Client &client)
 {
 	static int	n_resp;
 	std::string msgEndCon(MSG_END_CONNECTION);
-	std::vector<char>	&contentData = this->_clients[(*it).fd]->getBuffer();
-	std::string	html = createResponse(*(this->_clients[(*it).fd]));
+	std::vector<char>	&contentData = client.getBuffer();
+	std::string	html = createResponse(client);
 
-	if ((it->events & POLLOUT) == 0)
+	if ((client.getPollFd()->events & POLLOUT) == 0)
 		return ;
-	send((*it).fd, html.c_str(), html.length(), 0);
+	send(client.getSockFd(), html.c_str(), html.length(), 0);
 	print_file("RESPONSE", html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	print_file("RESPONSE", msgEndCon);
-	if (this->_clients[(*it).fd]->sendContentBool() == true)
-		send((*it).fd, contentData.data(), contentData.size(), 0);
-	this->_clients[(*it).fd]->sendContentBool() = false;
-	std::cout << "processResponse() " << this->_clients[(*it).fd]->getRequest().getStatusCode() << " ";
-	std::cout << this->_clients[(*it).fd]->getRequest().getMethod() << "\n";
-	(*it).events = POLLIN;
+	if (client.sendContentBool() == true)
+		send(client.getSockFd(), contentData.data(), contentData.size(), 0);
+	client.sendContentBool() = false;
+	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
+	std::cout <<client.getRequest().getMethod() << "\n";
+	client.getPollFd()->events = POLLIN;
 }
 
 // NOTE - crea la risposta html da inviare al client tramite HTTP

@@ -60,10 +60,10 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::vector<pollfd>	&getAddrsVector(void);
 		fdData				&getFdData(void);
 		size_t				getAddrSize(void) const;
-		void				processRequest(std::vector<struct pollfd>::iterator &it, char *buffer, int bytes);
-		void				processResponse(std::vector<pollfd>::iterator &it);
+		void				processRequest(Client &client, char *buffer, int bytes);
+		void				processResponse(Client &client);
 		void				checkForConnection();
-		void				eraseClient(std::vector<pollfd>::iterator &it);
+		void				eraseClient(Client &client, int i);
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;
 		ipPortCgiMap		&getIpPortCgiMap();

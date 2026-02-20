@@ -1,8 +1,8 @@
 #include "../../hpp/Server.hpp"
 
-void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buffer, int bytes)
+void	Server::processRequest(Client &client, char *buffer, int bytes)
 {
-	Request	&request = this->_clients[(*it).fd]->getRequest();
+	Request	&request = client.getRequest();
 	t_conf_server	srv;
 	t_conf_location	loc;
 	request.getRequestStream().str(buffer);
@@ -13,22 +13,22 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 	if (request.getFirstRead() == true) // legge la prima volta
 	{
 		request.getFirstRead() = false;
-		if (requestParsing(*this->_clients[(*it).fd], buffer, bytes) != 0)//request
+		if (requestParsing(client, buffer, bytes) != 0)//request
 		{
-			(*it).events = POLLOUT;
+			client.getPollFd()->events = POLLOUT;
 			// TODO - da settare status code corretto senza fare return ?????
 			return ;
 		}
 		convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
 		if ((*this->_srvnamemap).count(request.getHost()) == 0)
 		{
-			(*it).events = POLLOUT;
+			client.getPollFd()->events = POLLOUT;
 			request.setRequestErrorBool(true);
 			return ;
 		}
 		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
-		this->setupRequestEnvironment(*this->_clients[(*it).fd]);
+		this->setupRequestEnvironment(client);
 	}
 	else
 	{
@@ -41,7 +41,7 @@ void	Server::processRequest(std::vector<struct pollfd>::iterator &it, char *buff
 	if (request.getBytesLeft() == 0)
 	{
 		std::cout << "processRequest(): Sto andando in POLLOUT" << std::endl;
-		(*it).events = POLLOUT;
+		client.getPollFd()->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
 }

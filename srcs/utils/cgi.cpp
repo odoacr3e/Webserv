@@ -107,6 +107,9 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
 	// 2 client stai zitto
 	client.getPollFd()->events = 0;
+
+	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
+	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
 	// 3
 	s_cgi	*cgi_ptr = new s_cgi(cgi_data);
 	srv.getFdData()[cgi_data.pipe[0]].client = &client;

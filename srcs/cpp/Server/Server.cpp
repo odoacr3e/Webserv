@@ -113,7 +113,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
  * @brief Erases the connection of *it client after the request reading is done
  * 
  * @param it Client iterator 
- */
+*/
 void		Server::eraseClient(Client &client, int i)
 {
 	static int	n;
@@ -129,6 +129,7 @@ void		Server::eraseClient(Client &client, int i)
 		delete this->_clients[fd];
 		this->_clients.erase(fd);
 	}
+	close_fd(&fd);
 	std::swap(this->_addrs.back(), this->_addrs[i]);
 	this->_addrs.pop_back();
 }
@@ -148,7 +149,11 @@ void	Server::printServerConfiguration(SrvNameMap::iterator it) const
 	std::cout << (*it).second;
 }
 
-// NOTE - creiamo oggetto client e lo aggiungiano alla mappa di puntatori client 
+
+/// @brief creiamo un socket, lo settiamo in base al tipo, lo aggiungiamo a poll
+/// @param index fd del server in ascolto/della pipe
+/// @param type FD_CLIENT/ FD_PIPE_RD / FD_PIPE_WR
+/// @return position in the poll array
 int	Server::addSocket(int index, e_fd_type type)
 {
 	pollfd		polldata;

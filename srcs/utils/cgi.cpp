@@ -17,7 +17,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	std::string 			argv[2];
 
 	std::cout << "run_script\n";
-	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)
+	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
 		get_argv(client, cgi_data, argv);
 		if (client.getLocConf().script_daemon == true)
@@ -26,7 +26,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 			run_cmd(srv, client, cgi_data);
 		return ;
 	}
-	else
+	else// se cgi gia eseguita, ripesca dati cgi
 		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
 	client.getRequest().setBodyType("text/html");
 	if (client.getLocConf().script_type == "pokedex")
@@ -94,6 +94,7 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 		std::cerr << "run_script fatal error\n";
 		std::exit(1);
 	}
+	std::cout << WHITE"Entro e chiudo pipe[0]: " RED << cgi_data.pipe[1] << "" RESET << std::endl;
 	close_fd(&cgi_data.pipe[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
@@ -103,18 +104,17 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data)
 		3)	setting fdData[pipe[0]]
 		4)	setting fdData[client]
 	*/
-	// 1
+	// 1) ADDSOCKET
 	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
 	// 2 client stai zitto
 	client.getPollFd()->events = 0;
-
 	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
 	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
-	// 3
+	// 3) pipe[0]
 	s_cgi	*cgi_ptr = new s_cgi(cgi_data);
 	srv.getFdData()[cgi_data.pipe[0]].client = &client;
 	srv.getFdData()[cgi_data.pipe[0]].cgi = cgi_ptr;
-	// 4
+	// 4) client
 	srv.getFdData()[client.getSockFd()].cgi_ready = true;
 	srv.getFdData()[client.getSockFd()].client = &client;
 	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;

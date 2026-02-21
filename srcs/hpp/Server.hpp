@@ -89,6 +89,39 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void 				print_info(std::vector<struct pollfd>::iterator it);
 };
 
+/*SECTION - gestione concorrenza
+
+	4 strutture:				
+	1)ARRAY poll: array di pollfd. Contiene tutti gli fd che POSSONO bloccare:
+(enum e_fd_type)
+	.FD_SERVER,
+	.FD_CLIENT,
+	.FD_PIPE_RD,
+	.FD_PIPE_WR
+		##VARIABILI
+			Server::std::vector<struct pollfd>		_addrs;
+		##GETTERS
+			struct pollfd		*Server::getAddrs(void);
+			std::vector<pollfd>	&Server::getAddrsVector(void);
+			size_t				Server::getAddrSize(void) const;
+		##ESEMPIO
+				[0]			[1]			[2]			[3]			[4]
+				fd srv 1	fd srv 2	fd cli 1	fd cli 2	fd pipe[0]
+
+	2)VECTOR fdData: array che descrive il tipo degli fd nell'array poll
+		##VARIABILI
+			Server::std::vector<struct s_fd_data>	_fd_data;
+		##GETTERS
+			fdData				&Server::getFdData(void);
+		##ESEMPIO
+				[fd srv 1]	[fd srv 2]	[fd cli 1]	[fd cli 2]	[fd pipe[0]]
+enum e_fd_type:		SERVER	SERVER		CLIENT		CLIENT		FD_PIPE_RD
+Client *pointer:	NULL	NULL		*self		*self <-----*
+s_cgi	*pointer:	NULL	NULL		NULL		*-------->	*self
+bool	cgi_ready:	false	false		false		false/true	false
+
+	
+*/
 typedef struct s_fd_data
 {
 	s_cgi			*cgi;

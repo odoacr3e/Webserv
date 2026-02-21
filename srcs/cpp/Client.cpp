@@ -176,10 +176,18 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	}
 	std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
 	srv.getAddrsVector().pop_back();
+	std::cout << WHITE"Prima di entrare pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
+	std::cout << WHITE"Flag is_pipe_out: " RED << (is_pipe_out == false ? "false" : "true") << "" RESET << std::endl;
 	if (is_pipe_out == false)
+	{
+		std::cout << WHITE"Entro e chiudo pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
 		close_fd(&this->pipe[0]);
+	}
 	else
+	{
+		std::cout << WHITE"Entro e chiudo pipe[1]: " RED << this->pipe[1] << "" RESET << std::endl;
 		close_fd(&this->pipe[1]);
+	}
 }
 
 void	s_cgi::clear(Server &srv, Client &client)

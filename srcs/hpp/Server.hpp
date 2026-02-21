@@ -86,7 +86,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 
 		// NOTE - close all sockets
 		void				suppressSocket();
-		void 				print_info(std::vector<struct pollfd>::iterator it);
+		void 				print_info(void);
 };
 
 /*SECTION - gestione concorrenza
@@ -120,7 +120,20 @@ Client *pointer:	NULL	NULL		*self		*self <-----*
 s_cgi	*pointer:	NULL	NULL		NULL		*-------->	*self
 bool	cgi_ready:	false	false		false		false/true	false
 
-	
+	3)	CLASS client (vedi Client.hpp)
+	4)	struct s_cgi
+		##VARIABILI
+			Client * //FIXME - togliere
+			std::string	input (input dato alla cgi)
+			char 		*output (output della cgi, viene client::_buffer)
+			char 		*argv[3]
+			int			pipe[2]
+			int			poll_index[2] --> posizione pipes nell'array di poll
+			int			pid
+			bool		isFastCgiBool
+		##METODI
+			s_cgi::clear 			(chiude tutto)
+			s_cgi::removeFromPoll	(rimuove pipe lettura/scrittura da ar. poll)
 */
 typedef struct s_fd_data
 {

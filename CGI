@@ -4,14 +4,12 @@ READ FROM CGI:
 	{
 			1
 			}
-			2
-			5
+			4
 			|
 			I
 			D
 			:
-			2
-			5
+			4
 			,
 			|
 			N
@@ -19,13 +17,16 @@ READ FROM CGI:
 			m
 			e
 			:
-			P
-			i
-			k
-			a
-			c
+			C
 			h
-			u
+			a
+			r
+			m
+			a
+			n
+			d
+			e
+			r
 			,
 			|
 			T
@@ -34,14 +35,10 @@ READ FROM CGI:
 			e
 			s
 			:
-			E
-			L
-			E
-			C
-			T
-			R
+			F
 			I
-			C
+			R
+			E
 			,
 			|
 			B
@@ -55,18 +52,18 @@ READ FROM CGI:
 			s
 			:
 			3
-			5
+			9
 			,
 			5
-			5
+			2
 			,
 			4
-			0
+			3
 			,
-			9
-			0
-			,
+			6
 			5
+			,
+			6
 			0
 			,
 			5
@@ -91,15 +88,15 @@ READ FROM CGI:
 			a
 			l
 			e
-			5
-			0
-			P
-			e
-			r
-			c
-			e
+			O
 			n
+			e
+			E
+			i
+			g
+			h
 			t
+			h
 			,
 			|
 			G
@@ -113,12 +110,15 @@ READ FROM CGI:
 			t
 			e
 			:
-			M
-			e
-			d
+			P
+			a
+			r
+			a
+			b
+			o
+			l
 			i
-			u
-			m
+			c
 			,
 			|
 			B
@@ -129,8 +129,7 @@ READ FROM CGI:
 			x
 			p
 			:
-			1
-			1
+			6
 			2
 			,
 			|
@@ -144,7 +143,7 @@ READ FROM CGI:
 			E
 			D
 			,
-			2
+			1
 			,
 			|
 			C
@@ -157,9 +156,8 @@ READ FROM CGI:
 			t
 			e
 			:
-			1
-			9
-			0
+			4
+			5
 			,
 			|
 			H
@@ -186,12 +184,11 @@ READ FROM CGI:
 			e
 			s
 			:
-			S
-			T
+			B
+			L
 			A
-			T
-			I
-			C
+			Z
+			E
 			,
 			|
 			H
@@ -210,18 +207,16 @@ READ FROM CGI:
 			e
 			s
 			:
-			L
-			I
-			G
-			H
-			T
-			N
-			I
-			N
-			G
-			R
+			S
 			O
-			D
+			L
+			A
+			R
+			P
+			O
+			W
+			E
+			R
 			,
 			|
 			M
@@ -234,93 +229,13 @@ READ FROM CGI:
 			,
 			@
 			0
-			P
-			L
-			A
-			Y
-			N
-			I
+			S
 			C
-			E
-			,
-			1
-			,
-			@
-			0
-			S
-			W
-			E
-			E
-			T
-			K
-			I
-			S
-			S
-			,
-			1
-			,
-			@
-			0
-			N
-			U
-			Z
-			Z
-			L
-			E
-			,
-			1
-			,
-			@
-			0
-			N
-			A
-			S
-			T
-			Y
-			P
-			L
-			O
-			T
-			,
-			1
-			,
-			@
-			0
-			C
-			H
-			A
 			R
-			M
-			,
-			1
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			S
-			H
-			O
-			C
-			K
-			,
-			1
-			,
-			@
-			0
-			T
 			A
-			I
-			L
-			W
+			T
+			C
 			H
-			I
-			P
 			,
 			1
 			,
@@ -332,80 +247,63 @@ READ FROM CGI:
 			W
 			L
 			,
-			1
-			,
-			@
-			0
-			Q
-			U
-			I
-			C
-			K
-			A
-			T
-			T
-			A
-			C
-			K
-			,
 			4
 			,
 			@
 			0
-			T
-			H
-			U
-			N
-			D
+			E
+			M
+			B
 			E
 			R
-			W
-			A
-			V
-			E
 			,
 			8
 			,
 			@
 			0
-			D
-			O
-			U
-			B
-			L
-			E
-			T
-			E
-			A
+			S
 			M
+			O
+			K
+			E
+			S
+			C
+			R
+			E
+			E
+			N
 			,
 			1
 			2
 			,
 			@
 			0
-			E
-			L
-			E
-			C
-			T
+			D
 			R
-			O
-			B
 			A
-			L
-			L
+			G
+			O
+			N
+			B
+			R
+			E
+			A
+			T
+			H
 			,
 			1
-			6
+			7
 			,
 			@
 			0
 			F
-			E
 			I
+			R
+			E
+			F
+			A
 			N
-			T
+			G
 			,
 			2
 			0
@@ -413,23 +311,28 @@ READ FROM CGI:
 			@
 			0
 			S
-			P
+			L
 			A
-			R
-			K
+			S
+			H
 			,
 			2
 			4
 			,
 			@
 			0
-			A
-			G
-			I
+			F
 			L
-			I
+			A
+			M
+			E
 			T
-			Y
+			H
+			R
+			O
+			W
+			E
+			R
 			,
 			2
 			8
@@ -437,71 +340,57 @@ READ FROM CGI:
 			@
 			0
 			S
-			L
+			C
 			A
-			M
+			R
+			Y
+			F
+			A
+			C
+			E
 			,
 			3
 			2
 			,
 			@
 			0
-			D
+			F
 			I
-			S
-			C
-			H
-			A
 			R
-			G
 			E
+			S
+			P
+			I
+			N
 			,
 			3
 			6
 			,
 			@
 			0
-			T
-			H
-			U
+			I
 			N
-			D
+			F
 			E
 			R
-			B
+			N
 			O
-			L
-			T
 			,
 			4
 			0
 			,
 			@
 			0
+			F
+			L
+			A
+			R
+			E
+			B
 			L
 			I
-			G
-			H
 			T
-			S
-			C
-			R
-			E
-			E
-			N
-			,
-			4
-			4
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
+			Z
 			,
 			|
 			T
@@ -518,12 +407,27 @@ READ FROM CGI:
 			@
 			0
 			A
-			G
-			I
-			L
-			I
+			C
+			R
+			O
+			B
+			A
 			T
-			Y
+			I
+			C
+			S
+			,
+			@
+			0
+			A
+			E
+			R
+			I
+			A
+			L
+			A
+			C
+			E
 			,
 			@
 			0
@@ -534,6 +438,15 @@ READ FROM CGI:
 			A
 			C
 			T
+			,
+			@
+			0
+			B
+			E
+			A
+			T
+			U
+			P
 			,
 			@
 			0
@@ -574,27 +487,6 @@ READ FROM CGI:
 			@
 			0
 			C
-			H
-			A
-			R
-			G
-			E
-			B
-			E
-			A
-			M
-			,
-			@
-			0
-			C
-			H
-			A
-			R
-			M
-			,
-			@
-			0
-			C
 			O
 			N
 			F
@@ -615,9 +507,16 @@ READ FROM CGI:
 			@
 			0
 			C
-			O
-			V
-			E
+			R
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			C
+			U
 			T
 			,
 			@
@@ -671,15 +570,41 @@ READ FROM CGI:
 			D
 			R
 			A
-			I
-			N
-			I
-			N
 			G
-			K
-			I
+			O
+			N
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			P
+			U
+			L
 			S
-			S
+			E
 			,
 			@
 			0
@@ -713,98 +638,76 @@ READ FROM CGI:
 			@
 			0
 			E
-			L
-			E
-			C
-			T
-			R
-			I
-			C
-			T
-			E
-			R
-			R
-			A
-			I
 			N
+			D
+			U
+			R
+			E
 			,
 			@
 			0
-			E
-			L
-			E
+			F
+			A
 			C
-			T
-			R
-			O
-			B
+			A
+			D
+			E
+			,
+			@
+			0
+			F
 			A
 			L
-			L
-			,
-			@
-			0
+			S
 			E
-			L
-			E
-			C
-			T
-			R
-			O
+			S
 			W
+			I
+			P
+			E
+			,
+			@
+			0
+			F
+			I
+			R
 			E
 			B
-			,
-			@
-			0
-			E
-			N
-			C
-			O
-			R
-			E
-			,
-			@
-			0
-			E
-			N
-			D
-			U
-			R
-			E
-			,
-			@
-			0
-			F
-			A
-			C
-			A
-			D
-			E
-			,
-			@
-			0
-			F
 			L
 			A
 			S
-			H
+			T
 			,
 			@
 			0
 			F
-			L
 			I
+			R
+			E
+			F
+			A
 			N
 			G
 			,
 			@
 			0
 			F
-			O
-			C
-			U
-			S
+			I
+			R
+			E
+			P
+			L
+			E
+			D
+			G
+			E
+			,
+			@
+			0
+			F
+			I
+			R
+			E
 			P
 			U
 			N
@@ -814,63 +717,38 @@ READ FROM CGI:
 			@
 			0
 			F
-			R
-			U
-			S
-			T
-			R
-			A
-			T
 			I
-			O
-			N
-			,
-			@
-			0
-			G
 			R
-			A
+			E
 			S
-			S
-			K
+			P
+			I
 			N
-			O
-			T
 			,
 			@
 			0
-			H
-			E
-			A
-			D
-			B
-			U
-			T
-			T
-			,
-			@
-			0
-			H
-			E
+			F
 			L
-			P
-			I
-			N
-			G
+			A
+			M
+			E
+			C
 			H
 			A
-			N
-			D
+			R
+			G
+			E
 			,
 			@
 			0
-			H
-			I
-			D
-			D
+			F
+			L
+			A
+			M
 			E
-			N
-			P
+			T
+			H
+			R
 			O
 			W
 			E
@@ -878,83 +756,32 @@ READ FROM CGI:
 			,
 			@
 			0
-			I
+			F
+			L
+			A
 			R
-			O
-			N
-			T
-			A
-			I
-			L
-			,
-			@
-			0
-			K
-			N
-			O
-			C
-			K
-			O
-			F
-			F
-			,
-			@
-			0
-			L
-			A
-			S
 			E
-			R
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			F
+			L
+			I
+			N
+			G
+			,
+			@
+			0
 			F
 			O
 			C
 			U
 			S
-			,
-			@
-			0
-			L
-			I
-			G
-			H
-			T
-			S
-			C
-			R
-			E
-			E
-			N
-			,
-			@
-			0
-			M
-			A
-			G
-			N
-			E
-			T
-			R
-			I
-			S
-			E
-			,
-			@
-			0
-			M
-			E
-			G
-			A
-			K
-			I
-			C
-			K
-			,
-			@
-			0
-			M
-			E
-			G
-			A
 			P
 			U
 			N
@@ -963,33 +790,157 @@ READ FROM CGI:
 			,
 			@
 			0
-			M
-			I
-			M
-			I
-			C
-			,
-			@
-			0
-			M
+			F
+			R
 			U
-			D
-			S
-			L
-			A
-			P
-			,
-			@
-			0
-			N
-			A
 			S
 			T
+			R
+			A
+			T
+			I
+			O
+			N
+			,
+			@
+			0
+			F
+			U
+			R
 			Y
-			P
-			L
-			O
+			C
+			U
 			T
+			T
+			E
+			R
+			,
+			@
+			0
+			H
+			E
+			A
+			D
+			B
+			U
+			T
+			T
+			,
+			@
+			0
+			H
+			E
+			A
+			T
+			W
+			A
+			V
+			E
+			,
+			@
+			0
+			H
+			E
+			L
+			P
+			I
+			N
+			G
+			H
+			A
+			N
+			D
+			,
+			@
+			0
+			H
+			I
+			D
+			D
+			E
+			N
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			H
+			O
+			N
+			E
+			C
+			L
+			A
+			W
+			S
+			,
+			@
+			0
+			I
+			N
+			C
+			I
+			N
+			E
+			R
+			A
+			T
+			E
+			,
+			@
+			0
+			I
+			R
+			O
+			N
+			T
+			A
+			I
+			L
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			K
+			I
+			C
+			K
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			M
+			I
+			M
+			I
+			C
+			,
+			@
+			0
+			M
+			U
+			D
+			S
+			L
+			A
+			P
 			,
 			@
 			0
@@ -1007,23 +958,38 @@ READ FROM CGI:
 			,
 			@
 			0
-			P
+			O
+			U
+			T
+			R
 			A
-			Y
-			D
+			G
+			E
+			,
+			@
+			0
+			O
+			V
+			E
+			R
+			H
+			E
 			A
-			Y
+			T
 			,
 			@
 			0
 			P
-			L
-			A
-			Y
-			R
 			O
+			W
+			E
+			R
 			U
-			G
+			P
+			P
+			U
+			N
+			C
 			H
 			,
 			@
@@ -1039,28 +1005,6 @@ READ FROM CGI:
 			@
 			0
 			R
-			A
-			I
-			N
-			D
-			A
-			N
-			C
-			E
-			,
-			@
-			0
-			R
-			E
-			F
-			L
-			E
-			C
-			T
-			,
-			@
-			0
-			R
 			E
 			S
 			T
@@ -1077,28 +1021,13 @@ READ FROM CGI:
 			@
 			0
 			R
-			E
-			V
-			E
-			R
-			S
-			A
-			L
-			,
-			@
-			0
-			R
-			I
-			S
-			I
-			N
-			G
-			V
 			O
+			C
+			K
+			S
 			L
-			T
-			A
-			G
+			I
+			D
 			E
 			,
 			@
@@ -1117,11 +1046,12 @@ READ FROM CGI:
 			0
 			R
 			O
-			L
-			L
-			O
-			U
+			C
+			K
 			T
+			O
+			M
+			B
 			,
 			@
 			0
@@ -1130,6 +1060,18 @@ READ FROM CGI:
 			U
 			N
 			D
+			,
+			@
+			0
+			S
+			C
+			A
+			R
+			Y
+			F
+			A
+			C
+			E
 			,
 			@
 			0
@@ -1163,138 +1105,231 @@ READ FROM CGI:
 			0
 			S
 			H
-			O
-			C
-			K
-			W
 			A
-			V
+			D
+			O
+			W
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			S
+			L
+			E
+			E
+			P
+			T
+			A
+			L
+			K
+			,
+			@
+			0
+			S
+			N
+			O
+			R
 			E
 			,
 			@
 			0
 			S
-			I
-			G
+			T
+			R
+			E
 			N
+			G
+			T
+			H
+			,
+			@
+			0
+			S
+			U
+			B
+			S
+			T
+			I
+			T
+			U
+			T
+			E
+			,
+			@
+			0
+			S
+			U
+			N
+			N
+			Y
+			D
+			A
+			Y
+			,
+			@
+			0
+			S
+			W
+			A
+			G
+			G
+			E
+			R
+			,
+			@
+			0
+			S
+			W
+			I
+			F
+			T
+			,
+			@
+			0
+			S
+			W
+			O
+			R
+			D
+			S
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			T
+			H
+			U
+			N
+			D
+			E
+			R
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			W
+			E
+			A
+			T
+			H
+			E
+			R
+			B
 			A
 			L
+			L
+			,
+			@
+			0
+			W
+			I
+			L
+			L
+			O
+			W
+			I
+			S
+			P
+			,
+			@
+			0
+			W
+			O
+			R
+			K
+			U
+			P
+			,
+			|
+			E
+			g
+			g
+			M
+			o
+			v
+			e
+			s
+			:
+			@
+			0
+			A
+			I
+			R
+			C
+			U
+			T
+			T
+			E
+			R
+			,
+			@
+			0
+			A
+			N
+			C
+			I
+			E
+			N
+			T
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
 			B
 			E
 			A
+			T
+			U
+			P
+			,
+			@
+			0
+			B
+			E
+			L
+			L
+			Y
+			D
+			R
+			U
 			M
 			,
 			@
 			0
-			S
-			L
-			E
-			E
-			P
-			T
-			A
-			L
-			K
-			,
-			@
-			0
-			S
-			N
-			O
-			R
-			E
-			,
-			@
-			0
-			S
-			T
-			R
-			E
-			N
-			G
-			T
-			H
-			,
-			@
-			0
-			S
-			U
 			B
-			S
-			T
 			I
 			T
-			U
-			T
 			E
 			,
 			@
 			0
-			S
-			U
-			R
-			F
-			,
-			@
-			0
-			S
-			W
-			A
-			G
-			G
-			E
-			R
-			,
-			@
-			0
-			S
-			W
-			I
-			F
-			T
-			,
-			@
-			0
-			T
-			H
-			I
-			E
-			F
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			B
+			C
 			O
-			L
+			U
+			N
 			T
+			E
+			R
 			,
 			@
 			0
-			T
-			H
-			U
-			N
-			D
-			E
+			C
 			R
-			P
 			U
 			N
 			C
@@ -1302,65 +1337,91 @@ READ FROM CGI:
 			,
 			@
 			0
-			T
-			H
-			U
+			D
+			R
+			A
+			G
+			O
 			N
 			D
-			E
-			R
-			W
 			A
-			V
-			E
-			,
-			@
-			0
-			U
-			P
-			R
-			O
-			A
-			R
-			,
-			@
-			0
-			V
-			O
-			L
-			T
-			S
-			W
-			I
-			T
+			N
 			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			R
+			U
+			S
 			H
 			,
 			@
 			0
-			V
+			D
+			R
+			A
+			G
 			O
+			N
+			T
+			A
+			I
 			L
+			,
+			@
+			0
+			F
+			L
+			A
+			R
+			E
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			M
+			E
+			T
+			A
+			L
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			O
+			U
+			T
+			R
+			A
+			G
+			E
+			,
+			@
+			0
+			W
+			I
+			N
+			G
+			A
 			T
 			T
 			A
 			C
 			K
-			L
-			E
-			,
-			@
-			0
-			W
-			I
-			L
-			D
-			C
-			H
-			A
-			R
-			G
-			E
 			,
 			|
 			E
@@ -1373,17 +1434,20 @@ READ FROM CGI:
 			p
 			s
 			:
-			F
-			i
+			M
+			o
+			n
+			s
+			t
 			e
-			l
-			d
-			,
-			F
-			a
-			i
 			r
-			y
+			,
+			D
+			r
+			a
+			g
+			o
+			n
 			,
 			|
 			H
@@ -1397,9 +1461,9 @@ READ FROM CGI:
 			p
 			s
 			:
-			2
 			5
-			6
+			1
+			2
 			0
 			,
 			|
@@ -1412,7 +1476,7 @@ READ FROM CGI:
 			:
 			0
 			.
-			4
+			6
 			,
 			|
 			W
@@ -1422,9 +1486,9 @@ READ FROM CGI:
 			h
 			t
 			:
-			6
+			8
 			.
-			0
+			5
 			,
 			|
 			C
@@ -1433,12 +1497,9 @@ READ FROM CGI:
 			o
 			r
 			:
-			Y
+			R
 			e
-			l
-			l
-			o
-			w
+			d
 			,
 			|
 			S
@@ -1447,15 +1508,17 @@ READ FROM CGI:
 			p
 			e
 			:
-			Q
-			u
-			a
-			d
-			r
-			u
+			B
+			i
 			p
 			e
 			d
+			a
+			l
+			T
+			a
+			i
+			l
 			,
 			|
 			H
@@ -1466,12 +1529,14 @@ READ FROM CGI:
 			a
 			t
 			:
-			F
+			M
 			o
-			r
-			e
-			s
+			u
+			n
 			t
+			a
+			i
+			n
 			,
 			|
 			C
@@ -1483,11 +1548,12 @@ READ FROM CGI:
 			r
 			y
 			:
-			M
-			o
-			u
-			s
-			e
+			L
+			i
+			z
+			a
+			r
+			d
 			,
 			|
 			P
@@ -1498,155 +1564,156 @@ READ FROM CGI:
 			e
 			x
 			:
-			I
-			t
-			 
-			s
-			t
-			o
-			r
-			e
-			s
-			 
-			e
-			l
-			e
-			c
-			t
-			r
-			i
-			c
-			i
-			t
-			y
-			 
-			i
-			n
-			 
-			t
+			T
 			h
 			e
 			 
-			e
+			f
 			l
-			e
-			c
-			t
-			r
-			i
-			c
-			 
-			s
 			a
-			c
+			m
+			e
+			 
+			t
+			h
+			a
+			t
+			 
+			b
+			u
+			r
+			n
 			s
 			 
+			a
+			t
+			 
+			t
+			h
+			e
+			 
+			t
+			i
+			p
+			 
 			o
-			n
+			f
 			 
 			i
 			t
 			s
 			 
+			t
+			a
+			i
+			l
+			 
+			i
+			s
+			 
+			a
+			n
+			 
+			i
+			n
+			d
+			i
 			c
-			h
+			a
+			t
+			i
+			o
+			n
+			 
+			o
+			f
+			 
+			i
+			t
+			s
+			 
 			e
-			e
-			k
+			m
+			o
+			t
+			i
+			o
+			n
 			s
 			.
 			 
-			W
+			T
+			h
+			e
+			 
+			f
+			l
+			a
+			m
+			e
+			 
+			w
+			a
+			v
+			e
+			r
+			s
+			 
+			w
 			h
 			e
 			n
 			 
-			i
-			t
-			 
-			r
-			e
-			l
-			e
+			C
+			h
 			a
-			s
-			e
-			s
-			 
-			p
-			e
+			r
+			m
+			a
 			n
-			t
-			-
-			u
-			p
-			 
-			e
-			n
+			d
 			e
 			r
-			g
+			 
+			i
+			s
+			 
+			h
+			a
+			p
+			p
 			y
-			 
-			i
-			n
-			 
-			a
-			 
-			b
-			u
-			r
-			s
-			t
 			,
 			 
-			t
+			a
+			n
+			d
+			 
+			b
+			l
+			a
+			z
+			e
+			s
+			 
+			w
 			h
 			e
+			n
 			 
-			e
-			l
-			e
-			c
-			t
-			r
 			i
-			c
-			 
-			p
-			o
-			w
-			e
-			r
+			t
 			 
 			i
 			s
 			 
 			e
-			q
-			u
-			a
-			l
-			 
-			t
-			o
-			 
-			a
-			 
-			l
-			i
-			g
-			h
-			t
 			n
-			i
-			n
+			r
+			a
 			g
-			 
-			b
-			o
-			l
-			t
+			e
+			d
 			.
 			,
 			|
@@ -1662,34 +1729,6 @@ READ FROM CGI:
 			n
 			:
 			1
-			,
-			|
-			W
-			i
-			l
-			d
-			I
-			t
-			e
-			m
-			U
-			n
-			c
-			o
-			m
-			m
-			o
-			n
-			:
-			L
-			I
-			G
-			H
-			T
-			B
-			A
-			L
-			L
 			,
 			|
 			E
@@ -1705,32 +1744,25 @@ READ FROM CGI:
 			:
 			@
 			1
-			R
-			A
-			I
 			C
 			H
-			U
-			,
-			I
-			t
-			e
-			m
-			,
-			@
-			1
-			T
-			H
-			U
-			N
-			D
-			E
+			A
 			R
-			S
-			T
+			M
+			E
+			L
+			E
 			O
 			N
-			E
+			,
+			L
+			e
+			v
+			e
+			l
+			,
+			1
+			6
 			,
 			|
 			#
@@ -1773,14 +1805,12 @@ READ FROM CGI:
 	{
 			1
 			}
-			2
-			5
+			4
 			|
 			I
 			D
 			:
-			2
-			5
+			4
 			,
 			|
 			N
@@ -1788,13 +1818,16 @@ READ FROM CGI:
 			m
 			e
 			:
-			P
-			i
-			k
-			a
-			c
+			C
 			h
-			u
+			a
+			r
+			m
+			a
+			n
+			d
+			e
+			r
 			,
 			|
 			T
@@ -1803,14 +1836,10 @@ READ FROM CGI:
 			e
 			s
 			:
-			E
-			L
-			E
-			C
-			T
-			R
+			F
 			I
-			C
+			R
+			E
 			,
 			|
 			B
@@ -1824,18 +1853,18 @@ READ FROM CGI:
 			s
 			:
 			3
-			5
+			9
 			,
 			5
-			5
+			2
 			,
 			4
-			0
+			3
 			,
-			9
-			0
-			,
+			6
 			5
+			,
+			6
 			0
 			,
 			5
@@ -1860,15 +1889,15 @@ READ FROM CGI:
 			a
 			l
 			e
-			5
-			0
-			P
-			e
-			r
-			c
-			e
+			O
 			n
+			e
+			E
+			i
+			g
+			h
 			t
+			h
 			,
 			|
 			G
@@ -1882,12 +1911,15 @@ READ FROM CGI:
 			t
 			e
 			:
-			M
-			e
-			d
+			P
+			a
+			r
+			a
+			b
+			o
+			l
 			i
-			u
-			m
+			c
 			,
 			|
 			B
@@ -1898,8 +1930,7 @@ READ FROM CGI:
 			x
 			p
 			:
-			1
-			1
+			6
 			2
 			,
 			|
@@ -1913,7 +1944,7 @@ READ FROM CGI:
 			E
 			D
 			,
-			2
+			1
 			,
 			|
 			C
@@ -1926,9 +1957,8 @@ READ FROM CGI:
 			t
 			e
 			:
-			1
-			9
-			0
+			4
+			5
 			,
 			|
 			H
@@ -1955,12 +1985,11 @@ READ FROM CGI:
 			e
 			s
 			:
-			S
-			T
+			B
+			L
 			A
-			T
-			I
-			C
+			Z
+			E
 			,
 			|
 			H
@@ -1979,18 +2008,16 @@ READ FROM CGI:
 			e
 			s
 			:
-			L
-			I
-			G
-			H
-			T
-			N
-			I
-			N
-			G
-			R
+			S
 			O
-			D
+			L
+			A
+			R
+			P
+			O
+			W
+			E
+			R
 			,
 			|
 			M
@@ -2003,93 +2030,13 @@ READ FROM CGI:
 			,
 			@
 			0
-			P
-			L
-			A
-			Y
-			N
-			I
+			S
 			C
-			E
-			,
-			1
-			,
-			@
-			0
-			S
-			W
-			E
-			E
-			T
-			K
-			I
-			S
-			S
-			,
-			1
-			,
-			@
-			0
-			N
-			U
-			Z
-			Z
-			L
-			E
-			,
-			1
-			,
-			@
-			0
-			N
-			A
-			S
-			T
-			Y
-			P
-			L
-			O
-			T
-			,
-			1
-			,
-			@
-			0
-			C
-			H
-			A
 			R
-			M
-			,
-			1
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			S
-			H
-			O
-			C
-			K
-			,
-			1
-			,
-			@
-			0
-			T
 			A
-			I
-			L
-			W
+			T
+			C
 			H
-			I
-			P
 			,
 			1
 			,
@@ -2101,80 +2048,63 @@ READ FROM CGI:
 			W
 			L
 			,
-			1
-			,
-			@
-			0
-			Q
-			U
-			I
-			C
-			K
-			A
-			T
-			T
-			A
-			C
-			K
-			,
 			4
 			,
 			@
 			0
-			T
-			H
-			U
-			N
-			D
+			E
+			M
+			B
 			E
 			R
-			W
-			A
-			V
-			E
 			,
 			8
 			,
 			@
 			0
-			D
-			O
-			U
-			B
-			L
-			E
-			T
-			E
-			A
+			S
 			M
+			O
+			K
+			E
+			S
+			C
+			R
+			E
+			E
+			N
 			,
 			1
 			2
 			,
 			@
 			0
-			E
-			L
-			E
-			C
-			T
+			D
 			R
-			O
-			B
 			A
-			L
-			L
+			G
+			O
+			N
+			B
+			R
+			E
+			A
+			T
+			H
 			,
 			1
-			6
+			7
 			,
 			@
 			0
 			F
-			E
 			I
+			R
+			E
+			F
+			A
 			N
-			T
+			G
 			,
 			2
 			0
@@ -2182,23 +2112,28 @@ READ FROM CGI:
 			@
 			0
 			S
-			P
+			L
 			A
-			R
-			K
+			S
+			H
 			,
 			2
 			4
 			,
 			@
 			0
-			A
-			G
-			I
+			F
 			L
-			I
+			A
+			M
+			E
 			T
-			Y
+			H
+			R
+			O
+			W
+			E
+			R
 			,
 			2
 			8
@@ -2206,71 +2141,57 @@ READ FROM CGI:
 			@
 			0
 			S
-			L
+			C
 			A
-			M
+			R
+			Y
+			F
+			A
+			C
+			E
 			,
 			3
 			2
 			,
 			@
 			0
-			D
+			F
 			I
-			S
-			C
-			H
-			A
 			R
-			G
 			E
+			S
+			P
+			I
+			N
 			,
 			3
 			6
 			,
 			@
 			0
-			T
-			H
-			U
+			I
 			N
-			D
+			F
 			E
 			R
-			B
+			N
 			O
-			L
-			T
 			,
 			4
 			0
 			,
 			@
 			0
+			F
+			L
+			A
+			R
+			E
+			B
 			L
 			I
-			G
-			H
 			T
-			S
-			C
-			R
-			E
-			E
-			N
-			,
-			4
-			4
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
+			Z
 			,
 			|
 			T
@@ -2287,12 +2208,27 @@ READ FROM CGI:
 			@
 			0
 			A
-			G
-			I
-			L
-			I
+			C
+			R
+			O
+			B
+			A
 			T
-			Y
+			I
+			C
+			S
+			,
+			@
+			0
+			A
+			E
+			R
+			I
+			A
+			L
+			A
+			C
+			E
 			,
 			@
 			0
@@ -2303,6 +2239,15 @@ READ FROM CGI:
 			A
 			C
 			T
+			,
+			@
+			0
+			B
+			E
+			A
+			T
+			U
+			P
 			,
 			@
 			0
@@ -2343,27 +2288,6 @@ READ FROM CGI:
 			@
 			0
 			C
-			H
-			A
-			R
-			G
-			E
-			B
-			E
-			A
-			M
-			,
-			@
-			0
-			C
-			H
-			A
-			R
-			M
-			,
-			@
-			0
-			C
 			O
 			N
 			F
@@ -2384,9 +2308,16 @@ READ FROM CGI:
 			@
 			0
 			C
-			O
-			V
-			E
+			R
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			C
+			U
 			T
 			,
 			@
@@ -2440,15 +2371,41 @@ READ FROM CGI:
 			D
 			R
 			A
-			I
-			N
-			I
-			N
 			G
-			K
-			I
+			O
+			N
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			P
+			U
+			L
 			S
-			S
+			E
 			,
 			@
 			0
@@ -2482,98 +2439,76 @@ READ FROM CGI:
 			@
 			0
 			E
-			L
-			E
-			C
-			T
-			R
-			I
-			C
-			T
-			E
-			R
-			R
-			A
-			I
 			N
+			D
+			U
+			R
+			E
 			,
 			@
 			0
-			E
-			L
-			E
+			F
+			A
 			C
-			T
-			R
-			O
-			B
+			A
+			D
+			E
+			,
+			@
+			0
+			F
 			A
 			L
-			L
-			,
-			@
-			0
+			S
 			E
-			L
-			E
-			C
-			T
-			R
-			O
+			S
 			W
+			I
+			P
+			E
+			,
+			@
+			0
+			F
+			I
+			R
 			E
 			B
-			,
-			@
-			0
-			E
-			N
-			C
-			O
-			R
-			E
-			,
-			@
-			0
-			E
-			N
-			D
-			U
-			R
-			E
-			,
-			@
-			0
-			F
-			A
-			C
-			A
-			D
-			E
-			,
-			@
-			0
-			F
 			L
 			A
 			S
-			H
+			T
 			,
 			@
 			0
 			F
-			L
 			I
+			R
+			E
+			F
+			A
 			N
 			G
 			,
 			@
 			0
 			F
-			O
-			C
-			U
-			S
+			I
+			R
+			E
+			P
+			L
+			E
+			D
+			G
+			E
+			,
+			@
+			0
+			F
+			I
+			R
+			E
 			P
 			U
 			N
@@ -2583,63 +2518,38 @@ READ FROM CGI:
 			@
 			0
 			F
-			R
-			U
-			S
-			T
-			R
-			A
-			T
 			I
-			O
-			N
-			,
-			@
-			0
-			G
 			R
-			A
+			E
 			S
-			S
-			K
+			P
+			I
 			N
-			O
-			T
 			,
 			@
 			0
-			H
-			E
-			A
-			D
-			B
-			U
-			T
-			T
-			,
-			@
-			0
-			H
-			E
+			F
 			L
-			P
-			I
-			N
-			G
+			A
+			M
+			E
+			C
 			H
 			A
-			N
-			D
+			R
+			G
+			E
 			,
 			@
 			0
-			H
-			I
-			D
-			D
+			F
+			L
+			A
+			M
 			E
-			N
-			P
+			T
+			H
+			R
 			O
 			W
 			E
@@ -2647,83 +2557,32 @@ READ FROM CGI:
 			,
 			@
 			0
-			I
+			F
+			L
+			A
 			R
-			O
-			N
-			T
-			A
-			I
-			L
-			,
-			@
-			0
-			K
-			N
-			O
-			C
-			K
-			O
-			F
-			F
-			,
-			@
-			0
-			L
-			A
-			S
 			E
-			R
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			F
+			L
+			I
+			N
+			G
+			,
+			@
+			0
 			F
 			O
 			C
 			U
 			S
-			,
-			@
-			0
-			L
-			I
-			G
-			H
-			T
-			S
-			C
-			R
-			E
-			E
-			N
-			,
-			@
-			0
-			M
-			A
-			G
-			N
-			E
-			T
-			R
-			I
-			S
-			E
-			,
-			@
-			0
-			M
-			E
-			G
-			A
-			K
-			I
-			C
-			K
-			,
-			@
-			0
-			M
-			E
-			G
-			A
 			P
 			U
 			N
@@ -2732,33 +2591,157 @@ READ FROM CGI:
 			,
 			@
 			0
-			M
-			I
-			M
-			I
-			C
-			,
-			@
-			0
-			M
+			F
+			R
 			U
-			D
-			S
-			L
-			A
-			P
-			,
-			@
-			0
-			N
-			A
 			S
 			T
+			R
+			A
+			T
+			I
+			O
+			N
+			,
+			@
+			0
+			F
+			U
+			R
 			Y
-			P
-			L
-			O
+			C
+			U
 			T
+			T
+			E
+			R
+			,
+			@
+			0
+			H
+			E
+			A
+			D
+			B
+			U
+			T
+			T
+			,
+			@
+			0
+			H
+			E
+			A
+			T
+			W
+			A
+			V
+			E
+			,
+			@
+			0
+			H
+			E
+			L
+			P
+			I
+			N
+			G
+			H
+			A
+			N
+			D
+			,
+			@
+			0
+			H
+			I
+			D
+			D
+			E
+			N
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			H
+			O
+			N
+			E
+			C
+			L
+			A
+			W
+			S
+			,
+			@
+			0
+			I
+			N
+			C
+			I
+			N
+			E
+			R
+			A
+			T
+			E
+			,
+			@
+			0
+			I
+			R
+			O
+			N
+			T
+			A
+			I
+			L
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			K
+			I
+			C
+			K
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			M
+			I
+			M
+			I
+			C
+			,
+			@
+			0
+			M
+			U
+			D
+			S
+			L
+			A
+			P
 			,
 			@
 			0
@@ -2776,23 +2759,38 @@ READ FROM CGI:
 			,
 			@
 			0
-			P
+			O
+			U
+			T
+			R
 			A
-			Y
-			D
+			G
+			E
+			,
+			@
+			0
+			O
+			V
+			E
+			R
+			H
+			E
 			A
-			Y
+			T
 			,
 			@
 			0
 			P
-			L
-			A
-			Y
-			R
 			O
+			W
+			E
+			R
 			U
-			G
+			P
+			P
+			U
+			N
+			C
 			H
 			,
 			@
@@ -2808,28 +2806,6 @@ READ FROM CGI:
 			@
 			0
 			R
-			A
-			I
-			N
-			D
-			A
-			N
-			C
-			E
-			,
-			@
-			0
-			R
-			E
-			F
-			L
-			E
-			C
-			T
-			,
-			@
-			0
-			R
 			E
 			S
 			T
@@ -2846,28 +2822,13 @@ READ FROM CGI:
 			@
 			0
 			R
-			E
-			V
-			E
-			R
-			S
-			A
-			L
-			,
-			@
-			0
-			R
-			I
-			S
-			I
-			N
-			G
-			V
 			O
+			C
+			K
+			S
 			L
-			T
-			A
-			G
+			I
+			D
 			E
 			,
 			@
@@ -2886,11 +2847,12 @@ READ FROM CGI:
 			0
 			R
 			O
-			L
-			L
-			O
-			U
+			C
+			K
 			T
+			O
+			M
+			B
 			,
 			@
 			0
@@ -2899,6 +2861,18 @@ READ FROM CGI:
 			U
 			N
 			D
+			,
+			@
+			0
+			S
+			C
+			A
+			R
+			Y
+			F
+			A
+			C
+			E
 			,
 			@
 			0
@@ -2932,138 +2906,231 @@ READ FROM CGI:
 			0
 			S
 			H
-			O
-			C
-			K
-			W
 			A
-			V
+			D
+			O
+			W
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			S
+			L
+			E
+			E
+			P
+			T
+			A
+			L
+			K
+			,
+			@
+			0
+			S
+			N
+			O
+			R
 			E
 			,
 			@
 			0
 			S
-			I
-			G
+			T
+			R
+			E
 			N
+			G
+			T
+			H
+			,
+			@
+			0
+			S
+			U
+			B
+			S
+			T
+			I
+			T
+			U
+			T
+			E
+			,
+			@
+			0
+			S
+			U
+			N
+			N
+			Y
+			D
+			A
+			Y
+			,
+			@
+			0
+			S
+			W
+			A
+			G
+			G
+			E
+			R
+			,
+			@
+			0
+			S
+			W
+			I
+			F
+			T
+			,
+			@
+			0
+			S
+			W
+			O
+			R
+			D
+			S
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			T
+			H
+			U
+			N
+			D
+			E
+			R
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			W
+			E
+			A
+			T
+			H
+			E
+			R
+			B
 			A
 			L
+			L
+			,
+			@
+			0
+			W
+			I
+			L
+			L
+			O
+			W
+			I
+			S
+			P
+			,
+			@
+			0
+			W
+			O
+			R
+			K
+			U
+			P
+			,
+			|
+			E
+			g
+			g
+			M
+			o
+			v
+			e
+			s
+			:
+			@
+			0
+			A
+			I
+			R
+			C
+			U
+			T
+			T
+			E
+			R
+			,
+			@
+			0
+			A
+			N
+			C
+			I
+			E
+			N
+			T
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
 			B
 			E
 			A
+			T
+			U
+			P
+			,
+			@
+			0
+			B
+			E
+			L
+			L
+			Y
+			D
+			R
+			U
 			M
 			,
 			@
 			0
-			S
-			L
-			E
-			E
-			P
-			T
-			A
-			L
-			K
-			,
-			@
-			0
-			S
-			N
-			O
-			R
-			E
-			,
-			@
-			0
-			S
-			T
-			R
-			E
-			N
-			G
-			T
-			H
-			,
-			@
-			0
-			S
-			U
 			B
-			S
-			T
 			I
 			T
-			U
-			T
 			E
 			,
 			@
 			0
-			S
-			U
-			R
-			F
-			,
-			@
-			0
-			S
-			W
-			A
-			G
-			G
-			E
-			R
-			,
-			@
-			0
-			S
-			W
-			I
-			F
-			T
-			,
-			@
-			0
-			T
-			H
-			I
-			E
-			F
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			,
-			@
-			0
-			T
-			H
-			U
-			N
-			D
-			E
-			R
-			B
+			C
 			O
-			L
+			U
+			N
 			T
+			E
+			R
 			,
 			@
 			0
-			T
-			H
-			U
-			N
-			D
-			E
+			C
 			R
-			P
 			U
 			N
 			C
@@ -3071,65 +3138,91 @@ READ FROM CGI:
 			,
 			@
 			0
-			T
-			H
-			U
+			D
+			R
+			A
+			G
+			O
 			N
 			D
-			E
-			R
-			W
 			A
-			V
-			E
-			,
-			@
-			0
-			U
-			P
-			R
-			O
-			A
-			R
-			,
-			@
-			0
-			V
-			O
-			L
-			T
-			S
-			W
-			I
-			T
+			N
 			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			R
+			U
+			S
 			H
 			,
 			@
 			0
-			V
+			D
+			R
+			A
+			G
 			O
+			N
+			T
+			A
+			I
 			L
+			,
+			@
+			0
+			F
+			L
+			A
+			R
+			E
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			M
+			E
+			T
+			A
+			L
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			O
+			U
+			T
+			R
+			A
+			G
+			E
+			,
+			@
+			0
+			W
+			I
+			N
+			G
+			A
 			T
 			T
 			A
 			C
 			K
-			L
-			E
-			,
-			@
-			0
-			W
-			I
-			L
-			D
-			C
-			H
-			A
-			R
-			G
-			E
 			,
 			|
 			E
@@ -3142,17 +3235,20 @@ READ FROM CGI:
 			p
 			s
 			:
-			F
-			i
+			M
+			o
+			n
+			s
+			t
 			e
-			l
-			d
-			,
-			F
-			a
-			i
 			r
-			y
+			,
+			D
+			r
+			a
+			g
+			o
+			n
 			,
 			|
 			H
@@ -3166,9 +3262,9 @@ READ FROM CGI:
 			p
 			s
 			:
-			2
 			5
-			6
+			1
+			2
 			0
 			,
 			|
@@ -3181,7 +3277,7 @@ READ FROM CGI:
 			:
 			0
 			.
-			4
+			6
 			,
 			|
 			W
@@ -3191,9 +3287,9 @@ READ FROM CGI:
 			h
 			t
 			:
-			6
+			8
 			.
-			0
+			5
 			,
 			|
 			C
@@ -3202,12 +3298,9 @@ READ FROM CGI:
 			o
 			r
 			:
-			Y
+			R
 			e
-			l
-			l
-			o
-			w
+			d
 			,
 			|
 			S
@@ -3216,15 +3309,17 @@ READ FROM CGI:
 			p
 			e
 			:
-			Q
-			u
-			a
-			d
-			r
-			u
+			B
+			i
 			p
 			e
 			d
+			a
+			l
+			T
+			a
+			i
+			l
 			,
 			|
 			H
@@ -3235,12 +3330,14 @@ READ FROM CGI:
 			a
 			t
 			:
-			F
+			M
 			o
-			r
-			e
-			s
+			u
+			n
 			t
+			a
+			i
+			n
 			,
 			|
 			C
@@ -3252,11 +3349,12 @@ READ FROM CGI:
 			r
 			y
 			:
-			M
-			o
-			u
-			s
-			e
+			L
+			i
+			z
+			a
+			r
+			d
 			,
 			|
 			P
@@ -3267,155 +3365,156 @@ READ FROM CGI:
 			e
 			x
 			:
-			I
-			t
-			 
-			s
-			t
-			o
-			r
-			e
-			s
-			 
-			e
-			l
-			e
-			c
-			t
-			r
-			i
-			c
-			i
-			t
-			y
-			 
-			i
-			n
-			 
-			t
+			T
 			h
 			e
 			 
-			e
+			f
 			l
-			e
-			c
-			t
-			r
-			i
-			c
-			 
-			s
 			a
-			c
+			m
+			e
+			 
+			t
+			h
+			a
+			t
+			 
+			b
+			u
+			r
+			n
 			s
 			 
+			a
+			t
+			 
+			t
+			h
+			e
+			 
+			t
+			i
+			p
+			 
 			o
-			n
+			f
 			 
 			i
 			t
 			s
 			 
+			t
+			a
+			i
+			l
+			 
+			i
+			s
+			 
+			a
+			n
+			 
+			i
+			n
+			d
+			i
 			c
-			h
+			a
+			t
+			i
+			o
+			n
+			 
+			o
+			f
+			 
+			i
+			t
+			s
+			 
 			e
-			e
-			k
+			m
+			o
+			t
+			i
+			o
+			n
 			s
 			.
 			 
-			W
+			T
+			h
+			e
+			 
+			f
+			l
+			a
+			m
+			e
+			 
+			w
+			a
+			v
+			e
+			r
+			s
+			 
+			w
 			h
 			e
 			n
 			 
-			i
-			t
-			 
-			r
-			e
-			l
-			e
+			C
+			h
 			a
-			s
-			e
-			s
-			 
-			p
-			e
+			r
+			m
+			a
 			n
-			t
-			-
-			u
-			p
-			 
-			e
-			n
+			d
 			e
 			r
-			g
+			 
+			i
+			s
+			 
+			h
+			a
+			p
+			p
 			y
-			 
-			i
-			n
-			 
-			a
-			 
-			b
-			u
-			r
-			s
-			t
 			,
 			 
-			t
+			a
+			n
+			d
+			 
+			b
+			l
+			a
+			z
+			e
+			s
+			 
+			w
 			h
 			e
+			n
 			 
-			e
-			l
-			e
-			c
-			t
-			r
 			i
-			c
-			 
-			p
-			o
-			w
-			e
-			r
+			t
 			 
 			i
 			s
 			 
 			e
-			q
-			u
-			a
-			l
-			 
-			t
-			o
-			 
-			a
-			 
-			l
-			i
-			g
-			h
-			t
 			n
-			i
-			n
+			r
+			a
 			g
-			 
-			b
-			o
-			l
-			t
+			e
+			d
 			.
 			,
 			|
@@ -3431,34 +3530,6 @@ READ FROM CGI:
 			n
 			:
 			1
-			,
-			|
-			W
-			i
-			l
-			d
-			I
-			t
-			e
-			m
-			U
-			n
-			c
-			o
-			m
-			m
-			o
-			n
-			:
-			L
-			I
-			G
-			H
-			T
-			B
-			A
-			L
-			L
 			,
 			|
 			E
@@ -3474,32 +3545,25 @@ READ FROM CGI:
 			:
 			@
 			1
-			R
-			A
-			I
 			C
 			H
-			U
-			,
-			I
-			t
-			e
-			m
-			,
-			@
-			1
-			T
-			H
-			U
-			N
-			D
-			E
+			A
 			R
-			S
-			T
+			M
+			E
+			L
+			E
 			O
 			N
-			E
+			,
+			L
+			e
+			v
+			e
+			l
+			,
+			1
+			6
 			,
 			|
 			#
@@ -3534,5 +3598,1937 @@ READ FROM CGI:
 			-
 			-
 			-
+			 
+----
+----
+READ FROM CGI:
+----
+	p
+			o
+			k
+			e
+			m
+			o
+			n
+			 
+			C
+			H
+			A
+			R
+			M
+			A
+			N
+			D
+			E
+			 
+			n
+			o
+			t
+			 
+			f
+			o
+			u
+			n
+			d
+			.
+			 
+----
+----
+READ FROM CGI:
+----
+	p
+			o
+			k
+			e
+			m
+			o
+			n
+			 
+			C
+			H
+			A
+			R
+			M
+			A
+			N
+			D
+			E
+			 
+			n
+			o
+			t
+			 
+			f
+			o
+			u
+			n
+			d
+			.
+			 
+----
+----
+READ FROM CGI:
+----
+	{
+			1
+			}
+			4
+			|
+			I
+			D
+			:
+			4
+			,
+			|
+			N
+			a
+			m
+			e
+			:
+			C
+			h
+			a
+			r
+			m
+			a
+			n
+			d
+			e
+			r
+			,
+			|
+			T
+			y
+			p
+			e
+			s
+			:
+			F
+			I
+			R
+			E
+			,
+			|
+			B
+			a
+			s
+			e
+			S
+			t
+			a
+			t
+			s
+			:
+			3
+			9
+			,
+			5
+			2
+			,
+			4
+			3
+			,
+			6
+			5
+			,
+			6
+			0
+			,
+			5
+			0
+			,
+			|
+			G
+			e
+			n
+			d
+			e
+			r
+			R
+			a
+			t
+			i
+			o
+			:
+			F
+			e
+			m
+			a
+			l
+			e
+			O
+			n
+			e
+			E
+			i
+			g
+			h
+			t
+			h
+			,
+			|
+			G
+			r
+			o
+			w
+			t
+			h
+			R
+			a
+			t
+			e
+			:
+			P
+			a
+			r
+			a
+			b
+			o
+			l
+			i
+			c
+			,
+			|
+			B
+			a
+			s
+			e
+			E
+			x
+			p
+			:
+			6
+			2
+			,
+			|
+			E
+			V
+			s
+			:
+			S
+			P
+			E
+			E
+			D
+			,
+			1
+			,
+			|
+			C
+			a
+			t
+			c
+			h
+			R
+			a
+			t
+			e
+			:
+			4
+			5
+			,
+			|
+			H
+			a
+			p
+			p
+			i
+			n
+			e
+			s
+			s
+			:
+			5
+			0
+			,
+			|
+			A
+			b
+			i
+			l
+			i
+			t
+			i
+			e
+			s
+			:
+			B
+			L
+			A
+			Z
+			E
+			,
+			|
+			H
+			i
+			d
+			d
+			e
+			n
+			A
+			b
+			i
+			l
+			i
+			t
+			i
+			e
+			s
+			:
+			S
+			O
+			L
+			A
+			R
+			P
+			O
+			W
+			E
+			R
+			,
+			|
+			M
+			o
+			v
+			e
+			s
+			:
+			1
+			,
+			@
+			0
+			S
+			C
+			R
+			A
+			T
+			C
+			H
+			,
+			1
+			,
+			@
+			0
+			G
+			R
+			O
+			W
+			L
+			,
+			4
+			,
+			@
+			0
+			E
+			M
+			B
+			E
+			R
+			,
+			8
+			,
+			@
+			0
+			S
+			M
+			O
+			K
+			E
+			S
+			C
+			R
+			E
+			E
+			N
+			,
+			1
+			2
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			B
+			R
+			E
+			A
+			T
+			H
+			,
+			1
+			7
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			F
+			A
+			N
+			G
+			,
+			2
+			0
+			,
+			@
+			0
+			S
+			L
+			A
+			S
+			H
+			,
+			2
+			4
+			,
+			@
+			0
+			F
+			L
+			A
+			M
+			E
+			T
+			H
+			R
+			O
+			W
+			E
+			R
+			,
+			2
+			8
+			,
+			@
+			0
+			S
+			C
+			A
+			R
+			Y
+			F
+			A
+			C
+			E
+			,
+			3
+			2
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			S
+			P
+			I
+			N
+			,
+			3
+			6
+			,
+			@
+			0
+			I
+			N
+			F
+			E
+			R
+			N
+			O
+			,
+			4
+			0
+			,
+			@
+			0
+			F
+			L
+			A
+			R
+			E
+			B
+			L
+			I
+			T
+			Z
+			,
+			|
+			T
+			u
+			t
+			o
+			r
+			M
+			o
+			v
+			e
+			s
+			:
+			@
+			0
+			A
+			C
+			R
+			O
+			B
+			A
+			T
+			I
+			C
+			S
+			,
+			@
+			0
+			A
+			E
+			R
+			I
+			A
+			L
+			A
+			C
+			E
+			,
+			@
+			0
+			A
+			T
+			T
+			R
+			A
+			C
+			T
+			,
+			@
+			0
+			B
+			E
+			A
+			T
+			U
+			P
+			,
+			@
+			0
+			B
+			O
+			D
+			Y
+			S
+			L
+			A
+			M
+			,
+			@
+			0
+			B
+			R
+			I
+			C
+			K
+			B
+			R
+			E
+			A
+			K
+			,
+			@
+			0
+			C
+			A
+			P
+			T
+			I
+			V
+			A
+			T
+			E
+			,
+			@
+			0
+			C
+			O
+			N
+			F
+			I
+			D
+			E
+			,
+			@
+			0
+			C
+			O
+			U
+			N
+			T
+			E
+			R
+			,
+			@
+			0
+			C
+			R
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			C
+			U
+			T
+			,
+			@
+			0
+			D
+			E
+			F
+			E
+			N
+			S
+			E
+			C
+			U
+			R
+			L
+			,
+			@
+			0
+			D
+			I
+			G
+			,
+			@
+			0
+			D
+			O
+			U
+			B
+			L
+			E
+			E
+			D
+			G
+			E
+			,
+			@
+			0
+			D
+			O
+			U
+			B
+			L
+			E
+			T
+			E
+			A
+			M
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			P
+			U
+			L
+			S
+			E
+			,
+			@
+			0
+			D
+			Y
+			N
+			A
+			M
+			I
+			C
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			E
+			C
+			H
+			O
+			E
+			D
+			V
+			O
+			I
+			C
+			E
+			,
+			@
+			0
+			E
+			N
+			D
+			U
+			R
+			E
+			,
+			@
+			0
+			F
+			A
+			C
+			A
+			D
+			E
+			,
+			@
+			0
+			F
+			A
+			L
+			S
+			E
+			S
+			W
+			I
+			P
+			E
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			B
+			L
+			A
+			S
+			T
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			F
+			A
+			N
+			G
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			P
+			L
+			E
+			D
+			G
+			E
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			F
+			I
+			R
+			E
+			S
+			P
+			I
+			N
+			,
+			@
+			0
+			F
+			L
+			A
+			M
+			E
+			C
+			H
+			A
+			R
+			G
+			E
+			,
+			@
+			0
+			F
+			L
+			A
+			M
+			E
+			T
+			H
+			R
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			F
+			L
+			A
+			R
+			E
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			F
+			L
+			I
+			N
+			G
+			,
+			@
+			0
+			F
+			O
+			C
+			U
+			S
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			F
+			R
+			U
+			S
+			T
+			R
+			A
+			T
+			I
+			O
+			N
+			,
+			@
+			0
+			F
+			U
+			R
+			Y
+			C
+			U
+			T
+			T
+			E
+			R
+			,
+			@
+			0
+			H
+			E
+			A
+			D
+			B
+			U
+			T
+			T
+			,
+			@
+			0
+			H
+			E
+			A
+			T
+			W
+			A
+			V
+			E
+			,
+			@
+			0
+			H
+			E
+			L
+			P
+			I
+			N
+			G
+			H
+			A
+			N
+			D
+			,
+			@
+			0
+			H
+			I
+			D
+			D
+			E
+			N
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			H
+			O
+			N
+			E
+			C
+			L
+			A
+			W
+			S
+			,
+			@
+			0
+			I
+			N
+			C
+			I
+			N
+			E
+			R
+			A
+			T
+			E
+			,
+			@
+			0
+			I
+			R
+			O
+			N
+			T
+			A
+			I
+			L
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			K
+			I
+			C
+			K
+			,
+			@
+			0
+			M
+			E
+			G
+			A
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			M
+			I
+			M
+			I
+			C
+			,
+			@
+			0
+			M
+			U
+			D
+			S
+			L
+			A
+			P
+			,
+			@
+			0
+			N
+			A
+			T
+			U
+			R
+			A
+			L
+			G
+			I
+			F
+			T
+			,
+			@
+			0
+			O
+			U
+			T
+			R
+			A
+			G
+			E
+			,
+			@
+			0
+			O
+			V
+			E
+			R
+			H
+			E
+			A
+			T
+			,
+			@
+			0
+			P
+			O
+			W
+			E
+			R
+			U
+			P
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			P
+			R
+			O
+			T
+			E
+			C
+			T
+			,
+			@
+			0
+			R
+			E
+			S
+			T
+			,
+			@
+			0
+			R
+			E
+			T
+			U
+			R
+			N
+			,
+			@
+			0
+			R
+			O
+			C
+			K
+			S
+			L
+			I
+			D
+			E
+			,
+			@
+			0
+			R
+			O
+			C
+			K
+			S
+			M
+			A
+			S
+			H
+			,
+			@
+			0
+			R
+			O
+			C
+			K
+			T
+			O
+			M
+			B
+			,
+			@
+			0
+			R
+			O
+			U
+			N
+			D
+			,
+			@
+			0
+			S
+			C
+			A
+			R
+			Y
+			F
+			A
+			C
+			E
+			,
+			@
+			0
+			S
+			E
+			C
+			R
+			E
+			T
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			S
+			E
+			I
+			S
+			M
+			I
+			C
+			T
+			O
+			S
+			S
+			,
+			@
+			0
+			S
+			H
+			A
+			D
+			O
+			W
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			S
+			L
+			E
+			E
+			P
+			T
+			A
+			L
+			K
+			,
+			@
+			0
+			S
+			N
+			O
+			R
+			E
+			,
+			@
+			0
+			S
+			T
+			R
+			E
+			N
+			G
+			T
+			H
+			,
+			@
+			0
+			S
+			U
+			B
+			S
+			T
+			I
+			T
+			U
+			T
+			E
+			,
+			@
+			0
+			S
+			U
+			N
+			N
+			Y
+			D
+			A
+			Y
+			,
+			@
+			0
+			S
+			W
+			A
+			G
+			G
+			E
+			R
+			,
+			@
+			0
+			S
+			W
+			I
+			F
+			T
+			,
+			@
+			0
+			S
+			W
+			O
+			R
+			D
+			S
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			T
+			H
+			U
+			N
+			D
+			E
+			R
+			P
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			W
+			E
+			A
+			T
+			H
+			E
+			R
+			B
+			A
+			L
+			L
+			,
+			@
+			0
+			W
+			I
+			L
+			L
+			O
+			W
+			I
+			S
+			P
+			,
+			@
+			0
+			W
+			O
+			R
+			K
+			U
+			P
+			,
+			|
+			E
+			g
+			g
+			M
+			o
+			v
+			e
+			s
+			:
+			@
+			0
+			A
+			I
+			R
+			C
+			U
+			T
+			T
+			E
+			R
+			,
+			@
+			0
+			A
+			N
+			C
+			I
+			E
+			N
+			T
+			P
+			O
+			W
+			E
+			R
+			,
+			@
+			0
+			B
+			E
+			A
+			T
+			U
+			P
+			,
+			@
+			0
+			B
+			E
+			L
+			L
+			Y
+			D
+			R
+			U
+			M
+			,
+			@
+			0
+			B
+			I
+			T
+			E
+			,
+			@
+			0
+			C
+			O
+			U
+			N
+			T
+			E
+			R
+			,
+			@
+			0
+			C
+			R
+			U
+			N
+			C
+			H
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			D
+			A
+			N
+			C
+			E
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			R
+			U
+			S
+			H
+			,
+			@
+			0
+			D
+			R
+			A
+			G
+			O
+			N
+			T
+			A
+			I
+			L
+			,
+			@
+			0
+			F
+			L
+			A
+			R
+			E
+			B
+			L
+			I
+			T
+			Z
+			,
+			@
+			0
+			M
+			E
+			T
+			A
+			L
+			C
+			L
+			A
+			W
+			,
+			@
+			0
+			O
+			U
+			T
+			R
+			A
+			G
+			E
+			,
+			@
+			0
+			W
+			I
+			N
+			G
+			A
+			T
+			T
+			A
+			C
+			K
+			,
+			|
+			E
+			g
+			g
+			G
+			r
+			o
+			u
+			p
+			s
+			:
+			M
+			o
+			n
+			s
+			t
+			e
+			r
+			,
+			D
+			r
+			a
+			g
+			o
+			n
+			,
+			|
+			H
+			a
+			t
+			c
+			h
+			S
+			t
+			e
+			p
+			s
+			:
+			5
+			1
+			2
+			0
+			,
+			|
+			H
+			e
+			i
+			g
+			h
+			t
+			:
+			0
+			.
+			6
+			,
+			|
+			W
+			e
+			i
+			g
+			h
+			t
+			:
+			8
+			.
+			5
+			,
+			|
+			C
+			o
+			l
+			o
+			r
+			:
+			R
+			e
+			d
+			,
+			|
+			S
+			h
+			a
+			p
+			e
+			:
+			B
+			i
+			p
+			e
+			d
+			a
+			l
+			T
+			a
+			i
+			l
+			,
+			|
+			H
+			a
+			b
+			i
+			t
+			a
+			t
+			:
+			M
+			o
+			u
+			n
+			t
+			a
+			i
+			n
+			,
+			|
+			C
+			a
+			t
+			e
+			g
+			o
+			r
+			y
+			:
+			L
+			i
+			z
+			a
+			r
+			d
+			,
+			|
+			P
+			o
+			k
+			e
+			d
+			e
+			x
+			:
+			T
+			h
+			e
+			 
+			f
+			l
+			a
+			m
+			e
+			 
+			t
+			h
+			a
+			t
+			 
+			b
+			u
+			r
+			n
+			s
+			 
+			a
+			t
+			 
+			t
+			h
+			e
+			 
+			t
+			i
+			p
+			 
+			o
+			f
+			 
+			i
+			t
+			s
+			 
+			t
+			a
+			i
+			l
+			 
+			i
+			s
+			 
+			a
+			n
+			 
+			i
+			n
+			d
+			i
+			c
+			a
+			t
+			i
+			o
+			n
+			 
+			o
+			f
+			 
+			i
+			t
+			s
+			 
+			e
+			m
+			o
+			t
+			i
+			o
+			n
+			s
+			.
+			 
+			T
+			h
+			e
+			 
+			f
+			l
+			a
+			m
+			e
+			 
+			w
+			a
+			v
+			e
+			r
+			s
+			 
+			w
+			h
+			e
+			n
+			 
+			C
+			h
+			a
+			r
+			m
+			a
+			n
+			d
+			e
+			r
+			 
+			i
+			s
+			 
+			h
+			a
+			p
+			p
+			y
+			,
+			 
+			a
+			n
+			d
+			 
+			b
+			l
+			a
+			z
+			e
+			s
+			 
+			w
+			h
+			e
+			n
+			 
+			i
+			t
+			 
+			i
+			s
+			 
+			e
+			n
+			r
+			a
+			g
+			e
+			d
+			.
+			,
+			|
+			G
+			e
+			n
+			e
+			r
+			a
+			t
+			i
+			o
+			n
+			:
+			1
+			,
+			|
+			E
+			v
+			o
+			l
+			u
+			t
+			i
+			o
+			n
+			s
+			:
+			@
+			1
+			C
+			H
+			A
+			R
+			M
+			E
+			L
+			E
+			O
+			N
+			,
+			L
+			e
+			v
+			e
+			l
+			,
+			1
+			6
+			,
+			|
+			#
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			-
+			 
+----
+----
+READ FROM CGI:
+----
+	p
+			o
+			k
+			e
+			m
+			o
+			n
+			 
+			C
+			H
+			A
+			R
+			M
+			A
+			N
+			D
+			E
+			 
+			n
+			o
+			t
+			 
+			f
+			o
+			u
+			n
+			d
+			.
+			 
+----
+----
+READ FROM CGI:
+----
+	p
+			o
+			k
+			e
+			m
+			o
+			n
+			 
+			C
+			H
+			A
+			R
+			M
+			A
+			N
+			D
+			 
+			n
+			o
+			t
+			 
+			f
+			o
+			u
+			n
+			d
+			.
 			 
 ----

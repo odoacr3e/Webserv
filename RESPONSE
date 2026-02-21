@@ -1,6 +1,16 @@
 HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 16221
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 4281
+
+======================================
+chiudo connessione 0
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 16479
 
 <!-- VARIABLES -->
 <!-- 
@@ -13,7 +23,7 @@ Content-Length: 16221
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>pikachu</title>
+    <title>charmander</title>
     <style>
         body {
             margin: 0;
@@ -106,7 +116,7 @@ Content-Length: 16221
 <body>
 
 	<div class="image-wrapper">
-		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="pikachu">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="charmander">
 	</div>
 	<div class="container">
 
@@ -118,7 +128,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">ID</span>
 	<ul>
-		<li>25</li>
+		<li>4</li>
 
 	</ul>
 </div>
@@ -130,7 +140,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Name</span>
 	<ul>
-		<li>Pikachu</li>
+		<li>Charmander</li>
 
 	</ul>
 </div>
@@ -142,7 +152,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Types</span>
 	<ul>
-		<li>ELECTRIC</li>
+		<li>FIRE</li>
 
 	</ul>
 </div>
@@ -154,11 +164,11 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">BaseStats</span>
 	<ul>
-		<li>35</li>
-<li>55</li>
-<li>40</li>
-<li>90</li>
-<li>50</li>
+		<li>39</li>
+<li>52</li>
+<li>43</li>
+<li>65</li>
+<li>60</li>
 <li>50</li>
 
 	</ul>
@@ -171,7 +181,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">GenderRatio</span>
 	<ul>
-		<li>Female50Percent</li>
+		<li>FemaleOneEighth</li>
 
 	</ul>
 </div>
@@ -183,7 +193,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">GrowthRate</span>
 	<ul>
-		<li>Medium</li>
+		<li>Parabolic</li>
 
 	</ul>
 </div>
@@ -195,7 +205,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">BaseExp</span>
 	<ul>
-		<li>112</li>
+		<li>62</li>
 
 	</ul>
 </div>
@@ -208,7 +218,7 @@ Content-Length: 16221
 	<span class="label">EVs</span>
 	<ul>
 		<li>SPEED</li>
-<li>2</li>
+<li>1</li>
 
 	</ul>
 </div>
@@ -220,7 +230,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">CatchRate</span>
 	<ul>
-		<li>190</li>
+		<li>45</li>
 
 	</ul>
 </div>
@@ -244,7 +254,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Abilities</span>
 	<ul>
-		<li>STATIC</li>
+		<li>BLAZE</li>
 
 	</ul>
 </div>
@@ -256,7 +266,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">HiddenAbilities</span>
 	<ul>
-		<li>LIGHTNINGROD</li>
+		<li>SOLARPOWER</li>
 
 	</ul>
 </div>
@@ -269,45 +279,29 @@ Content-Length: 16221
 	<span class="label">Moves</span>
 	<ul>
 		<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYNICE'>PLAYNICE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SWEETKISS'>SWEETKISS</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NUZZLE'>NUZZLE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERSHOCK'>THUNDERSHOCK</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=TAILWHIP'>TAILWHIP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCRATCH'>SCRATCH</a></li>
 <li>1</li>
 <li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=QUICKATTACK'>QUICKATTACK</a></li>
 <li>4</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=EMBER'>EMBER</a></li>
 <li>8</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SMOKESCREEN'>SMOKESCREEN</a></li>
 <li>12</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li>16</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FEINT'>FEINT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONBREATH'>DRAGONBREATH</a></li>
+<li>17</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
 <li>20</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SPARK'>SPARK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLASH'>SLASH</a></li>
 <li>24</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
 <li>28</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SLAM'>SLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
 <li>32</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DISCHARGE'>DISCHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
 <li>36</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INFERNO'>INFERNO</a></li>
 <li>40</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li>44</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
 
 	</ul>
 </div>
@@ -319,80 +313,104 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">TutorMoves</span>
 	<ul>
-		<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+		<li><a href='/script/pokedex/output/moves.cgi?value=ACROBATICS'>ACROBATICS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AERIALACE'>AERIALACE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARGEBEAM'>CHARGEBEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=COVET'>COVET</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CUT'>CUT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DRAININGKISS'>DRAININGKISS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONCLAW'>DRAGONCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONPULSE'>DRAGONPULSE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTRICTERRAIN'>ELECTRICTERRAIN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROWEB'>ELECTROWEB</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ENCORE'>ENCORE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FLASH'>FLASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FALSESWIPE'>FALSESWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREBLAST'>FIREBLAST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPLEDGE'>FIREPLEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPUNCH'>FIREPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMECHARGE'>FLAMECHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=GRASSKNOT'>GRASSKNOT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FURYCUTTER'>FURYCUTTER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATWAVE'>HEATWAVE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HONECLAWS'>HONECLAWS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INCINERATE'>INCINERATE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=KNOCKOFF'>KNOCKOFF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LASERFOCUS'>LASERFOCUS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MAGNETRISE'>MAGNETRISE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PAYDAY'>PAYDAY</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYROUGH'>PLAYROUGH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OVERHEAT'>OVERHEAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=POWERUPPUNCH'>POWERUPPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REFLECT'>REFLECT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REVERSAL'>REVERSAL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RISINGVOLTAGE'>RISINGVOLTAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSLIDE'>ROCKSLIDE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ROLLOUT'>ROLLOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SHOCKWAVE'>SHOCKWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SIGNALBEAM'>SIGNALBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHADOWCLAW'>SHADOWCLAW</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SURF'>SURF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUNNYDAY'>SUNNYDAY</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THIEF'>THIEF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWORDSDANCE'>SWORDSDANCE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=UPROAR'>UPROAR</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTSWITCH'>VOLTSWITCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTTACKLE'>VOLTTACKLE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=WILDCHARGE'>WILDCHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WEATHERBALL'>WEATHERBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WILLOWISP'>WILLOWISP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WORKUP'>WORKUP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AIRCUTTER'>AIRCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ANCIENTPOWER'>ANCIENTPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BELLYDRUM'>BELLYDRUM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BITE'>BITE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONRUSH'>DRAGONRUSH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONTAIL'>DRAGONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=METALCLAW'>METALCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WINGATTACK'>WINGATTACK</a></li>
 
 	</ul>
 </div>
@@ -404,8 +422,8 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">EggGroups</span>
 	<ul>
-		<li>Field</li>
-<li>Fairy</li>
+		<li>Monster</li>
+<li>Dragon</li>
 
 	</ul>
 </div>
@@ -417,7 +435,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">HatchSteps</span>
 	<ul>
-		<li>2560</li>
+		<li>5120</li>
 
 	</ul>
 </div>
@@ -429,7 +447,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Height</span>
 	<ul>
-		<li>0.4</li>
+		<li>0.6</li>
 
 	</ul>
 </div>
@@ -441,7 +459,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Weight</span>
 	<ul>
-		<li>6.0</li>
+		<li>8.5</li>
 
 	</ul>
 </div>
@@ -453,7 +471,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Color</span>
 	<ul>
-		<li>Yellow</li>
+		<li>Red</li>
 
 	</ul>
 </div>
@@ -465,7 +483,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Shape</span>
 	<ul>
-		<li>Quadruped</li>
+		<li>BipedalTail</li>
 
 	</ul>
 </div>
@@ -477,7 +495,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Habitat</span>
 	<ul>
-		<li>Forest</li>
+		<li>Mountain</li>
 
 	</ul>
 </div>
@@ -489,7 +507,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Category</span>
 	<ul>
-		<li>Mouse</li>
+		<li>Lizard</li>
 
 	</ul>
 </div>
@@ -501,8 +519,8 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Pokedex</span>
 	<ul>
-		<li>It stores electricity in the electric sacs on its cheeks. When it releases pent-up energy in a burst</li>
-<li> the electric power is equal to a lightning bolt.</li>
+		<li>The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is happy</li>
+<li> and blazes when it is enraged.</li>
 
 	</ul>
 </div>
@@ -524,23 +542,11 @@ Content-Length: 16221
 	FIELD_DATA:	html of the field (hypertext or static)
 -->
 <div class="section box">
-	<span class="label">WildItemUncommon</span>
-	<ul>
-		<li>LIGHTBALL</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
 	<span class="label">Evolutions</span>
 	<ul>
-		<li><a href='/script/pokedex/output/pokemon.cgi?value=RAICHU'>RAICHU</a></li>
-<li>Item</li>
-<li><a href='/script/pokedex/output/pokemon.cgi?value=THUNDERSTONE'>THUNDERSTONE</a></li>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=CHARMELEON'>CHARMELEON</a></li>
+<li>Level</li>
+<li>16</li>
 
 	</ul>
 </div>
@@ -553,21 +559,11 @@ Content-Length: 16221
 
 
 ======================================
-chiudo connessione 0
-======================================
-HTTP/1.1 200 OK
-Content-Type: image/ico
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 246938
-
-======================================
 chiudo connessione 1
 ======================================
 HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 16221
+Content-Length: 16479
 
 <!-- VARIABLES -->
 <!-- 
@@ -580,7 +576,7 @@ Content-Length: 16221
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>pikachu</title>
+    <title>charmander</title>
     <style>
         body {
             margin: 0;
@@ -673,7 +669,7 @@ Content-Length: 16221
 <body>
 
 	<div class="image-wrapper">
-		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="pikachu">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="charmander">
 	</div>
 	<div class="container">
 
@@ -685,7 +681,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">ID</span>
 	<ul>
-		<li>25</li>
+		<li>4</li>
 
 	</ul>
 </div>
@@ -697,7 +693,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Name</span>
 	<ul>
-		<li>Pikachu</li>
+		<li>Charmander</li>
 
 	</ul>
 </div>
@@ -709,7 +705,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Types</span>
 	<ul>
-		<li>ELECTRIC</li>
+		<li>FIRE</li>
 
 	</ul>
 </div>
@@ -721,11 +717,11 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">BaseStats</span>
 	<ul>
-		<li>35</li>
-<li>55</li>
-<li>40</li>
-<li>90</li>
-<li>50</li>
+		<li>39</li>
+<li>52</li>
+<li>43</li>
+<li>65</li>
+<li>60</li>
 <li>50</li>
 
 	</ul>
@@ -738,7 +734,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">GenderRatio</span>
 	<ul>
-		<li>Female50Percent</li>
+		<li>FemaleOneEighth</li>
 
 	</ul>
 </div>
@@ -750,7 +746,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">GrowthRate</span>
 	<ul>
-		<li>Medium</li>
+		<li>Parabolic</li>
 
 	</ul>
 </div>
@@ -762,7 +758,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">BaseExp</span>
 	<ul>
-		<li>112</li>
+		<li>62</li>
 
 	</ul>
 </div>
@@ -775,7 +771,7 @@ Content-Length: 16221
 	<span class="label">EVs</span>
 	<ul>
 		<li>SPEED</li>
-<li>2</li>
+<li>1</li>
 
 	</ul>
 </div>
@@ -787,7 +783,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">CatchRate</span>
 	<ul>
-		<li>190</li>
+		<li>45</li>
 
 	</ul>
 </div>
@@ -811,7 +807,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Abilities</span>
 	<ul>
-		<li>STATIC</li>
+		<li>BLAZE</li>
 
 	</ul>
 </div>
@@ -823,7 +819,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">HiddenAbilities</span>
 	<ul>
-		<li>LIGHTNINGROD</li>
+		<li>SOLARPOWER</li>
 
 	</ul>
 </div>
@@ -836,45 +832,29 @@ Content-Length: 16221
 	<span class="label">Moves</span>
 	<ul>
 		<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYNICE'>PLAYNICE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SWEETKISS'>SWEETKISS</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NUZZLE'>NUZZLE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERSHOCK'>THUNDERSHOCK</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=TAILWHIP'>TAILWHIP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCRATCH'>SCRATCH</a></li>
 <li>1</li>
 <li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=QUICKATTACK'>QUICKATTACK</a></li>
 <li>4</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=EMBER'>EMBER</a></li>
 <li>8</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SMOKESCREEN'>SMOKESCREEN</a></li>
 <li>12</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li>16</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FEINT'>FEINT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONBREATH'>DRAGONBREATH</a></li>
+<li>17</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
 <li>20</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SPARK'>SPARK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLASH'>SLASH</a></li>
 <li>24</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
 <li>28</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SLAM'>SLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
 <li>32</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DISCHARGE'>DISCHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
 <li>36</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INFERNO'>INFERNO</a></li>
 <li>40</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li>44</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
 
 	</ul>
 </div>
@@ -886,80 +866,104 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">TutorMoves</span>
 	<ul>
-		<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
+		<li><a href='/script/pokedex/output/moves.cgi?value=ACROBATICS'>ACROBATICS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AERIALACE'>AERIALACE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARGEBEAM'>CHARGEBEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=COVET'>COVET</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CUT'>CUT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DRAININGKISS'>DRAININGKISS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONCLAW'>DRAGONCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONPULSE'>DRAGONPULSE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTRICTERRAIN'>ELECTRICTERRAIN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROWEB'>ELECTROWEB</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ENCORE'>ENCORE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FLASH'>FLASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FALSESWIPE'>FALSESWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREBLAST'>FIREBLAST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPLEDGE'>FIREPLEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPUNCH'>FIREPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMECHARGE'>FLAMECHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=GRASSKNOT'>GRASSKNOT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FURYCUTTER'>FURYCUTTER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATWAVE'>HEATWAVE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HONECLAWS'>HONECLAWS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INCINERATE'>INCINERATE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=KNOCKOFF'>KNOCKOFF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LASERFOCUS'>LASERFOCUS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MAGNETRISE'>MAGNETRISE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PAYDAY'>PAYDAY</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYROUGH'>PLAYROUGH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OVERHEAT'>OVERHEAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=POWERUPPUNCH'>POWERUPPUNCH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REFLECT'>REFLECT</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REVERSAL'>REVERSAL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RISINGVOLTAGE'>RISINGVOLTAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSLIDE'>ROCKSLIDE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ROLLOUT'>ROLLOUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SHOCKWAVE'>SHOCKWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SIGNALBEAM'>SIGNALBEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHADOWCLAW'>SHADOWCLAW</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SURF'>SURF</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUNNYDAY'>SUNNYDAY</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THIEF'>THIEF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWORDSDANCE'>SWORDSDANCE</a></li>
 <li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=UPROAR'>UPROAR</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTSWITCH'>VOLTSWITCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTTACKLE'>VOLTTACKLE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=WILDCHARGE'>WILDCHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WEATHERBALL'>WEATHERBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WILLOWISP'>WILLOWISP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WORKUP'>WORKUP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AIRCUTTER'>AIRCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ANCIENTPOWER'>ANCIENTPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BELLYDRUM'>BELLYDRUM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BITE'>BITE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONRUSH'>DRAGONRUSH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONTAIL'>DRAGONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=METALCLAW'>METALCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WINGATTACK'>WINGATTACK</a></li>
 
 	</ul>
 </div>
@@ -971,8 +975,8 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">EggGroups</span>
 	<ul>
-		<li>Field</li>
-<li>Fairy</li>
+		<li>Monster</li>
+<li>Dragon</li>
 
 	</ul>
 </div>
@@ -984,7 +988,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">HatchSteps</span>
 	<ul>
-		<li>2560</li>
+		<li>5120</li>
 
 	</ul>
 </div>
@@ -996,7 +1000,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Height</span>
 	<ul>
-		<li>0.4</li>
+		<li>0.6</li>
 
 	</ul>
 </div>
@@ -1008,7 +1012,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Weight</span>
 	<ul>
-		<li>6.0</li>
+		<li>8.5</li>
 
 	</ul>
 </div>
@@ -1020,7 +1024,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Color</span>
 	<ul>
-		<li>Yellow</li>
+		<li>Red</li>
 
 	</ul>
 </div>
@@ -1032,7 +1036,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Shape</span>
 	<ul>
-		<li>Quadruped</li>
+		<li>BipedalTail</li>
 
 	</ul>
 </div>
@@ -1044,7 +1048,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Habitat</span>
 	<ul>
-		<li>Forest</li>
+		<li>Mountain</li>
 
 	</ul>
 </div>
@@ -1056,7 +1060,7 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Category</span>
 	<ul>
-		<li>Mouse</li>
+		<li>Lizard</li>
 
 	</ul>
 </div>
@@ -1068,8 +1072,8 @@ Content-Length: 16221
 <div class="section box">
 	<span class="label">Pokedex</span>
 	<ul>
-		<li>It stores electricity in the electric sacs on its cheeks. When it releases pent-up energy in a burst</li>
-<li> the electric power is equal to a lightning bolt.</li>
+		<li>The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is happy</li>
+<li> and blazes when it is enraged.</li>
 
 	</ul>
 </div>
@@ -1091,23 +1095,11 @@ Content-Length: 16221
 	FIELD_DATA:	html of the field (hypertext or static)
 -->
 <div class="section box">
-	<span class="label">WildItemUncommon</span>
-	<ul>
-		<li>LIGHTBALL</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
 	<span class="label">Evolutions</span>
 	<ul>
-		<li><a href='/script/pokedex/output/pokemon.cgi?value=RAICHU'>RAICHU</a></li>
-<li>Item</li>
-<li><a href='/script/pokedex/output/pokemon.cgi?value=THUNDERSTONE'>THUNDERSTONE</a></li>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=CHARMELEON'>CHARMELEON</a></li>
+<li>Level</li>
+<li>16</li>
 
 	</ul>
 </div>
@@ -1131,4 +1123,1069 @@ Content-Length: 246938
 
 ======================================
 chiudo connessione 3
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 2299
+
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charmande</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://media.pokemoncentral.it/wiki/0/02/Sprrz0000.png" alt="charmande">
+	</div>
+	<div class="container">
+
+		
+
+	</div>
+
+</body>
+</html>
+
+
+======================================
+chiudo connessione 4
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 2299
+
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charmande</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://media.pokemoncentral.it/wiki/0/02/Sprrz0000.png" alt="charmande">
+	</div>
+	<div class="container">
+
+		
+
+	</div>
+
+</body>
+</html>
+
+
+======================================
+chiudo connessione 5
+======================================
+HTTP/1.1 200 OK
+Content-Type: image/ico
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 246938
+
+======================================
+chiudo connessione 6
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 16479
+
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charmander</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="charmander">
+	</div>
+	<div class="container">
+
+		<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">ID</span>
+	<ul>
+		<li>4</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Name</span>
+	<ul>
+		<li>Charmander</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Types</span>
+	<ul>
+		<li>FIRE</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseStats</span>
+	<ul>
+		<li>39</li>
+<li>52</li>
+<li>43</li>
+<li>65</li>
+<li>60</li>
+<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GenderRatio</span>
+	<ul>
+		<li>FemaleOneEighth</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">GrowthRate</span>
+	<ul>
+		<li>Parabolic</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">BaseExp</span>
+	<ul>
+		<li>62</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EVs</span>
+	<ul>
+		<li>SPEED</li>
+<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">CatchRate</span>
+	<ul>
+		<li>45</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Happiness</span>
+	<ul>
+		<li>50</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Abilities</span>
+	<ul>
+		<li>BLAZE</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HiddenAbilities</span>
+	<ul>
+		<li>SOLARPOWER</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Moves</span>
+	<ul>
+		<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCRATCH'>SCRATCH</a></li>
+<li>1</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
+<li>4</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=EMBER'>EMBER</a></li>
+<li>8</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SMOKESCREEN'>SMOKESCREEN</a></li>
+<li>12</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONBREATH'>DRAGONBREATH</a></li>
+<li>17</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li>20</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLASH'>SLASH</a></li>
+<li>24</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li>28</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
+<li>32</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li>36</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INFERNO'>INFERNO</a></li>
+<li>40</li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">TutorMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=ACROBATICS'>ACROBATICS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=AERIALACE'>AERIALACE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CUT'>CUT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONCLAW'>DRAGONCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONPULSE'>DRAGONPULSE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FALSESWIPE'>FALSESWIPE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREBLAST'>FIREBLAST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREFANG'>FIREFANG</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPLEDGE'>FIREPLEDGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIREPUNCH'>FIREPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FIRESPIN'>FIRESPIN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMECHARGE'>FLAMECHARGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAMETHROWER'>FLAMETHROWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FURYCUTTER'>FURYCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HEATWAVE'>HEATWAVE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=HONECLAWS'>HONECLAWS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=INCINERATE'>INCINERATE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OVERHEAT'>OVERHEAT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=POWERUPPUNCH'>POWERUPPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSLIDE'>ROCKSLIDE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROCKTOMB'>ROCKTOMB</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SCARYFACE'>SCARYFACE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SHADOWCLAW'>SHADOWCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SUNNYDAY'>SUNNYDAY</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=SWORDSDANCE'>SWORDSDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WEATHERBALL'>WEATHERBALL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WILLOWISP'>WILLOWISP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WORKUP'>WORKUP</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggMoves</span>
+	<ul>
+		<li><a href='/script/pokedex/output/moves.cgi?value=AIRCUTTER'>AIRCUTTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=ANCIENTPOWER'>ANCIENTPOWER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BEATUP'>BEATUP</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BELLYDRUM'>BELLYDRUM</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=BITE'>BITE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=CRUNCH'>CRUNCH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONDANCE'>DRAGONDANCE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONRUSH'>DRAGONRUSH</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=DRAGONTAIL'>DRAGONTAIL</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=FLAREBLITZ'>FLAREBLITZ</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=METALCLAW'>METALCLAW</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=OUTRAGE'>OUTRAGE</a></li>
+<li><a href='/script/pokedex/output/moves.cgi?value=WINGATTACK'>WINGATTACK</a></li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">EggGroups</span>
+	<ul>
+		<li>Monster</li>
+<li>Dragon</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">HatchSteps</span>
+	<ul>
+		<li>5120</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Height</span>
+	<ul>
+		<li>0.6</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Weight</span>
+	<ul>
+		<li>8.5</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Color</span>
+	<ul>
+		<li>Red</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Shape</span>
+	<ul>
+		<li>BipedalTail</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Habitat</span>
+	<ul>
+		<li>Mountain</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Category</span>
+	<ul>
+		<li>Lizard</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Pokedex</span>
+	<ul>
+		<li>The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is happy</li>
+<li> and blazes when it is enraged.</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Generation</span>
+	<ul>
+		<li>1</li>
+
+	</ul>
+</div>
+<!-- VARIABLES -->
+<!-- 
+	FIELD_NAME:	the name of the field
+	FIELD_DATA:	html of the field (hypertext or static)
+-->
+<div class="section box">
+	<span class="label">Evolutions</span>
+	<ul>
+		<li><a href='/script/pokedex/output/pokemon.cgi?value=CHARMELEON'>CHARMELEON</a></li>
+<li>Level</li>
+<li>16</li>
+
+	</ul>
+</div>
+
+
+	</div>
+
+</body>
+</html>
+
+
+======================================
+chiudo connessione 7
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 4281
+
+======================================
+chiudo connessione 8
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 2299
+
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charmande</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://media.pokemoncentral.it/wiki/0/02/Sprrz0000.png" alt="charmande">
+	</div>
+	<div class="container">
+
+		
+
+	</div>
+
+</body>
+</html>
+
+
+======================================
+chiudo connessione 9
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 2297
+
+<!-- VARIABLES -->
+<!-- 
+	KEY: 	the key of the field in the database
+	IMG:	the absolute url for the resource image 
+	FIELDS:	the data found with the cgi
+-->
+<!--NAME=cgi_pokedex-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>charmand</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #d32f2f 0%,
+                #d32f2f 48%,
+                #000 48%,
+                #000 52%,
+                #f5f5f5 52%,
+                #f5f5f5 100%
+            );
+            min-height: 100vh;
+            color: #111;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: #fafafa;
+            border-left: 6px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+		.image-wrapper {
+			width: 255px;
+			height: 255px;
+			margin: 30px auto -80px auto;
+			background: #fff;
+			border-radius: 50%;
+			border: 6px solid #000;
+			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			z-index: 2;
+		}
+
+		.image-wrapper img {
+			max-width: 90%;
+			max-height: 90%;
+		}
+    </style>
+</head>
+<body>
+
+	<div class="image-wrapper">
+		<img src="https://media.pokemoncentral.it/wiki/0/02/Sprrz0000.png" alt="charmand">
+	</div>
+	<div class="container">
+
+		
+
+	</div>
+
+</body>
+</html>
+
+
+======================================
+chiudo connessione 10
 ======================================

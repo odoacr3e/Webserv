@@ -13,7 +13,7 @@ CONF_PARSING = $(addprefix conf/, parseEvent.cpp parseMain.cpp parseServer.cpp p
 REQUEST_PARSING = $(addprefix request/, utils.cpp)
 
 CPP = $(addprefix cpp/, 		Client.cpp \
-		$(addprefix Server/,	Server.cpp autoIndex.cpp processRequest.cpp processResponse.cpp getter.cpp setter.cpp methods.cpp setup_utils.cpp)\
+		$(addprefix Server/,	getter.cpp setter.cpp print.cpp Server.cpp autoIndex.cpp processRequest.cpp processResponse.cpp methods.cpp setup_utils.cpp)\
 		$(addprefix conf/, 		getter.cpp setter.cpp print.cpp Conf.cpp) \
 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp))
 UTILS = $(addprefix utils/, 	file.cpp utils_page1.cpp path_checker.cpp value_checker.cpp \

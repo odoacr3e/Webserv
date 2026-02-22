@@ -1,324 +1,207 @@
-GET /script/pokedex/ HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/
-X-Request-ID: 0b23cfbda64f0eced9d3234648aebf79
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/
-X-Scheme: https
+GET /script/pokedex/output/pokemon.cgi?value=ursaluna HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+Cache-Control: max-age=0
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
 ======================================
 chiudo connessione 0
 ======================================
-GET /script/pokedex/output/pokemon.cgi?value=charmander HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
+GET /favicon.ico HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Windows"
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaluna
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/
-X-Request-ID: d4ecb76f0620075604135d0e49a5c778
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmander
-X-Scheme: https
+
+GET /script/pokedex/ HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/pokedex/output/pokemon.cgi?value=ursaring HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
 ======================================
 chiudo connessione 1
 ======================================
-GET /script/pokedex/output/pokemon.cgi?value=charmander HTTP/1.1
+GET /script/pokedex/output/moves.cgi?value=ROAR HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Cache-Control: max-age=0
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/
-X-Request-ID: da1d0cffba79ff8b7a953b98476d1dc1
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmander
-X-Scheme: https
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-sec-ch-ua-mobile: ?0
-sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
-
-GET /favicon.ico HTTP/1.1
-Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/output/pokemon.cgi?value=charmander
-X-Request-ID: ef58a7c56b055c686b9e2f7da46bcf00
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /favicon.ico
-X-Scheme: https
-sec-ch-ua-platform: "Windows"
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-DNT: 1
-sec-ch-ua-mobile: ?0
-sec-fetch-site: same-origin
-sec-fetch-mode: no-cors
-sec-fetch-dest: image
-priority: u=1, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
-
-GET /script/pokedex/output/pokemon.cgi?value=charmande HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-X-Request-ID: a9c257c70656c1f0a69bca889e9ed4a0
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmande
-X-Scheme: https
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-sec-ch-ua-mobile: ?0
-sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: none
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 2
 ======================================
-======================================
-chiudo connessione 3
-======================================
-======================================
-chiudo connessione 4
-======================================
-GET /script/pokedex/output/pokemon.cgi?value=charmande HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Cache-Control: max-age=0
-X-Request-ID: be9d06d9dfd858bb22e5daaa5ac0e8ea
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmande
-X-Scheme: https
+GET /script/pokedex/output/moves.cgi?value=TORMENT HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: none
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+======================================
+chiudo connessione 3
+======================================
+GET /script/pokedex/output/moves.cgi?value=ICEPUNCH HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+======================================
+chiudo connessione 4
+======================================
+GET /script/pokedex/output/moves.cgi?value=BULLDOZE HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
 ======================================
 chiudo connessione 5
 ======================================
-GET /favicon.ico HTTP/1.1
-Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
-Host: localhost:9021
+GET /script/pokedex/output/moves.cgi?value=ROCKSMASH HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/output/pokemon.cgi?value=charmande
-X-Request-ID: 548800e2176a51ecdb2ce22eb533f0cc
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /favicon.ico
-X-Scheme: https
-sec-ch-ua-platform: "Windows"
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-DNT: 1
-sec-ch-ua-mobile: ?0
-sec-fetch-site: same-origin
-sec-fetch-mode: no-cors
-sec-fetch-dest: image
-priority: u=1, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 6
 ======================================
-GET /script/pokedex/output/pokemon.cgi?value=charmander HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/
-X-Request-ID: 02b2d0de2f6a8da5f18f68dbab1e170c
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmander
-X-Scheme: https
+GET /script/pokedex/output/moves.cgi?value=GUNKSHOT HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
-
-GET /script/pokedex/ HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
+Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/pokedex/output/pokemon.cgi?value=ursaring
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/
-X-Request-ID: e0efd7856c4afa010c431be160399ec5
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/
-X-Scheme: https
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-sec-ch-ua-mobile: ?0
-sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
-
-GET /script/pokedex/output/pokemon.cgi?value=charmande HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/
-X-Request-ID: 90040c0629bd011e38e1ebb28fd77187
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmande
-X-Scheme: https
-sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
-sec-ch-ua-mobile: ?0
-sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
 
 ======================================
 chiudo connessione 7
 ======================================
-======================================
-chiudo connessione 8
-======================================
-GET /script/pokedex/output/pokemon.cgi?value=charmand HTTP/1.1
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Host: localhost:9021
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
-Accept-Encoding: gzip, deflate, br, zstd
-Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
-Referer: https://silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev/script/pokedex/
-X-Request-ID: 5e6065b82ad0e82fbbf9c3efb4f82c13
-X-Real-IP: 79.11.16.138
-X-Forwarded-Port: 443
-X-Forwarded-Scheme: https
-X-Original-URI: /script/pokedex/output/pokemon.cgi?value=charmand
-X-Scheme: https
+GET /script/pokedex/ HTTP/1.1
+Host: 127.0.0.1:9021
+Connection: keep-alive
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"
-DNT: 1
-sec-fetch-site: same-origin
-sec-fetch-mode: navigate
-sec-fetch-user: ?1
-sec-fetch-dest: document
-priority: u=0, i
-X-Forwarded-Proto: https
-X-Forwarded-Host: silver-palm-tree-jjqj7w7gr9qx2p9qq-9021.app.github.dev
-X-Forwarded-For: 79.11.16.138
-Proxy-Connection: Keep-Alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1:9021/script/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
-======================================
-chiudo connessione 9
-======================================

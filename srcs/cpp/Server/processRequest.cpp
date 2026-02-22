@@ -40,7 +40,7 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	}
 	if (request.getBytesLeft() == 0)
 	{
-		std::cout << "processRequest(): Sto andando in POLLOUT" << std::endl;
+		std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
 		client.getPollFd()->events = POLLOUT;
 		request.getFirstRead() = true;
 	}

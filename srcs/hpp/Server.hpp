@@ -86,7 +86,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 
 		// NOTE - close all sockets
 		void				suppressSocket();
-		void 				print_info(void);
+		void 				printPollInfo(void);
 };
 
 /*SECTION - gestione concorrenza

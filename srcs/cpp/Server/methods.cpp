@@ -25,7 +25,10 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 		return ;
 	}
 	if (client.getRequest().getRunScriptBool() == true)
+	{
+		std::cout << "entrato" << std::endl;
 		run_script(*this, client, resp_body);
+	}
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:

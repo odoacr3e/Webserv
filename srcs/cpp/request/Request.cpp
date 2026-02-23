@@ -197,15 +197,9 @@ t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 }
 
 // std::map<std::string, t_conf_location>
-void	Request::findRightUrl(t_conf_server *srv)
+void	Request::findRightUrl(t_conf_server *srv, t_conf_location *loc)
 {
-	// controllo se esiste uri nelle location, altrimenti root server
-	// std::cout << "\033[33m FINDRIGHTPATH: " COLOR_RESET;
-	// std::cout << "url: " << getUrl() << std::endl;
-	t_conf_location *loc;
-
 	this->_url_orig = this->_url;
-	loc = this->findRightLocation(srv);
 	if (this->getUrl().rbegin()[0] == '/')
 		manageIndex(srv, loc);
 	else if (loc != NULL && loc->run_script == true)
@@ -216,6 +210,8 @@ void	Request::findRightUrl(t_conf_server *srv)
 		this->_url = url_rooting(this->_url, *srv);
 	// std::cout << "\t---> RESULT: " << this->getUrl() << "\n";
 	std::cout << "findRightUrl(): " << this->getUrl() << std::endl;
+	std::cout << "findRightUrl(): LOC RUN_SCRIPT FLAG: " << (loc->run_script == false ? "false" : "true") << std::endl;
+	std::cout << "findRightUrl(): REQUEST RUN_SCRIPT FLAG: " << (this->_run_script == false ? "false" : "true") << std::endl;
 }
 
 // NOTE - controlliamo se autoindex e index sono settati e li impostiamo

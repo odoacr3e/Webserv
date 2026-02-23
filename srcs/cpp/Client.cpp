@@ -160,7 +160,6 @@ s_cgi	&s_cgi::operator=(const s_cgi &other)
 	this->pid = other.pid;
 	this->pipe[0] = other.pipe[0];
 	this->pipe[1] = other.pipe[1];
-	this->input = other.argv[1];
 	this->output = other.output;
 	this->isFastCgiBool = other.isFastCgiBool;
 	return (*this);

@@ -128,3 +128,72 @@ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 		vect.push_back(temp);
 	}
 }
+
+/**
+ * @brief split a vector - ALLOCS MEMORY: every element !MUST! BE DELETED!!!
+ * 
+ * @param vect vector of char * 
+ * @param s string to split
+ * @param c separator
+ */
+void	vect_split(std::vector<char *> &vect, std::string s, char c)
+{
+	std::string	temp;
+	size_t		i;
+	char		*temp_char;
+
+	while (s.empty() == false && s[0] != c)
+	{
+		i = s.find(c);
+		if (i == std::string::npos)
+		{
+			temp_char = new char[s.length()];
+			std::memcpy(temp_char, s.c_str(), s.length());
+			vect.push_back(temp_char);
+			return ;
+		}
+		temp = s.substr(0, i);
+		s.erase(0, temp.length());
+		s.erase(0, s[0] == c);
+		temp_char = new char[temp.length()];
+		std::memcpy(temp_char, temp.c_str(), temp.length());
+		vect.push_back(temp_char);
+	}
+}
+
+/**
+ * @brief split a vector - ALLOCS MEMORY: every element !MUST! BE DELETED!!!
+ * 
+ * @param vect vector of char * 
+ * @param s string to split
+ * @param c separator
+ */
+void	vect_split(std::vector<std::pair<char *, size_t> > &vect, std::string s, char c)
+{
+	std::string				temp;
+	size_t					i;
+	char					*temp_char;
+	std::pair<char *, int>	temp_pair;
+
+	while (s.empty() == false && s[0] != c)
+	{
+		i = s.find(c);
+		if (i == std::string::npos)
+		{
+			temp_char = new char[s.length()];
+			std::memcpy(temp_char, s.c_str(), s.length());
+			temp_pair.first = temp_char;
+			temp_pair.second = s.length();
+			vect.push_back(temp_pair);
+			return ;
+		}
+		temp = s.substr(0, i);
+		s.erase(0, temp.length());
+		s.erase(0, s[0] == c);
+		temp_char = new char[temp.length()];
+		std::memcpy(temp_char, temp.c_str(), temp.length());
+		temp_pair.first = temp_char;
+		temp_pair.second = temp.length();
+		vect.push_back(temp_pair);
+	}
+}

@@ -63,11 +63,11 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
 	stream << "\t";
 	for (size_t i = 0; i < vec.size(); i++)
 	{
-		if (i != 0)
-			stream << "\t\t\t";
+		// if (i != 0)
+		// 	stream << "\t\t\t";
 		stream << vec[i];
-		if (i != vec.size() - 1)
-			stream << std::endl;
+		// if (i != vec.size() - 1)
+		// 	stream << std::endl;
 	}
 	return (stream);
 }

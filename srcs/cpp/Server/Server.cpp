@@ -70,7 +70,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	Client	*client;
 	pollfd	poll_data;
 
-	this->printPollInfo();
+	// this->printPollInfo();
 	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
 	{
 		poll_data = this->_addrs[i];
@@ -80,10 +80,10 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_RD)
 			{
 				std::cout << WHITE "before readToCgi() \n\033[0m";
-				this->printPollInfo();
+				// this->printPollInfo();
 				client->readToCgi(*this, *this->getFdData()[poll_data.fd].cgi);
 				std::cout << WHITE "after readToCgi() \n\033[0m";
-				this->printPollInfo();
+				// this->printPollInfo();
 				i--;
 				continue ;
 			}

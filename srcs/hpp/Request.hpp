@@ -87,7 +87,7 @@ class Request
 		Request(const Request &other);
 		Request &operator=(const Request &other);
 	//SECTION - checks
-		void			findRightUrl(t_conf_server *srv);
+		void			findRightUrl(t_conf_server *srv, t_conf_location *loc);
 		t_conf_location	*findRightLocation(t_conf_server *srv);
 		bool			checkVal(std::string key);
 		int				fail(e_http_codes code);

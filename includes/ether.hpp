@@ -89,18 +89,18 @@ size_t      find_first_special_char(std::string line);
 bool        is_there_special_chars(std::string line);
 size_t      find_first_not_special_char(std::string line);
 
-void			trim_from(std::string &s, size_t from);
-bool			trim_equal_left(std::string &s, char c);
-bool			trim_diff_left(std::string &s, char c);
-bool			trim_equal_right(std::string &s, char c);
-bool			trim_diff_right(std::string &s, char c);
-
-bool			valid_directory(std::string directory);
-bool			valid_file(std::string file);
+void			    trim_from(std::string &s, size_t from);
+bool			    trim_equal_left(std::string &s, char c);
+bool			    trim_diff_left(std::string &s, char c);
+bool			    trim_equal_right(std::string &s, char c);
+bool			    trim_diff_right(std::string &s, char c);
+    
+bool			    valid_directory(std::string directory);
+bool			    valid_file(std::string file);
 
 std::string		url_rooting(std::string url, t_conf_server &srv);
 std::string		url_rooting(std::string url, t_conf_location &loc);
-void			url_normalize(std::string *url);
+void			    url_normalize(std::string *url);
 std::string		url_normalize(std::string url);
 std::string		url_arg_remove(std::string url, char limiter);
 std::string		url_arg_get(std::string url, char limiter);
@@ -114,9 +114,12 @@ void	  ft_ls(std::string path, std::string &files);
 
 // int			ft_recv(int fd, std::vector<char *> &packets, size_t packet_size);
 
-void	run_script(Server &srv, Client &client, std::string &body);
 std::string	env_value(const char **env, std::string key);
-void		vect_split(std::vector<std::string> &vect, std::string s, char c);
+void	      run_script(Server &srv, Client &client, std::string &body);
+void        vect_split(std::vector<std::string> &vect, std::string s, char c);
+void        vect_split(std::vector<char *> &vect, std::string s, char c);
+void        vect_split(std::vector<std::pair<char *, size_t> > &vect, std::string s, char c);
+
 
 #define CHARIZARD "                 .\"-,.__\n\
                  `.     `.  ,\n\

@@ -29,6 +29,7 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		this->setupRequestEnvironment(client);
+		std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 	}
 	else
 	{
@@ -44,6 +45,8 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		client.getPollFd()->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
+	std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;
+	std::cout << "BODY\n" << request.getBinBody() << std::endl;
 }
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)
@@ -83,7 +86,7 @@ void	Server::setupRequestEnvironment(Client &client)
 	loc = request.findRightLocation(srv);
 	if (loc)
 		client.getLocConf() = *loc;
-	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()]);
+	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()], loc);
 	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
 }

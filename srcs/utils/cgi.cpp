@@ -59,7 +59,7 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	std::string					url;
 	std::string					cmd;
 	std::string					args;
-	char						separator;
+	char						separator = '\0';
 	std::pair<char *, size_t>	temp_pair;
 
 	url = client.getRequest().getUrl();
@@ -69,18 +69,22 @@ static void		get_argv(Client &client, argvVector &argv_data)
 		args = url.substr(url.find_last_of('?') + 1, url.length());
 		separator = '&';
 	}
-	else if (client.getRequest().getMethodEnum() == POST)
+	/*else if (client.getRequest().getMethodEnum() == POST)
 	{
-		// text=1&abc+def&gabibbo+fortissimo&gabibbone
+		// text=asdasda&crypt_string=%2Fscript%2Fcrypter%2F
+		// asdasda&crypt_string=%2Fscript%2Fcrypter%2F
+		// argv[1] = asdasda ; argv[2] = crypt_string=%2Fscript%2Fcrypter%2F ; 
+		// argv[1] = crypt_string=%2Fscript%2Fcrypter%2F ; argv[2] = asdasda ; 
 		std::string body = client.getRequest().getBinBody().data();
-		std::string	content = body;;
+		std::string	content = body;
 		find_and_replace(content, "&action=", "");
-		find_and_replace(body, "text=", "");
+		std::string real_content = content;
+		find_and_replace(real_content, "text=", "");
 		std::string real_content = content.substr(content.find("text=") + 5);
 		std::cout << "Real content: " << real_content << std::endl;
 		std::vector<std::string> format_real_for_real;
 		vect_split(format_real_for_real, real_content, '+');
-	}
+	}*/
 	else
 	{
 		if (client.getLocConf().cgiparam.size() == 0)

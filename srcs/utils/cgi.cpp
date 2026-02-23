@@ -73,7 +73,7 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	{
 		// text=1&abc+def&gabibbo+fortissimo&gabibbone
 		std::string body = client.getRequest().getBinBody().data();
-		std::string	content = body.substr(0, i);
+		std::string	content = body;;
 		find_and_replace(content, "&action=", "");
 		find_and_replace(body, "text=", "");
 		std::string real_content = content.substr(content.find("text=") + 5);

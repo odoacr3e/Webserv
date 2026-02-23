@@ -41,7 +41,8 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		std::cout << "script_type undefined. no html created." << std::endl;
 		std::cout << cgi_data.output << std::endl;
 	}
-	delete cgi_ptr;
+	if (client.getLocConf().script_daemon == false)
+		delete cgi_ptr;
 	srv.getFdData()[client.getSockFd()].cgi = NULL;
 	srv.getFdData()[client.getSockFd()].cgi_ready = false;
 }
@@ -159,11 +160,36 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data)
 		close(pipes[0][1]);
 		close(pipes[1][0]);
 		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
+		cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
+		cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
 	}
+	/*OLD
 	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
 	std::cout << filename << std::endl;
 	read_file(filename, client.getBuffer(), 14745718);
 	print_file("RESPONSE", client.getBuffer().data(), 1000);
 	cgi_data.client = &client;
+	*/
+	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
+	/*
+		1)	ADDSOCKET
+		2)	client stai zitto
+		3)	setting fdData[pipe[0]]
+		4)	setting fdData[client]
+	*/
+	// 1) ADDSOCKET
+	// 2 client stai zitto
+	srv.getAddrsVector()[cgi_data.pipe[0]].events = POLLIN;
+	client.getPollFd()->events = 0;
+	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
+	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
+	// 3) pipe[0]
+	s_cgi	*cgi_ptr = &cgi_exist->second;
+	srv.getFdData()[cgi_data.pipe[0]].client = &client;
+	srv.getFdData()[cgi_data.pipe[0]].cgi = cgi_ptr;
+	// 4) client
+	srv.getFdData()[client.getSockFd()].cgi_ready = true;
+	srv.getFdData()[client.getSockFd()].client = &client;
+	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
 }

@@ -102,6 +102,8 @@ void	Client::readToCgi(Server &srv, s_cgi &cgi)
 	std::cout << WHITE "readToCgi(): pipe[0] " RESET << cgi.pipe[0] << " rimosso da poll\n";
 	if (cgi.isFastCgiBool == false)
 		cgi.clear(srv, *this);
+	else
+		srv.getAddrsVector()[cgi.pipe[0]].events &= (~POLLIN);
 }
 
 void	Client::writeToCgi(Server &srv, s_cgi &cgi)
@@ -114,6 +116,8 @@ void	Client::writeToCgi(Server &srv, s_cgi &cgi)
 	print_file("CGI", "\n----\n");
 	if (cgi.isFastCgiBool == false)
 		cgi.removeFromPoll(true, srv);
+	else
+		srv.getAddrsVector()[cgi.pipe[0]].events &= (~POLLOUT);
 }
 
 s_cgi::s_cgi(void)

@@ -25,6 +25,7 @@ int main(int ac, char **av, const char **env)
 {
 	std::remove("REQUEST");//FIXME - togliere, solo per debug
 	std::remove("RESPONSE");//FIXME - togliere, solo per debug
+	std::remove("HISTORY");//FIXME - togliere, solo per debug
 	std::remove("CGI");//FIXME - togliere, solo per debug
 	std::string	conf_path;
 

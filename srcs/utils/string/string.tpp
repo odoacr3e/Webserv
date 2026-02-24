@@ -32,8 +32,16 @@ bool	find_and_erase(std::string &str, old_s to_replace)
 
 	temp_replace = ft_to_string(to_replace);
 	if (str.find(temp_replace) != std::string::npos)
-		str.replace(str.find(temp_replace), temp_replace.size(), 0);
+		str.erase(str.find(temp_replace), temp_replace.size());
 	else
 		return (false);
 	return (true);
+}
+
+template<typename T, typename F>void	iter(T *array, const std::size_t length, F func)
+{
+	for (size_t i = 0; i < length; i++)
+	{
+		func(array + i);
+	}
 }

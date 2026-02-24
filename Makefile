@@ -44,11 +44,19 @@ $(OBJ_DIR)/%.o: %.cpp
 
 # BladeRunner: 
 # 	xgd open https://www.youtube.com/results?search_query=bayblade+sigla
-run: $(NAME)
-	clear ; ./$(NAME)
+#run: $(NAME)
+#	clear ; ./$(NAME)
+
+run: rum
 
 rum: $(NAME)
-	clear ; echo "AHOY!!!!\n" ; ./$(NAME)
+	@clear
+	@echo "Segmentation Fault (Core Dumped)"
+	@sleep 2
+	@clear
+	@echo "nah scherzavo"
+	@sleep 1
+	@clear; ./$(NAME)
 
 spaghetti: re
 	clear ; ./$(NAME)

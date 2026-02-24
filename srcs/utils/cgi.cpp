@@ -13,6 +13,7 @@ std::string		createHtmlPokedex(s_cgi &cgi);
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
 std::string		createHtmlYouTube(t_cgi &cgi_data);
 std::string		createHtmlCrypter(t_cgi &cgi_ptr);
+void			createArgvCrypter(std::string &args, argvVector &argv_data);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
@@ -72,13 +73,60 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		// std::cout << "Real content: " << real_content << std::endl;
 		// std::vector<std::string> format_real_for_real;
 		// vect_split(format_real_for_real, real_content, '+');
+static int hex_value(char c)
+{
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 10;
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+    return -1;
+}
+
+void convert_hexa(std::vector<char*> &input)
+{
+    for (size_t idx = 0; idx < input.size(); ++idx)
+    {
+        char *original = input[idx];
+		if(!original)
+			continue ;
+
+        size_t len = std::strlen(original);
+        char *decoded = new char[len + 1];
+        size_t read = 0;
+        size_t write = 0;
+
+        while (read < len)
+        {
+            if (original[read] == '%' && read + 2 < len)
+            {
+                int high = hex_value(original[read + 1]);
+                int low  = hex_value(original[read + 2]);
+                if (high != -1 && low != -1)
+                {
+                    decoded[write++] = static_cast<char>((high << 4) | low);
+                    read += 3;
+                    continue;
+                }
+            }
+            decoded[write++] = original[read++];
+        }
+        decoded[write] = '\0';
+
+        delete[] original;
+		std::cout << "ORIGINAL: " << original << std::endl;
+        input[idx] = decoded;
+		std::cout << "DECODED: " << input[idx] << std::endl;
+    }
+}
+
 static void		get_argv(Client &client, argvVector &argv_data)
 {
 	std::string	url;
 	std::string	cmd;
 	std::string	args;
-	std::string	body;
-	char		separator = '?';
+	char		separator;
 	char		*temp;
 
 	url = client.getRequest().getUrl();
@@ -92,55 +140,27 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	if (client.getRequest().getMethodEnum() == POST)
 	{
 		client.getRequest().getBinBody().push_back('\0');
-		body = client.getRequest().getBinBody().data();
-		std::cout << "get_argv() BODY: " << body << std::endl;
-		while (find_and_replace(body, "+", " "));
+		args = client.getRequest().getBinBody().data();
+		while (find_and_replace(args, "+", " "));
 	}
 	else
 		args = url.substr(url.find_last_of(separator) + 1, url.length());
-	// body=ciao+come+stai&crypt_string=end
+	// www/cgi-bin/crypter/crypter.cgi=0.7
+	temp = new char[cmd.length() + 1];
+	temp[cmd.length()] = 0;
+	std::memcpy(temp, cmd.c_str(), cmd.length());
+	argv_data.push_back(temp);
 	if (client.getLocConf().script_type == "crypter")
-	{
-		size_t		first_to_delete;
-		size_t		decrypt_instruction;
-		size_t		crypt_instruction;
-		size_t		last_to_delete;
-
-		first_to_delete = body.find("body=") + 5;
-		decrypt_instruction = body.find("&decrypt_string=end") + 15;
-		crypt_instruction = body.find("&crypt_string=end") + 13;
-
-		if (crypt_instruction != std::string::npos)
-			last_to_delete = crypt_instruction;
-		else
-			last_to_delete = decrypt_instruction;
-
-		// crypt_instruction != std::string::npos ? last_to_delete = crypt_instruction : last_to_delete = decrypt_instruction;
-		
-		if (first_to_delete != std::string::npos)
-		{
-			find_and_erase(body, "body=");
-			if(last_to_delete != std::string::npos)
-				find_and_erase(body, "=end");
-			else
-				std::cerr << "Bad crypter format: missing endpart\n";
-			std::cout << "get_argv(): Post processing BODY" << body << std::endl;
-		}
-		else
-			std::cerr << "Bad crypter format missing beginpart\n";
-	}
+		createArgvCrypter(args, argv_data);
 	else
 	{
-		temp = new char[cmd.length()];
-		std::memcpy(temp, cmd.c_str(), cmd.length());
-		argv_data.push_back(temp);
 		find_and_replace(args, "value=", "");//FIXME - per pokedex
-		std::cout << "args " << args << std::endl;
 		vect_split_new(argv_data, args, separator);
-		argv_data.push_back(NULL);
 	}
+	argv_data.push_back(NULL);
 	std::cout << "cmd: " << argv_data[0] << "\n";
-	for (size_t i = 1; i < argv_data.size() - 1; i++)
+	convert_hexa(argv_data);
+	for (size_t i = 1; i < argv_data.size(); i++)
 		std::cout << "arg " << i << ": " << argv_data[i] << "\n";
 }
 
@@ -164,11 +184,13 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 		close(cgi_data.pipe[1]);
 		srv.suppressSocket();
 		execve(argv_data[0], argv_data.data(), NULL);
-		for (size_t i = 0; argv_data.size() - 1; i++)
-			delete argv_data[i];
+		for (size_t i = 0; i != argv_data.size() - 1; i++)
+			delete [] argv_data[i];
 		std::cerr << "run_script fatal error\n";
 		std::exit(1);
 	}
+	for (size_t i = 0; i != argv_data.size() - 1; i++)
+		delete [] argv_data[i];
 	std::cout << WHITE"Entro e chiudo pipe[0]: " RED << cgi_data.pipe[1] << "" RESET << std::endl;
 	close_fd(&cgi_data.pipe[1]);
 	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
@@ -183,6 +205,8 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
 	// 2 client stai zitto
 	client.getPollFd()->events = 0;
+	client.getBuffer().clear();
+	client.getRequest().getBinBody().clear();
 	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
 	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
 	// 3) pipe[0]

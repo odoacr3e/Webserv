@@ -1,6 +1,8 @@
 #include "../../hpp/Server.hpp"
 #include "../../hpp/Request.hpp"
 
+#define DIV "--------------------------------\n"
+
 /*SECTION - gestione concorrenza
 
 	4 strutture:				
@@ -18,43 +20,55 @@ bool	cgi_ready:	false	false		false		false/true	false
 */
 void Server::printPollInfo(void)
 {
-	std::string	types[4] = {"SERVER", "CLIENT", "PIPE_RD", "PIPE_WR"};
-	Client	*client;
-	s_cgi	*cgi;
-	pollfd	poll_data;
+	std::string			types[4] = {"SERVER", "CLIENT", "PIPE_RD", "PIPE_WR"};
+	Client				*client;
+	s_cgi				*cgi;
+	pollfd				poll_data;
+	static int			connection_number;
+	std::ostringstream	result;
 
-	std::cout << "print_info(): \n";
-	for (size_t i = 0; i != this->_addrs.size(); ++i)
+	result << "Connection number " << connection_number++ << "\n";
+	result << DIV;
+	for (size_t i = this->getServerNum(); i != this->_addrs.size(); ++i)
 	{
 		poll_data = this->_addrs[i];
 		client = this->getFdData()[poll_data.fd].client;
 		cgi = this->getFdData()[poll_data.fd].cgi;
-		std::cout << "\033[32mINDEX \033[0m" << i << "\n";
-		std::cout << "\033[33mFD \033[0m" << poll_data.fd << "\n";
-		std::cout << "\033[33mTYPE \033[0m" << types[this->getFdData()[poll_data.fd].type] << "\n";
+		result << "INDEX " << i << "\n";
+		result << "FD " << poll_data.fd << "\n";
+		result << "TYPE " << types[this->getFdData()[poll_data.fd].type] << "\n";
 		if (client)
 		{
-			std::cout << "\033[34mClient \033[0m" << client->getSockFd();
+			result << "Client " << client->getSockFd();
 			if (client->getRequest().getUrlOriginal().empty() == false)
-				std::cout << " - " << client->getRequest().getUrlOriginal() << "\n";
+				result << " - " << client->getRequest().getUrlOriginal() << "\n";
 			else
-				std::cout << "\n";
+				result << " - ???\n";
 		}
 		if (cgi)
 		{
-			std::cout << "\033[34mpipe[0]=\033[0m" << cgi->pipe[0] << ",";
-			std::cout << "\033[34mpipe[1]=\033[0m" << cgi->pipe[1] << "\n";
+			result << "pipe[0]=" << cgi->pipe[0] << ",";
+			result << "pipe[1]" << cgi->pipe[1] << "\n";
 		}
-		std::cout << "\033[33mEVENTS\033[0m: ";
+		result << "EVENTS: ";
 		if (poll_data.events == 0)
-			std::cout << "NONE, ";
+			result << "NONE";
 		if (poll_data.events & POLLIN)
-			std::cout << "\033[" << (31 + ((poll_data.revents & POLLIN) != 0)) << "mPOLLIN, ";
+			result << "POLLIN, ";
 		if (poll_data.events & POLLOUT)
-			std::cout << "\033[" << (31 + ((poll_data.revents & POLLOUT) != 0)) << "mPOLLOUT, ";
-		std::cout << "\b\b \033[0m\n";
+			result << "POLLOUT, ";
+		result << "\n";
+		result << "REVENTS: ";
+		if (poll_data.revents == 0)
+			result << "NONE";
+		if (poll_data.revents & POLLIN)
+			result << "POLLIN, ";
+		if (poll_data.revents & POLLOUT)
+			result << "POLLOUT, ";
+		result << "\n";
 	}
-	std::cout << "END\n";
+	result << DIV;
+	print_file("HISTORY", result.str());
 }
 
 /**

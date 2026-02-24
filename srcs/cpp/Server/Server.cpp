@@ -71,7 +71,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	Client	*client;
 	s_cgi	*cgi;
 
-	// this->printPollInfo();
+	this->printPollInfo();
 	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
 	{
 		poll_data = this->_addrs[i];

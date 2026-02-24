@@ -143,20 +143,22 @@ footer {
     <div class="card">
         <h2>Crypto Tool</h2>
 
-        <form method="POST" action="/script/crypter/">
-            <input type="text" name="text" placeholder="Inserisci testo..." required>
+        <form method="POST" action="/script/crypter/run">
+            <input type="ciao" name="body" placeholder="Inserisci testo..." required>
 
             <div style="display:flex; gap:15px; margin-top:15px;">
-                <button type="submit" name="crypt_string" value="/script/crypter/">
+                <button type="submit" name="crypt_string" value="end">
                     Cripta stringa
                 </button>
 
-                <button type="submit" name="decrypt_string" value="/script/crypter/">
+                <button type="submit" name="decrypt_string" value="end">
                     Decripta stringa
                 </button>
             </div>
         </form>
-
+<!-- name="body"=STRINGA+DI+TESTO&name="decrypt_string"value="/script/crypter/run" -->
+<!-- body=STRINGA DI TESTO&decrypt_string=%2Fscript%2Fcrypter%2Frun -->
+ <!-- body=CIAO&crypt_string=end -->
         <div class="output">
             <!-- {RESULT} -->
         </div>
@@ -164,7 +166,7 @@ footer {
 </main>
 
 <footer>
-    Demo interfaccia minimal dark
+    <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
 </footer>
 
 </body>

@@ -49,11 +49,11 @@ class Client
 		void				setPollFd(struct pollfd *p);
 
 		//SECTION - cgi
-		void				readToCgi(Server &srv, s_cgi &cgi);
-		void				writeToCgi(Server &srv, s_cgi &cgi);
+		void				readCgi(Server &srv, s_cgi &cgi);
+		void				writeCgi(Server &srv, s_cgi &cgi);
 };
 
-typedef	struct s_cgi
+typedef	struct s_cgi 
 {
 	s_cgi(void);
 	s_cgi(Client &client);

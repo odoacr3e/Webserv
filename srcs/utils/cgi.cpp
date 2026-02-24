@@ -3,7 +3,7 @@
 #include "../hpp/Server.hpp"
 #include <sys/wait.h>
 
-typedef std::vector<std::pair<char *, size_t> >	argvVector;
+typedef std::vector<char *>	argvVector;
 
 static void		get_argv(Client &client, argvVector &v);
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv_data);
@@ -16,9 +16,9 @@ std::string		createHtmlCrypter(t_cgi &cgi_ptr);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
-	t_cgi									cgi_data(client);
-	t_cgi									*cgi_ptr = NULL;
-	std::vector<std::pair<char *, size_t> > argv_data;
+	t_cgi				cgi_data(client);
+	t_cgi				*cgi_ptr = NULL;
+	std::vector<char *> argv_data;
 
 	std::cout << "RUN_SCRIPT\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
@@ -54,58 +54,65 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	srv.getFdData()[client.getSockFd()].cgi_ready = false;
 }
 
-static void		get_argv(Client &client, argvVector &argv_data)
-{
-	std::string					url;
-	std::string					cmd;
-	std::string					args;
-	char						separator = '\0';
-	std::pair<char *, size_t>	temp_pair;
-
-	url = client.getRequest().getUrl();
-	if (url.find('?') != std::string::npos)
-	{
-		cmd = url.substr(0, url.find_last_of('?'));
-		args = url.substr(url.find_last_of('?') + 1, url.length());
-		separator = '&';
-	}
-	/*else if (client.getRequest().getMethodEnum() == POST)
-	{
 		// text=asdasda&crypt_string=%2Fscript%2Fcrypter%2F
 		// asdasda&crypt_string=%2Fscript%2Fcrypter%2F
 		// argv[1] = asdasda ; argv[2] = crypt_string=%2Fscript%2Fcrypter%2F ; 
 		// argv[1] = crypt_string=%2Fscript%2Fcrypter%2F ; argv[2] = asdasda ; 
+		// if (client.getLocConf().script_type == "crypter")
+		// {
+
+		// }
+
+
+		// std::string	content = body;
+		// find_and_replace(content, "&action=", "");
+		// std::string real_content = content;
+		// find_and_replace(real_content, "text=", "");
+		// std::string real_content = content.substr(content.find("text=") + 5);
+		// std::cout << "Real content: " << real_content << std::endl;
+		// std::vector<std::string> format_real_for_real;
+		// vect_split(format_real_for_real, real_content, '+');
+static void		get_argv(Client &client, argvVector &argv_data)
+{
+	std::string	url;
+	std::string	cmd;
+	std::string	args;
+	char		separator = '?';
+	char		*temp;
+
+	url = client.getRequest().getUrl();
+	url.find('?') != std::string::npos ? separator = '?' : separator = '/';
+	if (separator == '?')
+		cmd = url.substr(0, url.find_last_of('?'));
+	else if (client.getLocConf().cgiparam.size() == 0)
+		cmd = "CGI_PATH_NOT_FOUND";
+	else
+		cmd = client.getLocConf().cgiparam[0].second;
+	if (client.getRequest().getMethodEnum() == POST)
+	{
+		client.getRequest().getBinBody().push_back('\0');
 		std::string body = client.getRequest().getBinBody().data();
-		std::string	content = body;
-		find_and_replace(content, "&action=", "");
-		std::string real_content = content;
-		find_and_replace(real_content, "text=", "");
-		std::string real_content = content.substr(content.find("text=") + 5);
-		std::cout << "Real content: " << real_content << std::endl;
-		std::vector<std::string> format_real_for_real;
-		vect_split(format_real_for_real, real_content, '+');
-	}*/
+		std::cout << "get_argv() BODY: " << body << std::endl;
+		while (find_and_replace(body, "+", " "));
+	}
+	else
+		args = url.substr(url.find_last_of(separator) + 1, url.length());
+	if (/*crypter*/)
+		;//crypter
 	else
 	{
-		if (client.getLocConf().cgiparam.size() == 0)
-			cmd = "CGI_PATH_NOT_FOUND";
-		else
-			cmd = client.getLocConf().cgiparam[0].second;
-		args = url.substr(url.find_last_of('/') + 1, url.length());
-		separator = '+';
+		temp = new char[cmd.length()];
+		std::memcpy(temp, cmd.c_str(), cmd.length());
+		argv_data.push_back(temp);
+		find_and_replace(args, "value=", "");//FIXME - per pokedex
+		std::cout << "args " << args << std::endl;
+		vect_split_new(argv_data, args, separator);
+		argv_data.push_back(NULL);
 	}
-	temp_pair.first = new char[cmd.length()];
-	std::memcpy(temp_pair.first, cmd.c_str(), cmd.length());
-	argv_data.push_back(temp_pair);
-	find_and_replace(args, "value=", "");
-	vect_split(argv_data, args, separator);
-	temp_pair.first = NULL;
-	temp_pair.second = 0;
-	argv_data.push_back(temp_pair);
-	std::cout << "cmd: " << argv_data[0].first << "\n";
+	std::cout << "cmd: " << argv_data[0] << "\n";
 	for (size_t i = 1; i < argv_data.size() - 1; i++)
 	{
-		std::cout << "arg " << i << ": " << argv_data[i].first << "\n";
+		std::cout << "arg " << i << ": " << argv_data[i] << "\n";
 	}
 }
 
@@ -114,17 +121,6 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	//std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
 	std::cout << WHITE"client fd orig " RED << cgi_data.client_fd << RESET"\n";
 	std::cout << WHITE"client copied: " RED << srv.getFdData()[cgi_data.pipe[0]].cgi_data.client_fd << RESET"\n";*/
-
-std::vector<char *>	extract_args(argvVector &argv)
-{
-	std::vector<char *>	ret;
-
-	for (size_t i = 0; i < argv.size(); i++)
-	{
-		ret.push_back(argv[i].first);
-	}
-	return (ret);
-}
 
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv_data)
 {
@@ -139,8 +135,9 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 		close(cgi_data.pipe[0]);
 		close(cgi_data.pipe[1]);
 		srv.suppressSocket();
-
-		execve(argv_data[0].first, extract_args(argv_data).data(), NULL);
+		execve(argv_data[0], argv_data.data(), NULL);
+		for (size_t i = 0; argv_data.size() - 1; i++)
+			delete argv_data[i];
 		std::cerr << "run_script fatal error\n";
 		std::exit(1);
 	}
@@ -223,7 +220,9 @@ int read_file(std::string name, std::vector<char> &vect, int bytes);
 // 	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
 // 	/*
 // 		1)	ADDSOCKET
-// 		2)	client stai zitto
+// 		2)	client stai zittoListening on -> 10.11.4.3:9020
+
+// Can't bind ip:port -> 10.11.4.5:9020
 // 		3)	setting fdData[pipe[0]]
 // 		4)	setting fdData[client]
 // 	*/
@@ -242,3 +241,6 @@ int read_file(std::string name, std::vector<char> &vect, int bytes);
 // 	srv.getFdData()[client.getSockFd()].client = &client;
 // 	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
 // }
+
+
+// MODEL VIEW CONTROLLER

@@ -208,10 +208,6 @@ void	Request::findRightUrl(t_conf_server *srv, t_conf_location *loc)
 		this->_url = url_rooting(this->_url, *loc);
 	else
 		this->_url = url_rooting(this->_url, *srv);
-	// std::cout << "\t---> RESULT: " << this->getUrl() << "\n";
-	std::cout << "findRightUrl(): " << this->getUrl() << std::endl;
-	std::cout << "findRightUrl(): LOC RUN_SCRIPT FLAG: " << (loc->run_script == false ? "false" : "true") << std::endl;
-	std::cout << "findRightUrl(): REQUEST RUN_SCRIPT FLAG: " << (this->_run_script == false ? "false" : "true") << std::endl;
 }
 
 // NOTE - controlliamo se autoindex e index sono settati e li impostiamo

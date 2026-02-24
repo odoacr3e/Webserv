@@ -29,7 +29,7 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		this->setupRequestEnvironment(client);
-		std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
+		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 	}
 	else
 	{
@@ -41,12 +41,12 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	}
 	if (request.getBytesLeft() == 0)
 	{
-		std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
+		// std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
 		client.getPollFd()->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
-	std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;
-	std::cout << "BODY\n" << request.getBinBody() << std::endl;
+	// std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;
+	// std::cout << "BODY\n" << request.getBinBody() << std::endl;
 }
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)

@@ -118,7 +118,7 @@ std::string	env_value(const char **env, std::string key);
 void	      run_script(Server &srv, Client &client, std::string &body);
 void        vect_split(std::vector<std::string> &vect, std::string s, char c);
 void        vect_split(std::vector<char *> &vect, std::string s, char c);
-void        vect_split(std::vector<std::pair<char *, size_t> > &vect, std::string s, char c);
+void        vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
 
 #define CHARIZARD "                 .\"-,.__\n\

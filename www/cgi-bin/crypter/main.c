@@ -1,7 +1,7 @@
 
 #include "includes/lib.h"
 
-int	main(int ac, char **av) 
+int	main(int ac, char **av)
 {
 	write(2, "entro CRYPTER\n", 14);
 	if (ac != 3)

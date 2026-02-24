@@ -88,28 +88,28 @@ void				Client::setPollFd(struct pollfd *p)
 	this->_poll_fd = p;
 }
 
-void	Client::readToCgi(Server &srv, s_cgi &cgi)
+void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
-	std::cout << "readToCgi():\nfilename: " << filename << "\n";
+	std::cout << "readCgi():\nfilename: " << filename << "\n";
 	read_file(filename, this->getBuffer());
 	print_file("CGI", "----\nREAD FROM CGI:\n----\n");
 	print_file("CGI", this->getBuffer());
 	print_file("CGI", "\n----\n");
 	cgi.output = this->getBufferChar();
 	this->getPollFd()->events = POLLOUT;
-	std::cout << WHITE "readToCgi(): client " RESET << this->getSockFd() << " POLLOUT\n";
-	std::cout << WHITE "readToCgi(): pipe[0] " RESET << cgi.pipe[0] << " rimosso da poll\n";
+	std::cout << WHITE "readCgi(): client " RESET << this->getSockFd() << " POLLOUT\n";
+	std::cout << WHITE "readCgi(): pipe[0] " RESET << cgi.pipe[0] << " rimosso da poll\n";
 	if (cgi.isFastCgiBool == false)
 		cgi.clear(srv, *this);
 	else
 		srv.getAddrsVector()[cgi.pipe[0]].events &= (~POLLIN);
 }
 
-void	Client::writeToCgi(Server &srv, s_cgi &cgi)
+void	Client::writeCgi(Server &srv, s_cgi &cgi)
 {
 	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[1]));
-	std::cout << "writeToCgi():\nfilename: " << filename << "\n";
+	std::cout << "writeCgi():\nfilename: " << filename << "\n";
 	write(cgi.pipe[1], cgi.input.c_str(), cgi.input.length());
 	print_file("CGI", "----\nWRITE TO CGI:\n----\n");
 	print_file("CGI", cgi.input);

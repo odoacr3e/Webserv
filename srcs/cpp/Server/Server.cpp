@@ -67,48 +67,42 @@ void Server::suppressSocket()
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
 {
-	Client	*client;
 	pollfd	poll_data;
+	Client	*client;
+	s_cgi	*cgi;
 
 	// this->printPollInfo();
 	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
 	{
 		poll_data = this->_addrs[i];
 		client = this->getFdData()[poll_data.fd].client;
+		cgi = this->getFdData()[poll_data.fd].cgi;
 		if (poll_data.revents & POLLIN) // revents & POLLIN -> pronto per leggere
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_RD)
-			{
-				std::cout << WHITE "before readToCgi() \n\033[0m";
-				// this->printPollInfo();
-				client->readToCgi(*this, *this->getFdData()[poll_data.fd].cgi);
-				std::cout << WHITE "after readToCgi() \n\033[0m";
-				// this->printPollInfo();
-				i--;
-				continue ;
-			}
-			char buffer[2048] = {0};
-			int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
-			if (bytes <= 0)
-				eraseClient(*client, i--);
+				client->readCgi(*this, *cgi), i--;
 			else
-				processRequest(*client, buffer, bytes);
+			{
+				char buffer[2048] = {0};//NOTE - reserve vector
+				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
+				if (bytes <= 0)
+					eraseClient(*client, i--);
+				else
+					processRequest(*client, buffer, bytes);
+			}
 		}
 		else if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per ricevere
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_WR)
-			{
-				client->writeToCgi(*this, *this->getFdData()[poll_data.fd].cgi);
-				i--;
-				continue ;
-			}
-			processResponse(*client);
+				client->writeCgi(*this, *cgi), i--;
+			else
+				processResponse(*client);
 		}
 	}
 }
 
 /**
- * @brief Erases the connection of *it client after the request reading is done
+ * @brief Erases the connection of client after the request reading is done
  * 
  * @param it Client iterator 
 */

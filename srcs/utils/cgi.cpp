@@ -54,7 +54,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	srv.getFdData()[client.getSockFd()].cgi_ready = false;
 }
 
-		// text=asdasda&crypt_string=%2Fscript%2Fcrypter%2F
+		// body=asdasda&crypt_string=end
 		// asdasda&crypt_string=%2Fscript%2Fcrypter%2F
 		// argv[1] = asdasda ; argv[2] = crypt_string=%2Fscript%2Fcrypter%2F ; 
 		// argv[1] = crypt_string=%2Fscript%2Fcrypter%2F ; argv[2] = asdasda ; 
@@ -77,6 +77,7 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	std::string	url;
 	std::string	cmd;
 	std::string	args;
+	std::string	body;
 	char		separator = '?';
 	char		*temp;
 
@@ -91,14 +92,43 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	if (client.getRequest().getMethodEnum() == POST)
 	{
 		client.getRequest().getBinBody().push_back('\0');
-		std::string body = client.getRequest().getBinBody().data();
+		body = client.getRequest().getBinBody().data();
 		std::cout << "get_argv() BODY: " << body << std::endl;
 		while (find_and_replace(body, "+", " "));
 	}
 	else
 		args = url.substr(url.find_last_of(separator) + 1, url.length());
-	if (/*crypter*/)
-		;//crypter
+	// body=ciao+come+stai&crypt_string=end
+	if (client.getLocConf().script_type == "crypter")
+	{
+		size_t		first_to_delete;
+		size_t		decrypt_instruction;
+		size_t		crypt_instruction;
+		size_t		last_to_delete;
+
+		first_to_delete = body.find("body=") + 5;
+		decrypt_instruction = body.find("&decrypt_string=end") + 15;
+		crypt_instruction = body.find("&crypt_string=end") + 13;
+
+		if (crypt_instruction != std::string::npos)
+			last_to_delete = crypt_instruction;
+		else
+			last_to_delete = decrypt_instruction;
+
+		// crypt_instruction != std::string::npos ? last_to_delete = crypt_instruction : last_to_delete = decrypt_instruction;
+		
+		if (first_to_delete != std::string::npos)
+		{
+			find_and_erase(body, "body=");
+			if(last_to_delete != std::string::npos)
+				find_and_erase(body, "=end");
+			else
+				std::cerr << "Bad crypter format: missing endpart\n";
+			std::cout << "get_argv(): Post processing BODY" << body << std::endl;
+		}
+		else
+			std::cerr << "Bad crypter format missing beginpart\n";
+	}
 	else
 	{
 		temp = new char[cmd.length()];
@@ -111,9 +141,7 @@ static void		get_argv(Client &client, argvVector &argv_data)
 	}
 	std::cout << "cmd: " << argv_data[0] << "\n";
 	for (size_t i = 1; i < argv_data.size() - 1; i++)
-	{
 		std::cout << "arg " << i << ": " << argv_data[i] << "\n";
-	}
 }
 
 	/*std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";

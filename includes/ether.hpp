@@ -72,22 +72,22 @@ int	requestParsing(Client &client, char *input, int bytes);
 int	bodyHeaderParsing(Request &request);
 
 //SEXTION - utils
-std::string removeWhitespaces(std::string line);
-size_t	    find_first_not_whitespace(std::string line);
-size_t      find_first_whitespace(std::string line);
-bool        is_there_whitespaces(std::string line);
-bool        charFinder(const std::string literal, int(*check)(int));
-std::string file_opener(std::fstream &file);
-std::string	file_opener(std::fstream &file, std::string msg);
-bool      	file_checker(std::string filename);
-void		close_fd(int *fd);
-int			read_file(std::ifstream &stream, std::vector<char> &vect);
-int			read_file(std::fstream &stream, std::vector<char> &vect);
-int			read_file(std::string name, std::vector<char> &vect);
+std::string   removeWhitespaces(std::string line);
+size_t	      find_first_not_whitespace(std::string line);
+size_t        find_first_whitespace(std::string line);
+bool          is_there_whitespaces(std::string line);
+bool          charFinder(const std::string literal, int(*check)(int));
+std::string   file_opener(std::fstream &file);
+std::string	  file_opener(std::fstream &file, std::string msg);
+bool      	  file_checker(std::string filename);
+void		      close_fd(int *fd);
+int			      read_file(std::ifstream &stream, std::vector<char> &vect);
+int			      read_file(std::fstream &stream, std::vector<char> &vect);
+int			      read_file(std::string name, std::vector<char> &vect);
 
-size_t      find_first_special_char(std::string line);
-bool        is_there_special_chars(std::string line);
-size_t      find_first_not_special_char(std::string line);
+size_t        find_first_special_char(std::string line);
+bool          is_there_special_chars(std::string line);
+size_t        find_first_not_special_char(std::string line);
 
 void			    trim_from(std::string &s, size_t from);
 bool			    trim_equal_left(std::string &s, char c);
@@ -105,20 +105,18 @@ std::string		url_normalize(std::string url);
 std::string		url_arg_remove(std::string url, char limiter);
 std::string		url_arg_get(std::string url, char limiter);
 
-int			    valid_ip_address(std::string addr);
-int			    atohex(std::string s);
-int 		    checkValidCode(int code);
+int			      valid_ip_address(std::string addr);
+int			      atohex(std::string s);
+int 		      checkValidCode(int code);
 
-dirent	*findUrlDirectory(std::string url);
-void	  ft_ls(std::string path, std::string &files);
+dirent	      *findUrlDirectory(std::string url);
+void	        ft_ls(std::string path, std::string &files);
 
-// int			ft_recv(int fd, std::vector<char *> &packets, size_t packet_size);
-
-std::string	env_value(const char **env, std::string key);
-void	      run_script(Server &srv, Client &client, std::string &body);
-void        vect_split(std::vector<std::string> &vect, std::string s, char c);
-void        vect_split(std::vector<char *> &vect, std::string s, char c);
-void        vect_split_new(std::vector<char *> &vect, std::string s, char c);
+std::string	  env_value(const char **env, std::string key);
+void	        run_script(Server &srv, Client &client, std::string &body);
+void          vect_split(std::vector<std::string> &vect, std::string s, char c);
+void          vect_split(std::vector<char *> &vect, std::string s, char c);
+void          vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
 
 #define CHARIZARD "                 .\"-,.__\n\

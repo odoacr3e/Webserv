@@ -47,6 +47,9 @@ $(OBJ_DIR)/%.o: %.cpp
 run: $(NAME)
 	clear ; ./$(NAME)
 
+rum: $(NAME)
+	clear ; echo "AHOY!!!!\n" ; ./$(NAME)
+
 spaghetti: re
 	clear ; ./$(NAME)
 

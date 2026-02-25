@@ -109,7 +109,10 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	if (cgi.isFastCgiBool == false)
 		cgi.clear(srv, *this);
 	else
+	{
 		srv.getAddrsVector()[cgi.poll_index[0]].events &= (~POLLIN);
+		srv.getAddrsVector()[cgi.poll_index[0]].revents &= (~POLLIN);
+	}
 }
 
 void	Client::writeCgi(Server &srv, s_cgi &cgi)

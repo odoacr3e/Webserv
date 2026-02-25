@@ -3,8 +3,236 @@ Content-Type: text/html
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 3126
+Content-Length: 2165
 
 ======================================
 chiudo connessione 0
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/css
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 2362
+
+======================================
+chiudo connessione 1
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 4978
+
+<!--NAME=home_autoindex-->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Index of /script/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #020617;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #1e293b;
+            --hover: #020617;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #020617);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        header span {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #020617;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 8px;
+            opacity: 0.85;
+        }
+
+        .footer {
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(2),
+            td:nth-child(2),
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Index of <span>/script/</span></h1>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Ultima modifica</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                    <a href="pokedex/">pokedex/</a>
+                </td>
+                <td>119 B</td>
+                <td>Thu Feb 19 10:17:27 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                    <a href="cub3D/">cub3D/</a>
+                </td>
+                <td>169 B</td>
+                <td>Wed Feb 25 10:35:51 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                    <a href="giorgio/">giorgio/</a>
+                </td>
+                <td>80 B</td>
+                <td>Wed Feb 25 10:35:52 2026
+</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="icon">📄</span>
+                    <a href="crypter/">crypter/</a>
+                </td>
+                <td>231 B</td>
+                <td>Wed Feb 25 09:54:45 2026
+</td>
+            </tr>
+        </tbody>    </table>
+    <div class="footer">
+        Webserver autoindex • 3 UOMINI E 1 WEBSERVER
+    </div>
+</div>
+</body>
+<script>
+function deleteFile(fileName) {
+    if (confirm("Sei sicuro de cancellà " + fileName + "? Daje che poi nun torni indietro!")) {
+        fetch('/storage/' + fileName, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("File eliminato! Come 'n gol alla Lazio!");
+                location.reload();
+            } else if (response.status === 403) {
+                alert("Aò, er server dice 403! Nun c'hai i permessi, sei in fuorigioco!");
+            } else {
+                alert("Errore strano: " + response.status);
+            }
+        })
+        .catch(err => console.error("Problema de rete, stamo a perde er segnale:", err));
+    }
+}
+</script>
+
+</html>
+
+
+======================================
+chiudo connessione 2
+======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 3126
+
+======================================
+chiudo connessione 3
 ======================================

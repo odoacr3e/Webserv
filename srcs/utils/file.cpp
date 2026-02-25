@@ -1,4 +1,6 @@
 #include "../../includes/ether.hpp"
+#include "../../srcs/hpp/Server.hpp"
+#include "../../srcs/hpp/Client.hpp"
 
 void	close_fd(int *fd)
 {
@@ -62,5 +64,26 @@ int read_file(std::string name, std::vector<char> &vect, int bytes)
 	vect.resize(bytes);
 	stream.read(vect.data(), bytes);
 	vect.resize(stream.gcount());
+	return (0);
+}
+
+//returns 1 on error, 0 on success
+int	read_fastcgi(Client &client, s_cgi &cgi)
+{
+	std::string	fd_name;
+	std::string	output;
+	int			bytes;
+
+	fd_name = "/dev/fd/" + ft_to_string(cgi.pipe[0]);
+	read_file(fd_name, client.getBuffer(), FASTCGI_HEADER_LEN);
+	client.getBuffer().push_back('\0');
+	output = client.getBuffer().data();
+	if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
+		return (std::cerr << "readFastcgiError: " << output << "\n", 1);
+	bytes = std::atoi(output.c_str() + 3);
+	if (bytes <= 0)
+		return (std::cerr << "readFastcgiError: " << output << "\n", 1);
+	cgi.output_len = bytes;
+	read_file(fd_name, client.getBuffer(), bytes);
 	return (0);
 }

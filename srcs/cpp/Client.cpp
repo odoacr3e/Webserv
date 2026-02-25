@@ -92,7 +92,13 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
 	std::cout << "readCgi():\nfilename: " << filename << "\n";
-	read_file(filename, this->getBuffer());
+	if (cgi.isFastCgiBool == true)
+	{
+		if (read_fastcgi(*this, cgi) == 1)
+			return (std::cerr << "fastCgi error\n", (void)0);//FIXME - uccidere fastcgi
+	}
+	else
+		read_file(filename, this->getBuffer());
 	print_file("CGI", "----\nREAD FROM CGI:\n----\n");
 	print_file("CGI", this->getBuffer());
 	print_file("CGI", "\n----\n");
@@ -103,7 +109,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	if (cgi.isFastCgiBool == false)
 		cgi.clear(srv, *this);
 	else
-		srv.getAddrsVector()[cgi.pipe[0]].events &= (~POLLIN);
+		srv.getAddrsVector()[cgi.poll_index[0]].events &= (~POLLIN);
 }
 
 void	Client::writeCgi(Server &srv, s_cgi &cgi)

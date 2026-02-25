@@ -1,25 +1,452 @@
-POST /script/crypter/run HTTP/1.1
+GET /script/cub3D/ HTTP/1.1
 Host: localhost:9021
 Connection: keep-alive
-Content-Length: 79
-Cache-Control: max-age=0
 sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
 sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Linux"
-Origin: http://localhost:9021
-DNT: 1
 Upgrade-Insecure-Requests: 1
-Content-Type: application/x-www-form-urlencoded
 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
 Sec-Fetch-Site: same-origin
 Sec-Fetch-Mode: navigate
 Sec-Fetch-User: ?1
 Sec-Fetch-Dest: document
-Referer: http://localhost:9021/script/crypter/
+Referer: http://localhost:9021/script/
 Accept-Encoding: gzip, deflate, br, zstd
 Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
 
-body=nw%2BR1b%3DQBhc3AR%25OR4%3F5%2B4.474C454%3B5b475%214%26&decrypt_string=end======================================
-chiudo connessione 0
-======================================
+GET /script/cub3D/cub3D.cgi?www/cgi-bin/cub3D/srcs/maps/debug.cub HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669522 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669588 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669654 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669720 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669786 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669852 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669918 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011669984 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670050 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670116 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670182 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670248 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670314 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670380 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670446 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670512 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670578 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670644 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670710 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670776 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670842 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670908 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011670974 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011671040 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011671106 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011671172 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011671238 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+
+GET /script/cub3D/cub3D.cgi?%00&t=1772011671304 HTTP/1.1
+Host: localhost:9021
+Connection: keep-alive
+sec-ch-ua-platform: "Linux"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+sec-ch-ua: "Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:9021/script/cub3D/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+

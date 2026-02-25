@@ -6,48 +6,22 @@ TYPE CLIENT
 Client 7 - ???
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
 --------------------------------
 Connection number 2
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 7 - /script/crypter/
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
 --------------------------------
 Connection number 3
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
-INDEX 6
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=9,pipe[1]0
+Client 7 - /script/crypter/
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
@@ -56,1002 +30,356 @@ Connection number 4
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=0,pipe[1]0
+Client 7 - /favicon.ico
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
 --------------------------------
 Connection number 5
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 7 - /favicon.ico
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
 --------------------------------
 Connection number 6
 --------------------------------
 INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 7
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 8
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 9
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /style.css
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 10
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /style.css
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 11
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /script/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
-INDEX 5
-FD 7
-TYPE CLIENT
-Client 7 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
---------------------------------
-Connection number 12
---------------------------------
-INDEX 4
-FD 8
-TYPE CLIENT
-Client 8 - /script/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
-INDEX 5
-FD 7
-TYPE CLIENT
-Client 7 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
---------------------------------
-Connection number 13
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 14
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 16
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
---------------------------------
-Connection number 17
---------------------------------
-INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: NONE
 --------------------------------
-Connection number 9903
+Connection number 26760
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
-INDEX 6
-FD 9
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
---------------------------------
-Connection number 9904
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
 INDEX 6
 FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
---------------------------------
-Connection number 11135
---------------------------------
-INDEX 4
-FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=10,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 6
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 7
-FD 10
-TYPE PIPE_RD
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=10,pipe[1]0
+Client 9 - ???
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
-Connection number 11136
+Connection number 26761
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=0,pipe[1]0
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
-INDEX 6
-FD 9
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
---------------------------------
-Connection number 11152
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
-INDEX 6
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
---------------------------------
-Connection number 11174
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 11175
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
 FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
 TYPE CLIENT
-Client 8 - /favicon.ico
+Client 9 - /script/crypter/
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
 --------------------------------
-Connection number 17296
+Connection number 26795
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
-FD 9
+FD 8
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
+FD 9
 TYPE CLIENT
-Client 8 - /favicon.ico
+Client 9 - /script/crypter/
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
-Connection number 17297
+Connection number 26796
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
-FD 9
+FD 8
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
+FD 9
 TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 9 - /favicon.ico
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
 --------------------------------
-Connection number 18534
+Connection number 43547
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
-FD 9
+FD 8
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
+FD 9
 TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 9 - /favicon.ico
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 43548
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 43555
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 47685
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 47686
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/pokedex/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 54085
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/pokedex/
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 54086
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 55322
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=8,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: 
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
 pipe[0]=10,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 7
 FD 10
 TYPE PIPE_RD
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
 pipe[0]=10,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
-Connection number 18535
+Connection number 55323
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
-FD 9
+FD 8
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
+FD 9
 TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
+Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
 pipe[0]=0,pipe[1]0
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
 --------------------------------
-Connection number 18551
+Connection number 55338
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 5
-FD 9
+FD 8
 TYPE PIPE_RD
 Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
+pipe[0]=8,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: 
 INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 18569
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
 FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
 TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 18570
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /favicon.ico
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 23913
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /favicon.ico
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 23914
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 25155
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=10,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 7
-FD 10
-TYPE PIPE_RD
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=10,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 25156
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-pipe[0]=0,pipe[1]0
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 25177
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/pokemon.cgi?value=vaporeon
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 25198
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 25199
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /favicon.ico
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 109982
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /favicon.ico
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 109983
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 126196
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 126197
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/giorgio.cgi?value=youtube
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 127317
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/giorgio.cgi?value=youtube
-pipe[0]=10,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 7
-FD 10
-TYPE PIPE_RD
-Client 8 - /script/giorgio/giorgio.cgi?value=youtube
-pipe[0]=10,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 127318
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/giorgio.cgi?value=youtube
-pipe[0]=0,pipe[1]0
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 127320
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/giorgio/giorgio.cgi?value=youtube
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 147663
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 147664
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 155223
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 155224
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/moves.cgi?value=youtube
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 156452
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/moves.cgi?value=youtube
-pipe[0]=10,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 7
-FD 10
-TYPE PIPE_RD
-Client 8 - /script/pokedex/output/moves.cgi?value=youtube
-pipe[0]=10,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 156453
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/moves.cgi?value=youtube
-pipe[0]=0,pipe[1]0
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 156455
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 9
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=9,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 8
-TYPE CLIENT
-Client 8 - /script/pokedex/output/moves.cgi?value=youtube
+Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------

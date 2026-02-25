@@ -48,32 +48,23 @@ Server::~Server()
 
 void Server::suppressSocket()
 {
-	s_cgi	*temp;
-	int		pipes[2];
-
 	//SECTION - client disconnection
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
 		if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
 		this->_fd_data[it->fd].type == FD_PIPE_WR)
 		{
-			temp = this->_fd_data[it->fd].cgi;
-			if (temp != NULL)
-			{
+			if (this->_fd_data[it->fd].cgi != NULL)
 				delete this->_fd_data[it->fd].cgi;
-				pipes[0] = this->_fd_data[it->fd].cgi->pipe[0];
-				pipes[1] = this->_fd_data[it->fd].cgi->pipe[1];
-				if (this->_fd_data[it->fd].type == FD_PIPE_RD && pipes[1] != 0)
-					this->_fd_data[pipes[1]].cgi = NULL;
-				else if (this->_fd_data[it->fd].type == FD_PIPE_WR && pipes[0] != 0)
-					this->_fd_data[pipes[0]].cgi = NULL;
-			}
 			this->_fd_data[it->fd].cgi = NULL;
 		}
 		close((*it).fd);
-		delete this->_clients[(*it).fd];
-		this->_clients.erase((*it).fd);
-		it = this->_addrs.erase(it) - 1;
+		if (this->_fd_data[it->fd].type == FD_CLIENT)
+		{
+			delete this->_clients[(*it).fd];
+			this->_clients.erase((*it).fd);
+			it = this->_addrs.erase(it) - 1;
+		}
 	}
 	//SECTION - server disconnection
 	for (int i = 0; i != this->_server_num; i++)

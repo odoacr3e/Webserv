@@ -3,8 +3,8 @@
 
 int	main(int ac, char **av)
 {
-	// return (write(1, "ciao", 4), write(1, "\0", 1));
 	return (0);
+	srand(time(NULL));
 	write(2, "CRYPTER: entro CRYPTER\n", 24);
 	if (ac != 3)
 		return (write(1, "Error format\n", ft_strlen("Error format\n")));

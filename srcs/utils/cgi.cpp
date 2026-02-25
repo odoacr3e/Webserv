@@ -8,6 +8,8 @@ typedef std::vector<char *>	argvVector;
 static void		get_argv(Client &client, argvVector &v);
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
+static int 		hex_value(char c);
+static void		convert_hexa(std::vector<char*> &input);
 
 std::string		createHtmlPokedex(s_cgi &cgi);
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
@@ -59,70 +61,6 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		delete cgi_ptr;
 	srv.getFdData()[client.getSockFd()].cgi = NULL;
 	srv.getFdData()[client.getSockFd()].cgi_ready = false;
-}
-
-		// body=asdasda&crypt_string=end
-		// asdasda&crypt_string=%2Fscript%2Fcrypter%2F
-		// argv[1] = asdasda ; argv[2] = crypt_string=%2Fscript%2Fcrypter%2F ; 
-		// argv[1] = crypt_string=%2Fscript%2Fcrypter%2F ; argv[2] = asdasda ; 
-		// if (client.getLocConf().script_type == "crypter")
-		// {
-
-		// }
-
-
-		// std::string	content = body;
-		// find_and_replace(content, "&action=", "");
-		// std::string real_content = content;
-		// find_and_replace(real_content, "text=", "");
-		// std::string real_content = content.substr(content.find("text=") + 5);
-		// std::cout << "Real content: " << real_content << std::endl;
-		// std::vector<std::string> format_real_for_real;
-		// vect_split(format_real_for_real, real_content, '+');
-static int hex_value(char c)
-{
-    if (c >= '0' && c <= '9')
-        return c - '0';
-    if (c >= 'A' && c <= 'F')
-        return c - 'A' + 10;
-    if (c >= 'a' && c <= 'f')
-        return c - 'a' + 10;
-    return -1;
-}
-
-void convert_hexa(std::vector<char*> &input)
-{
-    for (size_t idx = 0; idx < input.size(); ++idx)
-    {
-        char *original = input[idx];
-		if(!original)
-			continue ;
-
-        size_t len = std::strlen(original);
-        char *decoded = new char[len + 1];
-        size_t read = 0;
-        size_t write = 0;
-
-        while (read < len)
-        {
-            if (original[read] == '%' && read + 2 < len)
-            {
-                int high = hex_value(original[read + 1]);
-                int low  = hex_value(original[read + 2]);
-                if (high != -1 && low != -1)
-                {
-                    decoded[write++] = static_cast<char>((high << 4) | low);
-                    read += 3;
-                    continue;
-                }
-            }
-            decoded[write++] = original[read++];
-        }
-        decoded[write] = '\0';
-
-        delete[] original;
-        input[idx] = decoded;
-    }
 }
 
 static void		get_argv(Client &client, argvVector &argv)
@@ -178,6 +116,8 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 {
 	if (pipe(cgi_data.pipe) != 0)
 		return (std::cout << "run_script fatal error\n", (void)0);
+	fcntl(cgi_data.pipe[0], FD_CLOEXEC);
+	fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 	cgi_data.pid = fork();
 	if (cgi_data.pid == -1)
 		return (std::cout << "run_script fatal error\n", (void)0);
@@ -295,4 +235,50 @@ Can't bind ip:port -> 10.11.4.5:9020
 	srv.getFdData()[client.getSockFd()].cgi_ready = true;
 	srv.getFdData()[client.getSockFd()].client = &client;
 	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
+}
+
+static int hex_value(char c)
+{
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 10;
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+    return -1;
+}
+
+void convert_hexa(std::vector<char*> &input)
+{
+    for (size_t idx = 0; idx < input.size(); ++idx)
+    {
+        char *original = input[idx];
+		if(!original)
+			continue ;
+
+        size_t len = std::strlen(original);
+        char *decoded = new char[len + 1];
+        size_t read = 0;
+        size_t write = 0;
+
+        while (read < len)
+        {
+            if (original[read] == '%' && read + 2 < len)
+            {
+                int high = hex_value(original[read + 1]);
+                int low  = hex_value(original[read + 2]);
+                if (high != -1 && low != -1)
+                {
+                    decoded[write++] = static_cast<char>((high << 4) | low);
+                    read += 3;
+                    continue;
+                }
+            }
+            decoded[write++] = original[read++];
+        }
+        decoded[write] = '\0';
+
+        delete[] original;
+        input[idx] = decoded;
+    }
 }

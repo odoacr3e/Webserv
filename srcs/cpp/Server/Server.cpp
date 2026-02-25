@@ -48,9 +48,19 @@ Server::~Server()
 
 void Server::suppressSocket()
 {
+	s_cgi	*temp;
+
 	//SECTION - client disconnection
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
+		if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
+		this->_fd_data[it->fd].type == FD_PIPE_WR)
+		{
+			temp = this->_fd_data[it->fd].cgi;
+			if (temp != NULL)
+				delete this->_fd_data[it->fd].cgi;
+			this->_fd_data[it->fd].cgi = NULL;
+		}
 		close((*it).fd);
 		delete this->_clients[(*it).fd];
 		this->_clients.erase((*it).fd);
@@ -60,9 +70,7 @@ void Server::suppressSocket()
 	for (int i = 0; i != this->_server_num; i++)
 		close(this->_addrs[i].fd);
 	//SECTION - socket buffer clearup
-	for (packetBuffer::iterator it = this->_packet_buffer.begin(); \
-	it != this->_packet_buffer.end(); it++)
-		delete [] (*it);
+
 }
 
 void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione

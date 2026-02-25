@@ -47,7 +47,8 @@ $(OBJ_DIR)/%.o: %.cpp
 #run: $(NAME)
 #	clear ; ./$(NAME)
 
-run: rum
+run: $(NAME)
+	clear ; ./$(NAME)
 
 rum: $(NAME)
 	@clear

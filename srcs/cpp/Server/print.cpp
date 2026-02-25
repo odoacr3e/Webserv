@@ -25,6 +25,7 @@ void Server::printPollInfo(void)
 	s_cgi				*cgi;
 	pollfd				poll_data;
 	static int			connection_number;
+	int					revents_count = 0;
 	std::ostringstream	result;
 
 	result << "Connection number " << connection_number++ << "\n";
@@ -62,13 +63,14 @@ void Server::printPollInfo(void)
 		if (poll_data.revents == 0)
 			result << "NONE";
 		if (poll_data.revents & POLLIN)
-			result << "POLLIN, ";
+			{result << "POLLIN, ";revents_count++;}
 		if (poll_data.revents & POLLOUT)
-			result << "POLLOUT, ";
+			{result << "POLLOUT, ";revents_count++;}
 		result << "\n";
 	}
 	result << DIV;
-	print_file("HISTORY", result.str());
+	if (revents_count != 0)
+		print_file("HISTORY", result.str());
 }
 
 /**

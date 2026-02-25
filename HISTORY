@@ -1,0 +1,142 @@
+Connection number 1
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 2
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 3
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 4
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /favicon.ico
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 5
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /favicon.ico
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 6
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 7
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=9,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+INDEX 6
+FD 9
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=9,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 7
+FD 10
+TYPE CLIENT
+Client 10 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------
+Connection number 8
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/crypter/run
+pipe[0]=9,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - /script/pokedex/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+INDEX 6
+FD 9
+TYPE PIPE_RD
+Client 7 - /script/crypter/run
+pipe[0]=9,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 7
+FD 10
+TYPE CLIENT
+Client 10 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+--------------------------------

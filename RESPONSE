@@ -18,3 +18,13 @@ Content-Length: 246938
 ======================================
 chiudo connessione 1
 ======================================
+HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 4281
+
+======================================
+chiudo connessione 2
+======================================

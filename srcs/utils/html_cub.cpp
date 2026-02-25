@@ -3,6 +3,8 @@
 
 std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client)
 {
+	(void)cgi_data, (void)srv, (void)client;
+	/*
 	std::string		output(client.getBuffer().data(), 100);
 	size_t			sep_index;
 
@@ -16,7 +18,12 @@ std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client)
 		sep_index = output.find_first_of('-', 3) + 1;
 		std::cout << "new song " << output.substr(sep_index) << "\n";
 	}
-	client.sendContentBool() = true;
+	client.sendContentBool() true;
 	client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin() + 64);
+	*/
+	// client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin());
 	return ("");
 }
+
+// nw+R1b=QBhc3AR%OR4?5+4.474C454;5b475!4&
+// 

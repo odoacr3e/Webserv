@@ -86,7 +86,17 @@ cgi_clean:
 		fi \
 	done
 
+kill_ports:
+	@echo "Sgomberiamo le porte 90xx..."
+	@PID=$$(ss -ltnp | grep ":90" | awk -F'pid=' '{print $$2}' | cut -d',' -f1 | sort -u); \
+	if [ -n "$$PID" ]; then \
+		kill -9 $$PID; \
+		echo "Processi abbattuti: $$PID"; \
+	else \
+		echo "Tutto libero, se po' gioca'."; \
+	fi
+
 val: $(NAME)
 	clear ; valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
 
-.PHONY: all clean fclean run val
+.PHONY: all clean fclean run val kill_ports

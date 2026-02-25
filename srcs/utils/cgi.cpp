@@ -24,6 +24,12 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	std::cout << "RUN_SCRIPT\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
+		if (srv.getFdData()[client.getSockFd()].cgi != NULL)
+		{
+			std::cerr << "WAIT A SECOND SIR!\n";
+			sleep(10);
+			return ;
+		}
 		get_argv(client, argv);
 		if (client.getLocConf().script_daemon == true)
 			run_daemon(srv, client, cgi_data, argv);
@@ -115,9 +121,7 @@ void convert_hexa(std::vector<char*> &input)
         decoded[write] = '\0';
 
         delete[] original;
-		std::cout << "ORIGINAL: " << original << std::endl;
         input[idx] = decoded;
-		std::cout << "DECODED: " << input[idx] << std::endl;
     }
 }
 
@@ -158,10 +162,10 @@ static void		get_argv(Client &client, argvVector &argv)
 		vect_split_new(argv, args, separator);
 	}
 	argv.push_back(NULL);
-	std::cout << "cmd: " << argv[0] << "\n";
+	std::cout << "cmd: " << argv[0] << std::endl;
 	convert_hexa(argv);
-	for (size_t i = 1; i < argv.size(); i++)
-		std::cout << "arg " << i << ": " << argv[i] << "\n";
+	for (size_t i = 1; i < argv.size() - 1; i++)
+		std::cout << "arg " << i << ": " << argv[i] << std::endl;
 }
 
 	/*std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";

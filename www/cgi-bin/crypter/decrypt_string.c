@@ -65,6 +65,7 @@ void	decrypt_str(char *str)
 	}
 	ret[j] = '\0';
 	write(1, ret, ft_strlen(ret));
+	write(1, "\0", 1);
 	free(ret);
 	free(key);
 }

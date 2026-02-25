@@ -52,6 +52,7 @@ void	crypt_str(char *str)
 	ret[i] = '\0';
 	write(1, key, ft_strlen(key));
 	write(1, ret, ft_strlen((char *)ret));
+	write(1, "\0", 1);
 	free(key);
 	free(ret);
 }

@@ -78,7 +78,7 @@ struct s_conf_location
 	void						setRetUri(std::string uri);
 	void						setRetCode(int code);
 
-	CgiParam					cgiparam;
+	std::string					cgi_path;
 	std::string					conf_root; //location BEFORE root/alias
 	std::string					root; //location AFTER root/alias
 	std::string					index;

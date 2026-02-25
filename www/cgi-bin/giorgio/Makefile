@@ -1,4 +1,4 @@
-NAME = giorgio.cgi
+NAME = giorgio
 
 COMP  = c++ -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG -std=c++98
 

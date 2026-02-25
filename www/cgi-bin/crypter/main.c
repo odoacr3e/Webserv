@@ -2,8 +2,7 @@
 #include "includes/lib.h"
 
 int	main(int ac, char **av)
-{
-	return (0);
+{	
 	srand(time(NULL));
 	write(2, "CRYPTER: entro CRYPTER\n", 24);
 	if (ac != 3)

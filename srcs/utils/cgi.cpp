@@ -16,6 +16,8 @@ std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
 std::string		createHtmlYouTube(t_cgi &cgi_data);
 std::string		createHtmlCrypter(t_cgi &cgi_ptr);
 void			createArgvCrypter(std::string &args, argvVector &argv);
+void			createArgvWeaksleep(std::string &args, argvVector &argv_data);
+std::string		createHtmlWeaksleep(t_cgi &cgi_data);
 
 void	run_script(Server &srv, Client &client, std::string &body)
 {
@@ -49,9 +51,14 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	else if (client.getLocConf().script_type == "giorgio")
 		body = createHtmlYouTube(*cgi_ptr);
 	else if (client.getLocConf().script_type == "crypter")
+	{
 		body = createHtmlCrypter(*cgi_ptr);
+	}
+	else if (client.getLocConf().script_type == "weaksleep")
+		body = createHtmlWeaksleep(*cgi_ptr);
 	else
 	{
+		body = cgi_ptr->output;
 		client.getRequest().setBodyType("text/plain");
 		std::cout << "script_type undefined. no html created." << std::endl;
 		std::cout << cgi_data.output << std::endl;
@@ -75,10 +82,10 @@ static void		get_argv(Client &client, argvVector &argv)
 	url.find('?') != std::string::npos ? separator = '?' : separator = '/';
 	if (separator == '?')
 		cmd = url.substr(0, url.find_last_of('?'));
-	else if (client.getLocConf().cgiparam.size() == 0)
+	else if (client.getLocConf().cgi_path.length() == 0)
 		cmd = "CGI_PATH_NOT_FOUND";
 	else
-		cmd = client.getLocConf().cgiparam[0].second;
+		cmd = client.getLocConf().cgi_path;
 	if (client.getRequest().getMethodEnum() == POST)
 	{
 		client.getRequest().getBinBody().push_back('\0');
@@ -87,6 +94,7 @@ static void		get_argv(Client &client, argvVector &argv)
 	}
 	else
 		args = url.substr(url.find_last_of(separator) + 1, url.length());
+	std::cout << "get_argv(): args --->" << args << "\n";
 	// www/cgi-bin/crypter/crypter.cgi=0.7
 	temp = new char[cmd.length() + 1];
 	temp[cmd.length()] = 0;
@@ -94,9 +102,11 @@ static void		get_argv(Client &client, argvVector &argv)
 	argv.push_back(temp);
 	if (client.getLocConf().script_type == "crypter")
 		createArgvCrypter(args, argv);
+	else if (client.getLocConf().script_type == "weaksleep")
+		createArgvWeaksleep(args, argv);
 	else
 	{
-		find_and_replace(args, "value=", "");//FIXME - per pokedex
+		find_and_erase(args, "value=");//FIXME - per pokedex
 		vect_split_new(argv, args, separator);
 	}
 	argv.push_back(NULL);
@@ -115,22 +125,24 @@ static void		get_argv(Client &client, argvVector &argv)
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	if (pipe(cgi_data.pipe) != 0)
-		return (std::cout << "run_script fatal error\n", (void)0);
+		return (std::cout << "run_script fatal error: pipe\n", (void)0);
 	fcntl(cgi_data.pipe[0], FD_CLOEXEC);
 	fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 	cgi_data.pid = fork();
 	if (cgi_data.pid == -1)
-		return (std::cout << "run_script fatal error\n", (void)0);
+		return (std::cout << "run_script fatal error: pid\n", (void)0);
 	else if (cgi_data.pid == 0)
 	{
 		dup2(cgi_data.pipe[1], STDOUT_FILENO);
 		close(cgi_data.pipe[0]);
 		close(cgi_data.pipe[1]);
 		srv.suppressSocket();
+		std::cerr << "VEDIAMO: " << argv[0] << ", " << argv.data()[1] << std::endl;
+		std::cerr << "VEDIAMO: " << argv[2] << ", " << (argv.data()[3] == NULL) << std::endl;
 		execve(argv[0], argv.data(), NULL);
 		for (size_t i = 0; i != argv.size() - 1; i++)
 			delete [] argv[i];
-		std::cerr << "run_script fatal error\n";
+		std::cerr << "run_script fatal error: execve failed!\n";
 		std::exit(1);
 	}
 	for (size_t i = 0; i != argv.size() - 1; i++)

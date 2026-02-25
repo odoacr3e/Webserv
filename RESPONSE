@@ -3,245 +3,560 @@ Content-Type: text/html
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 3777
+Content-Length: 2792
 
 ======================================
 chiudo connessione 0
 ======================================
 HTTP/1.1 200 OK
-Content-Type: image/ico
+Content-Type: text/html
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 246938
+Content-Length: 3778
 
 ======================================
 chiudo connessione 1
 ======================================
 HTTP/1.1 200 OK
 Content-Type: text/html
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 3777
+Content-Length: 3795
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Tool</title>
+
+<style>
+:root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #22c55e;
+}
+
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* BASE */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top, #111827, var(--bg));
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 70px 20px 50px;
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 10px; }
+header p { color: var(--muted); font-size: 1.05rem; }
+
+/* MAIN */
+main {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* CARD */
+.card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f172a;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.output {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    color: var(--success);
+    font-weight: 500;
+
+    min-height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
+    word-break: break-word;
+}
+
+.output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+button {
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Crypto Playground</h1>
+    <p>Inserisci una stringa e scegli l’operazione</p>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Crypto Tool</h2>
+
+        <form method="POST" action="/script/crypter/run">
+            <input type="ciao" name="body" placeholder="Inserisci testo..." required>
+
+            <div style="display:flex; gap:15px; margin-top:15px;">
+                <button type="submit" name="crypt_string" value="end">
+                    Cripta stringa
+                </button>
+
+                <button type="submit" name="decrypt_string" value="end">
+                    Decripta stringa
+                </button>
+            </div>
+        </form>
+<!-- name="body"=STRINGA+DI+TESTO&name="decrypt_string"value="/script/crypter/run" -->
+<!-- body=STRINGA DI TESTO&decrypt_string=%2Fscript%2Fcrypter%2Frun -->
+ <!-- body=CIAO&crypt_string=end -->
+        <div class="output">
+            4AH-0/agFqg*4$9cw02435Q4f0U4$4(4;594
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
+</footer>
+
+</body>
+</html>:
 
 ======================================
 chiudo connessione 2
 ======================================
 HTTP/1.1 200 OK
-Content-Type: image/ico
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: 0
-Content-Length: 246938
+Content-Type: text/html
+Content-Length: 3777
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Tool</title>
+
+<style>
+:root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #22c55e;
+}
+
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* BASE */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top, #111827, var(--bg));
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 70px 20px 50px;
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 10px; }
+header p { color: var(--muted); font-size: 1.05rem; }
+
+/* MAIN */
+main {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* CARD */
+.card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f172a;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.output {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    color: var(--success);
+    font-weight: 500;
+
+    min-height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
+    word-break: break-word;
+}
+
+.output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+button {
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Crypto Playground</h1>
+    <p>Inserisci una stringa e scegli l’operazione</p>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Crypto Tool</h2>
+
+        <form method="POST" action="/script/crypter/run">
+            <input type="ciao" name="body" placeholder="Inserisci testo..." required>
+
+            <div style="display:flex; gap:15px; margin-top:15px;">
+                <button type="submit" name="crypt_string" value="end">
+                    Cripta stringa
+                </button>
+
+                <button type="submit" name="decrypt_string" value="end">
+                    Decripta stringa
+                </button>
+            </div>
+        </form>
+<!-- name="body"=STRINGA+DI+TESTO&name="decrypt_string"value="/script/crypter/run" -->
+<!-- body=STRINGA DI TESTO&decrypt_string=%2Fscript%2Fcrypter%2Frun -->
+ <!-- body=CIAO&crypt_string=end -->
+        <div class="output">
+            LhYT2pr=KJry*c1*14
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
+</footer>
+
+</body>
+</html>:
 
 ======================================
 chiudo connessione 3
 ======================================
 HTTP/1.1 200 OK
 Content-Type: text/html
-Content-Length: 4978
+Content-Length: 3760
 
-<!--NAME=home_autoindex-->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Index of /script/</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Tool</title>
 
-    <style>
-        :root {
-            --bg: #0f172a;
-            --panel: #020617;
-            --text: #e5e7eb;
-            --muted: #94a3b8;
-            --accent: #38bdf8;
-            --border: #1e293b;
-            --hover: #020617;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(180deg, var(--bg), #020617);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px 16px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background: var(--panel);
-            border-radius: 14px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-            overflow: hidden;
-        }
-
-        header {
-            padding: 24px 28px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        header h1 {
-            font-size: 1.4rem;
-            margin: 0;
-            font-weight: 600;
-        }
-
-        header span {
-            color: var(--accent);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: #020617;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        th {
-            color: var(--muted);
-            font-weight: 500;
-        }
-
-        tbody tr:hover {
-            background: rgba(56, 189, 248, 0.06);
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .icon {
-            width: 20px;
-            display: inline-block;
-            text-align: center;
-            margin-right: 8px;
-            opacity: 0.85;
-        }
-
-        .footer {
-            padding: 16px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-        }
-
-        @media (max-width: 600px) {
-            th:nth-child(2),
-            td:nth-child(2),
-            th:nth-child(3),
-            td:nth-child(3) {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <header>
-        <h1>Index of <span>/script/</span></h1>
-    </header>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Dimensione</th>
-                <th>Ultima modifica</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="pokedex/">pokedex/</a>
-                </td>
-                <td>119 B</td>
-                <td>Wed Feb 25 15:00:40 2026
-</td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="cub3D/">cub3D/</a>
-                </td>
-                <td>169 B</td>
-                <td>Wed Feb 25 15:11:14 2026
-</td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="giorgio/">giorgio/</a>
-                </td>
-                <td>80 B</td>
-                <td>Wed Feb 25 15:11:15 2026
-</td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="icon">📄</span>
-                    <a href="crypter/">crypter/</a>
-                </td>
-                <td>231 B</td>
-                <td>Wed Feb 25 15:22:55 2026
-</td>
-            </tr>
-        </tbody>    </table>
-    <div class="footer">
-        Webserver autoindex • 3 UOMINI E 1 WEBSERVER
-    </div>
-</div>
-</body>
-<script>
-function deleteFile(fileName) {
-    if (confirm("Sei sicuro de cancellà " + fileName + "? Daje che poi nun torni indietro!")) {
-        fetch('/storage/' + fileName, {
-            method: 'DELETE',
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("File eliminato! Come 'n gol alla Lazio!");
-                location.reload();
-            } else if (response.status === 403) {
-                alert("Aò, er server dice 403! Nun c'hai i permessi, sei in fuorigioco!");
-            } else {
-                alert("Errore strano: " + response.status);
-            }
-        })
-        .catch(err => console.error("Problema de rete, stamo a perde er segnale:", err));
-    }
+<style>
+:root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #22c55e;
 }
-</script>
 
-</html>
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* BASE */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top, #111827, var(--bg));
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 70px 20px 50px;
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 10px; }
+header p { color: var(--muted); font-size: 1.05rem; }
+
+/* MAIN */
+main {
+    max-width: 1000px;
+    margin: 80px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* CARD */
+.card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f172a;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.output {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    color: var(--success);
+    font-weight: 500;
+
+    min-height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
+    word-break: break-word;
+}
+
+.output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+button {
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Crypto Playground</h1>
+    <p>Inserisci una stringa e scegli l’operazione</p>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Crypto Tool</h2>
+
+        <form method="POST" action="/script/crypter/run">
+            <input type="ciao" name="body" placeholder="Inserisci testo..." required>
+
+            <div style="display:flex; gap:15px; margin-top:15px;">
+                <button type="submit" name="crypt_string" value="end">
+                    Cripta stringa
+                </button>
+
+                <button type="submit" name="decrypt_string" value="end">
+                    Decripta stringa
+                </button>
+            </div>
+        </form>
+<!-- name="body"=STRINGA+DI+TESTO&name="decrypt_string"value="/script/crypter/run" -->
+<!-- body=STRINGA DI TESTO&decrypt_string=%2Fscript%2Fcrypter%2Frun -->
+ <!-- body=CIAO&crypt_string=end -->
+        <div class="output">
+            d
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
+</footer>
+
+</body>
+</html>:
 
 ======================================
 chiudo connessione 4
@@ -251,565 +566,8 @@ Content-Type: text/html
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 4281
+Content-Length: 2792
 
 ======================================
 chiudo connessione 5
-======================================
-HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Length: 16207
-
-<!-- VARIABLES -->
-<!-- 
-	KEY: 	the key of the field in the database
-	IMG:	the absolute url for the resource image 
-	FIELDS:	the data found with the cgi
--->
-<!--NAME=cgi_pokedex-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(
-                to bottom,
-                #d32f2f 0%,
-                #d32f2f 48%,
-                #000 48%,
-                #000 52%,
-                #f5f5f5 52%,
-                #f5f5f5 100%
-            );
-            min-height: 100vh;
-            color: #111;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 0;
-            color: #d32f2f;
-            font-size: 2.5em;
-        }
-
-        .section {
-            margin-bottom: 20px;
-        }
-
-        .box {
-            background: #fafafa;
-            border-left: 6px solid #d32f2f;
-            padding: 15px 20px;
-            border-radius: 6px;
-        }
-
-        .label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        ul {
-            padding-left: 20px;
-            margin: 10px 0 0 0;
-        }
-
-        li {
-            margin-bottom: 5px;
-        }
-
-        a {
-            color: #d32f2f;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-		.image-wrapper {
-			width: 255px;
-			height: 255px;
-			margin: 30px auto -80px auto;
-			background: #fff;
-			border-radius: 50%;
-			border: 6px solid #000;
-			box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-			z-index: 2;
-		}
-
-		.image-wrapper img {
-			max-width: 90%;
-			max-height: 90%;
-		}
-    </style>
-</head>
-<body>
-
-	<div class="image-wrapper">
-		<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="">
-	</div>
-	<div class="container">
-
-		<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">ID</span>
-	<ul>
-		<li>25</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Name</span>
-	<ul>
-		<li>Pikachu</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Types</span>
-	<ul>
-		<li>ELECTRIC</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">BaseStats</span>
-	<ul>
-		<li>35</li>
-<li>55</li>
-<li>40</li>
-<li>90</li>
-<li>50</li>
-<li>50</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">GenderRatio</span>
-	<ul>
-		<li>Female50Percent</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">GrowthRate</span>
-	<ul>
-		<li>Medium</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">BaseExp</span>
-	<ul>
-		<li>112</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">EVs</span>
-	<ul>
-		<li>SPEED</li>
-<li>2</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">CatchRate</span>
-	<ul>
-		<li>190</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Happiness</span>
-	<ul>
-		<li>50</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Abilities</span>
-	<ul>
-		<li>STATIC</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">HiddenAbilities</span>
-	<ul>
-		<li>LIGHTNINGROD</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Moves</span>
-	<ul>
-		<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYNICE'>PLAYNICE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SWEETKISS'>SWEETKISS</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NUZZLE'>NUZZLE</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERSHOCK'>THUNDERSHOCK</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=TAILWHIP'>TAILWHIP</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=GROWL'>GROWL</a></li>
-<li>1</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=QUICKATTACK'>QUICKATTACK</a></li>
-<li>4</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
-<li>8</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
-<li>12</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li>16</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FEINT'>FEINT</a></li>
-<li>20</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SPARK'>SPARK</a></li>
-<li>24</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
-<li>28</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SLAM'>SLAM</a></li>
-<li>32</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DISCHARGE'>DISCHARGE</a></li>
-<li>36</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
-<li>40</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li>44</li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">TutorMoves</span>
-	<ul>
-		<li><a href='/script/pokedex/output/moves.cgi?value=AGILITY'>AGILITY</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ATTRACT'>ATTRACT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=BODYSLAM'>BODYSLAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=BRICKBREAK'>BRICKBREAK</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CAPTIVATE'>CAPTIVATE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARGEBEAM'>CHARGEBEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CHARM'>CHARM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=CONFIDE'>CONFIDE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=COUNTER'>COUNTER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=COVET'>COVET</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DEFENSECURL'>DEFENSECURL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DIG'>DIG</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLEEDGE'>DOUBLEEDGE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DOUBLETEAM'>DOUBLETEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DRAININGKISS'>DRAININGKISS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=DYNAMICPUNCH'>DYNAMICPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ECHOEDVOICE'>ECHOEDVOICE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTRICTERRAIN'>ELECTRICTERRAIN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROBALL'>ELECTROBALL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ELECTROWEB'>ELECTROWEB</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ENCORE'>ENCORE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ENDURE'>ENDURE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FACADE'>FACADE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FLASH'>FLASH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FLING'>FLING</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FOCUSPUNCH'>FOCUSPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=FRUSTRATION'>FRUSTRATION</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=GRASSKNOT'>GRASSKNOT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=HEADBUTT'>HEADBUTT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=HELPINGHAND'>HELPINGHAND</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=HIDDENPOWER'>HIDDENPOWER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=IRONTAIL'>IRONTAIL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=KNOCKOFF'>KNOCKOFF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LASERFOCUS'>LASERFOCUS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=LIGHTSCREEN'>LIGHTSCREEN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MAGNETRISE'>MAGNETRISE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MEGAKICK'>MEGAKICK</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MEGAPUNCH'>MEGAPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MIMIC'>MIMIC</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=MUDSLAP'>MUDSLAP</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NASTYPLOT'>NASTYPLOT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=NATURALGIFT'>NATURALGIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PAYDAY'>PAYDAY</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PLAYROUGH'>PLAYROUGH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=PROTECT'>PROTECT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RAINDANCE'>RAINDANCE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REFLECT'>REFLECT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REST'>REST</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RETURN'>RETURN</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=REVERSAL'>REVERSAL</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=RISINGVOLTAGE'>RISINGVOLTAGE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ROCKSMASH'>ROCKSMASH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ROLLOUT'>ROLLOUT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=ROUND'>ROUND</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SECRETPOWER'>SECRETPOWER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SEISMICTOSS'>SEISMICTOSS</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SHOCKWAVE'>SHOCKWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SIGNALBEAM'>SIGNALBEAM</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SLEEPTALK'>SLEEPTALK</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SNORE'>SNORE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=STRENGTH'>STRENGTH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SUBSTITUTE'>SUBSTITUTE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SURF'>SURF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SWAGGER'>SWAGGER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=SWIFT'>SWIFT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THIEF'>THIEF</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDER'>THUNDER</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERBOLT'>THUNDERBOLT</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERPUNCH'>THUNDERPUNCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=THUNDERWAVE'>THUNDERWAVE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=UPROAR'>UPROAR</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTSWITCH'>VOLTSWITCH</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=VOLTTACKLE'>VOLTTACKLE</a></li>
-<li><a href='/script/pokedex/output/moves.cgi?value=WILDCHARGE'>WILDCHARGE</a></li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">EggGroups</span>
-	<ul>
-		<li>Field</li>
-<li>Fairy</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">HatchSteps</span>
-	<ul>
-		<li>2560</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Height</span>
-	<ul>
-		<li>0.4</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Weight</span>
-	<ul>
-		<li>6.0</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Color</span>
-	<ul>
-		<li>Yellow</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Shape</span>
-	<ul>
-		<li>Quadruped</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Habitat</span>
-	<ul>
-		<li>Forest</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Category</span>
-	<ul>
-		<li>Mouse</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Pokedex</span>
-	<ul>
-		<li>It stores electricity in the electric sacs on its cheeks. When it releases pent-up energy in a burst</li>
-<li> the electric power is equal to a lightning bolt.</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Generation</span>
-	<ul>
-		<li>1</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">WildItemUncommon</span>
-	<ul>
-		<li>LIGHTBALL</li>
-
-	</ul>
-</div>
-<!-- VARIABLES -->
-<!-- 
-	FIELD_NAME:	the name of the field
-	FIELD_DATA:	html of the field (hypertext or static)
--->
-<div class="section box">
-	<span class="label">Evolutions</span>
-	<ul>
-		<li><a href='/script/pokedex/output/pokemon.cgi?value=RAICHU'>RAICHU</a></li>
-<li>Item</li>
-<li><a href='/script/pokedex/output/pokemon.cgi?value=THUNDERSTONE'>THUNDERSTONE</a></li>
-
-	</ul>
-</div>
-
-
-	</div>
-
-</body>
-</html>
-
-
-======================================
-chiudo connessione 6
 ======================================

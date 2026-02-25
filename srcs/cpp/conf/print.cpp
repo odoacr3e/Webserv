@@ -60,7 +60,7 @@ std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 	os << "\n\t\033[1;95mconf root: \033[37m\t\t" << loc.conf_root;
 	os << "\n\t\033[1;95mreal root: \033[37m\t\t" << loc.root;
 	os << "\n\t\033[0m\033[1;35m    index ->\t\t\033[3;37m" << loc.index;
-	os << "\n\t\033[1;95mfastcgi_param: \033[37m" << loc.cgiparam;
+	os << "\n\t\033[1;95mfastcgi_param: \033[37m" << loc.cgi_path;
 	if (loc.run_script)
 		os << "\n\t\033[1;95mscript_type: \033[37m" << loc.script_type;
 	os << "\n\t\033[1;95mret code: \033[37m\t" << loc.ret_code;

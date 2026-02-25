@@ -6,114 +6,84 @@ TYPE CLIENT
 Client 7 - ???
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
 --------------------------------
 Connection number 2
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/
+Client 7 - /script/weaksleep/
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
---------------------------------
-Connection number 3
---------------------------------
-INDEX 4
-FD 7
+INDEX 5
+FD 8
 TYPE CLIENT
-Client 7 - /script/crypter/
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: POLLIN, 
+REVENTS: NONE
 --------------------------------
 Connection number 4
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /favicon.ico
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
 --------------------------------
 Connection number 5
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /favicon.ico
+Client 7 - /script/weaksleep/
 EVENTS: POLLIN, 
-REVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
 --------------------------------
 Connection number 6
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 26760
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
 TYPE CLIENT
-Client 9 - ???
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 26761
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
 REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/crypter/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 26795
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
 INDEX 6
 FD 9
 TYPE CLIENT
@@ -121,265 +91,366 @@ Client 9 - /script/crypter/
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
-Connection number 26796
+Connection number 7
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
+TYPE CLIENT
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: 
+REVENTS: NONE
 INDEX 6
 FD 9
 TYPE CLIENT
-Client 9 - /favicon.ico
+Client 9 - /script/crypter/run
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
 --------------------------------
-Connection number 43547
+Connection number 8
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
 TYPE CLIENT
-Client 9 - /favicon.ico
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 43548
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
 REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
 INDEX 6
 FD 9
 TYPE CLIENT
-Client 9 - /script/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 43555
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 47685
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - ???
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 47686
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/pokedex/
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 54085
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/pokedex/
-EVENTS: POLLIN, 
-REVENTS: POLLIN, 
---------------------------------
-Connection number 54086
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
-EVENTS: POLLOUT, 
-REVENTS: POLLOUT, 
---------------------------------
-Connection number 55322
---------------------------------
-INDEX 4
-FD 7
-TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
-REVENTS: NONE
-INDEX 5
-FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: POLLIN, 
-REVENTS: 
-INDEX 6
-FD 9
-TYPE CLIENT
-Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
+Client 9 - /script/crypter/run
 pipe[0]=10,pipe[1]0
 EVENTS: NONE
 REVENTS: NONE
 INDEX 7
 FD 10
 TYPE PIPE_RD
-Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
+Client 9 - /script/crypter/run
 pipe[0]=10,pipe[1]0
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
 --------------------------------
-Connection number 55323
+Connection number 9
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
+TYPE CLIENT
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: 
+REVENTS: NONE
 INDEX 6
 FD 9
 TYPE CLIENT
-Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
+Client 9 - /script/crypter/run
 pipe[0]=0,pipe[1]0
 EVENTS: POLLOUT, 
 REVENTS: POLLOUT, 
 --------------------------------
-Connection number 55338
+Connection number 10
 --------------------------------
 INDEX 4
 FD 7
 TYPE CLIENT
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
-EVENTS: NONE
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
 REVENTS: NONE
 INDEX 5
 FD 8
-TYPE PIPE_RD
-Client 7 - /script/crypter/run
-pipe[0]=8,pipe[1]0
+TYPE CLIENT
+Client 8 - ???
 EVENTS: POLLIN, 
-REVENTS: 
+REVENTS: NONE
 INDEX 6
 FD 9
 TYPE CLIENT
-Client 9 - /script/pokedex/output/pokemon.cgi?value=pikachu
+Client 9 - /script/crypter/run
 EVENTS: POLLIN, 
 REVENTS: POLLIN, 
+--------------------------------
+Connection number 12
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 13
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 14
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+pipe[0]=10,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 7
+FD 10
+TYPE PIPE_RD
+Client 9 - /script/crypter/run
+pipe[0]=10,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 15
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+pipe[0]=0,pipe[1]0
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 16
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 18
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 19
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 20
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+pipe[0]=10,pipe[1]0
+EVENTS: NONE
+REVENTS: NONE
+INDEX 7
+FD 10
+TYPE PIPE_RD
+Client 9 - /script/crypter/run
+pipe[0]=10,pipe[1]0
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 21
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+pipe[0]=0,pipe[1]0
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
+--------------------------------
+Connection number 22
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/crypter/run
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 24
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - ???
+EVENTS: POLLIN, 
+REVENTS: POLLIN, 
+--------------------------------
+Connection number 25
+--------------------------------
+INDEX 4
+FD 7
+TYPE CLIENT
+Client 7 - /script/weaksleep/
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 5
+FD 8
+TYPE CLIENT
+Client 8 - ???
+EVENTS: POLLIN, 
+REVENTS: NONE
+INDEX 6
+FD 9
+TYPE CLIENT
+Client 9 - /script/weaksleep/
+EVENTS: POLLOUT, 
+REVENTS: POLLOUT, 
 --------------------------------

@@ -99,7 +99,7 @@ void	s_conf_location::set(std::string path)
 {
 	this->root.clear();
 	this->conf_root = url_normalize(path);
-	this->cgiparam.clear();
+	this->cgi_path.clear();
 	this->autoindex = false;
 	this->run_script = false;
 	this->script_daemon = false;

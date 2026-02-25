@@ -1,5 +1,5 @@
 # Nome dell'eseguibile finale
-TARGET = crypter.cgi
+TARGET = crypter
 
 # Compilatore da utilizzare boh usiamo gcc
 CC = cc

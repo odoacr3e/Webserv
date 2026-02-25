@@ -22,3 +22,10 @@ bool	valid_file(std::string file)
 
 	return (fd.fail() == 0);
 }
+
+bool	valid_exec(std::string file)
+{
+	std::ifstream	fd(file.c_str());
+
+	return (fd.fail() == 0);
+}

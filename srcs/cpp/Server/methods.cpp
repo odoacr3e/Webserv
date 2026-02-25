@@ -51,6 +51,7 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 	std::cout << "runMethod(): reading file..\n";
 	client.sendContentBool() = true;
 	//std::string file = client.getRequest().getUrl();
+	client.getBuffer().clear();
 	read_file(*file, client.getBuffer());
 	client.getBuffer().push_back('\n');
 	client.getBuffer().push_back('\n');

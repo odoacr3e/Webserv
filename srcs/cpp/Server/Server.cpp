@@ -51,20 +51,19 @@ void Server::suppressSocket()
 	//SECTION - client disconnection
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
-		if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
-		this->_fd_data[it->fd].type == FD_PIPE_WR)
+		if (this->_fd_data[it->fd].type == FD_CLIENT)
+		{
+			delete this->_clients[(*it).fd];
+			this->_clients.erase((*it).fd);
+//			it = this->_addrs.erase(it) - 1;
+		}
+		else if (this->_fd_data[it->fd].type == FD_PIPE_RD)
 		{
 			if (this->_fd_data[it->fd].cgi != NULL)
 				delete this->_fd_data[it->fd].cgi;
 			this->_fd_data[it->fd].cgi = NULL;
 		}
 		close((*it).fd);
-		if (this->_fd_data[it->fd].type == FD_CLIENT)
-		{
-			delete this->_clients[(*it).fd];
-			this->_clients.erase((*it).fd);
-			it = this->_addrs.erase(it) - 1;
-		}
 	}
 	//SECTION - server disconnection
 	for (int i = 0; i != this->_server_num; i++)
@@ -84,6 +83,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	{
 		poll_data = this->_addrs[i];
 		client = this->getFdData()[poll_data.fd].client;
+		if (this->getFdData()[poll_data.fd].type == FD_CLIENT)
+			client->setPollFd(&this->_addrs[i]);			
 		cgi = this->getFdData()[poll_data.fd].cgi;
 		if (poll_data.revents & POLLIN) // revents & POLLIN -> pronto per leggere
 		{

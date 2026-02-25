@@ -28,12 +28,6 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	std::cout << "RUN_SCRIPT\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
-		if (srv.getFdData()[client.getSockFd()].cgi != NULL)
-		{
-			std::cerr << "WAIT A SECOND SIR!\n";
-			sleep(10);
-			return ;
-		}
 		get_argv(client, argv);
 		if (client.getLocConf().script_daemon == true)
 			run_daemon(srv, client, cgi_data, argv);
@@ -185,6 +179,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 	if (cgi_exist != srv.getIpPortCgiMap().end())
 	{
 		cgi_data = cgi_exist->second;
+		if (srv.getAddrs()[cgi_data.pipe[0]].events & POLLIN)
+			return ;
 	}
 	else
 	{

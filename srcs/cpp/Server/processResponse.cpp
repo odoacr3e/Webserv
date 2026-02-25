@@ -47,7 +47,6 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	else
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
-	client.getBuffer().clear();
 	runMethod(client, body, file);
 	if (client.getPollFd()->events & POLLOUT)
 		return (createHtml(client, body));

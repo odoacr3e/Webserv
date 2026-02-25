@@ -186,7 +186,7 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 		srv.getFdData()[fd_last].cgi->poll_index[0] = this->poll_index[0];
 		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
 	}
-	if ((size_t)poll_index != srv.getAddrSize() - 1)
+	if ((size_t)poll_index < srv.getAddrSize() - 1)
 		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
 	srv.getAddrsVector().pop_back();
 	std::cout << WHITE"Prima di entrare pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;

@@ -22,6 +22,8 @@ std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client)
 	client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin() + 64);
 	*/
 	// client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin());
+	client.getRequest().setBodyType("image/bmp");
+	client.sendContentBool() = true;
 	return ("");
 }
 

@@ -1,4 +1,4 @@
-NAME = cub3D
+NAME = cub3D.cgi
 
 all:
 	make init && $(MAKE) all -C srcs/ ; cp srcs/cub3D_bonus ./$(NAME)

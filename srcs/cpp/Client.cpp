@@ -189,9 +189,7 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	}
 	if ((size_t)poll_index < srv.getAddrSize())
 		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
-	srv.printPollInfo("logs/history.md");
 	srv.getAddrsVector().pop_back();
-	srv.printPollInfo("logs/history.md");
 	std::cout << WHITE"Prima di entrare pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
 	std::cout << WHITE"Flag is_pipe_out: " RED << (is_pipe_out == false ? "false" : "true") << "" RESET << std::endl;
 	std::cout << WHITE"Entro e chiudo pipe: " RED << this->pipe[0] << "" RESET << std::endl;
@@ -205,13 +203,10 @@ void	s_cgi::clear(Server &srv, Client &client)
 	if (this->pid != 0 && this->isFastCgiBool == true)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;
-	srv.printPollInfo("logs/history.md");
 	if (this->pipe[0])
 		this->removeFromPoll(false, srv);
-	srv.printPollInfo("logs/history.md");
 	if (this->pipe[1])
 		this->removeFromPoll(true, srv);
-	srv.printPollInfo("logs/history.md");
 	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
 		srv.getIpPortCgiMap().erase(ipPort);
 }

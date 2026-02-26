@@ -1,0 +1,8 @@
+{
+   pitone
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible
+   ...
+   obj:/usr/bin/python3.10
+   ...
+}

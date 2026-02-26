@@ -2,6 +2,7 @@ NAME = webserv
 
 CC = c++
 FLAGS = -Wall -Wextra -Werror -g -D_GLIBCXX_DEBUG
+# -O0
 CPPFLAGS = -std=c++98
 OBJ_DIR = build
 
@@ -101,6 +102,6 @@ kill_ports:
 	fi
 
 val: $(NAME)
-	clear ; valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
+	clear ; valgrind --track-fds=yes --suppressions=supp.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
 
 .PHONY: all clean fclean run val kill_ports

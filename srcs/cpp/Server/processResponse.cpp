@@ -12,14 +12,16 @@ void	Server::processResponse(Client &client)
 	if ((client.getPollFd()->events & POLLOUT) == 0)
 		return ;
 	send(client.getSockFd(), html.c_str(), html.length(), 0);
-	print_file("RESPONSE", html);
+	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
-	print_file("RESPONSE", msgEndCon);
+	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
 		send(client.getSockFd(), contentData.data(), contentData.size(), 0);
 	client.sendContentBool() = false;
 	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
 	std::cout <<client.getRequest().getMethod() << "\n";
+	client.getRequest().setUrl("");
+	client.getRequest().setUrlOriginal("");
 	client.getPollFd()->events = POLLIN;
 }
 
@@ -111,7 +113,7 @@ std::string	Server::checkErrorPages(Request &request)
 std::string	createHtml(Client &client, const std::string &body)
 {
 	std::ostringstream	response;
-	std::string			http_codes_str[] = VALID_HTTP_STR;
+	static std::string	http_codes_str[] = VALID_HTTP_STR;
 	std::string			url = client.getRequest().getUrl();
 	int 				status = client.getRequest().getStatusCode();
 

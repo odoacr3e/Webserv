@@ -18,17 +18,20 @@ Client *pointer:	NULL	NULL		*self		*self <-----*
 s_cgi	*pointer:	NULL	NULL		NULL		*-------->	*self
 bool	cgi_ready:	false	false		false		false/true	false
 */
-void Server::printPollInfo(void)
+void Server::printPollInfo(std::string filename)
 {
 	std::string			types[4] = {"SERVER", "CLIENT", "PIPE_RD", "PIPE_WR"};
 	Client				*client;
 	s_cgi				*cgi;
 	pollfd				poll_data;
-	static int			connection_number;
+	static int			event_number;
+	const int			max_event_number = 1000;
 	int					revents_count = 0;
 	std::ostringstream	result;
 
-	result << "Connection number " << connection_number++ << "\n";
+	if (event_number == max_event_number)
+		return ;
+	result << "Event number " << event_number << "\n";
 	result << DIV;
 	for (size_t i = this->getServerNum(); i != this->_addrs.size(); ++i)
 	{
@@ -70,7 +73,9 @@ void Server::printPollInfo(void)
 	}
 	result << DIV;
 	if (revents_count != 0)
-		print_file("HISTORY", result.str());
+		print_file(filename, result.str());
+	if (++event_number == max_event_number)
+		print_file(filename, "-----\nmax events reached, goodbye\n");
 }
 
 /**

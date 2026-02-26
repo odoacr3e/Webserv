@@ -39,6 +39,11 @@ void	Request::setUrl(std::string url)
 	this->_url = url;
 }
 
+void	Request::setUrlOriginal(std::string url)
+{
+	this->_url_orig = url;
+}
+
 //SECTION - HttpVersion
 
 void	Request::setHttpVersion(std::string version)

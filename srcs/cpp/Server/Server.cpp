@@ -78,7 +78,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	Client	*client;
 	s_cgi	*cgi;
 
-	this->printPollInfo();
+	LOG_HISTORY();
 	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
 	{
 		poll_data = this->_addrs[i];
@@ -123,7 +123,7 @@ void		Server::eraseClient(Client &client, int i)
 
 	find_and_replace(msgEndCon, "{INDEX}", n++);
 	std::cout << msgEndCon << "\033[2J\033[H";
-	print_file("REQUEST", msgEndCon);
+	LOG_REQUEST(msgEndCon);
 	fd = client.getSockFd();
 	if (this->_clients[fd])
 	{

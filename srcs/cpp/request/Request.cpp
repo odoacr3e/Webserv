@@ -159,13 +159,13 @@ int	Request::fail(e_http_codes code, std::string info)
 		case HTTP_CE_MEDIA_TYPE:
 			SWITCH_LOG(info, "ClientError: Media type of requested file is unknown");
 		case HTTP_CE_IM_TEAPOT:
-			SWITCH_LOG(info, "ClientError: Want a cup of tea?" CHARIZARD);
+			SWITCH_LOG(info, "ClientError: Want a cup of tea?");
 		case HTTP_CE_CONTENT_UNPROCESSABLE:
 			SWITCH_LOG(info, "ClientError: request cannot be processed");
 		case HTTP_SE_NOT_IMPLEMENTED:
 			SWITCH_LOG(info, "ServerError: Not implemented -->");
 		default :
-			SWITCH_LOG(info, "ClientError: Wtf" PIEDI_DELLA_ZIA_DEL_TUO_RAGAZZO);	
+			SWITCH_LOG(info, "ClientError: Wtf");	
 	}
 	this->_fail_msg = info;
 	if (this->_fail_msg.empty() == true)

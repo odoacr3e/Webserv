@@ -44,6 +44,28 @@ dirent	*findUrlDirectory(std::string url, DIR *dir)
 	return (content);
 }
 
+
+/// @brief equivalent to shell rm dir/*
+/// @param dir_path path of the directory
+/// @return 1 on errors, 0 on success
+int		eraseDirectory(std::string dir_path)
+{
+	dirent	*content;
+
+	content = findUrlDirectory(dir_path);
+	if (!content)
+		return (1);
+	if (dir_path.back() != '/')
+		dir_path.push_back('/');
+	while (content != NULL)
+	{
+		if (content->d_name[0] != '.')
+			std::remove((std::string(dir_path + content->d_name)).c_str());
+		content = findUrlDirectory(dir_path);
+	}
+	return (0);
+}
+
 void	ft_ls(std::string path, std::string &files)
 {
 	DIR		*dir;

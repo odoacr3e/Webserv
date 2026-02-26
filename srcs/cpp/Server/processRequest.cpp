@@ -9,7 +9,7 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	request.getRequestStream().clear();
 	request.getSockBytes() = bytes;
 
-	print_file("REQUEST", buffer, bytes);
+	LOG_REQUEST(buffer, bytes);
 	if (request.getFirstRead() == true) // legge la prima volta
 	{
 		request.getFirstRead() = false;

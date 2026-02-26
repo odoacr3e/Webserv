@@ -27,38 +27,12 @@
 # include <fcntl.h>
 # include <ctime>
 
+# include "macro.hpp"
 # include "../srcs/hpp/Conf.hpp"
 # include "../srcs/hpp/Request.hpp"
 # include "../srcs/utils/print.tpp"
 # include "../srcs/utils/file.tpp"
 # include "../srcs/utils/string/string.tpp"
-
-# define COLOR_RESET "\033[0m"
-# define DEBUG true
-# define CONF false
-# define SERVER true
-# define RED     "\033[1;91m"
-# define BLUE    "\033[1;94m"
-# define WHITE   "\033[1;97m"
-# define RESET   "\033[0m"
-
-#if defined(DEBUG) && DEBUG
-  #define DBG_MSG(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)
-#else
-  #define DBG_MSG(msg) ((void)0)
-#endif
-
-#if defined(CONF) && CONF
-  #define DBG_CNF(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)
-#else
-  #define DBG_CNF(msg) ((void)0)
-#endif
-
-#if defined(SERVER) && SERVER
-  #define DBG_SRV(msg) (std::cout << "\033[31m" << (msg) << COLOR_RESET << std::endl)
-#else
-  #define DBG_SRV(msg) ((void)0)
-#endif
 
 class Request;
 class Client;
@@ -68,109 +42,55 @@ typedef struct s_conf_location	t_conf_location;
 typedef std::pair<std::string, int>	IpPortPair;
 typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
 
-int	requestParsing(Client &client, char *input, int bytes);
-int	bodyHeaderParsing(Request &request);
+int				requestParsing(Client &client, char *input, int bytes);
+int				bodyHeaderParsing(Request &request);
 
 //SEXTION - utils
-std::string   removeWhitespaces(std::string line);
-size_t	      find_first_not_whitespace(std::string line);
-size_t        find_first_whitespace(std::string line);
-bool          is_there_whitespaces(std::string line);
-bool          charFinder(const std::string literal, int(*check)(int));
-std::string   file_opener(std::fstream &file);
-std::string	  file_opener(std::fstream &file, std::string msg);
-bool      	  file_checker(std::string filename);
-void		      close_fd(int *fd);
-int			      read_file(std::ifstream &stream, std::vector<char> &vect);
-int			      read_file(std::fstream &stream, std::vector<char> &vect);
-int			      read_file(std::string name, std::vector<char> &vect);
+std::string		removeWhitespaces(std::string line);
+size_t			find_first_not_whitespace(std::string line);
+size_t			find_first_whitespace(std::string line);
+bool			is_there_whitespaces(std::string line);
+bool			charFinder(const std::string literal, int(*check)(int));
+std::string		file_opener(std::fstream &file);
+std::string		file_opener(std::fstream &file, std::string msg);
+bool			file_checker(std::string filename);
+void			close_fd(int *fd);
+int				read_file(std::ifstream &stream, std::vector<char> &vect);
+int				read_file(std::fstream &stream, std::vector<char> &vect);
+int				read_file(std::string name, std::vector<char> &vect);
 
-size_t        find_first_special_char(std::string line);
-bool          is_there_special_chars(std::string line);
-size_t        find_first_not_special_char(std::string line);
+size_t			find_first_special_char(std::string line);
+bool			is_there_special_chars(std::string line);
+size_t			find_first_not_special_char(std::string line);
 
-void			    trim_from(std::string &s, size_t from);
-bool			    trim_equal_left(std::string &s, char c);
-bool			    trim_diff_left(std::string &s, char c);
-bool			    trim_equal_right(std::string &s, char c);
-bool			    trim_diff_right(std::string &s, char c);
-    
-bool			    valid_directory(std::string directory);
-bool			    valid_file(std::string file);
+void			trim_from(std::string &s, size_t from);
+bool			trim_equal_left(std::string &s, char c);
+bool			trim_diff_left(std::string &s, char c);
+bool			trim_equal_right(std::string &s, char c);
+bool			trim_diff_right(std::string &s, char c);
+	
+bool			valid_directory(std::string directory);
+bool			valid_file(std::string file);
 
 std::string		url_rooting(std::string url, t_conf_server &srv);
 std::string		url_rooting(std::string url, t_conf_location &loc);
-void			    url_normalize(std::string *url);
+void			url_normalize(std::string *url);
 std::string		url_normalize(std::string url);
 std::string		url_arg_remove(std::string url, char limiter);
 std::string		url_arg_get(std::string url, char limiter);
 
-int			      valid_ip_address(std::string addr);
-int			      atohex(std::string s);
-int 		      checkValidCode(int code);
+int				valid_ip_address(std::string addr);
+int				atohex(std::string s);
+int				checkValidCode(int code);
 
-dirent	      *findUrlDirectory(std::string url);
-void	        ft_ls(std::string path, std::string &files);
+dirent			*findUrlDirectory(std::string url);
+int				eraseDirectory(std::string dir_path);
+void			ft_ls(std::string path, std::string &files);
 
-std::string	  env_value(const char **env, std::string key);
-void	        run_script(Server &srv, Client &client, std::string &body);
-void          vect_split(std::vector<std::string> &vect, std::string s, char c);
-void          vect_split(std::vector<char *> &vect, std::string s, char c);
-void          vect_split_new(std::vector<char *> &vect, std::string s, char c);
-
-
-#define CHARIZARD "                 .\"-,.__\n\
-                 `.     `.  ,\n\
-              .--'  .._,\'\"-' `.\n\
-             .    .'         `'\n\
-             `.   /          ,'\n\
-               `  '--.   ,-\"'\n\
-                `\"`   |  \n\
-                   -. \\, |\n\
-                    `--Y.'      ___.\n\
-                         \\     L._, \n\
-               _.,        `.   <  <\\                _\n\
-             ,' '           `, `.   | \\            ( `\n\
-          ../, `.            `  |    .\\`.           \\ \\_\n\
-         ,' ,..  .           _.,'    ||\\l            )  \'\".\n\
-        , ,'   \\           ,'.-.`-._,'  |           .  _._`.\n\
-      ,' /      \\ \\        `' ' `--/   | \\          / /   ..\n\
-    .'  /        \\ .         |\\__ - _ ,'` `        / /     `.`.\n\
-    |  '          ..         `-...-  |  `-'      / /        . `.\n\
-    | /           |L__           |    |          / /          `. `.\n\
-   , /            .   .          |    |         / /             ` `\n\
-  / /          ,. ,`._ `-_       |    |  _   ,-' /               ` \n\
- / .           \"\"`_/. `-_ \\_,.  ,'    +-' `-'  _,        ..,-.    \\`.\n\
-  '         .-f    ,'   `    '.       \\__.---'     _   .'   '     \\ \n\
-' /          `.'    l     .' /          \\..      ,_|/   `.  ,'`     L`\n\
-|'      _.-\"\"` `.    \\ _,'  `            \\ `.___`.'\"\"`-.  , |   |    | \n\
-||    ,'      `. `.   '       _,...._        `  |    `/ '  |   '     .|\n\
-||  ,'          `. ;.,.---' ,'       `.   `.. `-'  .-' /_ .'    ;_   ||\n\
-|| '              V      / /           `   | `   ,'   ,' '.    !  `. ||\n\
-||/            _,-------7 '              . |  `-'    l         /\\    `||\n\
- |          ,' .-   ,' ||               | .-.        `.      .'\\     ||\n\
- `\'        ,'    `\"\".\'    |               |    `.        '. -.'     `'\n\
-          /      ,'      |               |,'    \\-.._,.'/'\n\
-          .     /        .               .       \\    .''\n\
-        .`.    |         `.             /         :_,'.'\n\
-          \\ `...\\   _     ,'-.        .'         /_.-'\n\
-           `-.__ `,  `'   .  _.>----''.  _  __  /\n\
-                .'        /\"\"'          |  \"\"\'   \'_\n\
-               /_|.-'\\ ,\"\".             \'.\'`__\'-( \n\
-                 / ,\"'\"\"\\,'               `/  `-.|\"\n\
-"
-
-#define PIEDI_DELLA_ZIA_DEL_TUO_RAGAZZO "       ;-.               ,\n\
-        \\ '.           .'/\n\
-         \\  \\ .---. .-' /\n\
-          '. '     `\\_.'\n\
-            |(),()  |     ,\n\
-            (  __   /   .' \\\n\
-           .''.___.'--,/\\_,|\n\
-          {  /     \\   }   |\n\
-           '.\\     /_.'    /\n\
-            |'-.-',  `; _.'\n\
-            |  |  |   | \n\
-            `\"\"`\"\"`\"\"\"   "
+std::string		env_value(const char **env, std::string key);
+void			run_script(Server &srv, Client &client, std::string &body);
+void			vect_split(std::vector<std::string> &vect, std::string s, char c);
+void			vect_split(std::vector<char *> &vect, std::string s, char c);
+void			vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
 #endif

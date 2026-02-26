@@ -31,6 +31,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
+	rm -rf logs/
 	rm -f $(NAME)
 
 re: fclean all
@@ -48,6 +49,7 @@ $(OBJ_DIR)/%.o: %.cpp
 #	clear ; ./$(NAME)
 
 run: $(NAME)
+	mkdir -p logs/
 	clear ; ./$(NAME)
 
 rum: $(NAME)

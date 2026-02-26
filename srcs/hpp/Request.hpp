@@ -130,6 +130,7 @@ class Request
 		//ANCHOR - setters.cpp
 		void			setMethod(std::string method);
 		void 			setUrl(std::string);
+		void 			setUrlOriginal(std::string);
 		void			setHttpVersion(std::string version);
 		bool			setHeaderVal(std::string key, std::string val);
 		void			setBody(std::string);

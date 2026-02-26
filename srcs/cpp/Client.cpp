@@ -99,13 +99,9 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	}
 	else
 		read_file(filename, this->getBuffer());
-	print_file("CGI", "----\nREAD FROM CGI:\n----\n");
-	print_file("CGI", this->getBuffer());
-	print_file("CGI", "\n----\n");
+	LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd()->events = POLLOUT;
-	std::cout << WHITE "readCgi(): client " RESET << this->getSockFd() << " POLLOUT\n";
-	std::cout << WHITE "readCgi(): pipe[0] " RESET << cgi.pipe[0] << " rimosso da poll\n";
 	if (cgi.isFastCgiBool == false)
 		cgi.clear(srv, *this);
 	else

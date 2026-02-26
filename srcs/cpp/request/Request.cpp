@@ -133,6 +133,33 @@ int	Request::fail(e_http_codes code)
 	return (this->fail(code, ""));
 }
 
+/*
+	HTTP_OK,\
+	HTTP_OK_CREATED,\
+	HTTP_OK_ACCEPTED,\
+	HTTP_OK_NO_CONTENT,\
+	HTTP_OK_IM_USED,\
+	HTTP_RD_MOVED_PERM,\
+	HTTP_RD_FOUND,\
+	HTTP_RD_NOT_MODIFIED,\
+	HTTP_RD_TEMP_REDIRECT,\
+	HTTP_RD_PERM_REDIRECT,\
+	HTTP_CE_BAD_REQUEST,\
+	HTTP_CE_UNATHORIZED,\
+	HTTP_CE_FORBIDDEN,\
+	HTTP_CE_NOT_FOUND,\
+	HTTP_CE_METHOD_NOT_ALLOWED,\
+	HTTP_CE_CONFLICT,\
+	HTTP_CE_LENGTH_REQUIRED,\
+	HTTP_CE_URI_TOO_LONG,\
+	HTTP_CE_MEDIA_TYPE,\
+	HTTP_CE_IM_TEAPOT,\
+	HTTP_CE_CONTENT_UNPROCESSABLE,\
+	HTTP_SE_INTERNAL,\
+	HTTP_SE_NOT_IMPLEMENTED,\
+	HTTP_SE_HTTP_VERSION_UNSOPPORTED,\
+	HTTP_UNKNOWN\
+*/
 int	Request::fail(e_http_codes code, std::string info)
 {
 	int	int_code;
@@ -140,6 +167,14 @@ int	Request::fail(e_http_codes code, std::string info)
 	int_code = code;
 	switch (int_code)
 	{
+		case HTTP_RD_MOVED_PERM :
+			SWITCH_LOG(info, "Redirect: moved permanently in--> ");
+		case HTTP_RD_FOUND :
+			SWITCH_LOG(info, "Redirect: Resource found, but not here matey--> ");
+		case HTTP_RD_TEMP_REDIRECT :
+			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 303 but with the same method--> ");
+		case HTTP_RD_PERM_REDIRECT :
+			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 307 but im way cooler--> ");
 		case HTTP_CE_BAD_REQUEST :
 			SWITCH_LOG(info, "ClientError: Bad Request");
 		case HTTP_CE_UNATHORIZED :
@@ -173,6 +208,15 @@ int	Request::fail(e_http_codes code, std::string info)
 	this->setStatusCode(code);
 	return (1);
 }
+
+int	Request::fail(int code, std::string info)
+{
+	e_http_codes conv_code;
+
+	conv_code = (e_http_codes)code;
+	return (this->fail(conv_code, info));
+}
+
 
 t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 {

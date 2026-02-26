@@ -82,7 +82,6 @@ struct s_conf_location
 	std::string					conf_root; //location BEFORE root/alias
 	std::string					root; //location AFTER root/alias
 	std::string					index;
-	std::string					ret_uri;
 	std::string					ret_text;
 	std::string					post_storage;
 	std::string					script_type;

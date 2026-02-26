@@ -90,9 +90,7 @@ void	s_conf_location::set_if_empty(Conf &conf)
 	if (this->conf_root.empty())
 		this->conf_root = "/";
 	if (this->root.empty())
-		this->root = "";
-	if (this->ret_code == 0 && !this->ret_uri.empty())
-		this->ret_code = 302; //HTTP_RD_FOUND
+		this->root = ""; //HTTP_RD_FOUND
 }
 
 void	s_conf_location::set(std::string path)
@@ -105,7 +103,7 @@ void	s_conf_location::set(std::string path)
 	this->script_daemon = false;
 	this->mask_methods = 0;
 	this->alias = false;
-	this->ret_code = 0, this->ret_uri.clear(), this->ret_text.clear();
+	this->ret_code = 0, this->ret_text.clear();
 }
 
 s_conf_location::s_conf_location()

@@ -65,7 +65,6 @@ std::ostream &operator<<(std::ostream &os, t_conf_location &loc)
 		os << "\n\t\033[1;95mscript_type: \033[37m" << loc.script_type;
 	os << "\n\t\033[1;95mret code: \033[37m\t" << loc.ret_code;
 	os << "\n\t\033[1;95mret text: \033[37m\t" << loc.ret_text;
-	os << "\n\t\033[1;95mret uri: \033[37m\t" << loc.ret_uri;
 	os << "\n\t\033[1;95mautoindex: \033[37m\t" << (loc.autoindex ? "true" : "false") << std::endl;
 	os << "\033[0m\033[1;35m    \tstorage ->\033[3;37m" << loc.post_storage << std::endl;
 	os << "\033[0m\033[1;35m    \tallowed_methods ->\033[3;37m" << (int)loc.mask_methods << std::endl;

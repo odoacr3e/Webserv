@@ -41,13 +41,16 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		type += url.substr(url.find_last_of('.')).erase(0, 1);
 	}
 	else
-	{
 		type += "html";
-	}
-	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
-		createAutoindex(client, body);
-	else
+	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
+	{
+		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
 		choose_file(client, file, url);
+		return (createHtml(client, body));
+	}
+	else if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
+		return (createAutoindex(client, body), createHtml(client, body));
+	choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
 	runMethod(client, body, file);
 	if (client.getPollFd()->events & POLLOUT)
@@ -76,6 +79,7 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 			file.open((fname).c_str());
 		}
 	}
+	std::cout << "choose_file(): final file--> " << fname << "\n";
 }
 
 //FIXME - da inserire append root/alias in config file

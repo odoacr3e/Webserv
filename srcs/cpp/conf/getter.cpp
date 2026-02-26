@@ -94,11 +94,6 @@ std::string	Conf::getCurrLocation() const
 	return (this->_locblock.conf_root);
 }
 
-std::string t_conf_location::getRetUri() const
-{
-	return (this->ret_uri);
-}
-
 int t_conf_location::getRetCode() const
 {
 	return (this->ret_code);

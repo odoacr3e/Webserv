@@ -95,6 +95,7 @@ class Request
 		int				checkHeader(void);
 	//SECTION - fail
 		int				fail(e_http_codes code, std::string info);
+		int				fail(int code, std::string info);
 	//SECTION - request uri modifiers
 		void			manageIndex(t_conf_server *srv, t_conf_location *loc);
 		void			resetRequest(void);

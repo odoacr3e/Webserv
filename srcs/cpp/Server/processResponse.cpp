@@ -25,7 +25,7 @@ void	Server::processResponse(Client &client)
 	client.getPollFd()->events = POLLIN;
 }
 
-// NOTE - crea la risposta html da inviare al client tramite HTTP
+/*NOTE - KO
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	std::fstream	file;
@@ -57,6 +57,68 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		return (createHtml(client, body));
 	return ("");
 }
+//NOTE - OK
+std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
+{
+	std::fstream	file;
+	std::string		body;
+	std::string		type("text/");
+	std::string		url;
+
+	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
+		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
+	url = client.getRequest().getUrl();
+	if (url.find_last_of('.') != std::string::npos)
+	{
+		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
+			type = "image/";
+		type += url.substr(url.find_last_of('.')).erase(0, 1);
+	}
+	else
+	{
+		type += "html";
+	}
+	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
+		createAutoindex(client, body);
+	else
+		choose_file(client, file, url);
+	client.getRequest().setBodyType(type);
+	runMethod(client, body, file);
+	if (client.getPollFd()->events & POLLOUT)
+		return (createHtml(client, body));
+	return ("");
+}
+*/
+std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
+{
+	std::fstream	file;
+	std::string		body;
+	std::string		type("text/");
+	std::string		url;
+
+	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
+		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
+	url = client.getRequest().getUrl();
+	if (url.find_last_of('.') != std::string::npos)
+	{
+		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
+			type = "image/";
+		type += url.substr(url.find_last_of('.')).erase(0, 1);
+	}
+	else
+	{
+		type += "html";
+	}
+	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
+		createAutoindex(client, body);
+	else
+		choose_file(client, file, url);
+	client.getRequest().setBodyType(type);
+	runMethod(client, body, file);
+	if (client.getPollFd()->events & POLLOUT)
+		return (createHtml(client, body));
+	return ("");
+}
 
 void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 {
@@ -79,7 +141,6 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 			file.open((fname).c_str());
 		}
 	}
-	std::cout << "choose_file(): final file--> " << fname << "\n";
 }
 
 //FIXME - da inserire append root/alias in config file

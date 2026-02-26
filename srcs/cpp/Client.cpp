@@ -95,7 +95,10 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	if (cgi.isFastCgiBool == true)
 	{
 		if (read_fastcgi(*this, cgi) == 1)
-			return (std::cerr << "fastCgi error\n", (void)0);//FIXME - uccidere fastcgi
+		{
+			std::cerr << "fastCgi error\n";
+			return (cgi.clear(srv, *this));
+		}
 	}
 	else
 		read_file(filename, this->getBuffer());
@@ -176,27 +179,23 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	int			poll_index;
 
 	poll_index = this->poll_index[is_pipe_out];
+	if (!poll_index)
+		return ;
 	fd_last = srv.getAddrsVector().back().fd;
 	if (srv.getFdData()[fd_last].cgi)
 	{
 		srv.getFdData()[fd_last].cgi->poll_index[0] = this->poll_index[0];
 		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
 	}
-	if ((size_t)poll_index < srv.getAddrSize() - 1)
-		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
+	if ((size_t)poll_index < srv.getAddrSize())
+		std::swap(srv.getAddrsVector()[poll_index - 1], srv.getAddrsVector().back());
+	srv.printPollInfo("logs/history.md");
 	srv.getAddrsVector().pop_back();
+	srv.printPollInfo("logs/history.md");
 	std::cout << WHITE"Prima di entrare pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
 	std::cout << WHITE"Flag is_pipe_out: " RED << (is_pipe_out == false ? "false" : "true") << "" RESET << std::endl;
-	if (is_pipe_out == false)
-	{
-		std::cout << WHITE"Entro e chiudo pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
-		close_fd(&this->pipe[0]);
-	}
-	else
-	{
-		std::cout << WHITE"Entro e chiudo pipe[1]: " RED << this->pipe[1] << "" RESET << std::endl;
-		close_fd(&this->pipe[1]);
-	}
+	std::cout << WHITE"Entro e chiudo pipe: " RED << this->pipe[0] << "" RESET << std::endl;
+	close_fd(&this->pipe[is_pipe_out]);
 }
 
 void	s_cgi::clear(Server &srv, Client &client)
@@ -206,10 +205,13 @@ void	s_cgi::clear(Server &srv, Client &client)
 	if (this->pid != 0 && this->isFastCgiBool == true)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;
+	srv.printPollInfo("logs/history.md");
 	if (this->pipe[0])
 		this->removeFromPoll(false, srv);
+	srv.printPollInfo("logs/history.md");
 	if (this->pipe[1])
 		this->removeFromPoll(true, srv);
+	srv.printPollInfo("logs/history.md");
 	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
 		srv.getIpPortCgiMap().erase(ipPort);
 }

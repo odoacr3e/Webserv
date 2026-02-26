@@ -25,6 +25,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	mkdir -p logs/
 	$(CC) $(FLAGS) $(CPPFLAGS) $^ -o $(NAME)
 
 clean:

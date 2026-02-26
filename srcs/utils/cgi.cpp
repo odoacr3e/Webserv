@@ -179,7 +179,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 	if (cgi_exist != srv.getIpPortCgiMap().end())
 	{
 		cgi_data = cgi_exist->second;
-		if (srv.getAddrs()[cgi_data.pipe[0]].events & POLLIN)
+		if (srv.getAddrs()[cgi_data.poll_index[0]].events & POLLIN)
 			return ;
 	}
 	else

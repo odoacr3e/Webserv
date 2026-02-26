@@ -46,31 +46,26 @@
 </div>
 
 <script>
-const FPS = 15; // Alzamo un po' er ritmo?
 const screenImg = document.getElementById("screen");
-const cgiPath = "cub3D.cgi"; // Metti er percorso giusto der tuo eseguibile C++
+const cgiPath = "cub3D.cgi";
 
-let currentAction = "\0"; // Azione di default (idle)
+let currentAction = "\0";
 
 function sendInput(action) {
     currentAction = action;
 }
 
-function refreshFrame() {
-    const ts = new Date().getTime();
-    // Attacchiamo l'azione e il timestamp per forzare l'aggiornamento
+function requestNextFrame() {
+    const ts = Date.now();
     screenImg.src = `${cgiPath}?${currentAction}&t=${ts}`;
-    
-    // Se vuoi che l'input sia "one-shot" (premuto una volta sola):
-    currentAction = "\0"; 
+    currentAction = "%";
 }
 
-// Loop principale: se nun premi gnente, lui continua a chiede frame con \0
-setInterval(() => {
-    // Se vòi che l'immagine se aggiorni da sola stile video:
-    refreshFrame();
-}, 1000 / FPS);
+screenImg.onload = function () {
+    requestNextFrame();
+};
 
+requestNextFrame();
 </script>
 </body>
 </html>

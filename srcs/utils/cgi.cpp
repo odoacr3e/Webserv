@@ -243,6 +243,7 @@ Can't bind ip:port -> 10.11.4.5:9020
 	srv.getFdData()[client.getSockFd()].cgi_ready = true;
 	srv.getFdData()[client.getSockFd()].client = &client;
 	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
+	srv.printPollInfo("logs/history.md");
 }
 
 static int hex_value(char c)

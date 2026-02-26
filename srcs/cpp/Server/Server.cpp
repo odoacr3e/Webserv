@@ -165,7 +165,7 @@ int	Server::addSocket(int index, e_fd_type type)
 	if (type == FD_CLIENT)
 	{
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
-		(*this->_clients[socket]).setPollFd(&this->_addrs[this->_addrs.size() - 1]);
+		(*this->_clients[socket]).setPollFd(&this->_addrs.back());
 		this->_fd_data[polldata.fd].client = this->_clients[socket];
 	}
 	else if (type == FD_PIPE_WR)

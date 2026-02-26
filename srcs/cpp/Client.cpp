@@ -188,7 +188,7 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
 	}
 	if ((size_t)poll_index < srv.getAddrSize())
-		std::swap(srv.getAddrsVector()[poll_index - 1], srv.getAddrsVector().back());
+		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
 	srv.printPollInfo("logs/history.md");
 	srv.getAddrsVector().pop_back();
 	srv.printPollInfo("logs/history.md");

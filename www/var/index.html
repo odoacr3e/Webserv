@@ -1,4 +1,4 @@
-<!--NAME=home-->
+<!-- NAME=home
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,7 +6,6 @@
     <title>My C++ Web Server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSS esterno -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico">
 </head>
@@ -52,14 +51,6 @@
 			<a href="upload/index.html">
                 <button>Upload file</button>
             </a>
-			<!-- <button onclick="
-				fetch('/storage/', {method: 'DELETE'})
-				.then(res => res.text()) // Pijamo l'HTML che m'hai mannato
-				.then(html => {
-					document.open();    // Aprimo er documento
-					document.write(html); // Ce scrivemo sopra tutto l'autoindex nuovo
-					document.close();   // Chiudemo e godemo
-				})"> -->
             <a href="/storage/">
                 <button>
                     Delete file
@@ -72,4 +63,85 @@
                     <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
                 </footer>
 </body>
+</html> -->
+
+<!--NAME=home-->
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>My C++ Web Server</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+
+        <style>
+
+/* ===== LAYOUT NAV VERTICALE ===== */
+
+
+
+</style>
+    </head>
+
+    <body>
+
+        <header>
+            <h1>🚀 My Web Server</h1>
+            <p>Web server scritto in C++ • Minimal • Performante</p>
+        </header>
+
+        <main>
+
+            <section class="card">
+                <h2>Server Status</h2>
+                <p class="ok">✔ Server avviato correttamente</p>
+            </section>
+
+            <div class="nav-wrapper">
+
+                <div class="card nav-vertical">
+                    <div class="icon">⚙️</div>
+                    <div class="content">
+                        <h3>Script</h3>
+                        <p>Area dedicata a CGI ed eseguibili server-side.</p>
+                        <a href="/script/" class="btn">Apri</a>
+                    </div>
+                </div>
+
+                <div class="card nav-vertical">
+                    <div class="icon">💾</div>
+                    <div class="content">
+                        <h3>Storage</h3>
+                        <p>Gestione dei file salvati nel server.</p>
+                        <a href="/storage/" class="btn">Apri</a>
+                    </div>
+                </div>
+
+                <div class="card nav-vertical">
+                    <div class="icon">📂</div>
+                    <div class="content">
+                        <h3>Srcs</h3>
+                        <p>Visualizza il codice sorgente del progetto.</p>
+                        <a href="/srcs/" class="btn">Apri</a>
+                    </div>
+                </div>
+
+                <div class="card nav-vertical">
+                    <div class="icon">📤</div>
+                    <div class="content">
+                        <h3>Upload</h3>
+                        <p>Carica nuovi file nel server.</p>
+                        <a href="/upload/" class="btn">Apri</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer>
+            <p>My Web Server • Built in C++ • High Performance</p>
+        </footer>
+
+    </body>
 </html>

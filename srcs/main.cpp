@@ -60,14 +60,14 @@ int main(int ac, char **av, const char **env)
 	[X]	crypter
 	[]	cub3D
 	[]	cookie
-	[]	return
+	[X]	return
 	[]	refactoring
 	[]	GESTIRE IL TEAPOT PERCHE SIAMO VERI UOMINI CAZZO
 	[]	tester
 	[]	test
 */
 /*
-- 	Your server must remain non-blocking at all times 
+X 	Your server must remain non-blocking at all times 
 	and properly handle client disconnections when 
 	necessary.
 X	Clients must be able to upload files.
@@ -93,10 +93,10 @@ X	You must provide configuration files and default
 BONUS:
 -	Support cookies and session management 
 	(provide simple examples).
--	Handle multiple CGI types.
+X	Handle multiple CGI types.
 OTHER:
 -	game cgi
--	crypter
+X	crypter
 */
 
 // int	main(int ac, char **av)

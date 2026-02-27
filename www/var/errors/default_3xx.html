@@ -106,8 +106,9 @@
                     <li><strong>Codice:</strong> <span id="status-code">{CODE}</span></li>
                     <li><strong>{MSG_TYPE}:</strong> <span id="status-title">{DETAIL}</span></li>
                     <li><strong>URL richiesta:</strong> <span id="request-url"></span></li>
+                    <li><strong>Redirect home:</strong> <span id="redirect-timer">12s</span></li>
                 </ul>
-                <p class="muted" id="dynamic-hint">Controlla l'URL o riprova.</p>
+                <p class="muted" id="dynamic-hint">Controlla l'URL o riprova tra qualche secondo.</p>
             </section>
         </div>
     </main>
@@ -121,26 +122,46 @@
             var code = parseInt("{CODE}", 10);
             var icon = document.querySelector(".icon-warning");
             var hint = document.getElementById("dynamic-hint");
+            var timerNode = document.getElementById("redirect-timer");
             var urlNode = document.getElementById("request-url");
             var homeBtn = document.getElementById("home-btn");
             var homeLink = document.getElementById("home-link");
             var refreshBtn = document.getElementById("refresh-btn");
-            var homeSoundText = "{SOUND_HOME}";
-            var retrySoundText = "{SOUND_RETRY}";
+            var seconds = 5;
 
-            function speakText(text) {
-                if (!("speechSynthesis" in window)) {
+            // 🎧 File audio locali (percorsi assoluti dalla root web)
+            var homeAudio = new Audio("/audio/home.mp3");
+            var retryAudio = new Audio("/audio/retry.mp3");
+
+            homeAudio.preload = "auto";
+            retryAudio.preload = "auto";
+
+            function playAndRedirect(audioObj, redirectCallback) {
+                if (!audioObj) {
+                    redirectCallback();
                     return;
                 }
-                var utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = "ja-JP";
-                // utterance.pitch = 0.2;
-                // utterance.rate = 0.8;
-                // utterance.volume = 1.0;
-                utterance.pitch = 0.2;
-                utterance.rate = 0.8;
-                utterance.volume = 1.0;
-                window.speechSynthesis.speak(utterance);
+
+                audioObj.currentTime = 0;
+                var hasEnded = false;
+
+                audioObj.onended = function() {
+                    if (!hasEnded) {
+                        hasEnded = true;
+                        redirectCallback();
+                    }
+                };
+
+                audioObj.play().catch(function() {
+                    redirectCallback();
+                });
+
+                setTimeout(function() {
+                    if (!hasEnded) {
+                        hasEnded = true;
+                        redirectCallback();
+                    }
+                }, 5000);
             }
 
             if (urlNode) {
@@ -150,19 +171,17 @@
             if (homeBtn && homeLink) {
                 homeBtn.addEventListener("click", function(event) {
                     event.preventDefault();
-                    speakText(homeSoundText);
-                    window.setTimeout(function() {
+                    playAndRedirect(homeAudio, function() {
                         window.location.href = homeLink.getAttribute("href") || "/";
-                    }, 450);
+                    });
                 });
             }
 
             if (refreshBtn) {
                 refreshBtn.addEventListener("click", function() {
-                    speakText(retrySoundText);
-                    window.setTimeout(function() {
+                    playAndRedirect(retryAudio, function() {
                         window.location.reload();
-                    }, 450);
+                    });
                 });
             }
 
@@ -176,6 +195,17 @@
                 if (icon) icon.textContent = "🔒";
                 if (hint) hint.textContent = "Non hai i permessi per accedere a questa risorsa.";
             }
+
+            var countdown = window.setInterval(function() {
+                seconds -= 1;
+                if (timerNode) {
+                    timerNode.textContent = seconds + "s";
+                }
+                if (seconds <= 0) {
+                    window.clearInterval(countdown);
+                    window.location.href = "{URL}";
+                }
+            }, 1000);
         })();
     </script>
 

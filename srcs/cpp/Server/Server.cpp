@@ -95,10 +95,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				char buffer[2048] = {0};//NOTE - reserve vector
 				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
 				if (bytes <= 0)
-				{
-					std::cout << "eraseClient(): ENTRATO\n";
 					eraseClient(*client, i--);
-				}
 				else
 					processRequest(*client, buffer, bytes);
 			}
@@ -140,6 +137,10 @@ void		Server::eraseClient(Client &client, int i)
 		std::swap(this->_addrs.back(), this->_addrs[i]);
 		if (this->_clients[fd])
 			this->_clients[fd]->setPollFd(&this->_addrs[i]);
+		if (this->_fd_data[fd].type == FD_PIPE_RD)
+			this->_fd_data[fd].cgi->poll_index[0] = i;
+		else if (this->_fd_data[fd].type == FD_PIPE_WR)
+			this->_fd_data[fd].cgi->poll_index[1] = i;
 	}
 	this->_addrs.pop_back();
 }

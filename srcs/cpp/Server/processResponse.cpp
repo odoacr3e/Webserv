@@ -11,12 +11,12 @@ void	Server::processResponse(Client &client)
 
 	if ((client.getPollFd()->events & POLLOUT) == 0)
 		return ;
-	send(client.getSockFd(), html.c_str(), html.length(), 0);
+	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
-		send(client.getSockFd(), contentData.data(), contentData.size(), 0);
+		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
 	client.sendContentBool() = false;
 	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
 	std::cout <<client.getRequest().getMethod() << "\n";
@@ -157,21 +157,25 @@ std::string	Server::checkErrorPages(Request &request)
 		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
 		{
 			file.open((server->root + server->err_pages[status_code]).c_str());
-			if (file.fail() == true)
-				return (url_rooting("/errors/default.html", *server));
-			return (url_rooting(server->err_pages[status_code], *server));
+			if (file.fail() == false)
+				return (server->root + server->err_pages[status_code]);
 		}
 	}
 	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
 		loc = &server->location[url];
-		file.open((server->root + server->location[url].err_pages[status_code]).c_str());
-		std::cout << "Location prova ad aprire: " << loc->root + server->location[url].err_pages[status_code] << std::endl;
-		if (file.fail() == true)
-			return (url_rooting("/errors/default.html", *loc));
-		return (url_rooting(server->location[url].err_pages[status_code], *loc));
+		file.open((loc->root + server->location[url].err_pages[status_code]).c_str());
+		if (file.fail() == false)
+			return (loc->root + server->location[url].err_pages[status_code]);
+		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
+			return ("www/var/errors/default_3xx.html");
+		else
+			return ("www/var/errors/default.html");
 	}
-	return (server->root + "/errors/default.html"); // return di default
+	if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
+		return ("www/var/errors/default_3xx.html");
+	else
+		return ("www/var/errors/default.html");
 }
 
 // NOTE - crea html come body per la risposta da inviare al client
@@ -216,6 +220,7 @@ void	fill_error_page(Client &client, std::string &html)
 	else
 		find_and_replace(html, "{MSG_TYPE}", "Detail");
 	find_and_replace(html, "{DETAIL}", client.getLocConf().ret_text);
-	find_and_replace(html, "{SOUND_HOME}", "Debole");
-	find_and_replace(html, "{SOUND_RETRY}", "Inutile");
+	find_and_replace(html, "{SOUND_HOME}", "ET telefono casa");
+	find_and_replace(html, "{SOUND_RETRY}", "Ritenta, sfigato");
+	find_and_replace(html, "{URL}", client.getLocConf().ret_text);
 }

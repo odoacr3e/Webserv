@@ -104,9 +104,9 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	int		code;
 	int		code_valid;
 
-	if (list.size() < 2 || list.size() > 3)
+	if (list.size() < 2)
 		instructionError(list, line, "return needs this syntax:	return code [text] |"\
-		"return code URL | return URL | return code\n");
+		"return code3XX URL | return code\n");
 	code_syntax = charFinder(list[1], std::isdigit);
 	code = std::atoi(list[1].c_str());
 	code_valid = checkValidCode(code);
@@ -120,9 +120,8 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 		if (list.size() != 3 || list[2][0] != '/')
 			instructionError(list, line, "return code 3xx must have an uri\n");
 	}
-	if (list.size() != 3)
-		return ;
-	conf.getLocationBlock().ret_text = list[2];
+	for (size_t i = 2; i != list.size(); i++)
+		conf.getLocationBlock().ret_text += list[i] + ' ';
 }
 
 static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line)

@@ -74,8 +74,10 @@ int	read_fastcgi(Client &client, s_cgi &cgi)
 	std::string	output;
 	int			bytes;
 
-	fd_name = "/dev/fd/" + ft_to_string(cgi.pipe[0]);
-	read_file(fd_name, client.getBuffer(), FASTCGI_HEADER_LEN);
+	client.getBuffer().resize(FASTCGI_HEADER_LEN);
+	bytes = read(cgi.pipe[0], client.getBuffer().data(), FASTCGI_HEADER_LEN);
+	if (bytes <= 0)
+		return (std::cerr << "readFastcgiError: cgi is gone\n", 1);
 	client.getBuffer().push_back('\0');
 	output = client.getBuffer().data();
 	if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
@@ -84,7 +86,12 @@ int	read_fastcgi(Client &client, s_cgi &cgi)
 	if (bytes <= 0)
 		return (std::cerr << "readFastcgiErrorSize: " << output << "\n", 1);
 	cgi.output_len = bytes;
-	read_file(fd_name, client.getBuffer(), bytes);
+	client.getBuffer().resize(bytes);
+	int	bytes_total = bytes;
+	bytes = 0;
+	bytes += read(cgi.pipe[0], client.getBuffer().data() + bytes, bytes_total);
+	while (bytes != bytes_total)
+		bytes += read(cgi.pipe[0], client.getBuffer().data() + bytes, bytes_total);
 	std::cout << "read_fastcgi(): bytes to read " << bytes << "\n";
 	std::cout << "read_fastcgi(): bytes read " << client.getBuffer().size() << "\n";
 	return (0);

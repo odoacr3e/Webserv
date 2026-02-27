@@ -128,20 +128,16 @@
             var homeLink = document.getElementById("home-link");
             var refreshBtn = document.getElementById("refresh-btn");
             var seconds = 5;
-
             // 🎧 File audio locali (percorsi assoluti dalla root web)
             var homeAudio = new Audio("/audio/home.mp3");
             var retryAudio = new Audio("/audio/retry.mp3");
-
             homeAudio.preload = "auto";
             retryAudio.preload = "auto";
-
             function playAndRedirect(audioObj, redirectCallback) {
                 if (!audioObj) {
                     redirectCallback();
                     return;
                 }
-
                 audioObj.currentTime = 0;
                 var hasEnded = false;
 
@@ -151,7 +147,6 @@
                         redirectCallback();
                     }
                 };
-
                 audioObj.play().catch(function() {
                     redirectCallback();
                 });
@@ -163,11 +158,9 @@
                     }
                 }, 5000);
             }
-
             if (urlNode) {
                 urlNode.textContent = window.location.pathname || "/";
             }
-
             if (homeBtn && homeLink) {
                 homeBtn.addEventListener("click", function(event) {
                     event.preventDefault();
@@ -176,7 +169,6 @@
                     });
                 });
             }
-
             if (refreshBtn) {
                 refreshBtn.addEventListener("click", function() {
                     playAndRedirect(retryAudio, function() {
@@ -184,7 +176,6 @@
                     });
                 });
             }
-
             if (code >= 500) {
                 if (icon) icon.textContent = "💥";
                 if (hint) hint.textContent = "Errore lato server: stiamo lavorando per risolverlo.";

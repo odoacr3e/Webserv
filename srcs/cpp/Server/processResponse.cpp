@@ -109,7 +109,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	{
 		type += "html";
 	}
-	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
+	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client, body);
 	else
 		choose_file(client, file, url);
@@ -186,11 +186,11 @@ std::string	createHtml(Client &client, const std::string &body)
 	         << status << " "
 	         << http_codes_str[checkValidCode(status)] << "\r\n";
 	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
+	response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
+	response << "Pragma: no-cache" << "\r\n";
+	response << "Expires: 0" << "\r\n";
 	if (client.sendContentBool() == true)
 	{
-		response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
-		response << "Pragma: no-cache" << "\r\n";
-		response << "Expires: 0" << "\r\n";
 		response << "Content-Length: " << client.getBuffer().size();
 		response << "\r\n\r\n";
 	}
@@ -201,4 +201,21 @@ std::string	createHtml(Client &client, const std::string &body)
 	}
 	std::cout << "createHtml() URL: " << url << std::endl;
 	return (response.str());
+}
+
+void	fill_error_page(Client &client, std::string &html)
+{
+	e_http_codes	code;
+
+	while (find_and_replace(html, "{CODE}", client.getRequest().getStatusCode()));
+	while (find_and_replace(html, "{TITLE}", client.getRequest().getFailMsg()));
+	while (find_and_replace(html, "{MSG}", client.getRequest().getFailMsg()));
+	code = client.getRequest().getStatusCode(); 
+	if (code >= 300 && code <= 399)
+		find_and_replace(html, "{MSG_TYPE}", "New_url");
+	else
+		find_and_replace(html, "{MSG_TYPE}", "Detail");
+	find_and_replace(html, "{DETAIL}", client.getLocConf().ret_text);
+	find_and_replace(html, "{SOUND_HOME}", "Debole");
+	find_and_replace(html, "{SOUND_RETRY}", "Inutile");
 }

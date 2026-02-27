@@ -7,7 +7,8 @@
 # define UNDEFINED ""//method undefined
 # define MAX_URI_LENGTH 8000//see status code HTTP_CE_URI_TOO_LONG
 # define SWITCH_LOG(info, s) \
-std::cerr << "\033[31mRequestError: \033[33m" << s << " \033[0m" << info << "\n"; break 
+std::cerr << "\033[31mRequestError: \033[33m" << s << " \033[0m" << info << "\n"; \
+info = s;break 
 
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;

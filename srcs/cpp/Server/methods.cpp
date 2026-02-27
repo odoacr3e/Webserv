@@ -5,6 +5,7 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file);
 // static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv);
 int			headerParsing(Request &request, bool reset);
+void		fill_error_page(Client &client, std::string &html);
 
 /*NOTE - summary
 
@@ -20,6 +21,7 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 	if (client.getRequest().getFailMsg().empty() == false)
 	{
 		resp_body = file_opener(file, "runMethod GET: Cannot open file");
+		fill_error_page(client, resp_body);
 		return ;
 	}
 	if (client.getRequest().getRunScriptBool() == true)

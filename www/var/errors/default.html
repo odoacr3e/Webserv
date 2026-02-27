@@ -1,158 +1,197 @@
-<!--NAME=error_default-->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<title>My C++ Web Server</title>
-<meta charset="utf-8">
-<link rel="icon" href="favicon.ico">
-
-<style type="text/css">
-:root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --border: #334155;
-    --text: #ff0000;
-    --muted: #94a3b8;
-    --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    --success: #22c55e;
-}
-
-/* RESET */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* BASE */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: radial-gradient(circle at top, #111827, var(--bg));
-    color: var(--text);
-    line-height: 1.6;
-}
-
-/* HEADER */
-header {
-    text-align: center;
-    padding: 70px 20px 50px;
-    border-bottom: 1px solid var(--border);
-}
-
-header h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-header p {
-    color: var(--muted);
-    font-size: 1.05rem;
-}
-
-/* MAIN */
-main {
-    max-width: 520px;
-    margin: 90px auto;
-    padding: 0 20px;
-}
-
-/* CARD */
-.card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 30px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 45px rgba(0,0,0,0.35);
-}
-
-.card h2 {
-    margin-bottom: 25px;
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
-/* FILE INPUT */
-input[type="file"] {
-    width: 100%;
-    margin-bottom: 25px;
-    padding: 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    cursor: pointer;
-    transition: border 0.2s ease;
-}
-
-input[type="file"]:hover {
-    border-color: var(--primary);
-}
-
-input[type="file"]:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-/* BUTTON */
-button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-button:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 0.9rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-}
-</style>
-
+    <meta charset="UTF-8">
+    <title>Errore {CODE} - My Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+        main {
+            max-width: 900px;
+        }
+        .error-container {
+            display: grid;
+            gap: 24px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .error-main {
+            text-align: center;
+        }
+        .error-code-badge {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(45deg, var(--primary), var(--primary-hover));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .icon-warning {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: floatWarn 1.6s ease-in-out infinite;
+        }
+        .error-subtitle {
+            margin-bottom: 15px;
+        }
+        .error-message {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+        .error-details {
+            text-align: left;
+        }
+        .error-details ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+        .error-details li {
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .muted {
+            color: var(--muted);
+        }
+        @keyframes floatWarn {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-	<h1>My C++ Web Server</h1>
-	<p>Minimal • Fast • Handmade</p>
-</header>
+    <header>
+        <h1>🚀 My Web Server</h1>
+        <p>Handmade C++ Engine</p>
+    </header>
 
-<main>
-	<div class="card">
-		<div class="error-code">⚠️</div>
-		<h2>Errore di default</h2>
-		<p>
-			Il server ha ricevuto una richiesta non valida oppure
-			la risorsa non è disponibile.
-		</p>
-		<a href="/" class="btn">Torna alla home</a>
-	</div>
-</main>
+    <main>
+        <div class="error-container">
+            <section class="card error-main">
+                <span class="icon-warning">⚠️</span>
+                <h2 class="error-code-badge">{CODE}</h2>
+                <h3 class="error-subtitle">{TITLE}</h3>
+                <p class="error-message">{MSG}</p>
+                
+                <div class="actions">
+                    <a id="home-link" href="/">
+                        <button id="home-btn" type="button">Torna alla Home</button>
+                    </a>
+                    <button id="refresh-btn" type="button">Riprova</button>
+                </div>
+            </section>
 
-<footer>
-	© 2026 • Custom C++ HTTP Server
-</footer>
+            <section class="card error-details">
+                <h2>Dettagli errore</h2>
+                <ul>
+                    <li><strong>Codice:</strong> <span id="status-code">{CODE}</span></li>
+                    <li><strong>{MSG_TYPE}:</strong> <span id="status-title">{DETAIL}</span></li>
+                    <li><strong>URL richiesta:</strong> <span id="request-url"></span></li>
+                    <li><strong>Redirect home:</strong> <span id="redirect-timer">12s</span></li>
+                </ul>
+                <p class="muted" id="dynamic-hint">Controlla l'URL o riprova tra qualche secondo.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>My Web Server • Status: {CODE} • © 2026</p>
+    </footer>
+
+    <script>
+        (function() {
+            var code = parseInt("{CODE}", 10);
+            var icon = document.querySelector(".icon-warning");
+            var hint = document.getElementById("dynamic-hint");
+            var timerNode = document.getElementById("redirect-timer");
+            var urlNode = document.getElementById("request-url");
+            var homeBtn = document.getElementById("home-btn");
+            var homeLink = document.getElementById("home-link");
+            var refreshBtn = document.getElementById("refresh-btn");
+            var seconds = 12;
+            var homeSoundText = "{SOUND_HOME}";
+            var retrySoundText = "{SOUND_RETRY}";
+
+            function speakText(text) {
+                if (!("speechSynthesis" in window)) {
+                    return;
+                }
+                var utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = "ja-JP";
+                // utterance.pitch = 0.2;
+                // utterance.rate = 0.8;
+                // utterance.volume = 1.0;
+                utterance.pitch = 0.1;
+                utterance.rate = 0.9;
+                utterance.volume = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+
+            if (urlNode) {
+                urlNode.textContent = window.location.pathname || "/";
+            }
+
+            if (homeBtn && homeLink) {
+                homeBtn.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    speakText(homeSoundText);
+                    window.setTimeout(function() {
+                        window.location.href = homeLink.getAttribute("href") || "/";
+                    }, 450);
+                });
+            }
+
+            if (refreshBtn) {
+                refreshBtn.addEventListener("click", function() {
+                    speakText(retrySoundText);
+                    window.setTimeout(function() {
+                        window.location.reload();
+                    }, 450);
+                });
+            }
+
+            if (code >= 500) {
+                if (icon) icon.textContent = "💥";
+                if (hint) hint.textContent = "Errore lato server: stiamo lavorando per risolverlo.";
+            } else if (code === 404) {
+                if (icon) icon.textContent = "🧭";
+                if (hint) hint.textContent = "La risorsa non esiste o è stata spostata.";
+            } else if (code === 403) {
+                if (icon) icon.textContent = "🔒";
+                if (hint) hint.textContent = "Non hai i permessi per accedere a questa risorsa.";
+            }
+
+            var countdown = window.setInterval(function() {
+                seconds -= 1;
+                if (timerNode) {
+                    timerNode.textContent = seconds + "s";
+                }
+                if (seconds <= 0) {
+                    window.clearInterval(countdown);
+                    window.location.href = "/";
+                }
+            }, 1000);
+        })();
+    </script>
 
 </body>
 </html>

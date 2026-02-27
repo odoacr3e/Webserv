@@ -168,13 +168,13 @@ int	Request::fail(e_http_codes code, std::string info)
 	switch (int_code)
 	{
 		case HTTP_RD_MOVED_PERM :
-			SWITCH_LOG(info, "Redirect: moved permanently in--> ");
+			SWITCH_LOG(info, "Redirect: moved permanently in");
 		case HTTP_RD_FOUND :
-			SWITCH_LOG(info, "Redirect: Resource found, but not here matey--> ");
+			SWITCH_LOG(info, "Redirect: Resource found, but not here matey");
 		case HTTP_RD_TEMP_REDIRECT :
-			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 303 but with the same method--> ");
+			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 303 but with the same method");
 		case HTTP_RD_PERM_REDIRECT :
-			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 307 but im way cooler--> ");
+			SWITCH_LOG(info, "Redirect: I do the same stuff as big bro 307 but im way cooler");
 		case HTTP_CE_BAD_REQUEST :
 			SWITCH_LOG(info, "ClientError: Bad Request");
 		case HTTP_CE_UNATHORIZED :
@@ -198,7 +198,7 @@ int	Request::fail(e_http_codes code, std::string info)
 		case HTTP_CE_CONTENT_UNPROCESSABLE:
 			SWITCH_LOG(info, "ClientError: request cannot be processed");
 		case HTTP_SE_NOT_IMPLEMENTED:
-			SWITCH_LOG(info, "ServerError: Not implemented -->");
+			SWITCH_LOG(info, "ServerError: Not implemented");
 		default :
 			SWITCH_LOG(info, "ClientError: Wtf");	
 	}

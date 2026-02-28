@@ -74,10 +74,12 @@ static bool	get_files(std::string html_files[4])
 {
 	std::string		html_names[] = {HTML_FILES, ""};
 	std::ifstream 	html_stream[4];
+	std::string		html_path;
 
+	html_path = HTML_PATH;
 	for (int i = 0; i != HTML_NUMBER; i++)
 	{
-		html_stream[i].open(HTML_PATH + html_names[i]);
+		html_stream[i].open((html_path + html_names[i]).c_str());
 		if (html_stream[i].fail())
 		{
 			std::cerr << "cannot open " << html_names[i] << "\n";

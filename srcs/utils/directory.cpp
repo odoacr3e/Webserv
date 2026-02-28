@@ -55,7 +55,7 @@ int		eraseDirectory(std::string dir_path)
 	content = findUrlDirectory(dir_path);
 	if (!content)
 		return (1);
-	if (dir_path.back() != '/')
+	if (dir_path.rbegin()[0] != '/')
 		dir_path.push_back('/');
 	while (content != NULL)
 	{

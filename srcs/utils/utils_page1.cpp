@@ -128,7 +128,7 @@ std::string	file_opener(std::fstream &file)
 
 bool	file_checker(std::string filename)
 {
-	std::fstream file(filename);
+	std::fstream file(filename.c_str());
 
 	if (file.fail())
 	{

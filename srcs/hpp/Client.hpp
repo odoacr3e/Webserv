@@ -8,7 +8,7 @@
 
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
-
+//
 struct s_conf_server;
 struct s_conf_location;
 struct s_cgi;

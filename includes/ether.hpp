@@ -68,6 +68,7 @@ bool			trim_equal_left(std::string &s, char c);
 bool			trim_diff_left(std::string &s, char c);
 bool			trim_equal_right(std::string &s, char c);
 bool			trim_diff_right(std::string &s, char c);
+bool			ft_strtrim(std::string &str, std::string left, std::string right);
 	
 bool			valid_directory(std::string directory);
 bool			valid_file(std::string file);

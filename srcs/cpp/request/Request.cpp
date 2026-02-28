@@ -74,7 +74,7 @@ int	Request::checkHeader(void)
 	this->_header["Transfer-Encoding"] != "unchunked")
 		return (this->fail(HTTP_CE_BAD_REQUEST, "Invalid Transfer-Encoding"));
 	if (this->checkKey("Cookie"))
-		std::cout << "IN ARRIVO I COOKIES!\n";
+		std::cout << "IN ARRIVO I COOKIES!\n";//usa strtrim
 	if (this->_method == "POST")
 		return (this->_checkPost());
 	else if (this->_method == "DELETE")

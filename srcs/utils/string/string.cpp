@@ -109,6 +109,30 @@ bool	trim_diff_right(std::string &s, char c)
 	return (0);
 }
 
+/// @brief trim from the first occurence of left to the next occurence of right.
+/// @param str original string
+/// @param left left substr
+/// @param right right substr (the next after left)
+/// @return 0 on success, 1 on error
+///
+///	Example:
+///	ft_strtrim("LeftContenutoRight", "Left", "Right") ---> "Contenuto"
+bool	ft_strtrim(std::string &str, std::string left, std::string right)
+{
+	size_t	i;
+	size_t	j;
+
+	i = str.find(left);
+	if (i == str.npos)
+		return (1);
+	j = str.find(right, i + left.length());
+	if (j == str.npos)
+		str = str.substr(i + left.length());
+	else
+		str = str.substr(i + left.length(), j);
+	return (0);
+}
+
 void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 {
 	std::string	temp;

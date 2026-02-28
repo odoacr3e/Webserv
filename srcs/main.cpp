@@ -21,6 +21,11 @@ void	get_conf_path(int ac, char **av, std::string &path)
 		throw std::runtime_error("\033[1;31mToo many configuration files\nPlease pass only one!\033[0m");
 }
 
+/*
+Cookie: session_id=abc123
+Set-Cookie: session_id=abc123; Path=/; HttpOnly; Secure
+*/
+
 int main(int ac, char **av, const char **env)
 {
 	LOG_RESET();

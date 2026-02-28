@@ -31,11 +31,6 @@ ipPortCgiMap	&Server::getIpPortCgiMap()
 	return (this->_ipPortCgiPair);
 }
 
-packetBuffer	&Server::getPacketBuffer()
-{
-	return (this->_packet_buffer);
-}
-
 const std::string	&Server::getProtectedFiles() const
 {
 	return (this->_protected_files);

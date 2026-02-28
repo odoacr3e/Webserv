@@ -181,6 +181,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		cgi_data = cgi_exist->second;
 		if (srv.getAddrs()[cgi_data.poll_index[0]].events & POLLIN)
 		{
+			for (size_t i = 0; i != argv.size() - 1; i++)
+				delete [] argv[i];
 			client.getRequest().setBodyType("text/");
 			client.sendContentBool() = true;
 			client.getBuffer().resize(9);
@@ -210,6 +212,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 			srv.suppressSocket();
 			execve(argv[0], argv.data(), NULL);
 			perror("execve");
+			for (size_t i = 0; i != argv.size() - 1; i++)
+				delete [] argv[i];
 			std::cerr << "run_script fatal error: execve\n";
 			std::exit(1);
 		}
@@ -251,7 +255,8 @@ Can't bind ip:port -> 10.11.4.5:9020
 	srv.getFdData()[client.getSockFd()].cgi_ready = true;
 	srv.getFdData()[client.getSockFd()].client = &client;
 	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
-	srv.printPollInfo("logs/history.md");
+	for (size_t i = 0; i != argv.size() - 1; i++)
+		delete [] argv[i];
 }
 
 static int hex_value(char c)

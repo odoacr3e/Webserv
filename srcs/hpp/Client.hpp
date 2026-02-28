@@ -65,7 +65,6 @@ typedef	struct s_cgi
 	void	clear(Server &srv, Client &client);
 	void	removeFromPoll(bool is_pipe_out, Server &srv);
 
-	Client		*client;
 	std::string	input;
 	char		*output;
 	int			output_len;

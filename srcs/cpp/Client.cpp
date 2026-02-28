@@ -130,7 +130,6 @@ void	Client::writeCgi(Server &srv, s_cgi &cgi)
 
 s_cgi::s_cgi(void)
 {
-	this->client = NULL;
 	this->isFastCgiBool = false;
 	this->pid = 0;
 	this->pipe[0] = 0;
@@ -141,7 +140,6 @@ s_cgi::s_cgi(void)
 
 s_cgi::s_cgi(Client &client)
 {
-	this->client = &client;
 	this->pipe[0] = 0;
 	this->pipe[1] = 0;
 	this->poll_index[0] = 0;
@@ -161,8 +159,7 @@ s_cgi::s_cgi(const s_cgi &other)
 s_cgi	&s_cgi::operator=(const s_cgi &other)
 {
 	if (this == &other)
-		return (*this);
-	this->client = other.client; 
+		return (*this); 
 	this->poll_index[0] = other.poll_index[0];
 	this->poll_index[1] = other.poll_index[1];
 	this->pid = other.pid;

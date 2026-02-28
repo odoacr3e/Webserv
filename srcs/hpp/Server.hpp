@@ -45,8 +45,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::map<int, t_conf_server *>	_server_data;
 		SrvNameMap						*_srvnamemap;
 		ipPortCgiMap					_ipPortCgiPair;
-		packetBuffer					_packet_buffer;
-		std::string						_request_buffer;
 		std::string						_protected_files;
 		const char						**_env;
 		int								_server_num;
@@ -123,7 +121,6 @@ bool	cgi_ready:	false	false		false		false/true	false
 	3)	CLASS client (vedi Client.hpp)
 	4)	struct s_cgi
 		##VARIABILI
-			Client * //FIXME - togliere
 			std::string	input (input dato alla cgi)
 			char 		*output (output della cgi, viene client::_buffer)
 			char 		*argv[3]
@@ -143,7 +140,6 @@ typedef struct s_fd_data
 	bool			cgi_ready;
 }		t_fd_data;
 
-void		ft_to_string(std::vector<char *> &packets, std::string &request_buff);
 void		convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);
 
 #endif

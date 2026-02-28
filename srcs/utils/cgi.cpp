@@ -180,7 +180,13 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 	{
 		cgi_data = cgi_exist->second;
 		if (srv.getAddrs()[cgi_data.poll_index[0]].events & POLLIN)
+		{
+			client.getRequest().setBodyType("text/");
+			client.sendContentBool() = true;
+			client.getBuffer().resize(9);
+			std::strcpy(client.getBufferChar(), "Not ready");
 			return ;
+		}
 	}
 	else
 	{
@@ -188,6 +194,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 
 		if (pipe(pipes[0]) != 0 || pipe(pipes[1]) != 0)
 			return (std::cout << "run_script fatal error: pipe\n", (void)0);
+		fcntl(cgi_data.pipe[0], FD_CLOEXEC);
+		fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 		cgi_data.pipe[0] = pipes[0][0];
 		cgi_data.pipe[1] = pipes[1][1];
 		cgi_data.pid = fork();

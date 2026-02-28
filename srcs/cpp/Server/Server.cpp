@@ -123,7 +123,7 @@ void		Server::eraseClient(Client &client, int i)
 
 	find_and_replace(msgEndCon, "{INDEX}", n++);
 	std::cout << msgEndCon << "\033[2J\033[H";
-	LOG_REQUEST(msgEndCon);
+	LOG_ALL(msgEndCon);
 	fd = client.getSockFd();
 	if (this->_clients[fd])
 	{

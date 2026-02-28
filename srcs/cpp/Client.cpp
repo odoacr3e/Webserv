@@ -102,7 +102,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	}
 	else
 		read_file(filename, this->getBuffer());
-	LOG_CGI(this->getBuffer());
+	//LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd()->events = POLLOUT;
 	if (cgi.isFastCgiBool == false)

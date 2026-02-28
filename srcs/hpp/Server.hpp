@@ -7,7 +7,7 @@
 # include "Conf.hpp"
 # include "Request.hpp"
 
-#define MSG_END_CONNECTION "======================================\nchiudo connessione {INDEX}\n======================================\n"
+#define MSG_END_CONNECTION "[***********************************]\nchiudo connessione {INDEX}\n[***********************************]\n"
 
 //	1024 perché lo fa anche nginx
 # define MAX_CONNECTION 1024

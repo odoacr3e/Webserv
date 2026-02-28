@@ -11,13 +11,15 @@ int main(int ac, char **av)
 {
 	if (ac != 2 || av == NULL || av[1] == NULL || av[1][0] == '\0')
 	{
-		std::cerr << "No arguments" << std::endl;
-		return (0);
+		return (write(1, "Error\0", 6));
 	}
 	std::string argv(av[1]);
+	while (std::isspace(argv[0]) != 0)
+		argv.erase(0, 1);
+	if (argv.empty() == true)
+		return (write(1, " \0", 2));
 	std::vector<std::string> split;
 	std::string new_string("https://www.youtube.com/results?search_query=");
-
 	vect_split(split, argv, ' ');
 	for (size_t i = 0; i < split.size(); i++)
 	{
@@ -25,7 +27,9 @@ int main(int ac, char **av)
 			new_string += '+';
 		new_string += split[i];
 	}
-	std::cout << new_string;
+	write(1, new_string.c_str(), new_string.length());
+	write(1, "\0", 1);
+	std::cout << "\n";
 }
 
 void	vect_split(std::vector<std::string> &vect, std::string s, char c)

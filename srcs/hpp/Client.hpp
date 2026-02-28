@@ -22,7 +22,7 @@ class Client
 		int 				_sockfd;
 		int					_srvfd;
 		Request				_request;
-		s_login				*_login;
+		// s_login				*_login;
 		t_conf_server		_srv_config;
 		t_conf_location		_loc_config;
 		struct pollfd		*_poll_fd;

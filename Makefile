@@ -27,7 +27,6 @@ HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJ:.o=.d)# deps: checks if a header file changed
--include $(DEPS)
 
 all: $(NAME)
 
@@ -103,5 +102,7 @@ kill_ports:
 
 val: $(NAME)
 	clear ; valgrind --track-fds=yes --suppressions=supp.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./$(NAME)
+
+-include $(DEPS)
 
 .PHONY: all clean fclean run val kill_ports

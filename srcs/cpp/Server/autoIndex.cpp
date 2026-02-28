@@ -42,6 +42,7 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
 	find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
 	resp_body += line;
+	find_and_replace(resp_body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
 }
 
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html

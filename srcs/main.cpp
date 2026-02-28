@@ -29,6 +29,7 @@ Set-Cookie: session_id=abc123; Path=/; HttpOnly; Secure
 int main(int ac, char **av, const char **env)
 {
 	LOG_RESET();
+	std::srand(time(0));
 	std::string	conf_path;
 
 	signal(SIGINT, stopServer);

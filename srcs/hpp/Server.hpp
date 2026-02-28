@@ -1,4 +1,3 @@
-
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
@@ -89,6 +88,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		// NOTE - close all sockets
 		void				suppressSocket();
 		void 				printPollInfo(std::string filename);
+
+		// NOTE - creation HTML
+		std::string	createHtml(Client &client, std::string &body);
 };
 
 /*SECTION - gestione concorrenza

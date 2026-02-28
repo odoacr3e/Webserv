@@ -1,71 +1,3 @@
-<!-- NAME=home
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>My C++ Web Server</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico">
-</head>
-<body>
-
-    <header>
-        <h1>🚀 My Web Server</h1>
-        <p>Web server scritto in C++</p>
-    </header>
-
-    <main>
-        <section class="card">
-            <h2>Server Status</h2>
-            <p class="ok">✔ Server avviato correttamente</p>
-        </section>
-
-        <section class="card">
-            <h2>Dettagli</h2>
-            <ul>
-                <li><strong>Protocollo:</strong> HTTP/1.1</li>
-                <li><strong>Metodo:</strong> GET</li>
-                <li><strong>Documento:</strong> index.html</li>
-            </ul>
-        </section>
-
-        <section class="card">
-            <h2>Prossimi step</h2>
-            <ul>
-                <li>Spararsi in bocca</li>
-            </ul>
-        </section>
-        <div class="actions">
-
-            <a href="/script/">
-                <button>Script</button>
-            </a>
-			<a href="/srcs/">
-                <button>srcs</button>
-            </a>
-			<a href="/storage/">
-                <button>Storage</button>
-            </a>
-			<a href="upload/index.html">
-                <button>Upload file</button>
-            </a>
-            <a href="/storage/">
-                <button>
-                    Delete file
-                </button>
-            </a>
-
-        </div>
-            </main>
-                <footer>
-                    <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
-                </footer>
-</body>
-</html> -->
-
-<!--NAME=home-->
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -76,10 +8,6 @@
 
         <style>
 
-/* ===== LAYOUT NAV VERTICALE ===== */
-
-
-
 </style>
     </head>
 
@@ -88,6 +16,9 @@
         <header>
             <h1>🚀 My Web Server</h1>
             <p>Web server scritto in C++ • Minimal • Performante</p>
+            <div class="client-label">
+                👤 login
+            </div>
         </header>
 
         <main>
@@ -95,6 +26,12 @@
             <section class="card">
                 <h2>Server Status</h2>
                 <p class="ok">✔ Server avviato correttamente</p>
+                <label> Seleziona il tuo colore da gay</label>
+                <br>
+                <input type="color" value="#e66465" />
+                <form method="GET" action="login/">
+                    <button action="login/">Cookies</button>
+                </form>
             </section>
 
             <div class="nav-wrapper">
@@ -136,7 +73,6 @@
                 </div>
 
             </div>
-
         </main>
 
         <footer>

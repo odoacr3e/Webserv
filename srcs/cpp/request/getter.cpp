@@ -9,6 +9,7 @@
 		-	Status code, error bool
 		-	Flags (autoindex)
 		-	SockData
+		-	Cookie
 */
 
 //SECTION - method
@@ -202,4 +203,9 @@ bool	&Request::getFirstRead()
 int	&Request::getBytesLeft()
 {
 	return (this->_bytes_left);
+}
+
+std::string	&Request::getCookieKey()
+{
+	return (this->_cookie_key);
 }

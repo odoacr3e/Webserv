@@ -1,6 +1,6 @@
 #include "../../hpp/Server.hpp"
 
-std::string	createHtml(Client &client, const std::string &body);
+//void	manage_cookies();
 
 void	Server::processResponse(Client &client)
 {
@@ -25,39 +25,6 @@ void	Server::processResponse(Client &client)
 	client.getPollFd()->events = POLLIN;
 }
 
-/*NOTE - KO
-std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
-{
-	std::fstream	file;
-	std::string		body;
-	std::string		type("text/");
-	std::string		url;
-
-	url = client.getRequest().getUrl();
-	if (url.find_last_of('.') != std::string::npos)
-	{
-		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
-			type = "image/";
-		type += url.substr(url.find_last_of('.')).erase(0, 1);
-	}
-	else
-		type += "html";
-	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
-	{
-		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
-		choose_file(client, file, url);
-		return (createHtml(client, body));
-	}
-	else if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
-		return (createAutoindex(client, body), createHtml(client, body));
-	choose_file(client, file, url);
-	client.getRequest().setBodyType(type);
-	runMethod(client, body, file);
-	if (client.getPollFd()->events & POLLOUT)
-		return (createHtml(client, body));
-	return ("");
-}
-//NOTE - OK
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	std::fstream	file;
@@ -75,40 +42,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		type += url.substr(url.find_last_of('.')).erase(0, 1);
 	}
 	else
-	{
 		type += "html";
-	}
-	if (client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
-		createAutoindex(client, body);
-	else
-		choose_file(client, file, url);
-	client.getRequest().setBodyType(type);
-	runMethod(client, body, file);
-	if (client.getPollFd()->events & POLLOUT)
-		return (createHtml(client, body));
-	return ("");
-}
-*/
-std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
-{
-	std::fstream	file;
-	std::string		body;
-	std::string		type("text/");
-	std::string		url;
-
-	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
-		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
-	url = client.getRequest().getUrl();
-	if (url.find_last_of('.') != std::string::npos)
-	{
-		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
-			type = "image/";
-		type += url.substr(url.find_last_of('.')).erase(0, 1);
-	}
-	else
-	{
-		type += "html";
-	}
 	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client, body);
 	else
@@ -178,8 +112,20 @@ std::string	Server::checkErrorPages(Request &request)
 		return ("www/var/errors/default.html");
 }
 
+//  cookie = seed|i
+std::string createSessionId()
+{
+	static int id;
+	static int s_id_num;
+
+	if (!s_id_num)
+		s_id_num = std::rand() % 1000;
+	std::string s_id(ft_to_string(s_id_num));
+	return (s_id.append(ft_to_string(++id)));
+}
+
 // NOTE - crea html come body per la risposta da inviare al client
-std::string	createHtml(Client &client, const std::string &body)
+std::string	Server::createHtml(Client &client, std::string &body)
 {
 	std::ostringstream	response;
 	static std::string	http_codes_str[] = VALID_HTTP_STR;
@@ -193,6 +139,14 @@ std::string	createHtml(Client &client, const std::string &body)
 	response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
 	response << "Pragma: no-cache" << "\r\n";
 	response << "Expires: 0" << "\r\n";
+	if (client.getLocConf().exist && client.getLocConf().gen_cookie && \
+		client.getRequest().getCookieKey().empty() == true)
+	{
+		std::cout << "set-Cookie:\n";
+		client.getRequest().getCookieKey() = createSessionId();
+		response << "Set-Cookie: session_id=" << client.getRequest().getCookieKey() << "; Path=/; HttpOnly\r\n";
+		this->_cookie_map[client.getRequest().getCookieKey()].login = "client " + client.getRequest().getCookieKey();
+	}
 	if (client.sendContentBool() == true)
 	{
 		response << "Content-Length: " << client.getBuffer().size();

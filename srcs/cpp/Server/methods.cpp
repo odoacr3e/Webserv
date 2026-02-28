@@ -51,6 +51,16 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
 	std::cout << "runMethod(): reading file..\n";
+	if (client.getRequest().getBodyType() == "text/html")
+	{
+		std::cout << "Entro nell'override login\n";
+		std::getline(*file, body, '\0');
+		if (client.getRequest().getCookieKey().empty() == false)
+			find_and_replace(body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
+		else
+			std::cout << "Cookie è vuoto!\n";
+		return ;
+	}
 	client.sendContentBool() = true;
 	//std::string file = client.getRequest().getUrl();
 	client.getBuffer().clear();
@@ -128,7 +138,8 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 //SECTION - POST
 
 void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_file)
-{(void)resp_file;//FIXME - togliere da prototipo
+{	
+	(void)resp_file;//FIXME - togliere da prototipo
 	Request	&request = client.getRequest();
 	std::fstream		html;
 

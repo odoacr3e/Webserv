@@ -2,15 +2,8 @@
 
 import sys
 import time
-import signal
-
-def handle_sigint(signum, frame):
-    print("\nRicevuto Ctrl+C. Pulizia e uscita...")
-    sys.exit(0)
 
 def main():
-    signal.signal(signal.SIGINT, handle_sigint)
-
     if len(sys.argv) != 2:
         print("Uso: python sleep_script.py <secondi>")
         sys.exit(1)
@@ -23,12 +16,8 @@ def main():
         print(f"Errore: {e}")
         sys.exit(1)
 
-    try:
-        time.sleep(seconds)
-        print("seconds passed " + str(seconds))
-    except KeyboardInterrupt:
-        print("\nInterrotto durante sleep.")
-        sys.exit(0)
+    time.sleep(seconds)
+    print("seconds passed" + str(seconds))
 
 if __name__ == "__main__":
     main()

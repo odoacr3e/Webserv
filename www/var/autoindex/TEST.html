@@ -150,6 +150,29 @@
                 color: #dc2626;
                 transform: scale(1.2);
             }
+            
+            .client-label {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+
+                padding: 8px 14px;
+                background: linear-gradient(135deg, #2563eb, #1e40af);
+                color: white;
+
+                font-size: 0.9rem;
+                font-weight: 600;
+                border-radius: 999px;
+
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+                letter-spacing: 0.5px;
+            }
+
+            /* Se vuoi che il riferimento sia l'header */
+            header {
+                position: relative;
+            }
 
 
             </style>
@@ -161,6 +184,9 @@
 
             <header>
                 <h1>Index of <span>{PATH}</span></h1>
+                <div class="client-label">
+                    👤 login
+                </div>
             </header>
 
             <table>

@@ -115,6 +115,7 @@ class Request
 		e_methods					getMethodEnum() const;
 		headermap					&getHeader();
 		IpPortPair					&getHost();
+		std::string					&getCookieKey();
 		size_t						getBodyLen() const;
 		std::string 				getBodyType() const;
 		e_http_codes				getStatusCode() const;

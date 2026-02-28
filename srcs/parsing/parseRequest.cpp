@@ -124,8 +124,6 @@ int			headerParsing(Request &request, bool reset)
 	return (line != "\r");//NOTE - se linea diversa da \r, torna errore
 }
 
-//FIXME - non va letta una nuova linea
-
 static int	bodyParsing(Request &request)
 {
 	std::string	body;

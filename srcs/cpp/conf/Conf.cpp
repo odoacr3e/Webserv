@@ -103,6 +103,7 @@ void	s_conf_location::set(std::string path)
 	this->script_daemon = false;
 	this->mask_methods = 0;
 	this->alias = false;
+	this->gen_cookie = false;
 	this->ret_code = 0, this->ret_text.clear();
 }
 

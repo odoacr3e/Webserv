@@ -92,6 +92,7 @@ struct s_conf_location
 	bool						script_daemon; //set script mode on
 	bool						alias;
 	bool						exist;
+	bool						gen_cookie;
 	std::map<int, std::string>	err_pages;
 };
 

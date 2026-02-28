@@ -12,6 +12,7 @@ typedef struct s_conf_location	t_conf_location;
 struct s_conf_server;
 struct s_conf_location;
 struct s_cgi;
+struct s_login;
 class	Request;
 
 class Client
@@ -21,6 +22,7 @@ class Client
 		int 				_sockfd;
 		int					_srvfd;
 		Request				_request;
+		s_login				*_login;
 		t_conf_server		_srv_config;
 		t_conf_location		_loc_config;
 		struct pollfd		*_poll_fd;

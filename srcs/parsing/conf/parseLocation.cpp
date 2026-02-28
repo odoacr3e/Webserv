@@ -14,6 +14,7 @@ static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line)
 static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseMethodsList(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseStorage(Conf &conf, std::vector<std::string> &list, int line);
+static void	parseCookie(Conf &conf, std::vector<std::string> &list, int line);
 
 //NOTE - Allowed location instructions
 void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
@@ -39,7 +40,9 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 	else if (list[0] == "script" || list[0] == "script_daemon")
 		parseScriptBool(conf, list, line);
 	else if (list[0] == "script_type")
-		parseScriptType(conf, list, line);	
+		parseScriptType(conf, list, line);
+	else if (list[0] == "cookie")
+		parseCookie(conf, list, line);	
 	else
 		instructionError(list, line, "unrecognized instruction");
 }
@@ -216,4 +219,16 @@ static void	parseScriptType(Conf &conf, std::vector<std::string> list, int line)
 	if (list.size() != 2)
 		instructionError(list, line, "bad script_type params number");
 	conf.getLocationBlock().script_type = list[1];
+}
+
+static void	parseCookie(Conf &conf, std::vector<std::string> &list, int line)
+{
+	if (list.size() != 2)
+		instructionError(list, line, "cookie format: cookie on|off");
+	if (list[1] == "on")
+		conf.getLocationBlock().gen_cookie = true;
+	else if (list[1] == "off")
+		conf.getLocationBlock().gen_cookie = false;
+	else
+		instructionError(list, line, "cookie format: cookie on|off");
 }

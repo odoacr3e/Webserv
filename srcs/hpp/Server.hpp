@@ -31,8 +31,10 @@ enum e_fd_type
 
 class Client;
 struct s_cgi;
+struct s_login;
 typedef std::vector<char *>	packetBuffer;
 typedef std::map<IpPortPair, s_cgi>	ipPortCgiMap;
+typedef std::map<std::string, s_login>	cookieMap;
 struct s_fd_data;
 typedef std::vector<struct s_fd_data> fdData;
 
@@ -44,6 +46,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::map<int, Client *>			_clients;
 		std::map<int, t_conf_server *>	_server_data;
 		SrvNameMap						*_srvnamemap;
+		cookieMap						_cookie_map;
 		ipPortCgiMap					_ipPortCgiPair;
 		std::string						_protected_files;
 		const char						**_env;
@@ -57,6 +60,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		struct pollfd		*getAddrs(void);
 		std::vector<pollfd>	&getAddrsVector(void);
 		fdData				&getFdData(void);
+		cookieMap			&getCookieMap(void);
 		size_t				getAddrSize(void) const;
 		void				processRequest(Client &client, char *buffer, int bytes);
 		void				processResponse(Client &client);
@@ -139,6 +143,12 @@ typedef struct s_fd_data
 	enum e_fd_type	type;
 	bool			cgi_ready;
 }		t_fd_data;
+
+struct s_login
+{
+	std::string	login;
+	s_cgi		*cgi;
+};
 
 void		convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);
 

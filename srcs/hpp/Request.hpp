@@ -62,6 +62,7 @@ class Request
 		std::string			_fail_msg;
 		std::vector<char>	_bin_body;
 		std::string			_body_type;
+		std::string			_cookie_key;
 		IpPortPair			_ipport;
 		e_http_codes		_status_code;
 		size_t				_max_method_length;

@@ -34,6 +34,7 @@ void	Request::resetRequest(void)
 	this->_error = false;
 	this->_autoindex = false;
 	this->_run_script = false;
+	this->_cookie_key.clear();
 	this->_body_len = 0;
 }
 
@@ -72,6 +73,8 @@ int	Request::checkHeader(void)
 	if (this->_header["Transfer-Encoding"] != "chunked" && \
 	this->_header["Transfer-Encoding"] != "unchunked")
 		return (this->fail(HTTP_CE_BAD_REQUEST, "Invalid Transfer-Encoding"));
+	if (this->checkKey("Cookie"))
+		std::cout << "IN ARRIVO I COOKIES!\n";
 	if (this->_method == "POST")
 		return (this->_checkPost());
 	else if (this->_method == "DELETE")

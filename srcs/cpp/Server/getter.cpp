@@ -31,6 +31,11 @@ ipPortCgiMap	&Server::getIpPortCgiMap()
 	return (this->_ipPortCgiPair);
 }
 
+cookieMap	&Server::getCookieMap(void)
+{
+	return (this->_cookie_map);
+}
+
 const std::string	&Server::getProtectedFiles() const
 {
 	return (this->_protected_files);

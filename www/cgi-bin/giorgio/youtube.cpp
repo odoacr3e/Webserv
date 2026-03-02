@@ -163,32 +163,3 @@ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 		vect.push_back(temp);
 	}
 }
-
-char    *ft_itoa(int num)
-{
-		int		temp_num;
-		int		index;
-		char    *str;
-
-		index = 0;
-		temp_num = num;
-		while ((temp_num > 9) || (temp_num < -9))
-		{
-			index++;
-			temp_num /= 10;
-		}
-		str = (char *)malloc(13);
-		if (!str)
-			return (NULL);
-		index += (num < 0);
-		str[index + 1] = '\0';
-		while (num != 0)
-		{
-			if (num < 0)
-				str[index--] = (((num % 10) * -1) + 48);
-			else
-				str[index--] = ((num % 10) + 48);
-			num /= 10;
-		}
-		return (str);
-}

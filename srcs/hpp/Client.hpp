@@ -63,6 +63,8 @@ typedef	struct s_cgi
 	s_cgi	&operator=(const s_cgi &other);
 	void	clear(Server &srv, Client &client);
 	void	removeFromPoll(bool is_pipe_out, Server &srv);
+	int		headerParsing(Client &client);
+	int		readChunk(Client &client);
 
 	std::string	input;
 	char		*output;
@@ -73,7 +75,7 @@ typedef	struct s_cgi
 	int			poll_index[2];
 	int			pid;
 	bool		isFastCgiBool;
-	bool		cgiHeaderParsing;
+	bool		isParsed;
 }		t_cgi;
 
 int	read_fastcgi(Client &client, s_cgi &cgi);

@@ -88,13 +88,17 @@ bool	&Client::sendContentBool()
 	return (this->_send_content);
 }
 
-int	read_cgi(Client &client, s_cgi &cgi);
-
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
+	int	error;
+
 	if (cgi.bytes_read == 0)
 		this->getBuffer().clear();
-	if (read_cgi(*this, cgi) <= 0)
+	if (cgi.isParsed == false)
+		error = cgi.headerParsing(*this);
+	else
+		error = cgi.readChunk(*this);
+	if (error == -1)
 	{
 		std::cerr << "cgi error\n";
 		if (cgi.pid)
@@ -136,7 +140,7 @@ s_cgi::s_cgi(void)
 	this->poll_index[1] = 0;
 	this->bytes_read = 0;
 	this->output_len = 0;
-	this->cgiHeaderParsing = false;
+	this->isParsed = false;
 }
 
 s_cgi::s_cgi(Client &client)
@@ -148,7 +152,7 @@ s_cgi::s_cgi(Client &client)
 	this->poll_index[1] = 0;
 	this->pid = 0;
 	this->output_len = 0;
-	this->cgiHeaderParsing = false;
+	this->isParsed = false;
 	if (client.getLocConf().exist == true && client.getLocConf().script_daemon == true)
 		this->isFastCgiBool = true;
 	else
@@ -173,8 +177,50 @@ s_cgi	&s_cgi::operator=(const s_cgi &other)
 	this->output_len = other.output_len;
 	this->bytes_read = other.bytes_read;
 	this->isFastCgiBool = other.isFastCgiBool;
-	this->cgiHeaderParsing = other.cgiHeaderParsing;
+	this->isParsed = other.isParsed;
 	return (*this);
+}
+
+// return -1 if an error occurs, else 0
+int		s_cgi::headerParsing(Client &client)
+{
+	int			bytes;
+	std::string	output;
+
+	client.getBuffer().resize(CGI_HEADER_LEN);
+	bytes = read(this->pipe[0], client.getBuffer().data() + this->bytes_read, CGI_HEADER_LEN - this->bytes_read);
+	if (bytes <= 0)
+		return (std::cerr << "readCgiError: cgi is gone\n", -1);
+	this->bytes_read += bytes;
+	if (this->bytes_read != CGI_HEADER_LEN)
+		return (0);
+	client.getBuffer().push_back('\0');
+	output = client.getBuffer().data();
+	client.getBuffer().clear();
+	this->bytes_read = 0;
+	if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
+		return (std::cerr << "readCgiErrorFormat: " << output << "\n", -1);
+	bytes = std::atoi(output.c_str() + 3);
+	if (bytes <= 0)
+		return (std::cerr << "readCgiErrorSize: " << output << "\n", -1);
+	this->output_len = bytes;
+	this->isParsed = true;
+	return (0);
+}
+
+int		s_cgi::readChunk(Client &client)
+{
+	int	bytes;
+
+	client.getBuffer().resize(this->bytes_read + CHUNK_READ);
+	bytes = read(this->pipe[0], client.getBuffer().data() + this->bytes_read, CHUNK_READ);
+	if (bytes <= 0)
+		return (-1);
+	this->bytes_read += bytes;
+	client.getBuffer().resize(this->bytes_read);
+	std::cout << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
+	std::cout << this->output_len << "\n";
+	return (bytes);
 }
 
 void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
@@ -194,9 +240,7 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	if ((size_t)poll_index < srv.getAddrSize())
 		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
 	srv.getAddrsVector().pop_back();
-	std::cout << WHITE"Prima di entrare pipe[0]: " RED << this->pipe[0] << "" RESET << std::endl;
-	std::cout << WHITE"Flag is_pipe_out: " RED << (is_pipe_out == false ? "false" : "true") << "" RESET << std::endl;
-	std::cout << WHITE"Entro e chiudo pipe: " RED << this->pipe[0] << "" RESET << std::endl;
+	std::cout << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
 	close_fd(&this->pipe[is_pipe_out]);
 }
 

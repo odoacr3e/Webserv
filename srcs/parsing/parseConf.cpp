@@ -102,7 +102,7 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 	if (list.size() == 0)
 		blockError("unnamed block", line, CONF_BLOCK_EMPTY);
 	// std::cout << "list.size(): " << list.size() << ", list[0]: " << list[0] << ", line: " << line << std::endl;
-	if (list.size() > 1 + (list[0] == "location"))
+	if (list.size() > 1UL + (list[0] == "location"))
 		blockError(list[0], line, CONF_BLOCK_FORMAT);
 	switch (conf.checkBlockType(list[0]))
 	{
@@ -116,7 +116,7 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 			conf.setServer(true);
 			break ;
 		case (Conf::B_LOCATION) :
-			url_normalize(&list[1]);//NOTE - location checks removed!
+			url_normalize(&list[1]);
 			if (conf.getServerBlock().location.count(list[1]) > 0)
 				blockError(list[1], line, CONF_MULT_LOCATION);
 			conf.setLocation(true, list[1]);

@@ -167,7 +167,7 @@ int	Conf::checkBlockType(std::string &type) const
 		return (B_HTTP);
 	else if (type == "server" && _http && !_server)
 		return (B_SERVER);
-	else if (type == "location" && _server)
+	else if (type == "location" && _server && _location)
 		return (B_LOCATION);
 	if (type == "events" || type == "http" || \
 	type == "server" || type == "location")

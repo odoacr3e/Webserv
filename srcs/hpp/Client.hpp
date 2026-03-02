@@ -21,11 +21,11 @@ class Client
 		bool				_send_content;
 		int 				_sockfd;
 		int					_srvfd;
+		int					_poll_index;
 		Request				_request;
 		// s_login				*_login;
 		t_conf_server		_srv_config;
 		t_conf_location		_loc_config;
-		struct pollfd		*_poll_fd;
 		std::vector<char>	_buffer;
 
 	public:
@@ -36,19 +36,16 @@ class Client
 
 		//SECTION - getters
 		int					getSockFd() const;
+		int					&getPollIndex();
 		Request				&getRequest();
 		t_conf_server		&getSrvConf();
 		t_conf_location		&getLocConf();
 		std::vector<char>	&getBuffer();
-		struct pollfd		*getPollFd();
+		struct pollfd		*getPollFd(Server &srv);
 		char				*getBufferChar();
 		int					getAllowedMethods() const;
 		int					isAllowedMethod();
 		bool				&sendContentBool();
-
-		//SECTION - setters
-
-		void				setPollFd(struct pollfd *p);
 
 		//SECTION - cgi
 		void				readCgi(Server &srv, s_cgi &cgi);

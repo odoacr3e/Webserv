@@ -9,7 +9,7 @@ void	Server::processResponse(Client &client)
 	std::vector<char>	&contentData = client.getBuffer();
 	std::string	html = createResponse(client);
 
-	if ((client.getPollFd()->events & POLLOUT) == 0)
+	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
 	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
@@ -22,7 +22,7 @@ void	Server::processResponse(Client &client)
 	std::cout <<client.getRequest().getMethod() << "\n";
 	client.getRequest().setUrl("");
 	client.getRequest().setUrlOriginal("");
-	client.getPollFd()->events = POLLIN;
+	client.getPollFd(*this)->events = POLLIN;
 }
 
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
@@ -49,7 +49,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
 	runMethod(client, body, file);
-	if (client.getPollFd()->events & POLLOUT)
+	if (client.getPollFd(*this)->events & POLLOUT)
 		return (createHtml(client, body));
 	return ("");
 }

@@ -154,7 +154,7 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 	// 1) ADDSOCKET
 	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
 	// 2 client stai zitto
-	client.getPollFd()->events = 0;
+	client.getPollFd(srv)->events = 0;
 	client.getBuffer().clear();
 	client.getRequest().getBinBody().clear();
 	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
@@ -244,7 +244,7 @@ Can't bind ip:port -> 10.11.4.5:9020
 	// 1) ADDSOCKET
 	// 2 client stai zitto
 	srv.getAddrsVector()[cgi_data.poll_index[0]].events = POLLIN;
-	client.getPollFd()->events = 0;
+	client.getPollFd(srv)->events = 0;
 	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
 	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
 	// 3) pipe[0]

@@ -79,31 +79,29 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 	s_cgi	*cgi;
 
 	LOG_HISTORY();
-	for (size_t i = this->_server_num; i != this->_addrs.size(); ++i)
+	for (this->_i = this->_server_num; this->_i != (int)this->_addrs.size(); ++this->_i)
 	{
-		poll_data = this->_addrs[i];
-		client = this->getFdData()[poll_data.fd].client;
-		if (this->getFdData()[poll_data.fd].type == FD_CLIENT)
-			client->setPollFd(&this->_addrs[i]);			
+		poll_data = this->_addrs[this->_i];
+		client = this->getFdData()[poll_data.fd].client;		
 		cgi = this->getFdData()[poll_data.fd].cgi;
 		if (poll_data.revents & POLLIN) // revents & POLLIN -> pronto per leggere
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_RD)
-				client->readCgi(*this, *cgi), i--;
+				client->readCgi(*this, *cgi);
 			else
 			{
 				char buffer[2048] = {0};//NOTE - reserve vector
 				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
 				if (bytes <= 0)
-					eraseClient(*client, i--);
+					eraseClient(*client, this->_i--);
 				else
 					processRequest(*client, buffer, bytes);
 			}
 		}
-		else if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per ricevere
+		if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per ricevere
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_WR)
-				client->writeCgi(*this, *cgi), i--;
+				client->writeCgi(*this, *cgi);
 			else
 				processResponse(*client);
 		}
@@ -135,9 +133,9 @@ void		Server::eraseClient(Client &client, int i)
 	{
 		fd = this->_addrs.back().fd;
 		std::swap(this->_addrs.back(), this->_addrs[i]);
-		if (this->_clients[fd])
-			this->_clients[fd]->setPollFd(&this->_addrs[i]);
-		if (this->_fd_data[fd].type == FD_PIPE_RD)
+		if (this->_fd_data[fd].type == FD_CLIENT)
+			this->_fd_data[fd].client->getPollIndex() = i;
+		else if (this->_fd_data[fd].type == FD_PIPE_RD)
 			this->_fd_data[fd].cgi->poll_index[0] = i;
 		else if (this->_fd_data[fd].type == FD_PIPE_WR)
 			this->_fd_data[fd].cgi->poll_index[1] = i;
@@ -169,7 +167,7 @@ int	Server::addSocket(int index, e_fd_type type)
 	if (type == FD_CLIENT)
 	{
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
-		(*this->_clients[socket]).setPollFd(&this->_addrs.back());
+		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
 		this->_fd_data[polldata.fd].client = this->_clients[socket];
 	}
 	else if (type == FD_PIPE_WR)

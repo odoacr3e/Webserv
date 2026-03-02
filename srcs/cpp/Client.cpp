@@ -50,9 +50,14 @@ std::vector<char>	&Client::getBuffer()
 	return (this->_buffer);
 }
 
-struct pollfd		*Client::getPollFd()
+struct pollfd		*Client::getPollFd(Server &srv)
 {
-	return (this->_poll_fd);
+	return (&srv.getAddrs()[this->_poll_index]);
+}
+
+int					&Client::getPollIndex()
+{
+	return (this->_poll_index);
 }
 
 char				*Client::getBufferChar()
@@ -83,11 +88,6 @@ bool				&Client::sendContentBool()
 	return (this->_send_content);
 }
 
-void				Client::setPollFd(struct pollfd *p)
-{
-	this->_poll_fd = p;
-}
-
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
@@ -104,9 +104,12 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 		read_file(filename, this->getBuffer());
 	//LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
-	this->getPollFd()->events = POLLOUT;
+	this->getPollFd(srv)->events = POLLOUT;
 	if (cgi.isFastCgiBool == false)
+	{
 		cgi.clear(srv, *this);
+		srv.getPollIndex()-= 1;
+	}
 	else
 	{
 		srv.getAddrsVector()[cgi.poll_index[0]].events &= (~POLLIN);

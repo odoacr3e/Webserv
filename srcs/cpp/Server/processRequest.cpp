@@ -15,14 +15,14 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		request.getFirstRead() = false;
 		if (requestParsing(client, buffer, bytes) != 0)//request
 		{
-			client.getPollFd()->events = POLLOUT;
+			client.getPollFd(*this)->events = POLLOUT;
 			// TODO - da settare status code corretto senza fare return ?????
 			return ;
 		}
 		convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
 		if ((*this->_srvnamemap).count(request.getHost()) == 0)
 		{
-			client.getPollFd()->events = POLLOUT;
+			client.getPollFd(*this)->events = POLLOUT;
 			request.setRequestErrorBool(true);
 			return ;
 		}
@@ -42,7 +42,7 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	if (request.getBytesLeft() == 0)
 	{
 		// std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
-		client.getPollFd()->events = POLLOUT;
+		client.getPollFd(*this)->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
 	// std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;

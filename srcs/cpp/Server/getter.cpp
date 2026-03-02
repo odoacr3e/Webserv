@@ -45,3 +45,8 @@ std::vector<struct s_fd_data>	&Server::getFdData()
 {
 	return (this->_fd_data);
 }
+
+int	&Server::getPollIndex()
+{
+	return (this->_i);
+}

@@ -77,7 +77,7 @@ void	Conf::setIpPort(std::string ip, int port)
 	if (checkIpPort(ip, port) != 0)
 	{
 		std::string	err = "ip:port -> " + ip + ":";
-		err += port;
+		err += ft_to_string(port);
 		err += " already used";
 		throw (Conf::ConfException(err));
 	}

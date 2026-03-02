@@ -2,6 +2,27 @@
 
 void	vect_split(std::vector<std::string> &vect, std::string s, char c);
 
+int	print_cgi(char *output, int output_len)
+{
+	char	*str;
+	int		len;
+	int		padding_zero;
+
+	write(1, "OK|", 3);
+	str = ft_itoa(output_len);
+	if (!str)
+		return (1);
+	len = ft_strlen(str);
+	padding_zero = 10 - len;
+	if (padding_zero > 0)
+		write(1, "00000000000", padding_zero);
+	write(1, str, len);
+	write(1, "|", 1);
+	write(1, output, output_len);
+	free(str);
+	return (0);
+}
+
 /*
 //https://www.youtube.com/results?search_query=gatti+arrabbiati
 

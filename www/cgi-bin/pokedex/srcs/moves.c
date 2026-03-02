@@ -1,7 +1,28 @@
 #include "pokedex.h"
 
 static char	**get_info();
-static void	image_id(char **data, char **info);
+static void	image_id(char **data, char **info, t_str *buff);
+
+int	print_cgi(char *output, int output_len)
+{
+	char	*str;
+	int		len;
+	int		padding_zero;
+
+	write(1, "OK|", 3);
+	str = ft_itoa(output_len);
+	if (!str)
+		return (1);
+	len = ft_strlen(str);
+	padding_zero = 10 - len;
+	if (padding_zero > 0)
+		write(1, "00000000000", padding_zero);
+	write(1, str, len);
+	write(1, "|", 1);
+	write(1, output, output_len);
+	free(str);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -12,6 +33,7 @@ int	main(int ac, char **av)
 		return (ft_printf("Please give a valid move name\n"));
 	info = get_info();
 	STR(move, av[1]);
+	STR(buff, "");
 	move.m->str_lower(&move);
 	if (daft_init("www/cgi-bin/pokedex/media", "SETTINGS.md") != 0)
 		daft_init("media", "SETTINGS.md");
@@ -20,14 +42,18 @@ int	main(int ac, char **av)
 	if (!data || !info)
 	{
 		free_matrix(info);
-		ft_printf("move %s not found.\n", move.buff);
+		str_printf(&buff, "move %s not found.\n", move.buff);
+		print_cgi(buff.buff, buff.len);
+		FREE(move.m);
 		return (str_terminate(), daft_quit(), 1);
 	}
-	image_id(data, info);
+	image_id(data, info, &buff);
 	for (int i = 1; data[i]; i++)
 	{
-		ft_printf("|%s:%s", info[i], data[i]);
+		str_printf(&buff, "|%s:%s", info[i], data[i]);
 	}
+	print_cgi(buff.buff, buff.len);
+	FREE(move.m);
 	return (str_terminate(), free_matrix(info), daft_quit(), 0);
 }
 
@@ -51,7 +77,7 @@ static char	**get_info()
 	return (info);
 }
 
-static void	image_id(char **data, char **info)
+static void	image_id(char **data, char **info, t_str *buff)
 {
 	int	i;
 
@@ -61,6 +87,6 @@ static void	image_id(char **data, char **info)
 			break ;
 	}
 	if (!info[i])
-		return (ft_printf("image not found"), (void)0);
-	ft_printf("{%d}%s", ID_MOVE, data[i]);
+		return (str_printf(buff, "image not found"), (void)0);
+	str_printf(buff, "{%d}%s", ID_MOVE, data[i]);
 }

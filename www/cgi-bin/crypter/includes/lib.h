@@ -22,6 +22,8 @@
 # include <sys/types.h>
 # include <fcntl.h>
 
+int	print_cgi(char *output, int output_len);
+
 // crypt_string.c
 void	crypt_str(char *str);
 void	key_generator(char *str);

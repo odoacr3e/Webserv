@@ -102,7 +102,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	}
 	else if (cgi.bytes_read != cgi.output_len)
 		return ;
-	//LOG_CGI(this->getBuffer());
+	LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd(srv)->events = POLLOUT;
 	if (cgi.isFastCgiBool == false)

@@ -66,7 +66,10 @@ void	decrypt_str(char *str)
 	ret[j] = '\0';
 	char	*output = calloc(ft_strlen(key) + ft_strlen((char *)ret) + 2, 1);
 	if (!output)
-		return (write(1, "error\0", 6));
+	{
+		write(1, "error\0", 6);
+		return ;
+	}
 	sprintf(output, "%s%s", key, ret);
 	print_cgi(output, ft_strlen(output) + 1);
 	free(key);

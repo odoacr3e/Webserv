@@ -47,5 +47,6 @@ int				find_newline(char *str);
 void			print_format(char c, int len, int newline);
 int 			ft_strlenfinal(char *str);
 char			*ft_strappend(char *s1, char *s2);
+char			*ft_itoa(int n);
 
 #endif

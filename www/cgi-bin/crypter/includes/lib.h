@@ -23,6 +23,7 @@
 # include <fcntl.h>
 
 int	print_cgi(char *output, int output_len);
+char    *ft_itoa(int num);
 
 // crypt_string.c
 void	crypt_str(char *str);

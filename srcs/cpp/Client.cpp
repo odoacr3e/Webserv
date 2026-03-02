@@ -83,29 +83,25 @@ int	Client::isAllowedMethod()
 	return (this->getAllowedMethods() & (1 << request_method));
 }
 
-bool				&Client::sendContentBool()
+bool	&Client::sendContentBool()
 {
 	return (this->_send_content);
 }
+
+int	read_cgi(Client &client, s_cgi &cgi);
 
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	if (cgi.bytes_read == 0)
 		this->getBuffer().clear();
-	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
-	std::cout << "readCgi():\nfilename: " << filename << "\n";
-	if (cgi.isFastCgiBool == true)
+	if (read_cgi(*this, cgi) <= 0)
 	{
-		if (read_fastcgi(*this, cgi) == 1)
-		{
-			std::cerr << "fastCgi error\n";
-			return (cgi.clear(srv, *this));
-		}
+		std::cerr << "cgi error\n";
+		if (cgi.pid)
+			{kill(cgi.pid, SIGKILL); cgi.pid = 0;}
 	}
-	else//FIXME - ogni cgi deve dire quanto stampa
-		read_file(filename, this->getBuffer());
-	//else if (read_chunk(cgi.pipe[0], this->getBuffer(), &cgi.bytes_read) >= 0)
-	//	return ;
+	else if (cgi.bytes_read != cgi.output_len)
+		return ;
 	//LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd(srv)->events = POLLOUT;
@@ -123,12 +119,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 
 void	Client::writeCgi(Server &srv, s_cgi &cgi)
 {
-	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[1]));
-	std::cout << "writeCgi():\nfilename: " << filename << "\n";
 	write(cgi.pipe[1], cgi.input.c_str(), cgi.input.length());
-	print_file("CGI", "----\nWRITE TO CGI:\n----\n");
-	print_file("CGI", cgi.input);
-	print_file("CGI", "\n----\n");
 	if (cgi.isFastCgiBool == false)
 		cgi.removeFromPoll(true, srv);
 	else
@@ -144,6 +135,8 @@ s_cgi::s_cgi(void)
 	this->poll_index[0] = 0;
 	this->poll_index[1] = 0;
 	this->bytes_read = 0;
+	this->output_len = 0;
+	this->cgiHeaderParsing = false;
 }
 
 s_cgi::s_cgi(Client &client)
@@ -154,6 +147,8 @@ s_cgi::s_cgi(Client &client)
 	this->poll_index[0] = 0;
 	this->poll_index[1] = 0;
 	this->pid = 0;
+	this->output_len = 0;
+	this->cgiHeaderParsing = false;
 	if (client.getLocConf().exist == true && client.getLocConf().script_daemon == true)
 		this->isFastCgiBool = true;
 	else
@@ -175,8 +170,10 @@ s_cgi	&s_cgi::operator=(const s_cgi &other)
 	this->pipe[0] = other.pipe[0];
 	this->pipe[1] = other.pipe[1];
 	this->output = other.output;
+	this->output_len = other.output_len;
 	this->bytes_read = other.bytes_read;
 	this->isFastCgiBool = other.isFastCgiBool;
+	this->cgiHeaderParsing = other.cgiHeaderParsing;
 	return (*this);
 }
 

@@ -32,8 +32,6 @@ void	decrypt_str(char *str)
 	int 	j = KEYLEN;
 
 	copy_key(str, key);// key: ore+L*mpap:5#-Ho
-	printf("%d\n", ft_strlen((char *) str));
-	printf("key: %s\n", key);
 	while (str[j])// ore+L*mpap:5#-HoS4O4.4]4#5(44574U4V4
 	{
 		str[j] = str[j] - key[(j - KEYLEN) % KEYLEN] - ((j - KEYLEN) / KEYLEN);
@@ -66,11 +64,8 @@ void	decrypt_str(char *str)
 	ret[j] = '\0';
 	char	*output = calloc(ft_strlen(key) + ft_strlen((char *)ret) + 2, 1);
 	if (!output)
-	{
-		write(1, "error\0", 6);
-		return ;
-	}
-	sprintf(output, "%s%s", key, ret);
+		return (write(1, "error\0", 6), (void)0);
+	sprintf(output, "%s", ret);
 	print_cgi(output, ft_strlen(output) + 1);
 	free(key);
 	free(ret);

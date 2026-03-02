@@ -25,14 +25,21 @@ int	print_cgi(char *output, int output_len)
 	return (0);
 }
 
+int	error_cgi(char *error)
+{
+	write(1, "KO|00000000-1|", 14);
+	write(1, error, ft_strlen(error));
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	char	***data;
 
 	if (ac == 1)
-		return (ft_printf("Please give a valid pokemon name\n"));
+		return (error_cgi("Please give a valid pokemon name\n"));
 	STR(pokemon, av[1]);
-	STR(buff, "buff");
+	STR(buff, "");
 	pokemon.m->str_upper(&pokemon);
 	if (daft_init("www/cgi-bin/pokedex/media", "SETTINGS.md") != 0)
 		daft_init("media", "SETTINGS.md");
@@ -40,8 +47,9 @@ int	main(int ac, char **av)
 	data = daft_get(pokemon.buff);
 	if (!data)
 	{
-		ft_printf("pokemon %s not found.\n", pokemon.buff);
+		str_printf(&buff, "pokemon %s not found.\n", pokemon.buff);
 		FREE(pokemon.m);
+		error_cgi(buff.buff);
 		return (str_terminate(), daft_quit(), 1);
 	}
 	pkmn_id(data, &buff);

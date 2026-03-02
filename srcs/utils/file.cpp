@@ -67,44 +67,41 @@ int read_file(std::string name, std::vector<char> &vect, int bytes)
 	return (0);
 }
 
-int	read_chunk(int fd, std::vector<char> &vect, int *bytes_read)
+//returns bytes read
+int	read_cgi(Client &client, s_cgi &cgi)
 {
-	int	bytes;
-
-	vect.resize(*bytes_read + CHUNK_READ);
-	bytes = read(fd, vect.data() + *bytes_read, CHUNK_READ);
-	if (bytes <= 0 || bytes != CHUNK_READ)
-		return (-1);
-	*bytes_read += bytes;
-	return (bytes);
-}
-
-//returns 1 on error, 0 on success
-int	read_fastcgi(Client &client, s_cgi &cgi)
-{
-	std::string	fd_name;
 	std::string	output;
 	int			bytes;
 
-	client.getBuffer().resize(FASTCGI_HEADER_LEN);
-	bytes = read(cgi.pipe[0], client.getBuffer().data(), FASTCGI_HEADER_LEN);
+	if (cgi.cgiHeaderParsing == false)
+	{
+		client.getBuffer().resize(CGI_HEADER_LEN);
+		bytes = read(cgi.pipe[0], client.getBuffer().data() + cgi.bytes_read, CGI_HEADER_LEN - cgi.bytes_read);
+		if (bytes <= 0)
+			return (std::cerr << "readFastcgiError: cgi is gone\n", -1);
+		cgi.bytes_read += bytes;
+		if (cgi.bytes_read != 14)
+			return (bytes);
+		client.getBuffer().push_back('\0');
+		output = client.getBuffer().data();
+		client.getBuffer().clear();
+		cgi.bytes_read = 0;
+		if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
+			return (std::cerr << "readFastcgiErrorFormat: " << output << "\n", -1);
+		bytes = std::atoi(output.c_str() + 3);
+		if (bytes <= 0)
+			return (std::cerr << "readFastcgiErrorSize: " << output << "\n", -1);
+		cgi.output_len = bytes;
+		cgi.cgiHeaderParsing = true;
+		return (1);
+	}
+	client.getBuffer().resize(cgi.bytes_read + CHUNK_READ);
+	bytes = read(cgi.pipe[0], client.getBuffer().data() + cgi.bytes_read, CHUNK_READ);
 	if (bytes <= 0)
-		return (std::cerr << "readFastcgiError: cgi is gone\n", 1);
-	client.getBuffer().push_back('\0');
-	output = client.getBuffer().data();
-	if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
-		return (std::cerr << "readFastcgiErrorFormat: " << output << "\n", 1);
-	bytes = std::atoi(output.c_str() + 3);
-	if (bytes <= 0)
-		return (std::cerr << "readFastcgiErrorSize: " << output << "\n", 1);
-	cgi.output_len = bytes;
-	client.getBuffer().resize(bytes);
-	int	bytes_total = bytes;
-	bytes = 0;
-	bytes += read(cgi.pipe[0], client.getBuffer().data() + bytes, bytes_total);
-	while (bytes != bytes_total)
-		bytes += read(cgi.pipe[0], client.getBuffer().data() + bytes, bytes_total);
-	std::cout << "read_fastcgi(): bytes to read " << bytes << "\n";
-	std::cout << "read_fastcgi(): bytes read " << client.getBuffer().size() << "\n";
-	return (0);
+		return (-1);
+	cgi.bytes_read += bytes;
+	client.getBuffer().resize(cgi.bytes_read);
+	std::cout << "read_cgi(): bytes to read " << bytes << "\n";
+	std::cout << "read_cgi(): bytes read " << client.getBuffer().size() << "\n";
+	return (bytes);
 }

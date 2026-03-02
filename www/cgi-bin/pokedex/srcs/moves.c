@@ -24,13 +24,20 @@ int	print_cgi(char *output, int output_len)
 	return (0);
 }
 
+int	error_cgi(char *error)
+{
+	write(1, "KO|00000000-1|", 14);
+	write(1, error, ft_strlen(error));
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	char	**data;
 	char	**info;
 
 	if (ac == 1)
-		return (ft_printf("Please give a valid move name\n"));
+		return (error_cgi("Please give a valid move name\n"));
 	info = get_info();
 	STR(move, av[1]);
 	STR(buff, "");
@@ -43,7 +50,7 @@ int	main(int ac, char **av)
 	{
 		free_matrix(info);
 		str_printf(&buff, "move %s not found.\n", move.buff);
-		print_cgi(buff.buff, buff.len);
+		error_cgi(buff.buff);
 		FREE(move.m);
 		return (str_terminate(), daft_quit(), 1);
 	}

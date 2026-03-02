@@ -53,7 +53,7 @@ class Client
 };
 
 // HEADER ----> OK|0123456789|	0123456789: the bytes to read	
-#define FASTCGI_HEADER_LEN 14
+#define CGI_HEADER_LEN 14
 
 typedef	struct s_cgi 
 {
@@ -73,6 +73,7 @@ typedef	struct s_cgi
 	int			poll_index[2];
 	int			pid;
 	bool		isFastCgiBool;
+	bool		cgiHeaderParsing;
 }		t_cgi;
 
 int	read_fastcgi(Client &client, s_cgi &cgi);

@@ -1,80 +1,33 @@
 
 #include "includes/lib.h"
 
-
-static int	numlen(int n)
+char	*ft_itoa(int num)
 {
-	int	i;
+		int		temp_num;
+		int		index;
+		char    *str;
 
-	i = 0;
-	while (n > 0)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
-static void	min_int(char *s)
-{
-	s[1] = '2';
-	s[2] = '1';
-	s[3] = '4';
-	s[4] = '7';
-	s[5] = '4';
-	s[6] = '8';
-	s[7] = '3';
-	s[8] = '6';
-	s[9] = '4';
-	s[10] = '8';
-	s[11] = '\0';
-}
-
-static void	check_number(char *s, int n, int j)
-{
-	char	tmp[12];
-	int		i;
-
-	i = 0;
-	if (n < 0)
-	{
-		s[0] = '-';
-		if (n == -2147483648)
+		index = 0;
+		temp_num = num;
+		while ((temp_num > 9) || (temp_num < -9))
 		{
-			min_int(s);
-			return ;
+			index++;
+			temp_num /= 10;
 		}
-		n *= -1;
-		i = 1;
-	}
-	while (n > 0)
-	{
-		tmp[j++] = (n % 10) + 48;
-		n /= 10;
-	}
-	tmp[j--] = '\0';
-	while (tmp[j])
-		s[i++] = tmp[j--];
-	s[i] = '\0';
-}
-
-char	*ft_itoa(int n)
-{
-	char	*s;
-
-	if (n > 0)
-		s = (char *)malloc(sizeof(char) * (numlen(n) + 1));
-	else if (n < 0)
-		s = (char *)malloc(sizeof(char) * (numlen(-n) + 2));
-	else
-	{
-		s = (char *)malloc(sizeof(char) * 2);
-		s[0] = '0';
-		s[1] = '\0';
-		return (s);
-	}
-	check_number(s, n, 0);
-	return (s);
+		str = malloc(13);
+		if (!str)
+			return (NULL);
+		index += (num < 0);
+		str[index + 1] = '\0';
+		while (num != 0)
+		{
+			if (num < 0)
+				str[index--] = (((num % 10) * -1) + 48);
+			else
+				str[index--] = ((num % 10) + 48);
+			num /= 10;
+		}
+		return (str);
 }
 
 char	*ft_strappend(char *s1, char *s2)

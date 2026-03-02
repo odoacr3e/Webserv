@@ -52,10 +52,7 @@ void	crypt_str(char *str)
 	ret[i] = '\0';
 	char	*output = calloc(ft_strlen(key) + ft_strlen((char *)ret) + 2, 1);
 	if (!output)
-	{
-		write(1, "error\0", 6);
-		return ;
-	}
+		return (write(1, "error\0", 6));
 	sprintf(output, "%s%s", key, ret);
 	print_cgi(output, ft_strlen(output) + 1);
 	free(key);

@@ -1,6 +1,7 @@
 #include "../../../includes/ether.hpp"
 
 void	vect_split(std::vector<std::string> &vect, std::string s, char c);
+char    *ft_itoa(int num);
 
 size_t	ft_strlen(const char *s)
 {
@@ -97,7 +98,7 @@ int	print_cgi(char *output, int output_len)
 	str = ft_itoa(output_len);
 	if (!str)
 		return (1);
-	len = ft_strlen(str);
+	len = std::strlen(str);
 	padding_zero = 10 - len;
 	if (padding_zero > 0)
 		write(1, "00000000000", padding_zero);
@@ -105,6 +106,13 @@ int	print_cgi(char *output, int output_len)
 	write(1, "|", 1);
 	write(1, output, output_len);
 	free(str);
+	return (0);
+}
+
+int	error_cgi(std::string error)
+{
+	write(1, "KO|00000000-1|", 14);
+	write(1, error.c_str(), error.length());
 	return (0);
 }
 
@@ -117,13 +125,13 @@ int main(int ac, char **av)
 {
 	if (ac != 2 || av == NULL || av[1] == NULL || av[1][0] == '\0')
 	{
-		return (write(1, "Error\0", 6));
+		return (error_cgi("error\n"));
 	}
 	std::string argv(av[1]);
 	while (std::isspace(argv[0]) != 0)
 		argv.erase(0, 1);
 	if (argv.empty() == true)
-		return (write(1, " \0", 2));
+		return (error_cgi("error\n"));
 	std::vector<std::string> split;
 	std::string new_string("https://www.youtube.com/results?search_query=");
 	vect_split(split, argv, ' ');
@@ -133,9 +141,7 @@ int main(int ac, char **av)
 			new_string += '+';
 		new_string += split[i];
 	}
-	write(1, new_string.c_str(), new_string.length());
-	write(1, "\0", 1);
-	std::cout << "\n";
+	print_cgi((char*)(void*)new_string.c_str(), (int)new_string.length());
 }
 
 void	vect_split(std::vector<std::string> &vect, std::string s, char c)
@@ -156,4 +162,33 @@ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 		s.erase(0, s[0] == c);
 		vect.push_back(temp);
 	}
+}
+
+char    *ft_itoa(int num)
+{
+		int		temp_num;
+		int		index;
+		char    *str;
+
+		index = 0;
+		temp_num = num;
+		while ((temp_num > 9) || (temp_num < -9))
+		{
+			index++;
+			temp_num /= 10;
+		}
+		str = (char *)malloc(13);
+		if (!str)
+			return (NULL);
+		index += (num < 0);
+		str[index + 1] = '\0';
+		while (num != 0)
+		{
+			if (num < 0)
+				str[index--] = (((num % 10) * -1) + 48);
+			else
+				str[index--] = ((num % 10) + 48);
+			num /= 10;
+		}
+		return (str);
 }

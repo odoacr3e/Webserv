@@ -85,8 +85,6 @@ static void	parseIndex(Conf &conf, std::vector<std::string> list, int line)
 {
 	if (list.size() != 2)
 		instructionError(list, line, "please give one valid path");
-	if (conf.getLocationBlock().index.empty() == false)
-		instructionWarning(list, line, "index already defined. Old is replaced");
 	conf.getLocationBlock().index = list[1];
 }
 

@@ -81,11 +81,7 @@ static int checkListenPort(std::vector<std::string> list, int line, std::string 
 	if (!ip_port.empty())
 		port = std::atoi(ip_port.c_str());
 	if (!ip_port.empty() && ip_port.find_first_not_of("0123456789") != std::string::npos)
-	{
-		std::cout << (ip_port.empty() == true ? "ip_port empty" : "ip_port full") << ", find_first: " << ip_port.find_first_not_of("0123456789") << std::endl;
-		std::cout << "QUI ip_port: " << ip_port << std::endl;
 		instructionError(list, line, "listen syntax violated");
-	}
 	return (port);
 }
 

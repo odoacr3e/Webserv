@@ -67,6 +67,18 @@ int read_file(std::string name, std::vector<char> &vect, int bytes)
 	return (0);
 }
 
+int	read_chunk(int fd, std::vector<char> &vect, int *bytes_read)
+{
+	int	bytes;
+
+	vect.resize(*bytes_read + CHUNK_READ);
+	bytes = read(fd, vect.data() + *bytes_read, CHUNK_READ);
+	if (bytes <= 0 || bytes != CHUNK_READ)
+		return (-1);
+	*bytes_read += bytes;
+	return (bytes);
+}
+
 //returns 1 on error, 0 on success
 int	read_fastcgi(Client &client, s_cgi &cgi)
 {

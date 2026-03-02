@@ -90,6 +90,8 @@ bool				&Client::sendContentBool()
 
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
+	if (cgi.bytes_read == 0)
+		this->getBuffer().clear();
 	std::string filename("/dev/fd/" + ft_to_string(cgi.pipe[0]));
 	std::cout << "readCgi():\nfilename: " << filename << "\n";
 	if (cgi.isFastCgiBool == true)
@@ -100,8 +102,10 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 			return (cgi.clear(srv, *this));
 		}
 	}
-	else
+	else//FIXME - ogni cgi deve dire quanto stampa
 		read_file(filename, this->getBuffer());
+	//else if (read_chunk(cgi.pipe[0], this->getBuffer(), &cgi.bytes_read) >= 0)
+	//	return ;
 	//LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd(srv)->events = POLLOUT;
@@ -139,10 +143,12 @@ s_cgi::s_cgi(void)
 	this->pipe[1] = 0;
 	this->poll_index[0] = 0;
 	this->poll_index[1] = 0;
+	this->bytes_read = 0;
 }
 
 s_cgi::s_cgi(Client &client)
 {
+	this->bytes_read = 0;
 	this->pipe[0] = 0;
 	this->pipe[1] = 0;
 	this->poll_index[0] = 0;
@@ -162,13 +168,14 @@ s_cgi::s_cgi(const s_cgi &other)
 s_cgi	&s_cgi::operator=(const s_cgi &other)
 {
 	if (this == &other)
-		return (*this); 
+		return (*this);
 	this->poll_index[0] = other.poll_index[0];
 	this->poll_index[1] = other.poll_index[1];
 	this->pid = other.pid;
 	this->pipe[0] = other.pipe[0];
 	this->pipe[1] = other.pipe[1];
 	this->output = other.output;
+	this->bytes_read = other.bytes_read;
 	this->isFastCgiBool = other.isFastCgiBool;
 	return (*this);
 }

@@ -1,6 +1,8 @@
 #ifndef MACRO_HPP
 # define MACRO_HPP
 
+# define CHUNK_READ 2048
+
 # define COLOR_RESET "\033[0m"
 # define DEBUG true
 # define CONF false

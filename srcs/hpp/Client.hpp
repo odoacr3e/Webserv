@@ -67,6 +67,7 @@ typedef	struct s_cgi
 	std::string	input;
 	char		*output;
 	int			output_len;
+	int			bytes_read;
 	int			argv_len[2];
 	int			pipe[2];
 	int			poll_index[2];

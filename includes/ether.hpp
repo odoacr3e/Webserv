@@ -58,6 +58,7 @@ void			close_fd(int *fd);
 int				read_file(std::ifstream &stream, std::vector<char> &vect);
 int				read_file(std::fstream &stream, std::vector<char> &vect);
 int				read_file(std::string name, std::vector<char> &vect);
+int				read_chunk(int fd, std::vector<char> &vect, int *bytes_read);
 
 size_t			find_first_special_char(std::string line);
 bool			is_there_special_chars(std::string line);

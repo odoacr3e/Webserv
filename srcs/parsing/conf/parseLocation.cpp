@@ -70,6 +70,8 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line)
 
 	if (list.size() != 2)
 		instructionError(list, line, "wrong parameters number for root instruction");
+	if (conf.getLocationBlock().alias)
+		instructionError(list, line, "invalid parameter \"root\": alias already exists");
 	if (!conf.getLocationBlock().root.empty())
 		instructionError(list, line, "invalid parameter \"root\": root already exists");
 	if (valid_directory(list[1]) == false)

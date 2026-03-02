@@ -3,7 +3,6 @@
 #include "../hpp/Conf.hpp"
 
 //NOTE - parsing/parseConf.cpp
-
 void		confParse(Conf &conf, std::ifstream &fd);
 static int	instructionBlock(Conf &conf, std::vector<std::string> &list, int i);
 static void	openBlock(Conf &conf, std::vector<std::string> &list, int line);
@@ -13,34 +12,12 @@ void		instructionWarning(std::vector<std::string> &list, int line, std::string s
 static void	blockError(std::string block, int line, int flag);
 
 //NOTE - parsing/conf/parse*.cpp
-
 void		confParseEvent(Conf &conf, std::vector<std::string> list, int line);
 void		confParseHttp(Conf &conf, std::vector<std::string> list, int line);
 void		confParseServer(Conf &conf, std::vector<std::string> list, int line);
 void		confParseLocation(Conf &conf, std::vector<std::string> list, int line);
 void		confParseMain(Conf &conf, std::vector<std::string> list, int line);
 
-//ANCHOR - confParse
-/*
-Read configuration file. Parse it. Saves data in Conf class.
-
-@input:		[Conf &conf]--->	reference to conf class.
-			[ifstream &fd]->	reference to conf file stream.
-@ret:	none 
-@variables:	
-[string line]-------------->	current line read
-[string token]------------->	current token.
-								tokens are separated by:
-									-	ISSPACE (see ascii)
-									-	#	comments sign
-									-	;	instruction end sign
-									-	{	open block sign
-									-	}	close block sign
-									-	!	DEBUG stop parsing
-[vector<std::string> list]->	list of all tokens.
-								When a token separator is found,
-								list is processed and reset.
-*/
 void	confParse(Conf &conf, std::ifstream &fd)
 {
 	std::string					line;
@@ -48,12 +25,12 @@ void	confParse(Conf &conf, std::ifstream &fd)
 	std::vector<std::string>	list;
 	int i = 0;
 
-	while (std::getline(fd, line))//LINE:	\t  \t	 alias /www/var/;
+	while (std::getline(fd, line))
 	{
 		i++;
 		while (!line.empty())
 		{
-			line = removeWhitespaces(line);//LINE:alias /www/var/;
+			line = removeWhitespaces(line);
 			if (line[0] == ';')
 				instructionBlock(conf, list, i);
 			else if (line[0] == '{')
@@ -67,8 +44,8 @@ void	confParse(Conf &conf, std::ifstream &fd)
 			else 
 				token = line.substr(0, find_first_special_char(line));
 			if (!token.empty() && line[0] != '!')
-				list.push_back(token);//list[0] = alias
-			line = line.substr(find_first_special_char(line));//LINE: /www/var/;
+				list.push_back(token);
+			line = line.substr(find_first_special_char(line));
 			token = "";
 		}
 	}
@@ -124,7 +101,8 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
 	if (list.size() == 0)
 		blockError("unnamed block", line, CONF_BLOCK_EMPTY);
-	if (list.size() > 1UL + (list[0] == "location"))
+	// std::cout << "list.size(): " << list.size() << ", list[0]: " << list[0] << ", line: " << line << std::endl;
+	if (list.size() > 1 + (list[0] == "location"))
 		blockError(list[0], line, CONF_BLOCK_FORMAT);
 	switch (conf.checkBlockType(list[0]))
 	{
@@ -213,6 +191,15 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	std::cout << error << std::endl;
 }
 
+static std::string	rightBlock(std::string block)
+{
+	if (block == "events")
+		return ("http");
+	if (block == "http")
+		return ("server");
+	return ("location");
+}
+
 // NOTE - throw exception for block errors
 static void	blockError(std::string block, int line, int flag)
 {
@@ -221,6 +208,7 @@ static void	blockError(std::string block, int line, int flag)
 
 	error = "ConfException in line \033[33m" + ft_to_string(line);
 	error2 = "ConfException:\033[33m";
+	std::cout << "flag: " << flag << ", line: " << line << ", block: " << block << std::endl;
 	switch (flag)
 	{
 	case CONF_BLOCK_CLOSE: 
@@ -230,13 +218,13 @@ static void	blockError(std::string block, int line, int flag)
 	case CONF_BLOCK_EMPTY:
 		throw Conf::ConfException(error + ": block is empty, lol" COLOR_RESET);
 	case CONF_BLOCK_UNIFINISHED:
-		throw Conf::ConfException(error + ": " + block + " block never closed" COLOR_RESET);
+		throw Conf::ConfException(error + ": " + rightBlock(block) + " block never closed" COLOR_RESET);
 	case CONF_INSTRUCTION_UNFINISHED:
 		throw Conf::ConfException(error + ": missing ; before block end" COLOR_RESET);
 	case CONF_INSTRUCTION_EMPTY:
 		throw Conf::ConfException(error + ": instruction is empty" COLOR_RESET);
 	case CONF_BLOCK_OPEN:
-		throw Conf::ConfException(error + ": block cannot be opened" COLOR_RESET);
+		throw Conf::ConfException(error + ": " + block + " block cannot be opened" COLOR_RESET);
 	case CONF_MULT_BLOCK:
 		throw Conf::ConfException(error + ": multiple block " + block + COLOR_RESET);
 	case CONF_MISSING_BLOCK:

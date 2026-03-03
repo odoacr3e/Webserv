@@ -190,9 +190,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 			client.getBuffer().resize(9);
 			std::strcpy(client.getBufferChar(), "Not ready");
 			*/
-		std::cout << "goodbye\n";
-		client.TEMP = 42;
-			return ;
+			std::cout << "goodbye\n";
+				return ;
 		}
 		write(cgi_data.pipe[1], argv[1], std::strlen(argv[1]));
 	}

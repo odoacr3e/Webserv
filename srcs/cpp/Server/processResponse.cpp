@@ -11,13 +11,12 @@ void	Server::processResponse(Client &client)
 
 	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
-	if (client.TEMP == 0)
-	{send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
+	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
-		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);}
+		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
 	client.sendContentBool() = false;
 	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
 	std::cout <<client.getRequest().getMethod() << "\n";

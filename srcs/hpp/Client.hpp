@@ -29,7 +29,6 @@ class Client
 		std::vector<char>	_buffer;
 
 	public:
-		int TEMP;
 		Client(int sockfd, int srvfd);
 		~Client();
 		Client(const Client &other);

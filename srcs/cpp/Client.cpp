@@ -6,7 +6,6 @@ Client::Client(int sockfd, int srvfd)
 	this->_sockfd = sockfd;
 	this->_srvfd = srvfd;
 	this->_send_content = false;
-	TEMP = 0;
 }
 
 Client::~Client()
@@ -219,8 +218,8 @@ int		s_cgi::readChunk(Client &client)
 		return (-1);
 	this->bytes_read += bytes;
 	client.getBuffer().resize(this->bytes_read);
-	std::cout << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
-	std::cout << this->output_len << "\n";
+	//std::cout << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
+	//std::cout << this->output_len << "\n";
 	return (bytes);
 }
 

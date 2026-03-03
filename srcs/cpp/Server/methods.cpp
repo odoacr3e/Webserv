@@ -3,7 +3,6 @@
 
 static void execute_delete(Client &client, std::string &body, std::fstream *file);
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file);
-// static int	ft_recv(int fd, Request &request, char *input, int bytes_first_recv);
 int			headerParsing(Request &request, bool reset);
 void		fill_error_page(Client &client, std::string &html);
 
@@ -59,7 +58,7 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 		std::cout << "Entro nell'override login\n";
 		std::getline(*file, body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
-			find_and_replace(body, "👤 login", this->_cookie_map[client.getRequest().getCookieKey()].login);
+			find_and_replace(body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
 		else
 			std::cout << "Cookie è vuoto!\n";
 		std::cout << body << "\n";

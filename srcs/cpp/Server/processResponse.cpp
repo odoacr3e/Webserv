@@ -17,6 +17,7 @@ void	Server::processResponse(Client &client)
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
 		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
+	perror("processResponse(): ");
 	client.sendContentBool() = false;
 	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
 	std::cout <<client.getRequest().getMethod() << "\n";
@@ -140,6 +141,7 @@ std::string	Server::createHtml(Client &client, std::string &body)
 	response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
 	response << "Pragma: no-cache" << "\r\n";
 	response << "Expires: 0" << "\r\n";
+	response << "Connection: close" << "\r\n";
 	if (client.getLocConf().exist && client.getLocConf().gen_cookie && \
 		client.getRequest().getCookieKey().empty() == true)
 	{

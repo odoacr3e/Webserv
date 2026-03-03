@@ -48,6 +48,8 @@ Server::~Server()
 
 void Server::suppressSocket()
 {
+	s_cgi	*cgi;
+
 	//SECTION - client disconnection
 	for (std::vector<struct pollfd>::iterator it = this->_addrs.begin() + this->_server_num; it != this->_addrs.end(); ++it)
 	{
@@ -60,7 +62,9 @@ void Server::suppressSocket()
 		else if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
 				this->_fd_data[it->fd].type == FD_PIPE_WR)
 		{
-			this->_fd_data[it->fd].cgi->clear();
+			cgi = this->_fd_data[it->fd].cgi;
+			if (cgi != NULL)
+				cgi->clear();
 			this->_fd_data[it->fd].cgi = NULL;
 		}
 		close((*it).fd);

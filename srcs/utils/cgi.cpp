@@ -187,7 +187,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 				delete [] argv[i];
 			/*client.getRequest().setBodyType("text/");
 			client.sendContentBool() = true;
-			client.getBuffer().resize(9);
+			client.getBuffer().resize(10);
 			std::strcpy(client.getBufferChar(), "Not ready");
 			*/
 			std::cout << "goodbye\n";

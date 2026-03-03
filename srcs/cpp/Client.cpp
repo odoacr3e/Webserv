@@ -261,7 +261,6 @@ void	s_cgi::clear(Server &srv, Client &client)
 
 void	s_cgi::clear()
 {
-
 	if (this->pid != 0 && this->isFastCgiBool == true)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;

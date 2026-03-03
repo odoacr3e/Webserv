@@ -19,6 +19,8 @@ void			createArgvCrypter(std::string &args, argvVector &argv);
 void			createArgvWeaksleep(std::string &args, argvVector &argv_data);
 std::string		createHtmlWeaksleep(t_cgi &cgi_data);
 
+void	vect_split_free(std::vector<char *> &vect, size_t size);
+
 void	run_script(Server &srv, Client &client, std::string &body)
 {
 	t_cgi				cgi_data(client);
@@ -91,7 +93,6 @@ static void		get_argv(Client &client, argvVector &argv)
 	else
 		args = url.substr(url.find_last_of(separator) + 1, url.length());
 	std::cout << "get_argv(): args --->" << args << "\n";
-	// www/cgi-bin/crypter/crypter.cgi=0.7
 	temp = new char[cmd.length() + 1];
 	temp[cmd.length()] = 0;
 	std::memcpy(temp, cmd.c_str(), cmd.length());
@@ -112,12 +113,6 @@ static void		get_argv(Client &client, argvVector &argv)
 		std::cout << "arg " << i << ": " << argv[i] << std::endl;
 }
 
-	/*std::cout << WHITE"cgi_data.pipe[0] " RED<< cgi_data.pipe[0] << RESET"\n";
-	std::cout << WHITE"client_fd " RED << srv.getFdData()[cgi_data.pipe[0]].client->getSockFd() << RESET"\n";
-	//std::memcpy(&srv.getFdData()[cgi_data.pipe[0]].cgi_data, &cgi_data, sizeof(t_cgi));
-	std::cout << WHITE"client fd orig " RED << cgi_data.client_fd << RESET"\n";
-	std::cout << WHITE"client copied: " RED << srv.getFdData()[cgi_data.pipe[0]].cgi_data.client_fd << RESET"\n";*/
-
 static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	if (pipe(cgi_data.pipe) != 0)
@@ -133,16 +128,12 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 		close(cgi_data.pipe[0]);
 		close(cgi_data.pipe[1]);
 		srv.suppressSocket();
-		std::cerr << "VEDIAMO: " << argv[0] << ", " << argv.data()[1] << std::endl;
-		std::cerr << "VEDIAMO: " << argv[2] << ", " << (argv.data()[3] == NULL) << std::endl;
 		execve(argv[0], argv.data(), NULL);
-		for (size_t i = 0; i != argv.size() - 1; i++)
-			delete [] argv[i];
+		vect_split_free(argv, argv.size() - 1);
 		std::cerr << "run_script fatal error: execve failed!\n";
 		std::exit(1);
 	}
-	for (size_t i = 0; i != argv.size() - 1; i++)
-		delete [] argv[i];
+	vect_split_free(argv, argv.size() - 1);
 	close_fd(&cgi_data.pipe[1]);
 	s_cgi	*cgi_ptr = new s_cgi(cgi_data);
 	client.bindCgiSocket(srv, *cgi_ptr);
@@ -160,8 +151,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		cgi_data = cgi_exist->second;
 		if (srv.getAddrs()[cgi_data.poll_index[0]].events & POLLIN)
 		{
-			for (size_t i = 0; i != argv.size() - 1; i++)
-				delete [] argv[i];
+			vect_split_free(argv, argv.size() - 1);
 			std::cout << "goodbye\n";
 				return ;
 		}
@@ -189,8 +179,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 			srv.suppressSocket();
 			execve(argv[0], argv.data(), NULL);
 			perror("execve");
-			for (size_t i = 0; i != argv.size() - 1; i++)
-				delete [] argv[i];
+			vect_split_free(argv, argv.size() - 1);
 			std::cerr << "run_script fatal error: execve\n";
 			std::exit(1);
 		}
@@ -203,8 +192,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 	}
 	s_cgi	*cgi_ptr = &cgi_exist->second;
 	client.bindCgiSocket(srv, *cgi_ptr);
-	for (size_t i = 0; i != argv.size() - 1; i++)
-		delete [] argv[i];
+	vect_split_free(argv, argv.size() - 1);
 }
 
 static int hex_value(char c)

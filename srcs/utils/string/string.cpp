@@ -186,3 +186,11 @@ void	vect_split_new(std::vector<char *> &vect, std::string s, char c)
 		vect.push_back(temp_char);
 	}
 }
+
+void	vect_split_free(std::vector<char *> &vect, size_t size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		delete [] vect[i];
+	}
+}

@@ -77,6 +77,7 @@ int	Request::checkHeader(void)
 	{
 		ft_strtrim(this->_header["Cookie"], "session_id=", "");
 		this->_cookie_key = this->_header["Cookie"];
+		std::cout << "cookie key: " << this->_cookie_key << "\n";
 	}
 	if (this->_method == "POST")
 		return (this->_checkPost());

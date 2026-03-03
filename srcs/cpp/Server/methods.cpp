@@ -50,15 +50,23 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 	(void)body;
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
-	std::cout << "runMethod(): reading file..\n";
+	std::cout << "getMethod(): reading file..\n";
+	std::cout << "client.getRequest().getBodyType()" << client.getRequest().getBodyType() << "\n";
 	if (client.getRequest().getBodyType() == "text/html")
 	{
 		std::cout << "Entro nell'override login\n";
 		std::getline(*file, body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
-			find_and_replace(body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
+		{
+			// find_and_replace(body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
+			find_and_replace(body, "👤 login", client.getRequest().getCookieKey());
+		}
 		else
 			std::cout << "Cookie è vuoto!\n";
+		std::cout << body << "\n";
+		client.sendContentBool() = true;
+		client.getBuffer().resize(body.length() + 1);
+		client.getBuffer().insert(client.getBuffer().begin(), body.c_str(), body.c_str() + body.length());
 		return ;
 	}
 	client.sendContentBool() = true;

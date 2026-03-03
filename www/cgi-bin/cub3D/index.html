@@ -50,20 +50,45 @@ const screenImg = document.getElementById("screen");
 const cgiPath = "cub3D.cgi";
 
 let currentAction = "\0";
+let isRequesting = false;
 
 function sendInput(action) {
     currentAction = action;
 }
 
-function requestNextFrame() {
-    const ts = Date.now();
-    screenImg.src = `${cgiPath}?${currentAction}&t=${ts}`;
-    currentAction = "%";
-}
+async function requestNextFrame() {
+    if (isRequesting) return;
+    isRequesting = true;
 
-screenImg.onload = function () {
-    requestNextFrame();
-};
+    const ts = Date.now();
+    const url = `${cgiPath}?${currentAction}&t=${ts}`;
+    currentAction = "%";
+
+    try {
+        const response = await fetch(url, { cache: "no-store" });
+
+        if (!response.ok) {
+            console.error("HTTP error:", response.status);
+            isRequesting = false;
+            return;
+        }
+
+        const blob = await response.blob();
+        const objectURL = URL.createObjectURL(blob);
+
+        screenImg.src = objectURL;
+
+        screenImg.onload = () => {
+            URL.revokeObjectURL(objectURL);
+            isRequesting = false;
+            requestNextFrame();
+        };
+
+    } catch (err) {
+        console.error("Fetch error:", err);
+        isRequesting = false;
+    }
+}
 
 requestNextFrame();
 </script>

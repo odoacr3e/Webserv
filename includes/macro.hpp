@@ -33,7 +33,7 @@
 # if DEBUG == true
 #  define LOG_REQUEST(str, ...)	print_file("logs/request.md", str, ##__VA_ARGS__)
 #  define LOG_RESPONSE(str)		print_file("logs/response.html", str)
-#  define LOG_CGI(char_vector)	std::remove("logs/cgi");print_file("logs/cgi", char_vector)
+#  define LOG_CGI(str, size)	std::remove("logs/cgi");print_file("logs/cgi", str, size)
 #  define LOG_HISTORY()			this->printPollInfo("logs/history.md")	
 #  define LOG_RESET() 			eraseDirectory("logs/")
 #  define LOG_ALL(str)			print_file("logs/request.md", str);\

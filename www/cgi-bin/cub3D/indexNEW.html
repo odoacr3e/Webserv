@@ -116,36 +116,51 @@ button:active {
 </div>
 
 <script>
-const FPS = 30;
-const screen = document.getElementById("screen");
+const screenImg = document.getElementById("screen");
+const cgiPath = "cub3D.cgi";
 
-// path statico già aggiornato dal server/CGI
-// aggiunge timestamp per bypassare cache se necessario
-function refreshImage() {
-    screen.src = "/static/render.bmp?t=" + Date.now();
-}
+let currentAction = "\0";
+let isRequesting = false;
 
-// invia richieste al server per input, log, heartbeat
-function serverPing() {
-    fetch("/script/cub3D/cub3D.cgi")
-        .then(resp => resp.text())
-        .then(text => console.log("server update:", text))
-        .catch(err => console.error(err));
-}
-
-// loop principale
-setInterval(() => {
-    refreshImage();  // aggiorna immagine
-    serverPing();    // aggiorna server
-}, 1000 / FPS);
-
-// gestione input dai pulsanti
 function sendInput(action) {
-    fetch("/input?action=" + action)
-        .then(resp => resp.text())
-        .then(text => console.log("input:", action, "resp:", text))
-        .catch(err => console.error(err));
+    currentAction = action;
 }
+
+async function requestNextFrame() {
+    if (isRequesting) return;
+    isRequesting = true;
+
+    const ts = Date.now();
+    const url = `${cgiPath}?${currentAction}&t=${ts}`;
+    currentAction = "%";
+
+    try {
+        const response = await fetch(url, { cache: "no-store" });
+
+        if (!response.ok) {
+            console.error("HTTP error:", response.status);
+            isRequesting = false;
+            return;
+        }
+
+        const blob = await response.blob();
+        const objectURL = URL.createObjectURL(blob);
+
+        screenImg.src = objectURL;
+
+        screenImg.onload = () => {
+            URL.revokeObjectURL(objectURL);
+            isRequesting = false;
+            requestNextFrame();
+        };
+
+    } catch (err) {
+        console.error("Fetch error:", err);
+        isRequesting = false;
+    }
+}
+
+requestNextFrame();
 </script>
 
 </body>

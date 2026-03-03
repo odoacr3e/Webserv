@@ -183,10 +183,11 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		{
 			for (size_t i = 0; i != argv.size() - 1; i++)
 				delete [] argv[i];
-			client.getRequest().setBodyType("text/");
+			client.getRequest().setBodyType("text/plain");
 			client.sendContentBool() = true;
-			client.getBuffer().resize(9);
+			client.getBuffer().resize(10);
 			std::strcpy(client.getBufferChar(), "Not ready");
+			client.getBuffer().resize(9);
 			return ;
 		}
 	}
@@ -224,26 +225,7 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
 		cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
 	}
-	/*OLD
-	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
-	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
-	std::cout << filename << std::endl;
-	read_file(filename, client.getBuffer(), 14745718);
-	print_file("RESPONSE", client.getBuffer().data(), 1000);
-	cgi_data.client = &client;
-	*/
 	write(cgi_data.pipe[1], argv[1], std::strlen(argv[1]));
-	/*
-		1)	ADDSOCKET
-		2)	client stai zittoListening on -> 10.11.4.3:9020
-
-Can't bind ip:port -> 10.11.4.5:9020
-		3)	setting fdData[pipe[0]]
-		4)	setting fdData[client]
-	*/
-	// 1) ADDSOCKET
-	// 2 client stai zitto
-	srv.getAddrsVector()[cgi_data.poll_index[0]].events = POLLIN;
 	client.getPollFd(srv)->events = 0;
 	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
 	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";

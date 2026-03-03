@@ -143,32 +143,9 @@ static void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &a
 	}
 	for (size_t i = 0; i != argv.size() - 1; i++)
 		delete [] argv[i];
-	std::cout << WHITE"Entro e chiudo pipe[0]: " RED << cgi_data.pipe[1] << "" RESET << std::endl;
 	close_fd(&cgi_data.pipe[1]);
-	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
-	std::cout << filename << std::endl;
-	/*
-		1)	ADDSOCKET
-		2)	client stai zitto
-		3)	setting fdData[pipe[0]]
-		4)	setting fdData[client]
-	*/
-	// 1) ADDSOCKET
-	cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
-	// 2 client stai zitto
-	client.getPollFd(srv)->events = 0;
-	client.getBuffer().clear();
-	client.getRequest().getBinBody().clear();
-	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
-	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
-	// 3) pipe[0]
 	s_cgi	*cgi_ptr = new s_cgi(cgi_data);
-	srv.getFdData()[cgi_data.pipe[0]].client = &client;
-	srv.getFdData()[cgi_data.pipe[0]].cgi = cgi_ptr;
-	// 4) client
-	srv.getFdData()[client.getSockFd()].cgi_ready = true;
-	srv.getFdData()[client.getSockFd()].client = &client;
-	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
+	client.bindCgiSocket(srv, *cgi_ptr);
 }
 
 int read_file(std::string name, std::vector<char> &vect, int bytes);
@@ -185,11 +162,6 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		{
 			for (size_t i = 0; i != argv.size() - 1; i++)
 				delete [] argv[i];
-			/*client.getRequest().setBodyType("text/");
-			client.sendContentBool() = true;
-			client.getBuffer().resize(10);
-			std::strcpy(client.getBufferChar(), "Not ready");
-			*/
 			std::cout << "goodbye\n";
 				return ;
 		}
@@ -229,36 +201,8 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
 		cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
 	}
-	/*OLD
-	write(cgi_data.pipe[1], cgi_data.argv[1], cgi_data.argv_len[1]);
-	std::string	filename("/dev/fd/" + ft_to_string(cgi_data.pipe[0]));
-	std::cout << filename << std::endl;
-	read_file(filename, client.getBuffer(), 14745718);
-	print_file("RESPONSE", client.getBuffer().data(), 1000);
-	cgi_data.client = &client;
-	*/
-	/*
-		1)	ADDSOCKET
-		2)	client stai zittoListening on -> 10.11.4.3:9020
-
-Can't bind ip:port -> 10.11.4.5:9020
-		3)	setting fdData[pipe[0]]
-		4)	setting fdData[client]
-	*/
-	// 1) ADDSOCKET
-	// 2 client stai zitto
-	srv.getAddrsVector()[cgi_data.poll_index[0]].events = POLLIN;
-	client.getPollFd(srv)->events = 0;
-	std::cout << WHITE "run_cmd(): client " RESET << client.getSockFd() << " in attesa..\n";
-	std::cout << WHITE "run_cmd(): pipe[0] " RESET << cgi_data.pipe[0] << " POLLIN\n";
-	// 3) pipe[0]
 	s_cgi	*cgi_ptr = &cgi_exist->second;
-	srv.getFdData()[cgi_data.pipe[0]].client = &client;
-	srv.getFdData()[cgi_data.pipe[0]].cgi = cgi_ptr;
-	// 4) client
-	srv.getFdData()[client.getSockFd()].cgi_ready = true;
-	srv.getFdData()[client.getSockFd()].client = &client;
-	srv.getFdData()[client.getSockFd()].cgi = cgi_ptr;
+	client.bindCgiSocket(srv, *cgi_ptr);
 	for (size_t i = 0; i != argv.size() - 1; i++)
 		delete [] argv[i];
 }

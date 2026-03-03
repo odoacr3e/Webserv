@@ -47,6 +47,7 @@ class Client
 		int					getAllowedMethods() const;
 		int					isAllowedMethod();
 		bool				&sendContentBool();
+		void				bindCgiSocket(Server &srv, s_cgi &cgi);
 
 		//SECTION - cgi
 		void				readCgi(Server &srv, s_cgi &cgi);

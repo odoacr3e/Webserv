@@ -88,6 +88,20 @@ bool	&Client::sendContentBool()
 	return (this->_send_content);
 }
 
+void	Client::bindCgiSocket(Server &srv, s_cgi &cgi)
+{
+	if (cgi.isFastCgiBool == false)
+		cgi.poll_index[0] = srv.addSocket(cgi.pipe[0], FD_PIPE_RD);
+	else
+		srv.getAddrs()[cgi.poll_index[0]].events = POLLIN;
+	this->getPollFd(srv)->events = POLLHUP;
+	srv.getFdData()[cgi.pipe[0]].client = this;
+	srv.getFdData()[cgi.pipe[0]].cgi = &cgi;
+	srv.getFdData()[this->getSockFd()].cgi_ready = true;
+	srv.getFdData()[this->getSockFd()].client = this;
+	srv.getFdData()[this->getSockFd()].cgi = &cgi;
+}
+
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	int	error;

@@ -66,8 +66,8 @@ int	Request::checkHeader(void)
 {
 	if (this->checkVal("Host") == false)
 		return (this->fail(HTTP_CE_BAD_REQUEST, "Missing Host"));
-	else if (this->checkVal("Accept") == false)
-		return (this->fail(HTTP_CE_BAD_REQUEST, "Missing Accept"));
+	//else if (this->checkVal("Accept") == false)
+	//	return (this->fail(HTTP_CE_BAD_REQUEST, "Missing Accept"));
 	else if (this->checkVal("User-Agent") == false)
 		return (this->fail(HTTP_CE_BAD_REQUEST, "Missing User-Agent"));
 	if (this->_header["Transfer-Encoding"] != "chunked" && \

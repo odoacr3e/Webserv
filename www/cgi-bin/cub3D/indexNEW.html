@@ -116,36 +116,64 @@ button:active {
 </div>
 
 <script>
-const FPS = 30;
-const screen = document.getElementById("screen");
+const screenImg = document.getElementById("screen");
+const cgiPath = "cub3D.cgi";
 
-// path statico già aggiornato dal server/CGI
-// aggiunge timestamp per bypassare cache se necessario
-function refreshImage() {
-    screen.src = "/static/render.bmp?t=" + Date.now();
+let isWaiting = false;
+let inputQueue = []; // Qui mettiamo i tasti premuti
+
+async function updateFrame() {
+    if (isWaiting) return;
+    isWaiting = true;
+
+    // Se la coda è vota, mandamo er carattere di "idle" (%), 
+    // sennò piamo er primo comando utile (shift)
+    const action = inputQueue.length > 0 ? inputQueue.shift() : "%";
+    const ts = Date.now();
+
+    try {
+        const response = await fetch(`${cgiPath}?${action}&t=${ts}`);
+         
+        if (response.ok) {
+            const blob = await response.blob();
+            const objectURL = URL.createObjectURL(blob);
+            
+            screenImg.onload = () => {
+                URL.revokeObjectURL(objectURL);
+                isWaiting = false;
+                // Chiamamo er prossimo frame subito dopo che questo è apparso
+                requestAnimationFrame(updateFrame);	
+            };
+            
+            screenImg.src = objectURL;
+        } else {
+            isWaiting = false;
+            setTimeout(updateFrame, 1000); 
+        }
+    } catch (e) {
+        isWaiting = false;
+        setTimeout(updateFrame, 100);
+    }
 }
 
-// invia richieste al server per input, log, heartbeat
-function serverPing() {
-    fetch("/script/cub3D/cub3D.cgi")
-        .then(resp => resp.text())
-        .then(text => console.log("server update:", text))
-        .catch(err => console.error(err));
-}
-
-// loop principale
-setInterval(() => {
-    refreshImage();  // aggiorna immagine
-    serverPing();    // aggiorna server
-}, 1000 / FPS);
-
-// gestione input dai pulsanti
+// Questa mo' aggiunge er comando alla lista invece de sovrascrive
 function sendInput(action) {
-    fetch("/input?action=" + action)
-        .then(resp => resp.text())
-        .then(text => console.log("input:", action, "resp:", text))
-        .catch(err => console.error(err));
+    inputQueue.push(action);
+    // Se er loop s'era addormito, lo svejamo
+    if (!isWaiting) updateFrame();
 }
+
+// Bonus: aggiungemo pure i tasti della tastiera, così giochi come un pro
+window.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (['w', 'a', 's', 'd', 'x', '1', '2', '3', '4'].includes(key)) {
+        sendInput(key);
+    } else if (key === 'enter') {
+        sendInput(' ');
+    }
+});
+
+updateFrame();
 </script>
 
 </body>

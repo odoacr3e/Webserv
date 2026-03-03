@@ -11,18 +11,20 @@ void	Server::processResponse(Client &client)
 
 	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
-	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
+	if (client.TEMP == 0)
+	{send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
-		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
+		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);}
 	client.sendContentBool() = false;
 	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
 	std::cout <<client.getRequest().getMethod() << "\n";
 	client.getRequest().setUrl("");
 	client.getRequest().setUrlOriginal("");
 	client.getPollFd(*this)->events = POLLIN;
+	perror("Pr()");
 }
 
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file

@@ -6,6 +6,7 @@ Client::Client(int sockfd, int srvfd)
 	this->_sockfd = sockfd;
 	this->_srvfd = srvfd;
 	this->_send_content = false;
+	TEMP = 0;
 }
 
 Client::~Client()
@@ -106,7 +107,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	}
 	else if (cgi.bytes_read != cgi.output_len)
 		return ;
-	LOG_CGI(this->getBuffer());
+	//LOG_CGI(this->getBuffer());
 	cgi.output = this->getBufferChar();
 	this->getPollFd(srv)->events = POLLOUT;
 	if (cgi.isFastCgiBool == false)
@@ -257,4 +258,23 @@ void	s_cgi::clear(Server &srv, Client &client)
 		this->removeFromPoll(true, srv);
 	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
 		srv.getIpPortCgiMap().erase(ipPort);
+}
+
+void	s_cgi::clear()
+{
+
+	if (this->pid != 0 && this->isFastCgiBool == true)
+		kill(this->pid, SIGKILL);
+	this->pid = 0;
+	close_fd(&this->pipe[0]);
+	close_fd(&this->pipe[1]);
+}
+
+void	s_cgi::reset()
+{
+	this->bytes_read = 0;
+	this->isParsed = false;
+	this->input.clear();
+	this->output = NULL;
+	this->output_len = 0;
 }

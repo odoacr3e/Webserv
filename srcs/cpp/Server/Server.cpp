@@ -57,10 +57,10 @@ void Server::suppressSocket()
 			this->_clients.erase((*it).fd);
 //			it = this->_addrs.erase(it) - 1;
 		}
-		else if (this->_fd_data[it->fd].type == FD_PIPE_RD)
+		else if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
+				this->_fd_data[it->fd].type == FD_PIPE_WR)
 		{
-			if (this->_fd_data[it->fd].cgi != NULL)
-				delete this->_fd_data[it->fd].cgi;
+			this->_fd_data[it->fd].cgi->clear();
 			this->_fd_data[it->fd].cgi = NULL;
 		}
 		close((*it).fd);

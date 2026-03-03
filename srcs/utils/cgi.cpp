@@ -60,6 +60,8 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	// std::cout << "BODY: \n\n" << BLUE"" << body << RESET << std::endl; 
 	if (client.getLocConf().script_daemon == false)
 		delete cgi_ptr;
+	else
+		cgi_ptr->reset();
 	srv.getFdData()[client.getSockFd()].cgi = NULL;
 	srv.getFdData()[client.getSockFd()].cgi_ready = false;
 }
@@ -183,12 +185,16 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		{
 			for (size_t i = 0; i != argv.size() - 1; i++)
 				delete [] argv[i];
-			client.getRequest().setBodyType("text/");
+			/*client.getRequest().setBodyType("text/");
 			client.sendContentBool() = true;
 			client.getBuffer().resize(9);
 			std::strcpy(client.getBufferChar(), "Not ready");
+			*/
+		std::cout << "goodbye\n";
+		client.TEMP = 42;
 			return ;
 		}
+		write(cgi_data.pipe[1], argv[1], std::strlen(argv[1]));
 	}
 	else
 	{
@@ -232,7 +238,6 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 	print_file("RESPONSE", client.getBuffer().data(), 1000);
 	cgi_data.client = &client;
 	*/
-	write(cgi_data.pipe[1], argv[1], std::strlen(argv[1]));
 	/*
 		1)	ADDSOCKET
 		2)	client stai zittoListening on -> 10.11.4.3:9020

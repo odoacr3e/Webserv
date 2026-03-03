@@ -29,6 +29,7 @@ class Client
 		std::vector<char>	_buffer;
 
 	public:
+		int TEMP;
 		Client(int sockfd, int srvfd);
 		~Client();
 		Client(const Client &other);
@@ -61,6 +62,8 @@ typedef	struct s_cgi
 	s_cgi(Client &client);
 	s_cgi(const s_cgi &other);
 	s_cgi	&operator=(const s_cgi &other);
+	void	reset();
+	void	clear();
 	void	clear(Server &srv, Client &client);
 	void	removeFromPoll(bool is_pipe_out, Server &srv);
 	int		headerParsing(Client &client);

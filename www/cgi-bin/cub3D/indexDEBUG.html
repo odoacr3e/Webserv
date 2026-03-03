@@ -22,11 +22,11 @@
 
 <div class="game-wrapper">
     <div class="controls-left">
-        <button onclick="sendInput('restart')">X<br><span class="label">Restart</span></button>
+        <button onclick="sendInput('x')">X<br><span class="label">Restart</span></button>
     </div>
 
     <div class="screen-container">
-        <img id="screen" src="giorgio.cgi?comando=\0" alt="Cub3D Render">
+        <img id="screen" src="cub3D.cgi?www/cgi-bin/cub3D/srcs/maps/debug.cub" alt="Cub3D Render">
     </div>
 
     <div class="controls-right">
@@ -34,6 +34,7 @@
         <button onclick="sendInput('a')">A</button>
         <button onclick="sendInput('d')">D</button>
         <button onclick="sendInput('s')">S</button>
+        <button onclick="sendInput(' ')">Enter</button>
     </div>
 
     <div class="controls-bottom">
@@ -45,33 +46,60 @@
 </div>
 
 <script>
-const FPS = 15; // Alzamo un po' er ritmo?
 const screenImg = document.getElementById("screen");
-const cgiPath = "giorgio.cgi"; // Metti er percorso giusto der tuo eseguibile C++
+const cgiPath = "cub3D.cgi";
 
-// Questa funzione aggiorna l'immagine chiedendo er BMP con comando \0
-function refreshFrame() {
-    // Aggiungiamo un timestamp per evità che er browser faccia er pigro (Cache Busting)
-    const timestamp = new Date().getTime();
-    screenImg.src = cgiPath + "?comando=\0&t=" + timestamp;
+let currentAction = "\0"; // Partimo col botto
+let isWaiting = false;   // Questo serve a nun manna' du' palloni in campo insieme
+
+async function updateFrame() {
+    if (isWaiting) return; // Se sta ancora a carica', stamo boni
+    isWaiting = true;
+
+    try {
+        const ts = Date.now();
+        // Cerchiamo de pija er BMP dar server
+        const response = await fetch(`${cgiPath}?${currentAction}&t=${ts}`);
+        
+        if (response.ok) {
+            const blob = await response.blob();
+            const objectURL = URL.createObjectURL(blob);
+            
+            // Appena l'immagine è caricata nel browser...
+            screenImg.onload = () => {
+                URL.revokeObjectURL(objectURL); // Pulizia, come quando rifanno er manto de l'Olimpico
+                isWaiting = false;
+                
+                // Reset dell'azione se serve, sennò continua a manna' l'ultima
+                if (currentAction !== "%") {
+                    currentAction = "%"; 
+                }
+                
+                // Ricorsione: chiamamo er prossimo frame solo quando questo è a posto
+                requestAnimationFrame(updateFrame);
+            };
+            
+            screenImg.src = objectURL;
+        } else {
+            console.error("Aho, er server ha sballato");
+            isWaiting = false;
+            setTimeout(updateFrame, 1000); // Riprova tra un secondo se va in errore
+        }
+    } catch (e) {
+        console.error("Problemi de linea:", e);
+        isWaiting = false;
+        setTimeout(updateFrame, 1000);
+    }
 }
 
-// Gestione input: manda er comando e aggiorna subito l'immagine col risultato
 function sendInput(action) {
-    console.log("Invio comando:", action);
-    const timestamp = new Date().getTime();
-    
-    // Mandiamo l'input. Il server deve risponne co l'header "Content-Type: image/bmp"
-    // e er corpo del file .bmp
-    screenImg.src = cgiPath + "?comando=" + action + "&t=" + timestamp;
+    currentAction = action;
+    // Se per caso s'era fermato tutto, lo rinfocolamo
+    if (!isWaiting) updateFrame();
 }
 
-// Loop principale: se nun premi gnente, lui continua a chiede frame con \0
-setInterval(() => {
-    // Se vòi che l'immagine se aggiorni da sola stile video:
-    refreshFrame();
-}, 1000 / FPS);
-
+// Fischio d'inizio!
+updateFrame();
 </script>
 </body>
 </html>

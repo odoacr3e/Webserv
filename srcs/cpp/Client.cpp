@@ -153,7 +153,7 @@ s_cgi::s_cgi(Client &client)
 	this->pid = 0;
 	this->output_len = 0;
 	this->isParsed = false;
-	if (client.getLocConf().exist == true && client.getLocConf().script_daemon == true)
+	if (client.getLocConf().exist == true && client.getLocConf().fastcgi_bool == true)
 		this->isFastCgiBool = true;
 	else
 		this->isFastCgiBool = false;

@@ -80,6 +80,4 @@ typedef	struct s_cgi
 	bool		isParsed;
 }		t_cgi;
 
-int	read_fastcgi(Client &client, s_cgi &cgi);
-
 #endif

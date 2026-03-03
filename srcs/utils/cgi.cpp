@@ -29,7 +29,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
 		get_argv(client, argv);
-		if (client.getLocConf().script_daemon == true)
+		if (client.getLocConf().fastcgi_bool == true)
 			run_daemon(srv, client, cgi_data, argv);
 		else
 			run_cmd(srv, client, cgi_data, argv);
@@ -58,7 +58,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		std::cout << cgi_data.output << std::endl;
 	}
 	// std::cout << "BODY: \n\n" << BLUE"" << body << RESET << std::endl; 
-	if (client.getLocConf().script_daemon == false)
+	if (client.getLocConf().fastcgi_bool == false)
 		delete cgi_ptr;
 	else
 		cgi_ptr->reset();

@@ -29,6 +29,8 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		this->setupRequestEnvironment(client);
+		if (client.getRequest().getMethodEnum() == GET)
+			request.getBytesLeft() -= request.getBodyLen();
 		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 	}
 	else

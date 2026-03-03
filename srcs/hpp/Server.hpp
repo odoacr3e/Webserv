@@ -4,6 +4,7 @@
 # include "../../includes/ether.hpp"
 # include "Client.hpp"
 # include "Conf.hpp"
+# include "Cgi.hpp"
 # include "Request.hpp"
 
 #define MSG_END_CONNECTION "[***********************************]\nchiudo connessione {INDEX}\n[***********************************]\n"

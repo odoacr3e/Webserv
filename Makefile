@@ -23,7 +23,7 @@ UTILS = $(addprefix utils/, 	file.cpp utils_page1.cpp path_checker.cpp value_che
 								cgi.cpp html_var.cpp html_pokedex.cpp html_crypter.cpp html_cub.cpp)
 
 HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
-			$(addprefix hpp/, Client.hpp Conf.hpp Request.hpp Server.hpp)
+			$(addprefix hpp/, Client.hpp Cgi.hpp Conf.hpp Request.hpp Server.hpp)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJ:.o=.d)# deps: checks if a header file changed

@@ -45,3 +45,8 @@ int	&Server::getPollIndex()
 {
 	return (this->_i);
 }
+
+bool	&Server::isChildProcessBool()
+{
+	return (this->_is_child_process);
+}

@@ -22,7 +22,7 @@ typedef	struct s_cgi
 	s_cgi	&operator=(const s_cgi &other);
 	void	exec(Server &srv, Client &client);
 	void	reset();
-	void	clear();
+	void	clear(bool isChildProcess);
 	void	clear(Server &srv, Client &client);
 	void	removeFromPoll(bool is_pipe_out, Server &srv);
 	int		headerParsing(Client &client);

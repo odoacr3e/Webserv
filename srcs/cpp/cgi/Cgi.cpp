@@ -7,7 +7,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	t_cgi				*cgi_ptr = NULL;
 	std::vector<char *> argv;
 
-	std::cout << "RUN_SCRIPT\n";
+	std::cout << "RUN_SCRIPT: " << client.getRequest().getUrl() << "\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
 		cgi_data.exec(srv, client);
@@ -17,7 +17,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
 	cgi_ptr->processOutput(client, body);
 	if (client.getLocConf().fastcgi_bool == false)
-		delete cgi_ptr;
+		delete cgi_ptr;//FIXME - se le cgi crashano, dare occhio qui
 	else
 		cgi_ptr->reset();
 	srv.getFdData()[client.getSockFd()].cgi = NULL;
@@ -176,21 +176,24 @@ void	s_cgi::processOutput(Client &client, std::string &body)
 
 void	s_cgi::clear(Server &srv, Client &client)
 {
-	if (this->pid != 0 && this->isFastCgiBool == true)
+	bool	isChildProcess;
+
+	isChildProcess = srv.isChildProcessBool();
+	if (this->pid != 0 && this->isFastCgiBool == true && isChildProcess == false)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;
 	if (this->pipe[0])
 		this->removeFromPoll(false, srv);
 	if (this->pipe[1])
 		this->removeFromPoll(true, srv);
-	if (client.getCookieData().exist == true)
+	if (client.getCookieData().exist == true && this->isFastCgiBool == true)
 		srv.getCookieMap()[client.getCookieData().id].cgi = NULL;
 	client.getCookieData().cgi = NULL;
 }
 
-void	s_cgi::clear()
+void	s_cgi::clear(bool isChildProcess)
 {
-	if (this->pid != 0 && this->isFastCgiBool == true)
+	if (this->pid != 0 && this->isFastCgiBool == true && isChildProcess == false)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;
 	close_fd(&this->pipe[0]);

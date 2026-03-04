@@ -40,6 +40,7 @@ void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 		dup2(cgi_data.pipe[1], STDOUT_FILENO);
 		close(cgi_data.pipe[0]);
 		close(cgi_data.pipe[1]);
+		srv.isChildProcessBool() = true;
 		srv.suppressSocket();
 		execve(argv[0], argv.data(), NULL);
 		vect_split_free(argv, argv.size() - 1);
@@ -92,6 +93,7 @@ void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &arg
 			dup2(pipes[1][0], STDIN_FILENO);
 			close(pipes[0][0]);
 			close(pipes[1][1]);
+			srv.isChildProcessBool() = true;
 			srv.suppressSocket();
 			execve(argv[0], argv.data(), NULL);
 			perror("execve");
@@ -107,7 +109,7 @@ void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &arg
 		else
 		{
 			std::cerr << "run_script fatal error: fastcgi needs cookies\n";
-			cgi_data.clear();
+			cgi_data.clear(false);
 			delete cgi_ptr;
 			return (std::cerr << "run_script fatal error: no cookies\n", (void)0);
 		}

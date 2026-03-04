@@ -15,6 +15,7 @@ Server::Server(Conf &conf, const char **env):_env(env)
 
 	std::memset(&fd_data, 0, sizeof(s_fd_data));
 	fd_data.type = FD_SERVER;
+	this->_is_child_process = false;
 	this->_fd_data.resize(MAX_CONNECTION + 1);
 	this->_server_num = 0;
 	if (conf.getSrvNameMap().size() == 0)
@@ -64,7 +65,7 @@ void Server::suppressSocket()
 		{
 			cgi = this->_fd_data[it->fd].cgi;
 			if (cgi != NULL)
-				{cgi->clear(); delete cgi;}
+				{cgi->clear(this->_is_child_process); delete cgi;}
 			this->_fd_data[it->fd].cgi = NULL;
 		}
 		close((*it).fd);

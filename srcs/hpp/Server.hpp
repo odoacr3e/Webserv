@@ -50,6 +50,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		const char						**_env;
 		int								_server_num;
 		int								_i;
+		bool							_is_child_process;
 
 	public:
 		Server(Conf &conf, const char **env);
@@ -70,6 +71,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		packetBuffer		&getPacketBuffer();
 		const std::string	&getProtectedFiles() const;
 		int					&getPollIndex();
+		bool				&isChildProcessBool();
 
 		void				listDirectoriesAutoIndex(Client &client, std::string &body, std::string &url, dirent *cont);
 		void				printServerConfiguration(SrvNameMap::iterator it) const;

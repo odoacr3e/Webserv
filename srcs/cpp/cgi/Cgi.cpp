@@ -1,6 +1,6 @@
 #include "../../hpp/Cgi.hpp"
 
-//FIXME - 
+//FIXME - mettere in Server::method.cpp
 void	run_script(Server &srv, Client &client, std::string &body)
 {
 	t_cgi				cgi_data(client);
@@ -10,11 +10,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	std::cout << "RUN_SCRIPT\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
-		get_argv(client, argv);
-		if (client.getLocConf().fastcgi_bool == true)
-			exec_fastcgi(srv, client, cgi_data, argv);
-		else
-			exec_cgi(srv, client, cgi_data, argv);
+		cgi_data.exec(srv, client);
 		return ;
 	}
 	else // se cgi gia eseguita, ripesca dati cgi
@@ -79,7 +75,11 @@ s_cgi	&s_cgi::operator=(const s_cgi &other)
 	return (*this);
 }
 
-// return -1 if an error occurs, else 0
+/// @brief	parse the first 14 bytes of cgi output
+///			they must have this form: "OK|0000000242|"
+///			242 is the number of bytes to read
+/// @param client 
+/// @return -1 if an error occurs, else 0
 int		s_cgi::headerParsing(Client &client)
 {
 	int			bytes;
@@ -106,6 +106,9 @@ int		s_cgi::headerParsing(Client &client)
 	return (0);
 }
 
+/// @brief reads a chunk of data from the cgi pipe[0]
+/// @param client 
+/// @return -1 if an error occurs, else bytes read
 int		s_cgi::readChunk(Client &client)
 {
 	int	bytes;
@@ -121,6 +124,11 @@ int		s_cgi::readChunk(Client &client)
 	return (bytes);
 }
 
+/// @brief remove a pipe from 
+///			Server::_addrs -->	the poll array data
+///			Server::_fdData -->	the poll array fd types 
+/// @param is_pipe_out 0 = pipe_read, 1 = pipe_write
+/// @param srv 
 void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 {
 	int			fd_last;
@@ -142,6 +150,9 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	close_fd(&this->pipe[is_pipe_out]);
 }
 
+/// @brief process cgi raw output, creating dinamic html files/valid resources 
+/// @param client 
+/// @param body reference to the html file
 void	s_cgi::processOutput(Client &client, std::string &body)
 {
 	client.getRequest().setBodyType("text/html");

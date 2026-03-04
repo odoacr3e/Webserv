@@ -5,6 +5,9 @@ void convert_hexa(std::vector<char*> &input);
 static void		createArgvCrypter(std::string &args, argvVector &argv_data);
 static void	createArgvWeaksleep(std::string &args, argvVector &argv_data);
 
+/// @brief process the argv that will be given to execve
+/// @param client 
+/// @param argv reference to a std::vector<char *>, that is sent to execve
 void		get_argv(Client &client, argvVector &argv)
 {
 	std::string	url;
@@ -40,7 +43,7 @@ void		get_argv(Client &client, argvVector &argv)
 		createArgvWeaksleep(args, argv);
 	else
 	{
-		find_and_erase(args, "value=");//FIXME - per pokedex
+		find_and_erase(args, "value=");
 		vect_split_new(argv, args, separator);
 	}
 	argv.push_back(NULL);
@@ -61,6 +64,8 @@ static int hex_value(char c)
     return -1;
 }
 
+/// @brief convert hexadecimal chars from html to ascii
+/// @param argv reference to a std::vector<char *>, that is sent to execve
 void convert_hexa(std::vector<char*> &input)
 {
     for (size_t idx = 0; idx < input.size(); ++idx)

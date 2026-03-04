@@ -3,6 +3,29 @@
 
 void	vect_split_free(std::vector<char *> &vect, size_t size);
 
+/// @brief	 exec cgi using pipe, fork, dup2 and execve. cgi data is saved in server 
+///	@section implementation			
+///				1)	forks. If it's a fastcgi and a process already exist, skip
+///				2)	STDIN/STDOUT are dup in the child. pipe are saved in s_cgi
+///				3)	s_cgi data are binded with the client in server::fd_data vector
+/// @param srv 
+/// @param client 
+void	s_cgi::exec(Server &srv, Client &client)
+{
+	std::vector<char *> argv;
+
+	get_argv(client, argv);
+	if (client.getLocConf().fastcgi_bool == true)
+		exec_fastcgi(srv, client, *this, argv);
+	else
+		exec_cgi(srv, client, *this, argv);
+}
+
+/// @brief exec a normal cgi. These cgi process MUST finish when output is done 
+/// @param srv 
+/// @param client 
+/// @param cgi_data 
+/// @param argv reference to a std::vector<char *>, that is sent to execve
 void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	if (pipe(cgi_data.pipe) != 0)
@@ -29,6 +52,12 @@ void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 	client.bindCgiSocket(srv, *cgi_ptr);
 }
 
+/// @brief exec a fastcgi. These cgi process MUST run in a infinite loop
+///			in Server::suppressSocket, all fastcgi processes are killed
+/// @param srv 
+/// @param client 
+/// @param cgi_data 
+/// @param argv reference to a std::vector<char *>, that is sent to execve
 void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	s_cgi	*cgi_ptr;

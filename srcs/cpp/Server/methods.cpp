@@ -34,10 +34,7 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 			this->deleteMethod(client, resp_body, &file);
 			break ;
 		case POST:
-			if (client.sendContentBool() == true)
-				this->postMethod(client, resp_body, &file);
-			else			
-				this->getMethod(client, resp_body, &file);
+			this->postMethod(client, resp_body, &file);
 			break ;
 		case HEAD:
 			;//funzione che gestisce HEAD

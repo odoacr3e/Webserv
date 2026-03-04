@@ -32,15 +32,6 @@ void	Server::processResponse(Client &client)
 	client.getPollFd(*this)->events = POLLIN;
 	perror("Pr()");
 }
-/**
- * @brief utility function to clear the variables used to create an html response in server class
- * 
- * - resp_body
- */
-void	Server::clearRespVariables()
-{
-	this->resp_body.clear();
-}
 
 /**
  * @brief Creates the html page according to the request demands.
@@ -55,27 +46,27 @@ void	Server::clearRespVariables()
  */
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
-	// std::string		body;
 	std::fstream	file;
 	std::string		type("text/");
-	std::string		url;
 
 	this->clearRespVariables();
 	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
 		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
-	url = client.getRequest().getUrl();
-	if (url.find_last_of('.') != std::string::npos)
+	this->resp_url = client.getRequest().getUrl();
+	size_t last_dot = this->resp_url.find_last_of('.');
+	if (last_dot != std::string::npos)
 	{
-		if (url.substr(url.find_last_of('.')) != ".html" && url.substr(url.find_last_of('.')) != ".css")
+		std::string url = this->resp_url.substr(last_dot);
+		if (url != ".html" && url != ".css")
 			type = "image/";
-		type += url.substr(url.find_last_of('.')).erase(0, 1);
+		type += url.erase(0, 1);
 	}
 	else
 		type += "html";
-	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
+	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(this->resp_url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client);
 	else
-		choose_file(client, file, url);
+		choose_file(client, file);
 	client.getRequest().setBodyType(type);
 	runMethod(client, file);
 	if (client.getPollFd(*this)->events & POLLOUT)
@@ -91,11 +82,10 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
  * In case of fail, if a custom made error page was provided we use that
  * @param client > destination Client
  */
-void	Server::choose_file(Client &client, std::fstream &file, std::string url)
+void	Server::choose_file(Client &client, std::fstream &file)
 {
 	std::string	fname;
 
-	hex_to_char(url);
 	if (client.getRequest().getDnsErrorBool())
 		file.open("www/var/errors/dns/index.html");
 	else if (client.getRequest().getStatusCode() != 200)
@@ -105,10 +95,10 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 	}
 	else if (client.getRequest().getRunScriptBool() == false)
 	{
-		file.open(url.c_str());
+		file.open(this->resp_url.c_str());
 		if (file.fail())
 		{
-			client.getRequest().fail(HTTP_CE_NOT_FOUND, url + ": File not found!");
+			client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
 			fname = checkErrorPages(client.getRequest());
 			file.open((fname).c_str());
 		}
@@ -216,4 +206,15 @@ void	fill_error_page(Client &client, std::string &html)
 	find_and_replace(html, "{SOUND_HOME}", "ET telefono casa");
 	find_and_replace(html, "{SOUND_RETRY}", "Ritenta, sfigato");
 	find_and_replace(html, "{URL}", client.getLocConf().ret_text);
+}
+
+/**
+ * @brief utility function to clear the variables used to create an html response in server class
+ * 
+ * - resp_body
+ */
+void	Server::clearRespVariables()
+{
+	this->resp_body.clear();
+	this->resp_url.clear();
 }

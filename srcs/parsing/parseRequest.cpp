@@ -58,7 +58,7 @@ static int	lineParsing(Request &request, std::string line)
 		return (request.fail(HTTP_SE_NOT_IMPLEMENTED, "No origin form"));
 	if (field.length() > MAX_URI_LENGTH)
 		return (request.fail(HTTP_CE_URI_TOO_LONG, field));
-	request.setUrl(field);
+	request.setUrl(hex_to_char(field));
 	if (request.getUrl().empty() == true)
 		return (request.fail(HTTP_CE_BAD_REQUEST, "URI"));
 	if (getNextFirstLineField(line, field) == 1)

@@ -52,9 +52,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		int								_i;
 		// Create response varables
 		std::string						resp_body;
+		std::string						resp_url;
 		// std::fstream					file;
 		// std::string					type;
-		// std::string					url;
 
 	public:
 		Server(Conf &conf, const char **env);
@@ -78,7 +78,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 
 		void				listDirectoriesAutoIndex(Client &client, std::string &url, dirent *cont);
 		void				printServerConfiguration(SrvNameMap::iterator it) const;
-		void				choose_file(Client &client, std::fstream &file, std::string url);
+		void				choose_file(Client &client, std::fstream &file);
 		void				createAutoindex(Client &client);
 		void				setupRequestEnvironment(Client &client);
 		std::string			createResponse(Client &client);

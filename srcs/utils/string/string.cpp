@@ -195,7 +195,7 @@ void	vect_split_free(std::vector<char *> &vect, size_t size)
 	}
 }
 
-void	hex_to_char(std::string& input)
+std::string		hex_to_char(std::string& input)
 {
     std::string result;
 
@@ -222,5 +222,5 @@ void	hex_to_char(std::string& input)
 		else
         	result += input[i];
     }
-	input = result;
+	return (result);
 }

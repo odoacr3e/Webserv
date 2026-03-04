@@ -133,17 +133,17 @@ class Request
 		std::vector<char>			&getBinBody();
 
 		//ANCHOR - setters.cpp
-		void			setMethod(std::string method);
-		void 			setUrl(std::string);
-		void 			setUrlOriginal(std::string);
-		void			setHttpVersion(std::string version);
-		bool			setHeaderVal(std::string key, std::string val);
-		void			setBody(std::string);
-		void			setBodyLen(size_t len);
-		void 			setBodyType(std::string type);
-		void			setStatusCode(e_http_codes status_code);
-		void			setRequestErrorBool(bool error);
-		void			setParsingData(int fd, int bytes, char *buf);
+		void						setMethod(std::string method);
+		void 						setUrl(std::string);
+		void 						setUrlOriginal(std::string);
+		void						setHttpVersion(std::string version);
+		bool						setHeaderVal(std::string key, std::string val);
+		void						setBody(std::string);
+		void						setBodyLen(size_t len);
+		void 						setBodyType(std::string type);
+		void						setStatusCode(e_http_codes status_code);
+		void						setRequestErrorBool(bool error);
+		void						setParsingData(int fd, int bytes, char *buf);
 
 		//ANCHOR - print.cpp
 		void			printHeader(void);

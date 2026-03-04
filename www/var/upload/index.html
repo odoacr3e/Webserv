@@ -1,8 +1,9 @@
-<!--NAME=home_upload-->
+<!--NAME=home_upload -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
 	<title>Upload File</title>
+	<meta charset="UTF-8">
 	<style type="text/css">
 		* {
 			box-sizing: border-box;
@@ -93,6 +94,24 @@
 			font-size: 0.9rem;
 			border-top: 1px solid #1e293b;
 		}
+		
+		.client-label {
+			position: absolute;
+			top: 20px;
+			right: 30px;
+
+			padding: 14px;
+			background: linear-gradient(135deg, #334155, #1e3a8a);
+			color: white;
+
+			font-size: 0.9rem;
+			font-weight: 600;
+			border-radius: 999px;
+
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+			letter-spacing: 0.5px;
+		}
 	</style>
 </head>
 
@@ -101,6 +120,12 @@
 	<header>
 		<h1>Carica un file</h1>
 		<p>Seleziona un file dal tuo dispositivo per effettuare l'upload</p>
+		<!-- <div class="client-label">
+            👤 login
+		</div> -->
+		<form method="GET" action="login/">
+			<button class="client-label" action="login/">Accetta cookies</button>
+		</form>
 	</header>
 
 	<main>

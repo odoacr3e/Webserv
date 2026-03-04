@@ -95,6 +95,7 @@ void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 {
 	std::string	fname;
 
+	hex_to_char(url);
 	if (client.getRequest().getDnsErrorBool())
 		file.open("www/var/errors/dns/index.html");
 	else if (client.getRequest().getStatusCode() != 200)

@@ -95,4 +95,6 @@ void			vect_split(std::vector<std::string> &vect, std::string s, char c);
 void			vect_split(std::vector<char *> &vect, std::string s, char c);
 void			vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
+void			 hex_to_char(std::string& input);
+
 #endif

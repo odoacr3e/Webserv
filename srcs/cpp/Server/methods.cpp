@@ -76,6 +76,9 @@ void	Server::getMethod(Client &client, std::fstream *file)
 void	Server::deleteMethod(Client &client, std::fstream *file)
 {
 	if (check_delete(client, this->resp_body, *this, file) != 0)
+	{
+		std::cout << "protected!" << std::endl;
+	}
 		return ;
 	(*file).close();
 	execute_delete(client, this->resp_body, file);
@@ -93,6 +96,8 @@ static int	check_delete(Client &client, std::string &body, Server &srv, std::fst
 	dns = client.getRequest().getDnsErrorBool();
 	autoindex = client.getRequest().getAutoIndexBool();
 	url = client.getRequest().getUrl();
+	hex_to_char(url);
+	std::cout << "FILE: " << url << std::endl;
 	if (status_code != 200 || dns == true || autoindex == true)
 	{
 		if (body.empty() == true)

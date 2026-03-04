@@ -38,12 +38,14 @@ CONF_PARSING = $(addprefix conf/, parseEvent.o parseMain.o parseServer.o parseLo
 REQUEST_PARSING = $(addprefix request/, utils.o)
 
 CPP = $(addprefix cpp/, 		Client.o \
-		$(addprefix Server/,	Server.o getter.o setter.o methods.o setup_utils.o)\
+		$(addprefix Server/,	getter.o setter.o print.o Server.o autoIndex.o processRequest.o processResponse.o methods.o setup_utils.o)\
 		$(addprefix conf/, 		getter.o setter.o print.o Conf.o) \
-		$(addprefix request/, 	getter.o setter.o print.o Request.o))
-UTILS = $(addprefix utils/, 	utils_page1.o path_checker.o value_checker.o \
-								string/string.o string/buffer.o url.o env.o directory.o \
-								cgi.o html_pokedex.o)
+		$(addprefix request/, 	getter.o setter.o print.o Request.o) \
+		$(addprefix cgi/, 		Cgi.o argv.o execute.o html/crypter.o html/cub.o html/pokedex.o html/var.o))
+
+UTILS = $(addprefix utils/, 	file.o utils_page1.o path_checker.o value_checker.o \
+								string/string.o string/buffer.o url.o env.o directory.o)
+
 
 WEB_OBJ = $(addprefix $(PROJ_OBJ_DIR)/, $(CPP) $(PARSING) $(UTILS))
 

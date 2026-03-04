@@ -130,7 +130,7 @@ static int	bodyParsing(Request &request)
 
 	request.setBodyLen(std::atoi(request.getHeaderVal("Content-Length").c_str()));
 	if (request.getHeaderVal("Transfer-Encoding") != "")
-		{;}//FIXME - gestire transfer encoding
+		return (request.fail(HTTP_SE_NOT_IMPLEMENTED));
 	if (request.getMethodEnum() != POST)
 		std::getline(request.getRequestStream(), body, '\0');
 	request.setBody(body);

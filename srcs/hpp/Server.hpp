@@ -85,10 +85,10 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::string			checkErrorPages(Request &request);
 
 		// NOTE - Methods functions
-		void				runMethod(Client &client, std::string &body, std::fstream &file);
-		void				getMethod(Client &client, std::string &body, std::fstream *file);
-		void				deleteMethod(Client &client, std::string &body, std::fstream *file);
-		void				postMethod(Client &client, std::string &body, std::fstream *resp_file);
+		void				runMethod(Client &client, std::fstream &file);
+		void				getMethod(Client &client, std::fstream *file);
+		void				deleteMethod(Client &client, std::fstream *file);
+		void				postMethod(Client &client, std::fstream *resp_file);
 
 		// NOTE - close all sockets
 		void				suppressSocket();

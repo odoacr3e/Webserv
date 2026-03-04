@@ -13,28 +13,28 @@ void		fill_error_page(Client &client, std::string &html);
 	-	POST
 *///helo
 
-void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &file)
+void	Server::runMethod(Client &client, std::fstream &file)
 {
-	if (resp_body.empty() == false)
+	if (this->resp_body.empty() == false)
 		return ;
 	if (client.getRequest().getFailMsg().empty() == false)
 	{
-		resp_body = file_opener(file, "runMethod GET: Cannot open file");
-		fill_error_page(client, resp_body);
+		this->resp_body = file_opener(file, "runMethod GET: Cannot open file");
+		fill_error_page(client, this->resp_body);
 		return ;
 	}
 	if (client.getRequest().getRunScriptBool() == true)
-		run_script(*this, client, resp_body);
+		run_script(*this, client, this->resp_body);
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			this->getMethod(client, resp_body, &file);
+			this->getMethod(client, &file);
 			break ;
 		case DELETE:
-			this->deleteMethod(client, resp_body, &file);
+			this->deleteMethod(client, &file);
 			break ;
 		case POST:
-			this->postMethod(client, resp_body, &file);
+			this->postMethod(client, &file);
 			break ;
 		case HEAD:
 			;//funzione che gestisce HEAD
@@ -44,27 +44,26 @@ void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &fil
 	}
 }
 
-void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
+void	Server::getMethod(Client &client, std::fstream *file)
 {
-	(void)body;
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
 	std::cout << "runMethod(): reading file..\n";
 	if (client.getRequest().getBodyType() == "text/html")
 	{
 		std::cout << "Entro nell'override login\n";
-		std::getline(*file, body, '\0');
+		std::getline(*file, this->resp_body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
 		{
-			find_and_replace(body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
-			find_and_replace(body, "</div> -->", "</div>");
-			find_and_replace(body, "login", client.getCookieData().login);
-			find_and_replace(body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
-			find_and_replace(body, "</form>", "</form> -->");
+			find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
+			find_and_replace(this->resp_body, "</div> -->", "</div>");
+			find_and_replace(this->resp_body, "login", client.getCookieData().login);
+			find_and_replace(this->resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
+			find_and_replace(this->resp_body, "</form>", "</form> -->");
 		}
 		else
 			std::cout << "Cookie è vuoto!\n";
-		std::cout << body << "\n";
+		std::cout << this->resp_body << "\n";
 		return ;
 	}
 	client.sendContentBool() = true;
@@ -74,12 +73,12 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 	client.getBuffer().push_back('\n');
 }
 
-void	Server::deleteMethod(Client &client, std::string &body, std::fstream *file)
+void	Server::deleteMethod(Client &client, std::fstream *file)
 {
-	if (check_delete(client, body, *this, file) != 0)
+	if (check_delete(client, this->resp_body, *this, file) != 0)
 		return ;
 	(*file).close();
-	execute_delete(client, body, file);
+	execute_delete(client, this->resp_body, file);
 }
 
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file)
@@ -142,7 +141,7 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 
 //SECTION - POST
 
-void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_file)
+void	Server::postMethod(Client &client, std::fstream *resp_file)
 {	
 	(void)resp_file;//FIXME - togliere da prototipo
 	Request	&request = client.getRequest();
@@ -187,8 +186,8 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		html.open((checkErrorPages(client.getRequest())).c_str());
 	}
 	// std::cout << "FAILE: " << file << std::endl;
-	body = file_opener(html);
-	find_and_replace(body, "{MSG}", request.getFailMsg());
+	this->resp_body = file_opener(html);
+	find_and_replace(this->resp_body, "{MSG}", request.getFailMsg());
 }
 
 void	print_bin(std::string filename, char *bin_data, size_t len);

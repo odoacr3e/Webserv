@@ -5,7 +5,6 @@
         <title>My C++ Web Server</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-
         <style>
 
 </style>
@@ -16,22 +15,24 @@
         <header>
             <h1>🚀 My Web Server</h1>
             <p>Web server scritto in C++ • Minimal • Performante</p>
-            <div class="client-label">
+            <!-- <div class="client-label">
                 👤 login
-            </div>
+            </div> -->
+            <form method="GET" action="login/">
+                <button class="client-label" action="login/">Accetta cookies</button>
+            </form>
         </header>
 
         <main>
-
             <section class="card">
                 <h2>Server Status</h2>
                 <p class="ok">✔ Server avviato correttamente</p>
                 <label> Seleziona il tuo colore da gay</label>
                 <br>
                 <input type="color" value="#e66465" />
-                <form method="GET" action="login/">
+                <!-- <form method="GET" action="login/">
                     <button action="login/">Cookies</button>
-                </form>
+                </form> -->
             </section>
 
             <div class="nav-wrapper">

@@ -26,8 +26,6 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 			request.setRequestErrorBool(true);
 			return ;
 		}
-		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
-			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		this->setupRequestEnvironment(client);
 		if (client.getRequest().getMethodEnum() == GET)
 			request.getBytesLeft() -= request.getBodyLen();
@@ -82,12 +80,19 @@ void	Server::setupRequestEnvironment(Client &client)
 	Request			&request = client.getRequest();
 	t_conf_server	*srv;
 	t_conf_location	*loc;
+	int				max_body_size;
 
 	srv = &(*this->_srvnamemap)[request.getHost()];
+	max_body_size = srv->client_max_body_size;
 	client.getSrvConf() = *srv;
 	loc = request.findRightLocation(srv);
 	if (loc)
+	{
 		client.getLocConf() = *loc;
+		max_body_size = loc->client_max_body_size;
+	}
+	if (max_body_size < (int)client.getRequest().getBodyLen())
+		request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request");
 	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()], loc);
 	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");

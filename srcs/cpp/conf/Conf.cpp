@@ -91,6 +91,8 @@ void	s_conf_location::set_if_empty(Conf &conf)
 		this->conf_root = "/";
 	if (this->root.empty())
 		this->root = ""; //HTTP_RD_FOUND
+	if (this->client_max_body_size == 0)
+		this->client_max_body_size = conf.getServerBlock().client_max_body_size;
 }
 
 void	s_conf_location::set(std::string path)
@@ -103,6 +105,7 @@ void	s_conf_location::set(std::string path)
 	this->fastcgi_bool = false;
 	this->mask_methods = 0;
 	this->alias = false;
+	this->client_max_body_size = 0;
 	this->gen_cookie = false;
 	this->ret_code = 0, this->ret_text.clear();
 }

@@ -64,7 +64,6 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 		}
 		else
 			std::cout << "Cookie è vuoto!\n";
-		std::cout << body << "\n";
 		return ;
 	}
 	client.sendContentBool() = true;

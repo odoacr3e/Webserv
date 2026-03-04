@@ -85,6 +85,7 @@ struct s_conf_location
 	std::string					ret_text;
 	std::string					post_storage;
 	std::string					script_type;
+	int							client_max_body_size;
 	int							ret_code;
 	unsigned char				mask_methods;
 	bool						autoindex; //set autoindex mode on

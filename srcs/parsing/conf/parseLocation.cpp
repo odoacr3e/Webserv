@@ -8,6 +8,7 @@ static void	parseRoot(Conf &conf, std::vector<std::string> &list, int line);
 static void parseCgiPath(Conf &conf, std::vector<std::string> &list, int line);
 static void parseReturn(Conf &conf, std::vector<std::string> &list, int line);
 static void	parseIndex(Conf &conf, std::vector<std::string> list, int line);
+static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line);
 static void	parseScriptBool(Conf &conf, std::vector<std::string> list, int line);
 static void	parseScriptType(Conf &conf, std::vector<std::string> list, int line);
 static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line);
@@ -37,6 +38,8 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 		parseMethodsList(conf, list, line);
 	else if (list[0] == "storage")
 		parseStorage(conf, list, line);
+	else if (list[0] == "client_max_body_size")
+		parseBodySize(conf, list, line);
 	else if (list[0] == "script" || list[0] == "fastcgi")
 		parseScriptBool(conf, list, line);
 	else if (list[0] == "script_type")
@@ -190,6 +193,24 @@ static void	parseStorage(Conf &conf, std::vector<std::string> &list, int line)
 		conf.getLocationBlock().post_storage = list[1];
 	else
 		instructionError(list, line, "storage path not valid");	
+}
+
+static void	parseBodySize(Conf &conf, std::vector<std::string> list, int line)
+{
+	int	body_size;
+
+	if (list.size() != 2)
+		instructionError(list, line, "please give one valid integer");
+	if (conf.getLocationBlock().client_max_body_size != 0)
+		instructionWarning(list, line, "body_size already defined");
+	if (!std::strchr("0123456789", list[1][0]))
+		instructionError(list, line, "body size must be a valid number");
+	body_size = std::atoi(list[1].c_str());
+	if (body_size < 0)
+		instructionError(list, line, "negative body size.. seriously man??");
+	if (body_size == 0)
+		instructionWarning(list, line, "body size 0 will be normalized");
+	conf.getLocationBlock().client_max_body_size = body_size;
 }
 
 static void	parseScriptBool(Conf &conf, std::vector<std::string> list, int line)

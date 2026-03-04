@@ -31,8 +31,8 @@ void	decrypt_str(char *str)
 	int 	i = 0;
 	int 	j = KEYLEN;
 
-	copy_key(str, key);// key: ore+L*mpap:5#-Ho
-	while (str[j])// ore+L*mpap:5#-HoS4O4.4]4#5(44574U4V4
+	copy_key(str, key);
+	while (str[j])
 	{
 		str[j] = str[j] - key[(j - KEYLEN) % KEYLEN] - ((j - KEYLEN) / KEYLEN);
 		if (str[j + 1] == '1')

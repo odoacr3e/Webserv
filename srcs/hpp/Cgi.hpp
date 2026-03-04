@@ -4,6 +4,8 @@
 # include "Server.hpp"
 # include "Client.hpp"
 
+typedef std::vector<char *>	argvVector;
+
 class Server;
 class Client;
 
@@ -24,6 +26,7 @@ typedef	struct s_cgi
 	void	removeFromPoll(bool is_pipe_out, Server &srv);
 	int		headerParsing(Client &client);
 	int		readChunk(Client &client);
+	void	processOutput(Client &client, std::string &body);
 
 	std::string	input;
 	char		*output;
@@ -36,6 +39,16 @@ typedef	struct s_cgi
 	bool		isFastCgiBool;
 	bool		isParsed;
 }		t_cgi;
+
+void		get_argv(Client &client, argvVector &v);
+void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
+void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
+
+std::string		createHtmlPokedex(s_cgi &cgi);
+std::string		createHtmlCub(t_cgi &cgi_data, Client &client);
+std::string		createHtmlYouTube(t_cgi &cgi_data);
+std::string		createHtmlCrypter(t_cgi &cgi_ptr);
+std::string		createHtmlWeaksleep(t_cgi &cgi_data);
 
 #endif
 

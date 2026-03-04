@@ -1,5 +1,4 @@
-#include "../../../../includes/ether.hpp"
-#include "../../../hpp/Server.hpp"
+#include "../../../hpp/Cgi.hpp"
 
 # define GIANLUIGI_BUFFON "\
 <!DOCTYPE html>\n\
@@ -32,12 +31,4 @@ std::string createHtmlWeaksleep(t_cgi &cgi_data)
 
 	body = file_opener(file, "");
 	return (body);
-}
-
-void	createArgvWeaksleep(std::string &args, argvVector &argv_data)
-{
-	
-	find_and_erase(args, "number=");
-	args = "www/cgi-bin/weaksleep/weaksleep.py&" + args;
-	vect_split_new(argv_data, args, '&');
 }

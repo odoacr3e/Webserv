@@ -18,7 +18,7 @@ void	run_cmd(char *const argv[], std::string &output, bool kill_bool)
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		execve(argv[0], argv, NULL);
-		std::cerr << "run_cmd fatal error\n";
+		std::cerr << "exec_cgi fatal error\n";
 		std::exit(1);
 	}
 	close(pipe_fd[1]);

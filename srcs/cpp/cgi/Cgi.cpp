@@ -1,18 +1,4 @@
-#include "../../hpp/Client.hpp"
-
-typedef std::vector<char *>	argvVector;
-
-void		get_argv(Client &client, argvVector &v);
-void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
-void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv);
-
-std::string		createHtmlPokedex(s_cgi &cgi);
-std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client);
-std::string		createHtmlYouTube(t_cgi &cgi_data);
-std::string		createHtmlCrypter(t_cgi &cgi_ptr);
-void			createArgvCrypter(std::string &args, argvVector &argv);
-void			createArgvWeaksleep(std::string &args, argvVector &argv_data);
-std::string		createHtmlWeaksleep(t_cgi &cgi_data);
+#include "../../hpp/Cgi.hpp"
 
 //FIXME - 
 void	run_script(Server &srv, Client &client, std::string &body)
@@ -26,30 +12,14 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	{
 		get_argv(client, argv);
 		if (client.getLocConf().fastcgi_bool == true)
-			run_daemon(srv, client, cgi_data, argv);
+			exec_fastcgi(srv, client, cgi_data, argv);
 		else
-			run_cmd(srv, client, cgi_data, argv);
+			exec_cgi(srv, client, cgi_data, argv);
 		return ;
 	}
 	else // se cgi gia eseguita, ripesca dati cgi
 		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
-	client.getRequest().setBodyType("text/html");
-	if (client.getLocConf().script_type == "pokedex")
-		body = createHtmlPokedex(*cgi_ptr);
-	else if (client.getLocConf().script_type == "cub3D")
-		body = createHtmlCub(*cgi_ptr, srv, client);
-	else if (client.getLocConf().script_type == "giorgio")
-		body = createHtmlYouTube(*cgi_ptr);
-	else if (client.getLocConf().script_type == "crypter")
-		body = createHtmlCrypter(*cgi_ptr);
-	else if (client.getLocConf().script_type == "weaksleep")
-		body = createHtmlWeaksleep(*cgi_ptr);
-	else
-	{
-		body = cgi_ptr->output;
-		client.getRequest().setBodyType("text/plain");
-		std::cout << "script_type undefined. no html created." << std::endl;
-	}
+	cgi_ptr->processOutput(client, body);
 	if (client.getLocConf().fastcgi_bool == false)
 		delete cgi_ptr;
 	else
@@ -170,6 +140,27 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	srv.getAddrsVector().pop_back();
 	std::cout << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
 	close_fd(&this->pipe[is_pipe_out]);
+}
+
+void	s_cgi::processOutput(Client &client, std::string &body)
+{
+	client.getRequest().setBodyType("text/html");
+	if (client.getLocConf().script_type == "pokedex")
+		body = createHtmlPokedex(*this);
+	else if (client.getLocConf().script_type == "cub3D")
+		body = createHtmlCub(*this, client);
+	else if (client.getLocConf().script_type == "giorgio")
+		body = createHtmlYouTube(*this);
+	else if (client.getLocConf().script_type == "crypter")
+		body = createHtmlCrypter(*this);
+	else if (client.getLocConf().script_type == "weaksleep")
+		body = createHtmlWeaksleep(*this);
+	else
+	{
+		body = this->output;
+		client.getRequest().setBodyType("text/plain");
+		std::cout << "script_type undefined. no html created." << std::endl;
+	}
 }
 
 void	s_cgi::clear(Server &srv, Client &client)

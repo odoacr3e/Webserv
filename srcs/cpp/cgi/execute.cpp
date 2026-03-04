@@ -1,12 +1,9 @@
-#include "../../../includes/ether.hpp"
-#include "../../hpp/Client.hpp"
-#include "../../hpp/Server.hpp"
+#include "../../hpp/Cgi.hpp"
 
-typedef std::vector<char *>	argvVector;
 
 void	vect_split_free(std::vector<char *> &vect, size_t size);
 
-void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
+void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	if (pipe(cgi_data.pipe) != 0)
 		return (std::cout << "run_script fatal error: pipe\n", (void)0);
@@ -32,7 +29,7 @@ void		run_cmd(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 	client.bindCgiSocket(srv, *cgi_ptr);
 }
 
-void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
+void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	s_cgi	*cgi_ptr;
 

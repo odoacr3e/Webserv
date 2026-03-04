@@ -1,9 +1,9 @@
-#include "../../../../includes/ether.hpp"
-#include "../../../hpp/Server.hpp"
+#include "../../../hpp/Cgi.hpp"
 
-std::string		createHtmlCub(t_cgi &cgi_data, Server &srv, Client &client)
+
+std::string		createHtmlCub(t_cgi &cgi_data, Client &client)
 {
-	(void)cgi_data, (void)srv, (void)client;
+	(void)cgi_data, (void)client;
 	/*
 	std::string		output(client.getBuffer().data(), 100);
 	size_t			sep_index;

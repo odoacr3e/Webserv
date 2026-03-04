@@ -1,5 +1,5 @@
-#include "../../../../includes/ether.hpp"
-#include "../../../hpp/Server.hpp"
+#include "../../../hpp/Cgi.hpp"
+
 
 #define ID_DATA 0
 #define ID_FIELD 1

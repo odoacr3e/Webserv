@@ -32,7 +32,11 @@ void	Server::processResponse(Client &client)
 	client.getPollFd(*this)->events = POLLIN;
 	perror("Pr()");
 }
-
+/**
+ * @brief utility function to clear the variables used to create an html response in server class
+ * 
+ * - resp_body
+ */
 void	Server::clearRespVariables()
 {
 	this->resp_body.clear();
@@ -69,7 +73,7 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	else
 		type += "html";
 	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
-		createAutoindex(client, this->resp_body);
+		createAutoindex(client);
 	else
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);

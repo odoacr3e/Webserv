@@ -4,7 +4,7 @@
 static std::string	calculateSize(size_t s);
 
 // NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
-void	Server::createAutoindex(Client &client, std::string &resp_body)
+void	Server::createAutoindex(Client &client)
 {
 	std::ifstream	file;
 	std::string		line;
@@ -20,7 +20,7 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	{
 		line.push_back('\n');
 		find_and_replace(line, "{PATH}", client.getRequest().getUrlOriginal());
-		resp_body += line;
+		this->resp_body += line;
 		if (line.find("<tbody") != std::string::npos)
 			break ;
 	}
@@ -29,28 +29,28 @@ void	Server::createAutoindex(Client &client, std::string &resp_body)
 	{
 		std::string dname = content->d_name;
 		if (dname[0] != '.')
-			listDirectoriesAutoIndex(client, resp_body, url, content);
+			listDirectoriesAutoIndex(client, url, content);
 		content = findUrlDirectory(url);
 	}
 	while (std::getline(file, line))
 		if (line.find("</tbody>") != std::string::npos)
 			break ;
-	resp_body += line;
+	this->resp_body += line;
 	std::cout << "createAutoindex()\n";
 	std::cout << client.getRequest().getUrlOriginal() << "\n";
 	std::getline(file, line, '\0');
 	find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
 	find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
-	resp_body += line;
-	find_and_replace(resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
-	find_and_replace(resp_body, "</div> -->", "</div>");
-	find_and_replace(resp_body, "login", client.getCookieData().login);
-	find_and_replace(resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
-	find_and_replace(resp_body, "</form>", "</form> -->");
+	this->resp_body += line;
+	find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
+	find_and_replace(this->resp_body, "</div> -->", "</div>");
+	find_and_replace(this->resp_body, "login", client.getCookieData().login);
+	find_and_replace(this->resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
+	find_and_replace(this->resp_body, "</form>", "</form> -->");
 }
 
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
-void Server::listDirectoriesAutoIndex(Client &client, std::string &body, std::string &url, dirent *cont)
+void Server::listDirectoriesAutoIndex(Client &client, std::string &url, dirent *cont)
 {
 	std::ifstream var;
 	std::string	path;
@@ -80,7 +80,7 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &body, std::st
 		find_and_replace(line, "{NAME}", s_cont);
 		find_and_replace(line, "{SIZE}", calculateSize(info.st_size));
 		find_and_replace(line, "{MODIFY}", std::ctime(&info.st_mtim.tv_sec));
-		body += line;
+		this->resp_body += line;
 	}
 }
 

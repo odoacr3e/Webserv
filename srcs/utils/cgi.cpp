@@ -47,9 +47,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	else if (client.getLocConf().script_type == "giorgio")
 		body = createHtmlYouTube(*cgi_ptr);
 	else if (client.getLocConf().script_type == "crypter")
-	{
 		body = createHtmlCrypter(*cgi_ptr);
-	}
 	else if (client.getLocConf().script_type == "weaksleep")
 		body = createHtmlWeaksleep(*cgi_ptr);
 	else
@@ -57,9 +55,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		body = cgi_ptr->output;
 		client.getRequest().setBodyType("text/plain");
 		std::cout << "script_type undefined. no html created." << std::endl;
-		std::cout << cgi_data.output << std::endl;
 	}
-	// std::cout << "BODY: \n\n" << BLUE"" << body << RESET << std::endl; 
 	if (client.getLocConf().fastcgi_bool == false)
 		delete cgi_ptr;
 	else
@@ -143,19 +139,18 @@ int read_file(std::string name, std::vector<char> &vect, int bytes);
 
 static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
-	ipPortCgiMap::iterator	cgi_exist;
+	s_cgi	*cgi_ptr;
 
-	cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
-	if (cgi_exist != srv.getIpPortCgiMap().end())
+	if (client.getCookieData().exist && client.getCookieData().cgi != NULL)
 	{
-		cgi_data = cgi_exist->second;
-		if (srv.getAddrs()[cgi_data.poll_index[0]].events & POLLIN)
+		cgi_ptr = client.getCookieData().cgi;
+		if (srv.getAddrs()[cgi_ptr->poll_index[0]].events & POLLIN)
 		{
 			vect_split_free(argv, argv.size() - 1);
 			std::cout << "goodbye\n";
 				return ;
 		}
-		write(cgi_data.pipe[1], argv[1], std::strlen(argv[1]));
+		write(cgi_ptr->pipe[1], argv[1], std::strlen(argv[1]));
 	}
 	else
 	{
@@ -163,10 +158,10 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 
 		if (pipe(pipes[0]) != 0 || pipe(pipes[1]) != 0)
 			return (std::cout << "run_script fatal error: pipe\n", (void)0);
-		fcntl(cgi_data.pipe[0], FD_CLOEXEC);
-		fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 		cgi_data.pipe[0] = pipes[0][0];
 		cgi_data.pipe[1] = pipes[1][1];
+		fcntl(cgi_data.pipe[0], FD_CLOEXEC);
+		fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 		cgi_data.pid = fork();
 		if (cgi_data.pid == -1)
 			return (std::cout << "run_script fatal error: fork\n", (void)0);
@@ -185,12 +180,18 @@ static void		run_daemon(Server &srv, Client &client, t_cgi &cgi_data, argvVector
 		}
 		close(pipes[0][1]);
 		close(pipes[1][0]);
-		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
-		cgi_data.poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
-		srv.getIpPortCgiMap()[client.getRequest().getHost()] = cgi_data;
-		cgi_exist = srv.getIpPortCgiMap().find(client.getRequest().getHost());
+		cgi_ptr = new s_cgi(cgi_data);
+		if (client.getCookieData().exist == true)
+			srv.getCookieMap()[client.getCookieData().id].cgi = cgi_ptr;
+		else
+		{
+			std::cerr << "run_script fatal error: fastcgi needs cookies\n";
+			cgi_data.clear();
+			delete cgi_ptr;
+			return (std::cerr << "run_script fatal error: no cookies\n", (void)0);
+		}
+		cgi_ptr->poll_index[0] = srv.addSocket(cgi_data.pipe[0], FD_PIPE_RD);
 	}
-	s_cgi	*cgi_ptr = &cgi_exist->second;
 	client.bindCgiSocket(srv, *cgi_ptr);
 	vect_split_free(argv, argv.size() - 1);
 }

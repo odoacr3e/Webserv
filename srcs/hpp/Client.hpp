@@ -1,19 +1,20 @@
 #ifndef CLIENT_HPP
 # define CLIENT_HPP
 
-# include "Request.hpp"
 # include "Server.hpp"
+# include "Request.hpp"
 # include "Conf.hpp"
 # include "Cgi.hpp"
 # include <vector>
 
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
+typedef struct s_cookieData		t_cookieData;
 //
 struct s_conf_server;
 struct s_conf_location;
 struct s_cgi;
-struct s_login;
+struct s_cookieData;
 class	Request;
 
 class Client
@@ -24,7 +25,7 @@ class Client
 		int					_srvfd;
 		int					_poll_index;
 		Request				_request;
-		// s_login				*_login;
+		t_cookieData		_cookie_data;
 		t_conf_server		_srv_config;
 		t_conf_location		_loc_config;
 		std::vector<char>	_buffer;
@@ -44,6 +45,8 @@ class Client
 		std::vector<char>	&getBuffer();
 		struct pollfd		*getPollFd(Server &srv);
 		char				*getBufferChar();
+		s_cookieData		&getCookieData();
+		void				setCookieData(Server &srv);
 		int					getAllowedMethods() const;
 		int					isAllowedMethod();
 		bool				&sendContentBool();

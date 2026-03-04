@@ -91,4 +91,6 @@ void	Server::setupRequestEnvironment(Client &client)
 	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()], loc);
 	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
+	if (client.getRequest().getCookieKey().empty() == false)
+		client.setCookieData(*this);
 }

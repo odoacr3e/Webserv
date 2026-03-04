@@ -55,8 +55,8 @@ void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
 	{
 		std::cout << "Entro nell'override login\n";
 		std::getline(*file, body, '\0');
-		if (client.getRequest().getCookieKey().empty() == false)
-			find_and_replace(body, "login", this->_cookie_map[client.getRequest().getCookieKey()].login);
+		if (client.getCookieData().exist == true)
+			find_and_replace(body, "login", client.getCookieData().login);
 		else
 			std::cout << "Cookie è vuoto!\n";
 		return ;

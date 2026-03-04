@@ -73,6 +73,19 @@ int		Client::getAllowedMethods() const
 		return (this->_srv_config.mask_methods);
 }
 
+s_cookieData		&Client::getCookieData()
+{
+	return (this->_cookie_data);
+}
+
+void	Client::setCookieData(Server &srv)
+{
+	this->_cookie_data.exist = true;
+	this->_cookie_data.id = this->getRequest().getCookieKey();
+	this->_cookie_data.login = "client " + this->_cookie_data.id;
+	this->_cookie_data.cgi = srv.getCookieMap()[this->_cookie_data.id].cgi;
+}
+
 //returns 0 if not allowed
 //else returns method mask
 int	Client::isAllowedMethod()
@@ -260,8 +273,6 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 
 void	s_cgi::clear(Server &srv, Client &client)
 {
-	IpPortPair	&ipPort = client.getRequest().getHost();
-
 	if (this->pid != 0 && this->isFastCgiBool == true)
 		kill(this->pid, SIGKILL);
 	this->pid = 0;
@@ -269,8 +280,9 @@ void	s_cgi::clear(Server &srv, Client &client)
 		this->removeFromPoll(false, srv);
 	if (this->pipe[1])
 		this->removeFromPoll(true, srv);
-	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
-		srv.getIpPortCgiMap().erase(ipPort);
+	if (client.getCookieData().exist == true)
+		srv.getCookieMap()[client.getCookieData().id].cgi = NULL;
+	client.getCookieData().cgi = NULL;
 }
 
 void	s_cgi::clear()

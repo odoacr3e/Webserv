@@ -26,11 +26,6 @@ SrvNameMap		&Server::getSrvNameMap() const
 	return (*this->_srvnamemap);
 }
 
-ipPortCgiMap	&Server::getIpPortCgiMap()
-{
-	return (this->_ipPortCgiPair);
-}
-
 cookieMap	&Server::getCookieMap(void)
 {
 	return (this->_cookie_map);

@@ -50,6 +50,11 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		const char						**_env;
 		int								_server_num;
 		int								_i;
+		// Create response varables
+		std::string						resp_body;
+		// std::fstream					file;
+		// std::string					type;
+		// std::string					url;
 
 	public:
 		Server(Conf &conf, const char **env);
@@ -90,7 +95,8 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void 				printPollInfo(std::string filename);
 
 		// NOTE - creation HTML
-		std::string	createHtml(Client &client, std::string &body);
+		std::string			createHtml(Client &client);
+		void				clearRespVariables();
 };
 
 /*SECTION - gestione concorrenza

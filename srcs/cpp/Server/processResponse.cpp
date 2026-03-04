@@ -2,6 +2,12 @@
 
 //void	manage_cookies();
 
+/**
+ * @brief Creates the response to send to the receiving client according to the method chosen.
+ * 
+ * - If post is selected it first sends the std::string html page then uses the std::vector<Char> in order to work with binary values.
+ * @param client > destination Client
+ */
 void	Server::processResponse(Client &client)
 {
 	static int	n_resp;
@@ -27,13 +33,30 @@ void	Server::processResponse(Client &client)
 	perror("Pr()");
 }
 
+void	Server::clearRespVariables()
+{
+	this->resp_body.clear();
+}
+
+/**
+ * @brief Creates the html page according to the request demands.
+ * 
+ * - Returns an autoindex page if a request's url is a valid directory
+ * 
+ * - Returns an html webpage if reqeust's url is valid path
+ * 
+ * - Proceeds to execute the chosen method
+ * @param client > destination Client
+ * @return std::string html page
+ */
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
+	// std::string		body;
 	std::fstream	file;
-	std::string		body;
 	std::string		type("text/");
 	std::string		url;
 
+	this->clearRespVariables();
 	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
 		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
 	url = client.getRequest().getUrl();
@@ -46,16 +69,24 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	else
 		type += "html";
 	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(url) && client.getRequest().getMethodEnum() != POST)
-		createAutoindex(client, body);
+		createAutoindex(client, this->resp_body);
 	else
 		choose_file(client, file, url);
 	client.getRequest().setBodyType(type);
-	runMethod(client, body, file);
+	runMethod(client, this->resp_body, file);
 	if (client.getPollFd(*this)->events & POLLOUT)
-		return (createHtml(client, body));
+		return (createHtml(client));
 	return ("");
 }
 
+/**
+ * @brief Chooses which html prefab to open
+ * 
+ * According to the request type and response type we have existing html prefabs to open and modify
+ * 
+ * In case of fail, if a custom made error page was provided we use that
+ * @param client > destination Client
+ */
 void	Server::choose_file(Client &client, std::fstream &file, std::string url)
 {
 	std::string	fname;
@@ -127,7 +158,7 @@ std::string createSessionId()
 }
 
 // NOTE - crea html come body per la risposta da inviare al client
-std::string	Server::createHtml(Client &client, std::string &body)
+std::string	Server::createHtml(Client &client)
 {
 	std::ostringstream	response;
 	static std::string	http_codes_str[] = VALID_HTTP_STR;
@@ -157,8 +188,8 @@ std::string	Server::createHtml(Client &client, std::string &body)
 	}
 	else
 	{
-		response << "Content-Length: " << body.size() << "\r\n\r\n";
-		response << body << "\n\n";
+		response << "Content-Length: " << this->resp_body.size() << "\r\n\r\n";
+		response << this->resp_body << "\n\n";
 	}
 	std::cout << "createHtml() URL: " << url << std::endl;
 	return (response.str());

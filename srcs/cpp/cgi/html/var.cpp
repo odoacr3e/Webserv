@@ -1,5 +1,5 @@
-#include "../../includes/ether.hpp"
-#include "../../srcs/hpp/Server.hpp"
+#include "../../../../includes/ether.hpp"
+#include "../../../hpp/Server.hpp"
 
 # define GIANLUIGI_BUFFON "\
 <!DOCTYPE html>\n\

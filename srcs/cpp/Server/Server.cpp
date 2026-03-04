@@ -60,8 +60,7 @@ void Server::suppressSocket()
 			this->_clients.erase((*it).fd);
 //			it = this->_addrs.erase(it) - 1;
 		}
-		else if (this->_fd_data[it->fd].type == FD_PIPE_RD || \
-				this->_fd_data[it->fd].type == FD_PIPE_WR)
+		else if (this->_fd_data[it->fd].type == FD_PIPE_RD)
 		{
 			cgi = this->_fd_data[it->fd].cgi;
 			if (cgi != NULL)

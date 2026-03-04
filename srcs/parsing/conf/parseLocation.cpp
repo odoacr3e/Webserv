@@ -37,7 +37,7 @@ void	confParseLocation(Conf &conf, std::vector<std::string> list, int line)
 		parseMethodsList(conf, list, line);
 	else if (list[0] == "storage")
 		parseStorage(conf, list, line);
-	else if (list[0] == "script" || list[0] == "script_daemon")
+	else if (list[0] == "script" || list[0] == "fastcgi")
 		parseScriptBool(conf, list, line);
 	else if (list[0] == "script_type")
 		parseScriptType(conf, list, line);
@@ -200,8 +200,8 @@ static void	parseScriptBool(Conf &conf, std::vector<std::string> list, int line)
 		instructionError(list, line, "bad script params number");
 	if (list[0] == "script")
 		ptr = &conf.getLocationBlock().run_script;
-	else if (list[0] == "script_daemon")
-		ptr = &conf.getLocationBlock().script_daemon;
+	else if (list[0] == "fastcgi")
+		ptr = &conf.getLocationBlock().fastcgi_bool;
 	else
 		instructionError(list, line, "unrecognized ScriptBool");
 	if (list[1] == "on")

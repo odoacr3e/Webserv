@@ -4,6 +4,7 @@
 # include "../../includes/ether.hpp"
 # include "Client.hpp"
 # include "Conf.hpp"
+# include "Cgi.hpp"
 # include "Request.hpp"
 
 #define MSG_END_CONNECTION "[***********************************]\nchiudo connessione {INDEX}\n[***********************************]\n"
@@ -32,8 +33,7 @@ class Client;
 struct s_cgi;
 struct s_login;
 typedef std::vector<char *>	packetBuffer;
-typedef std::map<IpPortPair, s_cgi>	ipPortCgiMap;
-typedef std::map<std::string, s_login>	cookieMap;
+typedef std::map<std::string, s_cookieData>	cookieMap;
 struct s_fd_data;
 typedef std::vector<struct s_fd_data> fdData;
 
@@ -46,7 +46,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::map<int, t_conf_server *>	_server_data;
 		SrvNameMap						*_srvnamemap;
 		cookieMap						_cookie_map;
-		ipPortCgiMap					_ipPortCgiPair;
 		std::string						_protected_files;
 		const char						**_env;
 		int								_server_num;
@@ -68,7 +67,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				eraseClient(Client &client, int i);
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;
-		ipPortCgiMap		&getIpPortCgiMap();
 		packetBuffer		&getPacketBuffer();
 		const std::string	&getProtectedFiles() const;
 		int					&getPollIndex();
@@ -147,12 +145,6 @@ typedef struct s_fd_data
 	enum e_fd_type	type;
 	bool			cgi_ready;
 }		t_fd_data;
-
-struct s_login
-{
-	std::string	login;
-	s_cgi		*cgi;
-};
 
 void		convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap);
 

@@ -61,6 +61,8 @@ void Server::printPollInfo(std::string filename)
 			result << "POLLIN, ";
 		if (poll_data.events & POLLOUT)
 			result << "POLLOUT, ";
+		if (poll_data.events & POLLHUP)
+			result << "POLLHUP, ";
 		result << "\n";
 		result << "REVENTS: ";
 		if (poll_data.revents == 0)
@@ -69,6 +71,8 @@ void Server::printPollInfo(std::string filename)
 			{result << "POLLIN, ";revents_count++;}
 		if (poll_data.revents & POLLOUT)
 			{result << "POLLOUT, ";revents_count++;}
+		if (poll_data.revents & POLLERR)
+			{result << "!!!!!POLLERR!!!!!, ";revents_count++;}
 		result << "\n";
 	}
 	result << DIV;

@@ -100,7 +100,7 @@ void	s_conf_location::set(std::string path)
 	this->cgi_path.clear();
 	this->autoindex = false;
 	this->run_script = false;
-	this->script_daemon = false;
+	this->fastcgi_bool = false;
 	this->mask_methods = 0;
 	this->alias = false;
 	this->gen_cookie = false;

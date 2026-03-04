@@ -73,6 +73,19 @@ int		Client::getAllowedMethods() const
 		return (this->_srv_config.mask_methods);
 }
 
+s_cookieData		&Client::getCookieData()
+{
+	return (this->_cookie_data);
+}
+
+void	Client::setCookieData(Server &srv)
+{
+	this->_cookie_data.exist = true;
+	this->_cookie_data.id = this->getRequest().getCookieKey();
+	this->_cookie_data.login = "client " + this->_cookie_data.id;
+	this->_cookie_data.cgi = srv.getCookieMap()[this->_cookie_data.id].cgi;
+}
+
 //returns 0 if not allowed
 //else returns method mask
 int	Client::isAllowedMethod()
@@ -86,6 +99,20 @@ int	Client::isAllowedMethod()
 bool	&Client::sendContentBool()
 {
 	return (this->_send_content);
+}
+
+void	Client::bindCgiSocket(Server &srv, s_cgi &cgi)
+{
+	if (cgi.isFastCgiBool == false)
+		cgi.poll_index[0] = srv.addSocket(cgi.pipe[0], FD_PIPE_RD);
+	else
+		srv.getAddrs()[cgi.poll_index[0]].events = POLLIN;
+	this->getPollFd(srv)->events = POLLHUP;
+	srv.getFdData()[cgi.pipe[0]].client = this;
+	srv.getFdData()[cgi.pipe[0]].cgi = &cgi;
+	srv.getFdData()[this->getSockFd()].cgi_ready = true;
+	srv.getFdData()[this->getSockFd()].client = this;
+	srv.getFdData()[this->getSockFd()].cgi = &cgi;
 }
 
 void	Client::readCgi(Server &srv, s_cgi &cgi)
@@ -128,152 +155,4 @@ void	Client::writeCgi(Server &srv, s_cgi &cgi)
 		cgi.removeFromPoll(true, srv);
 	else
 		srv.getAddrsVector()[cgi.pipe[0]].events &= (~POLLOUT);
-}
-
-s_cgi::s_cgi(void)
-{
-	this->isFastCgiBool = false;
-	this->pid = 0;
-	this->pipe[0] = 0;
-	this->pipe[1] = 0;
-	this->poll_index[0] = 0;
-	this->poll_index[1] = 0;
-	this->bytes_read = 0;
-	this->output_len = 0;
-	this->isParsed = false;
-}
-
-s_cgi::s_cgi(Client &client)
-{
-	this->bytes_read = 0;
-	this->pipe[0] = 0;
-	this->pipe[1] = 0;
-	this->poll_index[0] = 0;
-	this->poll_index[1] = 0;
-	this->pid = 0;
-	this->output_len = 0;
-	this->isParsed = false;
-	if (client.getLocConf().exist == true && client.getLocConf().script_daemon == true)
-		this->isFastCgiBool = true;
-	else
-		this->isFastCgiBool = false;
-}
-
-s_cgi::s_cgi(const s_cgi &other)
-{
-	*this = other;
-}
-
-s_cgi	&s_cgi::operator=(const s_cgi &other)
-{
-	if (this == &other)
-		return (*this);
-	this->poll_index[0] = other.poll_index[0];
-	this->poll_index[1] = other.poll_index[1];
-	this->pid = other.pid;
-	this->pipe[0] = other.pipe[0];
-	this->pipe[1] = other.pipe[1];
-	this->output = other.output;
-	this->output_len = other.output_len;
-	this->bytes_read = other.bytes_read;
-	this->isFastCgiBool = other.isFastCgiBool;
-	this->isParsed = other.isParsed;
-	return (*this);
-}
-
-// return -1 if an error occurs, else 0
-int		s_cgi::headerParsing(Client &client)
-{
-	int			bytes;
-	std::string	output;
-
-	client.getBuffer().resize(CGI_HEADER_LEN);
-	bytes = read(this->pipe[0], client.getBuffer().data() + this->bytes_read, CGI_HEADER_LEN - this->bytes_read);
-	if (bytes <= 0)
-		return (std::cerr << "readCgiError: cgi is gone\n", -1);
-	this->bytes_read += bytes;
-	if (this->bytes_read != CGI_HEADER_LEN)
-		return (0);
-	client.getBuffer().push_back('\0');
-	output = client.getBuffer().data();
-	client.getBuffer().clear();
-	this->bytes_read = 0;
-	if (output.compare(0, 3, "OK|") != 0 || output.rbegin()[0] != '|')
-		return (std::cerr << "readCgiErrorFormat: " << output << "\n", -1);
-	bytes = std::atoi(output.c_str() + 3);
-	if (bytes <= 0)
-		return (std::cerr << "readCgiErrorSize: " << output << "\n", -1);
-	this->output_len = bytes;
-	this->isParsed = true;
-	return (0);
-}
-
-int		s_cgi::readChunk(Client &client)
-{
-	int	bytes;
-
-	client.getBuffer().resize(this->bytes_read + CHUNK_READ);
-	bytes = read(this->pipe[0], client.getBuffer().data() + this->bytes_read, CHUNK_READ);
-	if (bytes <= 0)
-		return (-1);
-	this->bytes_read += bytes;
-	client.getBuffer().resize(this->bytes_read);
-	//std::cout << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
-	//std::cout << this->output_len << "\n";
-	return (bytes);
-}
-
-void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
-{
-	int			fd_last;
-	int			poll_index;
-
-	poll_index = this->poll_index[is_pipe_out];
-	if (!poll_index)
-		return ;
-	fd_last = srv.getAddrsVector().back().fd;
-	if (srv.getFdData()[fd_last].cgi)
-	{
-		srv.getFdData()[fd_last].cgi->poll_index[0] = this->poll_index[0];
-		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
-	}
-	if ((size_t)poll_index < srv.getAddrSize())
-		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
-	srv.getAddrsVector().pop_back();
-	std::cout << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
-	close_fd(&this->pipe[is_pipe_out]);
-}
-
-void	s_cgi::clear(Server &srv, Client &client)
-{
-	IpPortPair	&ipPort = client.getRequest().getHost();
-
-	if (this->pid != 0 && this->isFastCgiBool == true)
-		kill(this->pid, SIGKILL);
-	this->pid = 0;
-	if (this->pipe[0])
-		this->removeFromPoll(false, srv);
-	if (this->pipe[1])
-		this->removeFromPoll(true, srv);
-	if (srv.getIpPortCgiMap().find(ipPort) != srv.getIpPortCgiMap().end())
-		srv.getIpPortCgiMap().erase(ipPort);
-}
-
-void	s_cgi::clear()
-{
-
-	if (this->pid != 0 && this->isFastCgiBool == true)
-		kill(this->pid, SIGKILL);
-	this->pid = 0;
-	close_fd(&this->pipe[0]);
-	close_fd(&this->pipe[1]);
-}
-
-void	s_cgi::reset()
-{
-	this->bytes_read = 0;
-	this->isParsed = false;
-	this->input.clear();
-	this->output = NULL;
-	this->output_len = 0;
 }

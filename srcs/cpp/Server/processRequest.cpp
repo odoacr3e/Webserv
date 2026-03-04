@@ -29,6 +29,8 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		if ((size_t)(*this->_srvnamemap)[request.getHost()].client_max_body_size < request.getBodyLen())
 			request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request (che scimmia che sei)");
 		this->setupRequestEnvironment(client);
+		if (client.getRequest().getMethodEnum() == GET)
+			request.getBytesLeft() -= request.getBodyLen();
 		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 	}
 	else
@@ -89,4 +91,6 @@ void	Server::setupRequestEnvironment(Client &client)
 	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()], loc);
 	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");
+	if (client.getRequest().getCookieKey().empty() == false)
+		client.setCookieData(*this);
 }

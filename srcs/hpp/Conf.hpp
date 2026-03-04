@@ -89,7 +89,7 @@ struct s_conf_location
 	unsigned char				mask_methods;
 	bool						autoindex; //set autoindex mode on
 	bool						run_script; //set script mode on
-	bool						script_daemon; //set script mode on
+	bool						fastcgi_bool; //set script mode on
 	bool						alias;
 	bool						exist;
 	bool						gen_cookie;

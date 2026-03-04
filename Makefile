@@ -16,14 +16,14 @@ REQUEST_PARSING = $(addprefix request/, utils.cpp)
 CPP = $(addprefix cpp/, 		Client.cpp \
 		$(addprefix Server/,	getter.cpp setter.cpp print.cpp Server.cpp autoIndex.cpp processRequest.cpp processResponse.cpp methods.cpp setup_utils.cpp)\
 		$(addprefix conf/, 		getter.cpp setter.cpp print.cpp Conf.cpp) \
-		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp))
+		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp) \
+		$(addprefix cgi/, 		Cgi.cpp argv.cpp execute.cpp html/crypter.cpp html/cub.cpp html/pokedex.cpp html/var.cpp))
 
 UTILS = $(addprefix utils/, 	file.cpp utils_page1.cpp path_checker.cpp value_checker.cpp \
-								string/string.cpp string/buffer.cpp url.cpp env.cpp directory.cpp \
-								cgi.cpp html_var.cpp html_pokedex.cpp html_crypter.cpp html_cub.cpp)
+								string/string.cpp string/buffer.cpp url.cpp env.cpp directory.cpp)
 
 HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
-			$(addprefix hpp/, Client.hpp Conf.hpp Request.hpp Server.hpp)
+			$(addprefix hpp/, Client.hpp Cgi.hpp Conf.hpp Request.hpp Server.hpp)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJ:.o=.d)# deps: checks if a header file changed

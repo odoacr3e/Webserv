@@ -12,6 +12,7 @@ info = s;break
 
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
+struct s_cgi;
 
 typedef std::map<std::string, std::string> headermap;
 typedef std::pair<std::string, int>	IpPortPair;
@@ -149,5 +150,14 @@ class Request
 };
 
 std::ostream &operator<<(std::ostream &os, Request &obj);
+
+struct s_cookieData
+{
+	s_cookieData(){this->exist = false; this->cgi = NULL;}
+	std::string	login;
+	std::string	id;
+	s_cgi		*cgi;
+	bool		exist;
+};
 
 #endif

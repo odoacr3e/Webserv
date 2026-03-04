@@ -37,7 +37,7 @@ void	Server::runMethod(Client &client, std::fstream &file)
 			this->postMethod(client, &file);
 			break ;
 		case HEAD:
-			;//funzione che gestisce HEAD
+			;//funzione che gestisce HEAD ma dobbiamo gestirlo?
 			break ;
 		case METH_NUM:
 			break ;

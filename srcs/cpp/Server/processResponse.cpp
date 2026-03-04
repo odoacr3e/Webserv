@@ -177,10 +177,7 @@ std::string	Server::createHtml(Client &client)
 		this->_cookie_map[client.getRequest().getCookieKey()].login = "client " + client.getRequest().getCookieKey();
 	}
 	if (client.sendContentBool() == true)
-	{
-		response << "Content-Length: " << client.getBuffer().size();
-		response << "\r\n\r\n";
-	}
+		response << "Content-Length: " << client.getBuffer().size() << "\r\n\r\n";
 	else
 	{
 		response << "Content-Length: " << this->resp_body.size() << "\r\n\r\n";

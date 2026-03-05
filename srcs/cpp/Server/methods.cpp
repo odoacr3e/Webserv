@@ -9,16 +9,6 @@ std::string	get_filename(Client &client);
 void		write_on_ofile(Request &request, std::string file);
 void		choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html);
 
-
-
-
-/*NOTE - summary
-
-	-	GET
-	-	DELETE
-	-	POST
-*///helo
-
 /**
  * @brief executes on of three valid methods POST GET DELETE
  * 
@@ -151,9 +141,15 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 	body = open_and_read(*file, "delete_method: cannot open file on error");
 }
 
-
-//SECTION - POST
-
+/**
+ * @brief Post Method execution: Gets a filename from request <get_filename>, checks if it already exists
+ * 
+ * creates the file and writes on it time after time going through poll calls <write_on_ofile>
+ * 
+ * chooses an html page to display according to the operation success or not <choose_html>
+ * 
+ * @param client > client containing the request
+ */
 void	Server::postMethod(Client &client)
 {	
 	Request				&request = client.getRequest();

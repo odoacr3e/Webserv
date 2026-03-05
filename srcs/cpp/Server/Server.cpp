@@ -35,7 +35,6 @@ Server::Server(Conf &conf, const char **env):_env(env)
 		}
 		else
 			std::cout << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
-		std::cout << "Server NUM: " << this->_server_num << std::endl;
 	}
 	if (this->_server_num == 0)
 		throw (std::runtime_error("\nNo server could be binded."));
@@ -95,8 +94,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 				client->readCgi(*this, *cgi);
 			else
 			{
-				char buffer[2048] = {0}; //NOTE - reserve vector
-				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, MSG_DONTWAIT);
+				char buffer[2048] = {0};//NOTE - reserve vector
+				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
 				if (bytes <= 0)
 					eraseClient(*client, this->_i--);
 				else
@@ -171,7 +170,6 @@ int	Server::addSocket(int index, e_fd_type type)
 	this->_fd_data[polldata.fd] = fd_data;
 	if (type == FD_CLIENT)
 	{
-		fcntl(socket, F_SETFL, O_NONBLOCK);
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
 		this->_fd_data[polldata.fd].client = this->_clients[socket];

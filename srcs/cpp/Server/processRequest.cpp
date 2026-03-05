@@ -39,17 +39,13 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 			request.getBytesLeft() -= request.getSockBytes();
 		}
 	}
-	std::cout << "Statyus code: " << request.getStatusCode() << std::endl;
 	if (request.getBytesLeft() == 0)
 	{
 		client.getPollFd(*this)->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
 	else if (request.getBytesLeft() < 0)
-	{
 		client.getPollFd(*this)->events = POLLOUT;
-		// request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Wrong Content-Length");
-	}
 	else if (request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
 		client.getPollFd(*this)->events = POLLOUT;
 }

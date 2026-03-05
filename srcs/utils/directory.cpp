@@ -1,9 +1,6 @@
 #include "../../includes/ether.hpp"
 
 // NOTE - cerca directory dentro l'URL passato come parametro, viene chiamata come gnl e ad ogni ritorno ritorna la cartella successiva
-/**
- * @brief 
- */
 dirent	*findUrlDirectory(std::string url)
 {
 	static DIR	*dir;
@@ -29,6 +26,7 @@ dirent	*findUrlDirectory(std::string url)
 		dir = NULL;
 		return (NULL);
 	}
+	// std::cout << "findUrlDirectory(): " << content->d_name << std::endl;
 	return (content);
 }
 
@@ -46,12 +44,10 @@ dirent	*findUrlDirectory(std::string url, DIR *dir)
 	return (content);
 }
 
-/**
- * @brief equivalent to shell \p `rm` \p `dir`
- * 
- * @param dir_path path of the directory
- * @return 1 on errors, 0 on success
- */
+
+/// @brief equivalent to shell rm dir/*
+/// @param dir_path path of the directory
+/// @return 1 on errors, 0 on success
 int		eraseDirectory(std::string dir_path)
 {
 	dirent	*content;
@@ -70,12 +66,6 @@ int		eraseDirectory(std::string dir_path)
 	return (0);
 }
 
-/**
- * @brief equivalent to shell \p `ls`
- * 
- * @param path path of the directory to list
- * @param files string of files listed
- */
 void	ft_ls(std::string path, std::string &files)
 {
 	DIR		*dir;

@@ -1,4 +1,3 @@
-
 #include "../../includes/ether.hpp"
 #include "../../srcs/hpp/Server.hpp"
 #include "../../srcs/hpp/Client.hpp"

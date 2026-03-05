@@ -185,6 +185,7 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
 		html.open((checkErrorPages(client.getRequest())).c_str());
 	}
+	// std::cout << "FAILE: " << file << std::endl;
 	body = file_opener(html);
 	find_and_replace(body, "{MSG}", request.getFailMsg());
 }

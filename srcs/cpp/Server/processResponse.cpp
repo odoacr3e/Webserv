@@ -136,7 +136,7 @@ std::string	Server::createHtml(Client &client, std::string &body)
 
 	response << "HTTP/1.1 "
 	         << status << " "
-	         << http_codes_str[checkValidCode(status)] << "\r\n";
+	         << http_codes_str[checkValidHttpCode(status)] << "\r\n";
 	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
 	response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
 	response << "Pragma: no-cache" << "\r\n";

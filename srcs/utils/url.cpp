@@ -5,12 +5,13 @@
 typedef struct s_conf_server	t_conf_server;
 typedef struct s_conf_location	t_conf_location;
 
-//SECTION - app root/alias to a file
-
-/// @brief append root to an url from t_conf_server
-/// @param url the url received in requests
-/// @param srv server configuration
-/// @return resolved url
+/**
+ * @brief append root path to an url from \p `t_conf_server`
+ * 
+ * @param url the url of request
+ * @param srv server configuration
+ * @return new url with \p `root` appended
+ */
 std::string	url_rooting(std::string url, t_conf_server &srv)
 {
 	std::string		file;
@@ -26,10 +27,13 @@ std::string	url_rooting(std::string url, t_conf_server &srv)
 	return (dir + file);
 }
 
-/// @brief append root or alias to an url from t_conf_location
-/// @param url the url received in requests
-/// @param srv server configuration
-/// @return resolved url
+/**
+ * @brief append root path to an url from \p `t_conf_location`
+ * 
+ * @param url the url of request
+ * @param loc location configuration
+ * @return new url with \p `root` or \p `alias` correctly appended
+ */
 std::string	url_rooting(std::string url, t_conf_location &loc)
 {
 	std::string		file;

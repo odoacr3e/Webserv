@@ -28,7 +28,6 @@ void	Server::processResponse(Client &client)
 	client.getRequest().setUrl("");
 	client.getRequest().setUrlOriginal("");
 	client.getPollFd(*this)->events = POLLIN;
-	perror("Pr()");
 }
 
 /**

@@ -143,9 +143,6 @@ bool	file_checker(std::string filename)
 	std::fstream file(filename.c_str());
 
 	if (file.fail())
-	{
 		return (false);
-	}
-	else
-		return (true);
+	return (true);
 }

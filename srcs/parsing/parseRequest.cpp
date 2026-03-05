@@ -148,10 +148,6 @@ static int	bodyParsing(Request &request)
 			if (!body.empty())
 				return (request.fail(HTTP_CE_BAD_REQUEST, "delete must have empty body"));
 			return (0);
-		case HEAD :
-			if (!body.empty())
-				return (request.fail(HTTP_CE_BAD_REQUEST, "head must have empty body"));
-			return (0);
 		case METH_NUM :
 			return (request.fail(HTTP_CE_BAD_REQUEST, "BodyParsing: no method"));
 	}

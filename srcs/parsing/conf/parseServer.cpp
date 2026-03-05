@@ -173,8 +173,6 @@ static void	parseMethodsList(Conf &conf, std::vector<std::string> &list, int lin
 			conf.getServerBlock().mask_methods |= MASK_POST;
 		else if (list[i] == "DELETE")
 			conf.getServerBlock().mask_methods |= MASK_DELETE;
-		else if (list[i] == "HEAD")
-			conf.getServerBlock().mask_methods |= MASK_HEAD;
 		else if (list[i] == "ALL")
 			conf.getServerBlock().mask_methods = MASK_ALL_METHODS;
 		else if (list[i] == "NONE")

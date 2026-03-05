@@ -44,7 +44,7 @@ void	Server::processResponse(Client &client)
  */
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
-	this->clearRespVariables();
+	clearRespVariables();
 	checkRequestStausCode(client);
 	assignFileType(client);
 	if (autoindex_do(client))

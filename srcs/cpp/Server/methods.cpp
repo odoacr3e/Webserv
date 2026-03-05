@@ -28,7 +28,7 @@ void	Server::runMethod(Client &client)
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			this->getMethod(client, &(this->file));
+			this->getMethod(client);
 			break ;
 		case DELETE:
 			this->deleteMethod(client, &(this->file));
@@ -36,15 +36,12 @@ void	Server::runMethod(Client &client)
 		case POST:
 			this->postMethod(client, &(this->file));
 			break ;
-		case HEAD:
-			;//funzione che gestisce HEAD ma dobbiamo gestirlo?
-			break ;
 		case METH_NUM:
 			break ;
 	}
 }
 
-void	Server::getMethod(Client &client, std::fstream *file)
+void	Server::getMethod(Client &client)
 {
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
@@ -52,7 +49,7 @@ void	Server::getMethod(Client &client, std::fstream *file)
 	if (client.getRequest().getBodyType() == "text/html")
 	{
 		std::cout << "Entro nell'override login\n";
-		std::getline(*file, this->resp_body, '\0');
+		std::getline(this->file, this->resp_body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
 		{
 			find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
@@ -68,7 +65,7 @@ void	Server::getMethod(Client &client, std::fstream *file)
 	}
 	client.sendContentBool() = true;
 	client.getBuffer().clear();
-	read_file(*file, client.getBuffer());
+	read_file(this->file, client.getBuffer());
 	client.getBuffer().push_back('\n');
 	client.getBuffer().push_back('\n');
 }

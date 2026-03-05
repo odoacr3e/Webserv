@@ -213,3 +213,39 @@ void	vect_split_free(std::vector<char *> &vect, size_t size)
 		delete [] vect[i];
 	}
 }
+
+/**
+ * @brief conversion from hexadecimal to char for string conversion in URL browser
+ * 
+ * @param input input string to modify
+ * @return string modified with hexadecimal chars converted to char
+ */
+std::string		hex_to_char(std::string& input)
+{
+    std::string result;
+
+    result.reserve(input.size());
+    for (std::size_t i = 0; i < input.size(); ++i) 
+	{
+        if (input[i] == '%' &&
+            i + 2 < input.size() &&
+            std::isxdigit(static_cast<unsigned char>(input[i + 1])) &&
+            std::isxdigit(static_cast<unsigned char>(input[i + 2]))) 
+		{
+
+            char hex[3];
+            hex[0] = input[i + 1];
+            hex[1] = input[i + 2];
+            hex[2] = '\0';
+
+            char* endptr = 0;
+            long value = std::strtol(hex, &endptr, 16);
+
+            result += static_cast<char>(value);
+            i += 2; 
+        } 
+		else
+        	result += input[i];
+    }
+	return (result);
+}

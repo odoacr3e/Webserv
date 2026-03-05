@@ -3,77 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>cub3D HUD • Capitano Edition</title>
-
 <style>
-    body { 
-        margin: 0; 
-        background: #0b0f12; 
-        font-family: 'Courier New', monospace; 
-        color: #c7d5e0; 
-        display: flex; 
-        flex-direction: column;
-        justify-content: center; 
-        align-items: center; 
-        height: 100vh; 
-        overflow: hidden;
-    }
-    
-    .game-wrapper { 
-        display: grid; 
-        grid-template-columns: 120px auto 120px; 
-        grid-template-rows: auto 80px; 
-        gap: 20px; 
-        align-items: center; 
-    }
-    
-    .screen-container { 
-        grid-column: 2; 
-        grid-row: 1; 
-        padding: 10px; 
-        background: linear-gradient(145deg, #1a2228, #0d1318); 
-        border: 4px solid #2a3942; 
-        box-shadow: 0 0 25px #000; 
-    }
-    
-    #screen { 
-        display: block; 
-        width: 640px; 
-        height: 480px; 
-        image-rendering: pixelated; 
-        background: #000; 
-    }
-    
+    body { margin: 0; background: #0b0f12; font-family: 'Courier New', monospace; color: #c7d5e0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+    .game-wrapper { display: grid; grid-template-columns: 120px auto 120px; grid-template-rows: auto 80px; gap: 20px; align-items: center; }
+    .screen-container { grid-column: 2; grid-row: 1; padding: 10px; background: linear-gradient(145deg, #1a2228, #0d1318); border: 4px solid #2a3942; box-shadow: 0 0 25px #000; }
+    #screen { display: block; width: 640px; height: 480px; image-rendering: pixelated; background: #000; }
     .controls-left, .controls-right { display: flex; flex-direction: column; gap: 12px; }
     .controls-bottom { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 20px; }
-    
-    button { 
-        background: #1a2228; 
-        border: 2px solid #2a3942; 
-        color: #c7d5e0; 
-        padding: 10px 12px; 
-        cursor: pointer; 
-        font-size: 14px; 
-        transition: 0.1s; 
-    }
+    button { background: #1a2228; border: 2px solid #2a3942; color: #c7d5e0; padding: 10px 12px; cursor: pointer; font-size: 14px; transition: 0.1s; }
     button:hover { background: #2a3942; box-shadow: 0 0 8px #00ffcc; }
     button:active { transform: scale(0.95); }
-    
     .label { font-size: 10px; text-align: center; opacity: 0.6; display: block; }
-
-    /* Pannello Log - Stile Terminale */
-    #log-panel {
-        width: 640px;
-        height: 100px;
-        background: #050709;
-        border: 2px solid #2a3942;
-        margin-top: 20px;
-        padding: 8px;
-        font-size: 11px;
-        overflow-y: hidden;
-        display: flex;
-        flex-direction: column;
-        box-shadow: inset 0 0 10px #000;
-    }
+    #log-panel { width: 640px; height: 100px; background: #050709; border: 2px solid #2a3942; margin-top: 20px; padding: 8px; font-size: 11px; overflow-y: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 10px #000; }
     .log-entry { margin-bottom: 2px; }
     .log-time { color: #566c7a; margin-right: 8px; }
     .log-msg-err { color: #ff4d4d; }
@@ -81,7 +22,6 @@
     .log-msg-info { color: #8899a6; }
 </style>
 </head>
-
 <body>
 
 <div class="game-wrapper">
@@ -90,15 +30,21 @@
     </div>
 
     <div class="screen-container">
-        <img id="screen" src="" alt="In attesa de segna'...">
+        <img id="screen" src="" alt="In attesa di segnale...">
     </div>
 
     <div class="controls-right">
-        <button onclick="sendInput('w')">W</button>
-        <button onclick="sendInput('a')">A</button>
-        <button onclick="sendInput('d')">D</button>
-        <button onclick="sendInput('s')">S</button>
-        <button onclick="sendInput(' ')">Enter</button>
+        <button onmousedown="sendInput('W')" onmouseup="sendInput('w')">W (Avanti)</button>
+        <div style="display: flex; gap: 5px;">
+            <button onmousedown="sendInput('J')" onmouseup="sendInput('j')">↺ J</button>
+            <button onmousedown="sendInput('L')" onmouseup="sendInput('l')">L ↻</button>
+        </div>
+        <div style="display: flex; gap: 5px;">
+            <button onmousedown="sendInput('A')" onmouseup="sendInput('a')">A</button>
+            <button onmousedown="sendInput('S')" onmouseup="sendInput('s')">S</button>
+            <button onmousedown="sendInput('D')" onmouseup="sendInput('d')">D</button>
+        </div>
+        <button onmousedown="sendInput('E')" onmouseup="sendInput('e')">E (Interact)</button>
     </div>
 
     <div class="controls-bottom">
@@ -120,37 +66,34 @@ const logContent = document.getElementById("log-content");
 const cgiPath = "cub3D.cgi";
 
 let isWaiting = false;
-let inputQueue = [];
 const FPS = 30;
 const frameDelay = 1000 / FPS;
 let lastFrameTime = 0;
+let selectedButton = "";
 
-// Scrive i log direttamente nel terminale HTML
+const activeKeys = {
+    'W': false, 'A': false, 'S': false, 'D': false,
+    'J': false, 'L': false, 'E': false, 'X': false
+};
+
+const keyMap = {
+    'w': 'W', 'a': 'A', 's': 'S', 'd': 'D',
+    'j': 'J', 'l': 'L', 'e': 'E', 'x': 'X'
+};
+
 function addLog(msg, type = 'info') {
     const now = new Date();
     const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
                     now.getMinutes().toString().padStart(2, '0') + ":" + 
                     now.getSeconds().toString().padStart(2, '0');
-    
     const colorClass = type === 'err' ? 'log-msg-err' : (type === 'ok' ? 'log-msg-ok' : 'log-msg-info');
-    
     const div = document.createElement('div');
     div.className = 'log-entry';
     div.innerHTML = `<span class="log-time">[${timeStr}]</span><span class="${colorClass}">${msg}</span>`;
-    
     logContent.appendChild(div);
-    
-    // Tiene solo gli ultimi 5 log per non uscì dar bordo
-    if (logContent.childNodes.length > 5) {
-        logContent.removeChild(logContent.firstChild);
-    }
+    if (logContent.childNodes.length > 5) logContent.removeChild(logContent.firstChild);
 }
 
-function sendInput(action) {
-    inputQueue.push(action);
-}
-
-// Caricamento immagine con promessa per massimo controllo
 function loadImage(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -160,49 +103,78 @@ function loadImage(url) {
     });
 }
 
+function sendInput(char) {
+    if (['1', '2', '3', '4'].includes(char)) {
+        selectedButton = char;
+        addLog(`Input numerico: ${char}`, 'ok');
+        return;
+    }
+    const upper = char.toUpperCase();
+    if (activeKeys.hasOwnProperty(upper)) {
+        activeKeys[upper] = (char === upper);
+    }
+}
+
+window.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (keyMap[key]) {
+        e.preventDefault();
+        activeKeys[keyMap[key]] = true;
+    }
+    if (['1', '2', '3', '4'].includes(key)) {
+        e.preventDefault();
+        selectedButton = key;
+    }
+});
+
+window.addEventListener('keyup', (e) => {
+    const key = e.key.toLowerCase();
+    if (keyMap[key]) {
+        e.preventDefault();
+        activeKeys[keyMap[key]] = false;
+    }
+});
+
 async function updateLoop() {
     const now = performance.now();
     
     if (!isWaiting && (now - lastFrameTime >= frameDelay)) {
         isWaiting = true;
-        const action = inputQueue.length > 0 ? inputQueue.shift() : "%";
+
+        let actions = "";
+        for (let key in activeKeys) {
+            actions += activeKeys[key] ? key : key.toLowerCase();
+        }
+        
+        if (selectedButton !== "") {
+            actions += selectedButton;
+            selectedButton = ""; 
+        }
+
         const ts = Date.now();
-        const targetBytes = 14745654; // Er peso massimo dar "corazziere"
+        const targetBytes = 14745654;
 
         try {
-            const response = await fetch(`${cgiPath}?${action}&t=${ts}`);
+            const response = await fetch(`${cgiPath}?${actions}&t=${ts}`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
             const reader = response.body.getReader();
+            let chunks = [];
             let receivedLength = 0;
-            let chunks = []; // Array de Uint8Array
 
-            addLog(`Ricezione in corso...`, 'info');
-
-            // Loop de lettura dello stream
             while(true) {
                 const {done, value} = await reader.read();
-                
                 if (done) break;
-
                 chunks.push(value);
                 receivedLength += value.length;
-                
-                // Log der progresso (opzionale, se lo vuoi vede' corre)
-                // addLog(`Byte: ${receivedLength} / ${targetBytes}`);
-
-                if (receivedLength >= targetBytes) {
-                    addLog("Target raggiunto! Disegno...", "ok");
-                    break; // Avemo preso tutto quello che ce serve
-                }
+                if (receivedLength >= targetBytes) break;
             }
 
-            // Unimo i pezzi
             let allChunks = new Uint8Array(receivedLength);
-            let position = 0;
+            let pos = 0;
             for(let chunk of chunks) {
-                allChunks.set(chunk, position);
-                position += chunk.length;
+                allChunks.set(chunk, pos);
+                pos += chunk.length;
             }
 
             const blob = new Blob([allChunks], {type: 'image/bmp'});
@@ -217,24 +189,14 @@ async function updateLoop() {
             isWaiting = false;
 
         } catch (e) {
-            addLog(`ERRORE STREAM: ${e.message}`, 'err');
+            addLog(`ERRORE: ${e.message}`, 'err');
             setTimeout(() => { isWaiting = false; }, 1000);
         }
     }
     requestAnimationFrame(updateLoop);
 }
 
-// Tasti rapidi
-window.addEventListener('keydown', (e) => {
-    const key = e.key.toLowerCase();
-    const map = {'w':'w','a':'a','s':'s','d':'d','x':'x','1':'1','2':'2','3':'3','4':'4','enter':' '};
-    if (map[key]) {
-        e.preventDefault();
-        sendInput(map[key]);
-    }
-});
-
-addLog("Sistema avviato. In attesa der server...", "info");
+addLog("Sistema HUD pronto. Connessione...", "ok");
 updateLoop();
 </script>
 </body>

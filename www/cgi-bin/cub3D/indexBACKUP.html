@@ -5,16 +5,80 @@
 <title>cub3D HUD • Capitano Edition</title>
 
 <style>
-    /* ... (Er CSS rimane quello tuo, che è già gajardo) ... */
-    body { margin: 0; background: #0b0f12; font-family: monospace; color: #c7d5e0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .game-wrapper { display: grid; grid-template-columns: 120px auto 120px; grid-template-rows: auto 80px; gap: 20px; align-items: center; }
-    .screen-container { grid-column: 2; grid-row: 1; padding: 10px; background: linear-gradient(145deg, #1a2228, #0d1318); border: 4px solid #2a3942; box-shadow: 0 0 25px #000; }
-    #screen { display: block; width: 640px; height: 480px; image-rendering: pixelated; background: #000; }
+    body { 
+        margin: 0; 
+        background: #0b0f12; 
+        font-family: 'Courier New', monospace; 
+        color: #c7d5e0; 
+        display: flex; 
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh; 
+        overflow: hidden;
+    }
+    
+    .game-wrapper { 
+        display: grid; 
+        grid-template-columns: 120px auto 120px; 
+        grid-template-rows: auto 80px; 
+        gap: 20px; 
+        align-items: center; 
+    }
+    
+    .screen-container { 
+        grid-column: 2; 
+        grid-row: 1; 
+        padding: 10px; 
+        background: linear-gradient(145deg, #1a2228, #0d1318); 
+        border: 4px solid #2a3942; 
+        box-shadow: 0 0 25px #000; 
+    }
+    
+    #screen { 
+        display: block; 
+        width: 640px; 
+        height: 480px; 
+        image-rendering: pixelated; 
+        background: #000; 
+    }
+    
     .controls-left, .controls-right { display: flex; flex-direction: column; gap: 12px; }
     .controls-bottom { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 20px; }
-    button { background: #1a2228; border: 2px solid #2a3942; color: #c7d5e0; padding: 10px 12px; cursor: pointer; font-size: 14px; transition: 0.1s; }
+    
+    button { 
+        background: #1a2228; 
+        border: 2px solid #2a3942; 
+        color: #c7d5e0; 
+        padding: 10px 12px; 
+        cursor: pointer; 
+        font-size: 14px; 
+        transition: 0.1s; 
+    }
     button:hover { background: #2a3942; box-shadow: 0 0 8px #00ffcc; }
-    .label { font-size: 12px; text-align: center; opacity: 0.6; }
+    button:active { transform: scale(0.95); }
+    
+    .label { font-size: 10px; text-align: center; opacity: 0.6; display: block; }
+
+    /* Pannello Log - Stile Terminale */
+    #log-panel {
+        width: 640px;
+        height: 100px;
+        background: #050709;
+        border: 2px solid #2a3942;
+        margin-top: 20px;
+        padding: 8px;
+        font-size: 11px;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: inset 0 0 10px #000;
+    }
+    .log-entry { margin-bottom: 2px; }
+    .log-time { color: #566c7a; margin-right: 8px; }
+    .log-msg-err { color: #ff4d4d; }
+    .log-msg-ok { color: #00ffcc; }
+    .log-msg-info { color: #8899a6; }
 </style>
 </head>
 
@@ -26,7 +90,7 @@
     </div>
 
     <div class="screen-container">
-        <img id="screen" src="cub3D.cgi?www/cgi-bin/cub3D/srcs/maps/debug.cub" alt="Cub3D Render">
+        <img id="screen" src="" alt="In attesa de segna'...">
     </div>
 
     <div class="controls-right">
@@ -45,80 +109,133 @@
     </div>
 </div>
 
+<div id="log-panel">
+    <div style="color: #4da6ff; border-bottom: 1px solid #2a3942; margin-bottom: 4px; padding-bottom: 2px;">[ HUD SYSTEM TERMINAL ]</div>
+    <div id="log-content"></div>
+</div>
+
 <script>
 const screenImg = document.getElementById("screen");
+const logContent = document.getElementById("log-content");
 const cgiPath = "cub3D.cgi";
 
 let isWaiting = false;
 let inputQueue = [];
+const FPS = 30;
+const frameDelay = 1000 / FPS;
+let lastFrameTime = 0;
 
-// Funzione per caricà l'immagine e aspettà che sia pronta davvero
-function loadImage(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image(); // Usamo un'immagine d'appoggio
-        img.onload = () => resolve(url);
-        img.onerror = reject;
-        img.src = url;
-    });
-}
-
-async function updateFrame() {
-    if (isWaiting) return;
-    isWaiting = true;
-
-    const action = inputQueue.length > 0 ? inputQueue.shift() : "%";
-    const ts = Date.now();
-
-    try {
-        const response = await fetch(`${cgiPath}?${action}&t=${ts}`);
-        
-        if (response.ok) {
-            const blob = await response.blob();
-            const objectURL = URL.createObjectURL(blob);
-            
-            // Aspettiamo che l'immagine sia caricata in memoria prima de passalla a video
-            await loadImage(objectURL);
-            
-            // Se semo arrivati qui, l'immagine è pronta
-            const oldUrl = screenImg.src;
-            screenImg.src = objectURL;
-            
-            // Pulizia vecchio URL per non intasà la memoria
-            if (oldUrl.startsWith('blob:')) {
-                URL.revokeObjectURL(oldUrl);
-            }
-
-            isWaiting = false;
-            // Er prossimo frame lo chiamamo sempre, a prescinde
-            requestAnimationFrame(updateFrame);
-        } else {
-            throw new Error("Server ancora imballato");
-        }
-    } catch (e) {
-        console.log("Riprovo tra un po'...");
-        isWaiting = false;
-        // Se er server è giù (riavvio), aspettiamo 500ms e ripartiamo col loop
-        setTimeout(updateFrame, 500);
+// Scrive i log direttamente nel terminale HTML
+function addLog(msg, type = 'info') {
+    const now = new Date();
+    const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                    now.getMinutes().toString().padStart(2, '0') + ":" + 
+                    now.getSeconds().toString().padStart(2, '0');
+    
+    const colorClass = type === 'err' ? 'log-msg-err' : (type === 'ok' ? 'log-msg-ok' : 'log-msg-info');
+    
+    const div = document.createElement('div');
+    div.className = 'log-entry';
+    div.innerHTML = `<span class="log-time">[${timeStr}]</span><span class="${colorClass}">${msg}</span>`;
+    
+    logContent.appendChild(div);
+    
+    // Tiene solo gli ultimi 5 log per non uscì dar bordo
+    if (logContent.childNodes.length > 5) {
+        logContent.removeChild(logContent.firstChild);
     }
 }
 
 function sendInput(action) {
     inputQueue.push(action);
-    if (!isWaiting) updateFrame();
 }
 
+// Caricamento immagine con promessa per massimo controllo
+function loadImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(url);
+        img.onerror = () => reject(new Error("Errore render BMP"));
+        img.src = url;
+    });
+}
+
+async function updateLoop() {
+    const now = performance.now();
+    
+    if (!isWaiting && (now - lastFrameTime >= frameDelay)) {
+        isWaiting = true;
+        const action = inputQueue.length > 0 ? inputQueue.shift() : "%";
+        const ts = Date.now();
+        const targetBytes = 14745654; // Er peso massimo dar "corazziere"
+
+        try {
+            const response = await fetch(`${cgiPath}?${action}&t=${ts}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const reader = response.body.getReader();
+            let receivedLength = 0;
+            let chunks = []; // Array de Uint8Array
+
+            addLog(`Ricezione in corso...`, 'info');
+
+            // Loop de lettura dello stream
+            while(true) {
+                const {done, value} = await reader.read();
+                
+                if (done) break;
+
+                chunks.push(value);
+                receivedLength += value.length;
+                
+                // Log der progresso (opzionale, se lo vuoi vede' corre)
+                // addLog(`Byte: ${receivedLength} / ${targetBytes}`);
+
+                if (receivedLength >= targetBytes) {
+                    addLog("Target raggiunto! Disegno...", "ok");
+                    break; // Avemo preso tutto quello che ce serve
+                }
+            }
+
+            // Unimo i pezzi
+            let allChunks = new Uint8Array(receivedLength);
+            let position = 0;
+            for(let chunk of chunks) {
+                allChunks.set(chunk, position);
+                position += chunk.length;
+            }
+
+            const blob = new Blob([allChunks], {type: 'image/bmp'});
+            const objectURL = URL.createObjectURL(blob);
+            
+            await loadImage(objectURL);
+            const oldUrl = screenImg.src;
+            screenImg.src = objectURL;
+            if (oldUrl.startsWith('blob:')) URL.revokeObjectURL(oldUrl);
+
+            lastFrameTime = performance.now();
+            isWaiting = false;
+
+        } catch (e) {
+            addLog(`ERRORE STREAM: ${e.message}`, 'err');
+            setTimeout(() => { isWaiting = false; }, 1000);
+        }
+    }
+    requestAnimationFrame(updateLoop);
+}
+
+// Tasti rapidi
 window.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
-    const validKeys = ['w', 'a', 's', 'd', 'x', '1', '2', '3', '4'];
-    if (validKeys.includes(key)) {
-        sendInput(key);
-    } else if (key === 'enter') {
-        sendInput(' ');
+    const map = {'w':'w','a':'a','s':'s','d':'d','x':'x','1':'1','2':'2','3':'3','4':'4','enter':' '};
+    if (map[key]) {
+        e.preventDefault();
+        sendInput(map[key]);
     }
 });
 
-// Fischio d'inizio
-updateFrame();
+addLog("Sistema avviato. In attesa der server...", "info");
+updateLoop();
 </script>
 </body>
 </html>

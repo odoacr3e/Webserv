@@ -5,16 +5,80 @@
 <title>cub3D HUD • Capitano Edition</title>
 
 <style>
-    /* ... (Er CSS rimane quello tuo, che è già gajardo) ... */
-    body { margin: 0; background: #0b0f12; font-family: monospace; color: #c7d5e0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .game-wrapper { display: grid; grid-template-columns: 120px auto 120px; grid-template-rows: auto 80px; gap: 20px; align-items: center; }
-    .screen-container { grid-column: 2; grid-row: 1; padding: 10px; background: linear-gradient(145deg, #1a2228, #0d1318); border: 4px solid #2a3942; box-shadow: 0 0 25px #000; }
-    #screen { display: block; width: 640px; height: 480px; image-rendering: pixelated; background: #000; }
+    body { 
+        margin: 0; 
+        background: #0b0f12; 
+        font-family: 'Courier New', monospace; 
+        color: #c7d5e0; 
+        display: flex; 
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh; 
+        overflow: hidden;
+    }
+    
+    .game-wrapper { 
+        display: grid; 
+        grid-template-columns: 120px auto 120px; 
+        grid-template-rows: auto 80px; 
+        gap: 20px; 
+        align-items: center; 
+    }
+    
+    .screen-container { 
+        grid-column: 2; 
+        grid-row: 1; 
+        padding: 10px; 
+        background: linear-gradient(145deg, #1a2228, #0d1318); 
+        border: 4px solid #2a3942; 
+        box-shadow: 0 0 25px #000; 
+    }
+    
+    #screen { 
+        display: block; 
+        width: 640px; 
+        height: 480px; 
+        image-rendering: pixelated; 
+        background: #000; 
+    }
+    
     .controls-left, .controls-right { display: flex; flex-direction: column; gap: 12px; }
     .controls-bottom { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 20px; }
-    button { background: #1a2228; border: 2px solid #2a3942; color: #c7d5e0; padding: 10px 12px; cursor: pointer; font-size: 14px; transition: 0.1s; }
+    
+    button { 
+        background: #1a2228; 
+        border: 2px solid #2a3942; 
+        color: #c7d5e0; 
+        padding: 10px 12px; 
+        cursor: pointer; 
+        font-size: 14px; 
+        transition: 0.1s; 
+    }
     button:hover { background: #2a3942; box-shadow: 0 0 8px #00ffcc; }
-    .label { font-size: 12px; text-align: center; opacity: 0.6; }
+    button:active { transform: scale(0.95); }
+    
+    .label { font-size: 10px; text-align: center; opacity: 0.6; display: block; }
+
+    /* Pannello Log - Stile Terminale */
+    #log-panel {
+        width: 640px;
+        height: 100px;
+        background: #050709;
+        border: 2px solid #2a3942;
+        margin-top: 20px;
+        padding: 8px;
+        font-size: 11px;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: inset 0 0 10px #000;
+    }
+    .log-entry { margin-bottom: 2px; }
+    .log-time { color: #566c7a; margin-right: 8px; }
+    .log-msg-err { color: #ff4d4d; }
+    .log-msg-ok { color: #00ffcc; }
+    .log-msg-info { color: #8899a6; }
 </style>
 </head>
 
@@ -26,16 +90,22 @@
     </div>
 
     <div class="screen-container">
-        <img id="screen" src="cub3D.cgi?www/cgi-bin/cub3D/srcs/maps/debug.cub" alt="Cub3D Render">
+        <img id="screen" src="" alt="In attesa de segna'...">
     </div>
 
-    <div class="controls-right">
-        <button onclick="sendInput('w')">W</button>
-        <button onclick="sendInput('a')">A</button>
-        <button onclick="sendInput('d')">D</button>
-        <button onclick="sendInput('s')">S</button>
-        <button onclick="sendInput(' ')">Enter</button>
+<div class="controls-right">
+    <button onmousedown="sendInput('W')" onmouseup="sendInput('w')">W (Avanti)</button>
+    <div style="display: flex; gap: 5px;">
+        <button onmousedown="sendInput('J')" onmouseup="sendInput('j')">↺ J</button>
+        <button onmousedown="sendInput('L')" onmouseup="sendInput('l')">L ↻</button>
     </div>
+    <div style="display: flex; gap: 5px;">
+        <button onmousedown="sendInput('A')" onmouseup="sendInput('a')">A</button>
+        <button onmousedown="sendInput('S')" onmouseup="sendInput('s')">S</button>
+        <button onmousedown="sendInput('D')" onmouseup="sendInput('d')">D</button>
+    </div>
+    <button onmousedown="sendInput('E')" onmouseup="sendInput('e')">E (Interact)</button>
+</div>
 
     <div class="controls-bottom">
         <button onclick="sendInput('1')">1<br><span class="label">Sasso</span></button>
@@ -45,61 +115,137 @@
     </div>
 </div>
 
+<div id="log-panel">
+    <div style="color: #4da6ff; border-bottom: 1px solid #2a3942; margin-bottom: 4px; padding-bottom: 2px;">[ HUD SYSTEM TERMINAL ]</div>
+    <div id="log-content"></div>
+</div>
+
 <script>
 const screenImg = document.getElementById("screen");
+const logContent = document.getElementById("log-content");
 const cgiPath = "cub3D.cgi";
 
-let currentAction = "\0"; // Partimo col botto
-let isWaiting = false;   // Questo serve a nun manna' du' palloni in campo insieme
+let isWaiting = false;
+const FPS = 30;
+const frameDelay = 1000 / FPS;
+let lastFrameTime = 0;
 
-async function updateFrame() {
-    if (isWaiting) return; // Se sta ancora a carica', stamo boni
-    isWaiting = true;
+// Variabile per il tasto numerico (1-4). Solo uno alla volta.
+let selectedButton = "";
 
-    try {
-        const ts = Date.now();
-        // Cerchiamo de pija er BMP dar server
-        const response = await fetch(`${cgiPath}?${currentAction}&t=${ts}`);
-        
-        if (response.ok) {
-            const blob = await response.blob();
-            const objectURL = URL.createObjectURL(blob);
-            
-            // Appena l'immagine è caricata nel browser...
-            screenImg.onload = () => {
-                URL.revokeObjectURL(objectURL); // Pulizia, come quando rifanno er manto de l'Olimpico
-                isWaiting = false;
-                
-                // Reset dell'azione se serve, sennò continua a manna' l'ultima
-                if (currentAction !== "%") {
-                    currentAction = "%"; 
-                }
-                
-                // Ricorsione: chiamamo er prossimo frame solo quando questo è a posto
-                requestAnimationFrame(updateFrame);
-            };
-            
-            screenImg.src = objectURL;
-        } else {
-            console.error("Aho, er server ha sballato");
-            isWaiting = false;
-            setTimeout(updateFrame, 1000); // Riprova tra un secondo se va in errore
-        }
-    } catch (e) {
-        console.error("Problemi de linea:", e);
-        isWaiting = false;
-        setTimeout(updateFrame, 1000);
+// Mappa degli stati attivi per i movimenti e azioni
+const activeKeys = {
+    'W': false, 'A': false, 'S': false, 'D': false,
+    'J': false, 'L': false, 'E': false, 'X': false
+};
+
+const keyMap = {
+    'w': 'W', 'a': 'A', 's': 'S', 'd': 'D',
+    'j': 'J', 'l': 'L', 'e': 'E', 'x': 'X'
+};
+
+// Listener tastiera
+window.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    
+    // Gestione tasti movimento/azione
+    if (keyMap[key]) {
+        e.preventDefault();
+        activeKeys[keyMap[key]] = true;
     }
+    
+    // Gestione tasti numerici 1-4 (Sovrascrittura)
+    if (['1', '2', '3', '4'].includes(key)) {
+        e.preventDefault();
+        selectedButton = key;
+    }
+});
+
+window.addEventListener('keyup', (e) => {
+    const key = e.key.toLowerCase();
+    if (keyMap[key]) {
+        e.preventDefault();
+        activeKeys[keyMap[key]] = false;
+    }
+});
+
+// Helper per bottoni HTML e logica mista
+function sendInput(char) {
+    if (['1', '2', '3', '4'].includes(char)) {
+        selectedButton = char;
+        return;
+    }
+    const upper = char.toUpperCase();
+    activeKeys[upper] = (char === upper);
 }
 
-function sendInput(action) {
-    currentAction = action;
-    // Se per caso s'era fermato tutto, lo rinfocolamo
-    if (!isWaiting) updateFrame();
+// ... (Funzioni addLog e loadImage rimangono invariate) ...
+
+async function updateLoop() {
+    const now = performance.now();
+    
+    if (!isWaiting && (now - lastFrameTime >= frameDelay)) {
+        isWaiting = true;
+
+        // COSTRUZIONE STRINGA INPUT
+        let actions = "";
+        for (let key in activeKeys) {
+            actions += activeKeys[key] ? key : key.toLowerCase();
+        }
+        
+        // Aggiungiamo il bottone selezionato se presente
+        if (selectedButton !== "") {
+            actions += selectedButton;
+            selectedButton = ""; // Lo "consumiamo" dopo l'invio o lo teniamo? 
+                                // Se il C lo resetta, lo svuotiamo qui.
+        }
+
+        const ts = Date.now();
+        const targetBytes = 14745654;
+
+        try {
+            const response = await fetch(`${cgiPath}?${actions}&t=${ts}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const reader = response.body.getReader();
+            let chunks = [];
+            let receivedLength = 0;
+
+            while(true) {
+                const {done, value} = await reader.read();
+                if (done) break;
+                chunks.push(value);
+                receivedLength += value.length;
+                if (receivedLength >= targetBytes) break;
+            }
+
+            let allChunks = new Uint8Array(receivedLength);
+            let pos = 0;
+            for(let chunk of chunks) {
+                allChunks.set(chunk, pos);
+                pos += chunk.length;
+            }
+
+            const objectURL = URL.createObjectURL(new Blob([allChunks], {type: 'image/bmp'}));
+            await loadImage(objectURL);
+            
+            const oldUrl = screenImg.src;
+            screenImg.src = objectURL;
+            if (oldUrl.startsWith('blob:')) URL.revokeObjectURL(oldUrl);
+
+            lastFrameTime = performance.now();
+            isWaiting = false;
+
+        } catch (e) {
+            addLog(`ERRORE: ${e.message}`, 'err');
+            setTimeout(() => { isWaiting = false; }, 1000);
+        }
+    }
+    requestAnimationFrame(updateLoop);
 }
 
-// Fischio d'inizio!
-updateFrame();
+addLog("Sistema Pronto.", "ok");
+updateLoop();
 </script>
 </body>
 </html>

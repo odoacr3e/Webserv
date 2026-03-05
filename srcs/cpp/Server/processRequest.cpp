@@ -1,5 +1,52 @@
 #include "../../hpp/Server.hpp"
 
+// void	Server::processRequest(Client &client, char *buffer, int bytes)
+// {
+// 	Request	&request = client.getRequest();
+// 	t_conf_server	srv;
+// 	t_conf_location	loc;
+// 	request.getRequestStream().str(buffer);
+// 	request.getRequestStream().clear();
+// 	request.getSockBytes() = bytes;
+
+// 	LOG_REQUEST(buffer, bytes);
+// 	if (request.getFirstRead() == true) // legge la prima volta
+// 	{
+// 		request.getFirstRead() = false;
+// 		if (requestParsing(client, buffer, bytes) != 0)//request
+// 		{
+// 			client.getPollFd(*this)->events = POLLOUT;
+// 			// TODO - da settare status code corretto senza fare return ?????
+// 			return ;
+// 		}
+// 		convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
+// 		if ((*this->_srvnamemap).count(request.getHost()) == 0)
+// 		{
+// 			client.getPollFd(*this)->events = POLLOUT;
+// 			request.setRequestErrorBool(true);
+// 			return ;
+// 		}
+// 		this->setupRequestEnvironment(client);
+// 		if (client.getRequest().getMethodEnum() == GET)
+// 			request.getBytesLeft() -= request.getBodyLen();
+// 		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
+// 	}
+// 	else if (bodyHeaderParsing(request) == true)
+// 	{
+// 		request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
+// 		request.getBytesLeft() -= request.getSockBytes();
+// 	}
+// 	if (request.getBytesLeft() == 0)
+// 	{
+// 		client.getPollFd(*this)->events = POLLOUT;
+// 		request.getFirstRead() = true;
+// 	}
+// 	else if (request.getBytesLeft() < 0)
+// 		client.getPollFd(*this)->events = POLLOUT;
+// 	else if (request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
+// 		client.getPollFd(*this)->events = POLLOUT;
+// }
+
 void	Server::processRequest(Client &client, char *buffer, int bytes)
 {
 	Request	&request = client.getRequest();
@@ -12,24 +59,8 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	LOG_REQUEST(buffer, bytes);
 	if (request.getFirstRead() == true) // legge la prima volta
 	{
-		request.getFirstRead() = false;
-		if (requestParsing(client, buffer, bytes) != 0)//request
-		{
-			client.getPollFd(*this)->events = POLLOUT;
-			// TODO - da settare status code corretto senza fare return ?????
-			return ;
-		}
-		convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
-		if ((*this->_srvnamemap).count(request.getHost()) == 0)
-		{
-			client.getPollFd(*this)->events = POLLOUT;
-			request.setRequestErrorBool(true);
-			return ;
-		}
-		this->setupRequestEnvironment(client);
-		if (client.getRequest().getMethodEnum() == GET)
-			request.getBytesLeft() -= request.getBodyLen();
-		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
+		if(first_read(client, buffer, bytes) == false)
+			return;
 	}
 	else if (bodyHeaderParsing(request) == true)
 	{
@@ -45,6 +76,31 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 		client.getPollFd(*this)->events = POLLOUT;
 	else if (request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
 		client.getPollFd(*this)->events = POLLOUT;
+}
+
+bool	Server::first_read(Client &client, char *buffer, int bytes)
+{
+	Request &request = client.getRequest();
+
+
+	request.getFirstRead() = false;
+	if (requestParsing(client, buffer, bytes) != 0)//request
+	{
+		client.getPollFd(*this)->events = POLLOUT;
+		// TODO - da settare status code corretto senza fare return ?????
+		return false;
+	}
+	convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
+	if ((*this->_srvnamemap).count(request.getHost()) == 0)
+	{
+		client.getPollFd(*this)->events = POLLOUT;
+		request.setRequestErrorBool(true);
+		return false;
+	}
+	this->setupRequestEnvironment(client);
+	if (client.getRequest().getMethodEnum() == GET)
+		request.getBytesLeft() -= request.getBodyLen();
+	// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 }
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)

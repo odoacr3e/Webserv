@@ -70,6 +70,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				processRequest(Client &client, char *buffer, int bytes);
 		void				processResponse(Client &client);
 		void				checkForConnection();
+		bool				first_read(Client &client, char *buffer, int bytes);
 		void				eraseClient(Client &client, int i);
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;

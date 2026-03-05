@@ -19,7 +19,7 @@ CPP = $(addprefix cpp/, 		Client.cpp \
 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp) \
 		$(addprefix cgi/, 		Cgi.cpp argv.cpp execute.cpp html/crypter.cpp html/cub.cpp html/pokedex.cpp html/var.cpp))
 
-UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp value_checker.cpp \
+UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp \
 								string/string.cpp url.cpp env.cpp directory.cpp)
 
 HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \

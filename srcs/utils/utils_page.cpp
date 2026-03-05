@@ -146,3 +146,38 @@ bool	file_checker(std::string filename)
 		return (false);
 	return (true);
 }
+
+/**
+ * @brief check if ip address passed is well formatted
+ * 
+ * @param addr string that contains ip address
+ * @return ip address len if verified, \p `false` if not
+ */
+int	valid_ip_address(std::string addr)
+{
+	size_t	dots;
+	int		len;
+	int		ip;
+
+	dots = 0;
+	for (len = 0; addr[len] && addr[len] != ':'; len++)
+	{
+		if (addr[len] != '.' && std::isdigit(addr[len]) == 0)
+			return (false);
+		dots += (addr[len] == '.');
+	}
+	if (dots != 3)
+		return (false);
+	for (int i = 4; i; i--)
+	{
+		ip = std::atoi(addr.c_str());
+		if (ip > UINT8_MAX || (ip != 0 && addr[0] == '0'))
+			return (false);
+		while (addr[0] != '.' && addr[0] != ':' && !addr.empty())
+			addr.erase(0, 1);
+		if (addr[0] && addr[1] && (addr[1] == '.' || addr[1] == ':'))
+			return (false);
+		addr.erase(0, 1);
+	}
+	return (len);
+}

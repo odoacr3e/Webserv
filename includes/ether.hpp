@@ -83,7 +83,7 @@ std::string		url_arg_get(std::string url, char limiter);
 
 int				valid_ip_address(std::string addr);
 int				atohex(std::string s);
-int				checkValidCode(int code);
+int				checkValidHttpCode(int code);
 
 dirent			*findUrlDirectory(std::string url);
 int				eraseDirectory(std::string dir_path);

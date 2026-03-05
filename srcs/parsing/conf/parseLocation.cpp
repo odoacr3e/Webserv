@@ -112,7 +112,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 		"return code3XX URL | return code\n");
 	code_syntax = charFinder(list[1], std::isdigit);
 	code = std::atoi(list[1].c_str());
-	code_valid = checkValidCode(code);
+	code_valid = checkValidHttpCode(code);
 	if (!code_syntax)
 		instructionError(list, line, "Wrong status code syntax\n");
 	if (code_valid == HTTP_UNKNOWN)
@@ -147,7 +147,7 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
 	if (!code_syntax)
 		instructionError(list, line, "invalid status code format in error_pages param");
 	int		code = std::atoi(list[1].c_str());
-	int		code_valid = checkValidCode(code);
+	int		code_valid = checkValidHttpCode(code);
 	if (code_valid == HTTP_UNKNOWN)
 		instructionError(list, line, "status code not implemented");
 	if (code >= 300 && code <= 399)

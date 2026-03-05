@@ -272,6 +272,10 @@ footer a:hover {
     letter-spacing: 0.5px;
 }
 
+.client-label:hover {
+    background: linear-gradient(135deg, #475569, #1e40af);
+}
+
 /* Se vuoi che il riferimento sia l'header */
 header {
     position: relative;

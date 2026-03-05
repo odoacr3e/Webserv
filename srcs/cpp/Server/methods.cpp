@@ -61,7 +61,7 @@ void	Server::getMethod(Client &client)
 		}
 		else
 			std::cout << "Cookie è vuoto!\n";
-		std::cout << body << "\n";
+		// std::cout << this->resp_body << "\n";
 		return ;
 	}
 	client.sendContentBool() = true;
@@ -232,7 +232,7 @@ std::string	get_filename(Client &client)
 			file.erase(file.length() - 1, 1);
 	}
 	else
-		client.getRequest().fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");\
+		client.getRequest().fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
 	if (client.getLocConf().post_storage.empty() == false)
 		file = client.getLocConf().post_storage + file;
 	else

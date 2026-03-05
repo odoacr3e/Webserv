@@ -2,21 +2,99 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>cub3D HUD • Capitano Edition</title>
+<title>cub3D HUD • Capitano Edition XL</title>
 <style>
-    body { margin: 0; background: #0b0f12; font-family: 'Courier New', monospace; color: #c7d5e0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-    .game-wrapper { display: grid; grid-template-columns: 120px auto 120px; grid-template-rows: auto 80px; gap: 20px; align-items: center; }
-    .screen-container { grid-column: 2; grid-row: 1; padding: 10px; background: linear-gradient(145deg, #1a2228, #0d1318); border: 4px solid #2a3942; box-shadow: 0 0 25px #000; }
-    #screen { display: block; width: 640px; height: 480px; image-rendering: pixelated; background: #000; }
-    .controls-left, .controls-right { display: flex; flex-direction: column; gap: 12px; }
-    .controls-bottom { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 20px; }
-    button { background: #1a2228; border: 2px solid #2a3942; color: #c7d5e0; padding: 10px 12px; cursor: pointer; font-size: 14px; transition: 0.1s; }
-    button:hover { background: #2a3942; box-shadow: 0 0 8px #00ffcc; }
-    button:active { transform: scale(0.95); }
-    .label { font-size: 10px; text-align: center; opacity: 0.6; display: block; }
-    #log-panel { width: 640px; height: 100px; background: #050709; border: 2px solid #2a3942; margin-top: 20px; padding: 8px; font-size: 11px; overflow-y: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 10px #000; }
-    .log-entry { margin-bottom: 2px; }
-    .log-time { color: #566c7a; margin-right: 8px; }
+    body { 
+        margin: 0; 
+        background: #0b0f12; 
+        font-family: 'Courier New', monospace; 
+        color: #c7d5e0; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 100vh; 
+        overflow-x: hidden;
+    }
+    
+    .game-wrapper { 
+        display: grid; 
+        grid-template-columns: auto 280px; 
+        gap: 25px; 
+        padding: 20px;
+        align-items: start; 
+    }
+    
+    .screen-container { 
+        padding: 12px; 
+        background: linear-gradient(145deg, #1a2228, #0d1318); 
+        border: 4px solid #2a3942; 
+        box-shadow: 0 0 35px #000; 
+    }
+    
+    /* Schermo ingrandito a 1280x960 */
+    #screen { 
+        display: block; 
+        width: 1280px; 
+        height: 960px; 
+        image-rendering: pixelated; 
+        background: #000; 
+    }
+    
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .control-group {
+        background: #141b21;
+        border: 2px solid #2a3942;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    button { 
+        background: #1a2228; 
+        border: 2px solid #2a3942; 
+        color: #c7d5e0; 
+        padding: 15px 5px; 
+        cursor: pointer; 
+        font-size: 16px; 
+        font-weight: bold;
+        transition: 0.1s; 
+        user-select: none;
+    }
+    
+    button:hover { background: #2a3942; box-shadow: 0 0 10px #00ffcc; }
+    button:active { transform: scale(0.92); background: #00ffcc; color: #000; }
+    
+    .btn-large { grid-column: span 3; padding: 18px; }
+    .btn-double { grid-column: span 1.5; }
+    
+    .label { font-size: 10px; text-align: center; opacity: 0.6; display: block; margin-top: 4px; text-transform: uppercase; }
+
+    #log-panel { 
+        width: 100%; 
+        height: 150px; 
+        background: #050709; 
+        border: 2px solid #2a3942; 
+        padding: 10px; 
+        font-size: 12px; 
+        overflow: hidden; 
+        box-shadow: inset 0 0 15px #000; 
+    }
+    
+    .log-entry { margin-bottom: 4px; border-left: 3px solid #2a3942; padding-left: 8px; }
+    .log-time { color: #566c7a; margin-right: 10px; }
     .log-msg-err { color: #ff4d4d; }
     .log-msg-ok { color: #00ffcc; }
     .log-msg-info { color: #8899a6; }
@@ -25,40 +103,52 @@
 <body>
 
 <div class="game-wrapper">
-    <div class="controls-left">
-        <button onclick="sendInput('x')">X<br><span class="label">Restart</span></button>
-    </div>
-
-    <div class="screen-container">
-        <img id="screen" src="" alt="In attesa di segnale...">
-    </div>
-
-    <div class="controls-right">
-        <button onmousedown="sendInput('W')" onmouseup="sendInput('w')">W</button>
-        <div style="display: flex; gap: 5px;">
-            <button onmousedown="sendInput('J')" onmouseup="sendInput('j')">↺ J</button>
-            <button onmousedown="sendInput('L')" onmouseup="sendInput('l')">L ↻</button>
+    <div class="main-area">
+        <div class="screen-container">
+            <img id="screen" src="" alt="SISTEMA INIZIALIZZATO - ATTESA STREAMING...">
         </div>
-        <div style="display: flex; gap: 5px;">
-            <button onmousedown="sendInput('A')" onmouseup="sendInput('a')">A</button>
-            <button onmousedown="sendInput('S')" onmouseup="sendInput('s')">S</button>
-            <button onmousedown="sendInput('D')" onmouseup="sendInput('d')">D</button>
+    </div>
+
+    <div class="sidebar">
+        <div class="control-group">
+            <div style="color: #00ffcc; font-size: 12px; margin-bottom: 5px;">▲ NAVIGATION</div>
+            <button class="btn-large" onmousedown="sendInput('W')" onmouseup="sendInput('w')">W<br><span class="label">Avanti</span></button>
+            <div class="btn-grid">
+                <button onmousedown="sendInput('A')" onmouseup="sendInput('a')">A</button>
+                <button onmousedown="sendInput('S')" onmouseup="sendInput('s')">S</button>
+                <button onmousedown="sendInput('D')" onmouseup="sendInput('d')">D</button>
+            </div>
+            <div class="btn-grid" style="grid-template-columns: 1fr 1fr; margin-top: 10px;">
+                <button onmousedown="sendInput('J')" onmouseup="sendInput('j')">↺ J</button>
+                <button onmousedown="sendInput('L')" onmouseup="sendInput('l')">L ↻</button>
+            </div>
         </div>
-        <button onmousedown="sendInput('E')" onmouseup="sendInput('e')">E (Interact)</button>
-        <button onmousedown="sendInput('K')" onmouseup="sendInput('k')">K (run)</button>
-    </div>
 
-    <div class="controls-bottom">
-        <button onclick="sendInput('1')">1<br><span class="label">Sasso</span></button>
-        <button onclick="sendInput('2')">2<br><span class="label">Carta</span></button>
-        <button onclick="sendInput('3')">3<br><span class="label">Forbici</span></button>
-        <button onclick="sendInput('4')">4<br><span class="label">Cerchio</span></button>
-    </div>
-</div>
+        <div class="control-group">
+            <div style="color: #ffcc00; font-size: 12px; margin-bottom: 5px;">★ ACTIONS</div>
+            <button class="btn-large" onmousedown="sendInput('E')" onmouseup="sendInput('e')">E / INTERACT</button>
+            <button class="btn-large" onmousedown="sendInput('K')" onmouseup="sendInput('k')">K / RUN (TURBO)</button>
+        </div>
 
-<div id="log-panel">
-    <div style="color: #4da6ff; border-bottom: 1px solid #2a3942; margin-bottom: 4px; padding-bottom: 2px;">[ HUD SYSTEM TERMINAL ]</div>
-    <div id="log-content"></div>
+        <div class="control-group">
+            <div style="color: #4da6ff; font-size: 12px; margin-bottom: 5px;">⚙ SLOTS</div>
+            <div class="btn-grid">
+                <button onclick="sendInput('1')">1</button>
+                <button onclick="sendInput('2')">2</button>
+                <button onclick="sendInput('3')">3</button>
+                <button onclick="sendInput('4')">4</button>
+            </div>
+        </div>
+
+        <div class="control-group" style="border-color: #ff4d4d;">
+            <button onclick="sendInput('x')" style="border-color: #ff4d4d; color: #ff4d4d;">X / REBOOT SYSTEM</button>
+        </div>
+
+        <div id="log-panel">
+            <div style="color: #4da6ff; border-bottom: 1px solid #2a3942; margin-bottom: 8px; font-weight: bold;">[ TERMINAL LOG ]</div>
+            <div id="log-content"></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -75,13 +165,13 @@ let selectedButton = "";
 const activeKeys = {
     'W': false, 'A': false, 'S': false, 'D': false,
     'J': false, 'L': false, 'E': false, 'X': false,
-	'Q': false
+    'Q': false
 };
 
 const keyMap = {
     'w': 'W', 'a': 'A', 's': 'S', 'd': 'D',
     'j': 'J', 'l': 'L', 'e': 'E', 'x': 'X',
-	'q': 'Q'
+    'q': 'Q'
 };
 
 function addLog(msg, type = 'info') {
@@ -94,7 +184,7 @@ function addLog(msg, type = 'info') {
     div.className = 'log-entry';
     div.innerHTML = `<span class="log-time">[${timeStr}]</span><span class="${colorClass}">${msg}</span>`;
     logContent.appendChild(div);
-    if (logContent.childNodes.length > 5) logContent.removeChild(logContent.firstChild);
+    if (logContent.childNodes.length > 6) logContent.removeChild(logContent.firstChild);
 }
 
 function loadImage(url) {
@@ -109,13 +199,14 @@ function loadImage(url) {
 function sendInput(char) {
     if (['1', '2', '3', '4'].includes(char)) {
         selectedButton = char;
-        addLog(`Input numerico: ${char}`, 'ok');
+        addLog(`Slot ${char} attivato`, 'ok');
         return;
     }
     const upper = char.toUpperCase();
     if (activeKeys.hasOwnProperty(upper)) {
         activeKeys[upper] = (char === upper);
     }
+    if (char === 'x') addLog("Richiesta Reboot...", "err");
 }
 
 window.addEventListener('keydown', (e) => {
@@ -155,7 +246,7 @@ async function updateLoop() {
         }
 
         const ts = Date.now();
-        const targetBytes = 14745654;
+        const targetBytes = 14745654; // Assicurati che il server invii i byte corretti per 1280x960
 
         try {
             const response = await fetch(`${cgiPath}?${actions}&t=${ts}`);
@@ -192,14 +283,15 @@ async function updateLoop() {
             isWaiting = false;
 
         } catch (e) {
-            addLog(`ERRORE: ${e.message}`, 'err');
+            addLog(`STREAM: ${e.message}`, 'err');
             setTimeout(() => { isWaiting = false; }, 1000);
         }
     }
     requestAnimationFrame(updateLoop);
 }
 
-addLog("Sistema HUD pronto. Connessione...", "ok");
+addLog("HUD XL AVVIATO", "ok");
+addLog("Risoluzione: 1280x960", "info");
 updateLoop();
 </script>
 </body>

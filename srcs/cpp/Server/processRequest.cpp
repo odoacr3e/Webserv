@@ -41,12 +41,13 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	}
 	if (request.getBytesLeft() == 0)
 	{
-		// std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
 		client.getPollFd(*this)->events = POLLOUT;
 		request.getFirstRead() = true;
 	}
-	// std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;
-	// std::cout << "BODY\n" << request.getBinBody() << std::endl;
+	else if (request.getBytesLeft() < 0)
+		client.getPollFd(*this)->events = POLLOUT;
+	else if (request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
+		client.getPollFd(*this)->events = POLLOUT;
 }
 
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)

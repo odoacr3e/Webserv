@@ -1,0 +1,942 @@
+diff --git a/Makefile b/Makefile
+index 4b39988..1a36e06 100644
+--- a/Makefile
++++ b/Makefile
+@@ -19,8 +19,8 @@ CPP = $(addprefix cpp/, 		Client.cpp \
+ 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp) \
+ 		$(addprefix cgi/, 		Cgi.cpp argv.cpp execute.cpp html/crypter.cpp html/cub.cpp html/pokedex.cpp html/var.cpp))
+ 
+-UTILS = $(addprefix utils/, 	file.cpp utils_page1.cpp path_checker.cpp value_checker.cpp \
+-								string/string.cpp string/buffer.cpp url.cpp env.cpp directory.cpp)
++UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp \
++								string/string.cpp url.cpp env.cpp directory.cpp)
+ 
+ HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
+ 			$(addprefix hpp/, Client.hpp Cgi.hpp Conf.hpp Request.hpp Server.hpp)
+diff --git a/includes/ether.hpp b/includes/ether.hpp
+index 7f71ade..b5eec89 100644
+--- a/includes/ether.hpp
++++ b/includes/ether.hpp
+@@ -83,7 +83,7 @@ std::string		url_arg_get(std::string url, char limiter);
+ 
+ int				valid_ip_address(std::string addr);
+ int				atohex(std::string s);
+-int				checkValidCode(int code);
++int				checkValidHttpCode(int code);
+ 
+ dirent			*findUrlDirectory(std::string url);
+ int				eraseDirectory(std::string dir_path);
+diff --git a/srcs/cpp/Server/Server.cpp b/srcs/cpp/Server/Server.cpp
+index 1d9e9f6..a588aab 100644
+--- a/srcs/cpp/Server/Server.cpp
++++ b/srcs/cpp/Server/Server.cpp
+@@ -35,6 +35,7 @@ Server::Server(Conf &conf, const char **env):_env(env)
+ 		}
+ 		else
+ 			std::cout << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
++		std::cout << "Server NUM: " << this->_server_num << std::endl;
+ 	}
+ 	if (this->_server_num == 0)
+ 		throw (std::runtime_error("\nNo server could be binded."));
+@@ -94,8 +95,8 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
+ 				client->readCgi(*this, *cgi);
+ 			else
+ 			{
+-				char buffer[2048] = {0};//NOTE - reserve vector
+-				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, 0);
++				char buffer[2048] = {0}; //NOTE - reserve vector
++				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, MSG_DONTWAIT);
+ 				if (bytes <= 0)
+ 					eraseClient(*client, this->_i--);
+ 				else
+@@ -170,6 +171,7 @@ int	Server::addSocket(int index, e_fd_type type)
+ 	this->_fd_data[polldata.fd] = fd_data;
+ 	if (type == FD_CLIENT)
+ 	{
++		fcntl(socket, F_SETFL, O_NONBLOCK);
+ 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
+ 		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
+ 		this->_fd_data[polldata.fd].client = this->_clients[socket];
+diff --git a/srcs/cpp/Server/methods.cpp b/srcs/cpp/Server/methods.cpp
+index 8c71b29..2f7b7bb 100644
+--- a/srcs/cpp/Server/methods.cpp
++++ b/srcs/cpp/Server/methods.cpp
+@@ -185,7 +185,6 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
+ 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
+ 		html.open((checkErrorPages(client.getRequest())).c_str());
+ 	}
+-	// std::cout << "FAILE: " << file << std::endl;
+ 	body = file_opener(html);
+ 	find_and_replace(body, "{MSG}", request.getFailMsg());
+ }
+@@ -227,8 +226,11 @@ static void	trimBody(Request &request)
+ 		std::cout << h_len[1] << std::endl;
+ 	}//else: è un body normale senza immagine, niente headerBodyParsing
+ 	else
++	{
+ 		h_len[1] = h_len[0];
+-	// std::cout << "TROVATO \r\n! adesso trimmo il body\n";
++		if (request.getBodyLen() != (request.getSockBytes() - h_len[0]))
++			request.fail(HTTP_CE_METHOD_NOT_ALLOWED);
++	}
+ 	bodyHeaderContentLen = request.getSockBytes() - h_len[0];
+ 	bodyContentLen = request.getSockBytes() - h_len[1];
+ 	request.getBytesLeft() -= bodyHeaderContentLen;
+diff --git a/srcs/cpp/Server/processRequest.cpp b/srcs/cpp/Server/processRequest.cpp
+index 24ecccc..0f10472 100644
+--- a/srcs/cpp/Server/processRequest.cpp
++++ b/srcs/cpp/Server/processRequest.cpp
+@@ -39,14 +39,19 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
+ 			request.getBytesLeft() -= request.getSockBytes();
+ 		}
+ 	}
++	std::cout << "Statyus code: " << request.getStatusCode() << std::endl;
+ 	if (request.getBytesLeft() == 0)
+ 	{
+-		// std::cout << "processRequest(): " << client.getPollFd()->fd << ":POLLOUT" << std::endl;
+ 		client.getPollFd(*this)->events = POLLOUT;
+ 		request.getFirstRead() = true;
+ 	}
+-	// std::cout << BLUE"processRequest(): \n" << request << RESET << std::endl;
+-	// std::cout << "BODY\n" << request.getBinBody() << std::endl;
++	else if (request.getBytesLeft() < 0)
++	{
++		client.getPollFd(*this)->events = POLLOUT;
++		// request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Wrong Content-Length");
++	}
++	else if (request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
++		client.getPollFd(*this)->events = POLLOUT;
+ }
+ 
+ void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)
+diff --git a/srcs/cpp/Server/processResponse.cpp b/srcs/cpp/Server/processResponse.cpp
+index d25b967..598aad7 100644
+--- a/srcs/cpp/Server/processResponse.cpp
++++ b/srcs/cpp/Server/processResponse.cpp
+@@ -136,7 +136,7 @@ std::string	Server::createHtml(Client &client, std::string &body)
+ 
+ 	response << "HTTP/1.1 "
+ 	         << status << " "
+-	         << http_codes_str[checkValidCode(status)] << "\r\n";
++	         << http_codes_str[checkValidHttpCode(status)] << "\r\n";
+ 	response << "Content-Type: " << client.getRequest().getBodyType() << "\r\n";
+ 	response << "Cache-Control: no-cache, no-store, must-revalidate" << "\r\n";
+ 	response << "Pragma: no-cache" << "\r\n";
+diff --git a/srcs/main.cpp b/srcs/main.cpp
+index 19336f9..99e61ec 100644
+--- a/srcs/main.cpp
++++ b/srcs/main.cpp
+@@ -29,7 +29,7 @@ Set-Cookie: session_id=abc123; Path=/; HttpOnly; Secure
+ int main(int ac, char **av, const char **env)
+ {
+ 	LOG_RESET();
+-	std::srand(time(0));
++	std::srand(std::time(0));
+ 	std::string	conf_path;
+ 
+ 	signal(SIGINT, stopServer);
+diff --git a/srcs/parsing/conf/parseLocation.cpp b/srcs/parsing/conf/parseLocation.cpp
+index b59d982..7916cc1 100644
+--- a/srcs/parsing/conf/parseLocation.cpp
++++ b/srcs/parsing/conf/parseLocation.cpp
+@@ -115,7 +115,7 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
+ 		"return code3XX URL | return code\n");
+ 	code_syntax = charFinder(list[1], std::isdigit);
+ 	code = std::atoi(list[1].c_str());
+-	code_valid = checkValidCode(code);
++	code_valid = checkValidHttpCode(code);
+ 	if (!code_syntax)
+ 		instructionError(list, line, "Wrong status code syntax\n");
+ 	if (code_valid == HTTP_UNKNOWN)
+@@ -150,7 +150,7 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
+ 	if (!code_syntax)
+ 		instructionError(list, line, "invalid status code format in error_pages param");
+ 	int		code = std::atoi(list[1].c_str());
+-	int		code_valid = checkValidCode(code);
++	int		code_valid = checkValidHttpCode(code);
+ 	if (code_valid == HTTP_UNKNOWN)
+ 		instructionError(list, line, "status code not implemented");
+ 	if (code >= 300 && code <= 399)
+diff --git a/srcs/parsing/conf/parseServer.cpp b/srcs/parsing/conf/parseServer.cpp
+index b482e61..0008f82 100644
+--- a/srcs/parsing/conf/parseServer.cpp
++++ b/srcs/parsing/conf/parseServer.cpp
+@@ -147,7 +147,7 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
+ 	if (!code_syntax)
+ 		instructionError(list, line, "invalid status code format in error_pages param");
+ 	int		code = std::atoi(list[1].c_str());
+-	int		code_valid = checkValidCode(code);
++	int		code_valid = checkValidHttpCode(code);
+ 	if (code_valid == HTTP_UNKNOWN)
+ 		instructionError(list, line, "status code not implemented");
+ 	if (code >= 300 && code <= 399)
+diff --git a/srcs/parsing/parseRequest.cpp b/srcs/parsing/parseRequest.cpp
+index d8ddafa..080382d 100644
+--- a/srcs/parsing/parseRequest.cpp
++++ b/srcs/parsing/parseRequest.cpp
+@@ -20,7 +20,9 @@ int	requestParsing(Client &client, char *input, int bytes)
+ 	std::istringstream	*stream = &request.getRequestStream();
+ 
+ 	request.setParsingData(client.getSockFd(), bytes, input);
+-	while (lines == "\r")//NOTE - linee vuote iniziali accettate da RFC
++	request.setStatusCode(HTTP_OK);
++	//NOTE - linee vuote iniziali accettate da RFC
++	while (lines == "\r")
+ 		std::getline(*stream, lines, '\n');
+ 	if (lineParsing(request, lines) != 0) // first line parsing
+ 		return (request.getStatusCode());
+@@ -28,7 +30,6 @@ int	requestParsing(Client &client, char *input, int bytes)
+ 		return (request.getStatusCode());
+ 	if (bodyParsing(request) != 0)
+ 		return (request.getStatusCode());
+-	request.setStatusCode(HTTP_OK);
+ 	return (0);
+ }
+ 
+diff --git a/srcs/utils/directory.cpp b/srcs/utils/directory.cpp
+index 8a0111a..f84db2c 100644
+--- a/srcs/utils/directory.cpp
++++ b/srcs/utils/directory.cpp
+@@ -1,6 +1,9 @@
+ #include "../../includes/ether.hpp"
+ 
+ // NOTE - cerca directory dentro l'URL passato come parametro, viene chiamata come gnl e ad ogni ritorno ritorna la cartella successiva
++/**
++ * @brief 
++ */
+ dirent	*findUrlDirectory(std::string url)
+ {
+ 	static DIR	*dir;
+@@ -26,7 +29,6 @@ dirent	*findUrlDirectory(std::string url)
+ 		dir = NULL;
+ 		return (NULL);
+ 	}
+-	// std::cout << "findUrlDirectory(): " << content->d_name << std::endl;
+ 	return (content);
+ }
+ 
+@@ -44,10 +46,12 @@ dirent	*findUrlDirectory(std::string url, DIR *dir)
+ 	return (content);
+ }
+ 
+-
+-/// @brief equivalent to shell rm dir/*
+-/// @param dir_path path of the directory
+-/// @return 1 on errors, 0 on success
++/**
++ * @brief equivalent to shell \p `rm` \p `dir`
++ * 
++ * @param dir_path path of the directory
++ * @return 1 on errors, 0 on success
++ */
+ int		eraseDirectory(std::string dir_path)
+ {
+ 	dirent	*content;
+@@ -66,6 +70,12 @@ int		eraseDirectory(std::string dir_path)
+ 	return (0);
+ }
+ 
++/**
++ * @brief equivalent to shell \p `ls`
++ * 
++ * @param path path of the directory to list
++ * @param files string of files listed
++ */
+ void	ft_ls(std::string path, std::string &files)
+ {
+ 	DIR		*dir;
+diff --git a/srcs/utils/file.cpp b/srcs/utils/file.cpp
+index a094c62..e2676d6 100644
+--- a/srcs/utils/file.cpp
++++ b/srcs/utils/file.cpp
+@@ -1,3 +1,4 @@
++
+ #include "../../includes/ether.hpp"
+ #include "../../srcs/hpp/Server.hpp"
+ #include "../../srcs/hpp/Client.hpp"
+diff --git a/srcs/utils/path_checker.cpp b/srcs/utils/path_checker.cpp
+index 082bc39..4bf92db 100644
+--- a/srcs/utils/path_checker.cpp
++++ b/srcs/utils/path_checker.cpp
+@@ -1,6 +1,12 @@
+ #include "../../includes/ether.hpp"
+ 
+ //returns true if directory is valid, else false
++/**
++ * @brief check if \p `directory` exists
++ * 
++ * @param directory path of directory to check
++ * @return \p `true` if is valid, \p `false` if not
++ */
+ bool	valid_directory(std::string directory)
+ {
+ 	DIR		*dir_fd;
+@@ -14,7 +20,12 @@ bool	valid_directory(std::string directory)
+ 	return (closedir(dir_fd), valid);
+ }
+ 
+-//returns true if directory is valid, else false
++/**
++ * @brief check if \p `file` exists
++ * 
++ * @param file path of file to check
++ * @return \p `true` if is valid, \p `false` if not
++ */
+ bool	valid_file(std::string file)
+ {
+ 	file = file.substr(file[0] == '/');
+diff --git a/srcs/utils/print.tpp b/srcs/utils/print.tpp
+index 7fb0b8a..ae9388e 100644
+--- a/srcs/utils/print.tpp
++++ b/srcs/utils/print.tpp
+@@ -72,13 +72,6 @@ std::ostream	&operator<<(std::ostream &stream, std::vector<T> &vec)
+ 	return (stream);
+ }
+ 
+-
+-// template <typename T>
+-// void	print_file(std::ofstream &stream, T content)
+-// {
+-// 	stream << content;
+-// }
+-
+ template <typename T>
+ void	print_file(std::string filename, T content)
+ {
+@@ -105,17 +98,4 @@ void	print_file(std::string filename, T content, int bytes)
+ 	stream.write(content, bytes);
+ }
+ 
+-/*
+-template <typename T>
+-void	print_file(std::string filename, T content, std::ios_base::openmode flags)
+-{
+-	std::ofstream	stream(filename, flags);
+-
+-	if (stream.fail())
+-	{
+-		return (std::cerr << "cannot open " + filename + "\n", (void)0);
+-	}
+-	stream << content;
+-}*/
+-
+ #endif
+\ No newline at end of file
+diff --git a/srcs/utils/string/buffer.cpp b/srcs/utils/string/buffer.cpp
+deleted file mode 100644
+index 7b760f6..0000000
+--- a/srcs/utils/string/buffer.cpp
++++ /dev/null
+@@ -1,160 +0,0 @@
+-#include "../../../includes/ether.hpp" 
+-
+-
+-// static void	alloc_packets(std::vector<char *> &packets, size_t pos, size_t len);
+-// void		print_packets(std::vector<char *> &packets, size_t &size);
+-
+-/* 
+-** 1. Prendere content length
+-** 2. Cercare boundary e salvarlo (se c'e)
+-** 3. ciclare finche byte letti (nel totale) sono diversi da content length
+-		OPPURE bytes != 0
+-** 4. Controllare boundary finale (-- + boundary + --) oppure continuazione (-- + boundary)
+-** 5. 
+-*/
+-
+-// "file=@www/var/"
+-
+-// Content-Disposition: form-data; name="file"; filename="favicon.ico"
+-// Content-Type: application/octet-stream\r\n
+-
+-
+-// #include <fstream>
+-// #include <iostream>
+-
+-// struct Dato {
+-//     int id;
+-//     double valore;
+-// };
+-
+-// int main() {
+-//     Dato d1{42, 3.14};
+-
+-//     // Scrittura binaria
+-//     std::ofstream out("dati.bin", std::ios::binary);
+-//     if (!out) {
+-//         std::cerr << "Errore apertura file in scrittura\n";
+-//         return 1;
+-//     }
+-//     out.write(reinterpret_cast<const char*>(&d1), sizeof(Dato));
+-//     out.close();
+-
+-//     // Lettura binaria
+-//     Dato d2{};
+-//     std::ifstream in("dati.bin", std::ios::binary);
+-//     if (!in) {
+-//         std::cerr << "Errore apertura file in lettura\n";
+-//         return 1;
+-//     }
+-//     in.read(reinterpret_cast<char*>(&d2), sizeof(Dato));
+-//     in.close();
+-
+-//     std::cout << d2.id << " " << d2.valore << "\n";
+-//     return 0;
+-// }
+-
+-/*void	ft_to_string(std::vector<char *> &packets, std::string &request_buff)
+-{
+-	request_buff.clear();
+-	for (std::vector<char *>::iterator it = packets.begin(); it != packets.end(); it++)
+-	{
+-		if ((*it)[0] == 0)
+-			break ;
+-		request_buff += (*it);
+-	}
+-}*/
+-
+-//allocs only when needed
+-// static void	alloc_packets(std::vector<char *> &packets, size_t pos, size_t len)
+-// {
+-// 	if (pos < packets.size() && packets[pos] != NULL)
+-// 	{
+-// 		packets[pos][0] = 0;
+-// 		return ;
+-// 	}
+-// 	if (pos < packets.size())
+-// 		packets[pos] = new char[len + 2];
+-// 	else
+-// 		packets.push_back(new char[len + 2]);
+-// }
+-
+-/*void	print_packets(std::vector<char *> &packets, size_t &size)
+-{
+-	int	n_package = 0;
+-
+-	std::cout << "size: " << size << std::endl;
+-	for (std::vector<char *>::iterator it = packets.begin(); it != packets.end(); it++)
+-	{
+-		if ((*it)[0] == 0)
+-			break ;
+-		std::cout << "\n\033[33mpackage number \033[0m" << n_package++ << std::endl;
+-		for (int i = 0; (*it)[i]; i++)
+-			std::cout << (*it)[i];
+-	}
+-	std::cout << "\033[33mPRINT END \033[0m\n";
+-}*/
+-
+-//robbe
+-	// while (tot < bodyLength)
+-	// {
+-	// 	/* std::cout << "left: " << left << "\n";
+-	// 	if (left >= 2048)
+-	// 		bytes = recv(fd, buf, 2048, 0);
+-	// 	else
+-	// 		bytes = recv(fd, buf, bodyLength - tot, 0);
+-	// 	std::cout << "Bytes: " << bytes << std::endl;
+-	// 	std::cout << "Tot bytes: " << tot << std::endl;
+-	// 	if (std::string(buf).find(bound) != std::string::npos)
+-	// 	{
+-	// 		std::cout << "HO TROVATO IL ONE PIECE" << std::endl;
+-	// 	}
+-	// 	print_file("REQUEST", buf);
+-	// 	if (bytes <= 0)
+-	// 	{
+-	// 		std::cout << "left: " << left << "\n";
+-	// 		std::cout << "ft_recv: exit with bytes " << bytes << ", counter " << DEBUG_COUNTER << "\n";
+-	// 		std::cout << "ft_recv: fd is " << fd << "\n";
+-	// 		break ; 
+-	// 	}
+-	// 	left -= bytes;
+-	// 	tot += bytes;
+-	// 	body.insert(body.end(), buf, buf + bytes); */
+-	// 	size_t to_read = std::min(bodyLength - tot, (size_t)2048);
+-	// 	bytes = recv(fd, buf, to_read, 0);
+-		
+-	// 	if (bytes <= 0)
+-	// 		break;
+-		
+-	// 	tot += bytes;
+-	// 	body.insert(body.end(), buf, buf + bytes);
+-	// }
+-
+-	// std::cout << "2 - ft_recv, fd is: " << fd << "\n";
+-	// std::cout << "=== INIZIO RECV ===" << std::endl;
+-	// std::cout << "Content-Length: " << bodyLength << std::endl;
+-
+-	// while (tot < bodyLength)
+-	// {
+-	// 	size_t to_read = std::min(bodyLength - tot, (size_t)2048);
+-	// 	std::cout << "Provo a leggere " << to_read << " bytes (tot finora: " << tot << ")" << std::endl;
+-		
+-	// 	bytes = recv(fd, buf, to_read, 0);
+-	// 	std::cout << "recv() ha ritornato: " << bytes << std::endl;
+-		
+-	// 	if (bytes <= 0)
+-	// 		break;
+-		
+-	// 	tot += bytes;
+-	// }
+-
+-	// std::cout << "=== FINE RECV: tot=" << tot << ", bodyLength=" << bodyLength << " ===" << std::endl;
+-
+-
+-
+-/*
+-	if (contType.find("boundary") != std::string::npos)
+-	{
+-		bound = contType.substr(contType.find("boundary=") + std::string("boundary=").length());
+-		std::cout << "BOUNDARY TROVATO: " << bound << std::endl;
+-	}
+-*/
+\ No newline at end of file
+diff --git a/srcs/utils/string/string.cpp b/srcs/utils/string/string.cpp
+index c819bb7..2e7af95 100644
+--- a/srcs/utils/string/string.cpp
++++ b/srcs/utils/string/string.cpp
+@@ -1,6 +1,13 @@
++
+ #include "../../../includes/ether.hpp"
+ #include "../../../includes/status_codes.hpp"
+ 
++/** 
++ * @brief trim a string from a specific position (included)
++ * 
++ * @param s string to trim
++ * @param from start position for trim, included in trim
++ */
+ void	trim_from(std::string &s, size_t from)
+ {
+ 	int	i;
+@@ -13,14 +20,11 @@ void	trim_from(std::string &s, size_t from)
+ 	s.erase(from, i);
+ }
+ 
+-/*
+-	trim a str until s[i] == c, then return 0.
+-	if \0 is found, str is set to "", 1 is returned.
+-	if c is \0, 1 is returned.
+-
+-	c = ' '
+-	s = "   ciao" ---> "ciao"
+-*/
++/** 
++ * @brief find first occurence different from \p `c` and trim until \p `c` position, starting from 'left'
++ * @param s string to trim
++ * @param c char to trim from s
++ */
+ bool	trim_equal_left(std::string &s, char c)
+ {
+ 	size_t	i;
+@@ -34,14 +38,11 @@ bool	trim_equal_left(std::string &s, char c)
+ 	return (0);
+ }
+ 
+-/*
+-	trim a str until s[i] != c, then return 0.
+-	if \0 is found, str is set to "", 1 is returned.
+-	if c is \0, 1 is returned.
+-
+-	c = ' '
+-	s = "ciao come stai" ---> " come stai"
+-*/
++/** 
++ * @brief find first occurence of \p `c` and trim until \p `c` position, starting from 'left'
++ * @param s string to trim
++ * @param c char to trim from s
++ */
+ bool	trim_diff_left(std::string &s, char c)
+ {
+ 	size_t	i;
+@@ -55,14 +56,11 @@ bool	trim_diff_left(std::string &s, char c)
+ 	return (0);
+ }
+ 
+-/*
+-	trim a str FROM RIGHT until s[i] == c, then return 0.
+-	if \0 is found, str is set to "", 1 is returned.
+-	if c is \0, 1 is returned.
+-
+-	c = ' '
+-	s = "ciao     " ---> "ciao"
+-*/
++/** 
++ * @brief find first occurence different from \p `c` and trim until \p `c` position, starting from 'right'
++ * @param s string to trim
++ * @param c char to trim from s
++ */
+ bool	trim_equal_right(std::string &s, char c)
+ {
+ 	size_t	start;
+@@ -82,14 +80,11 @@ bool	trim_equal_right(std::string &s, char c)
+ 	return (0);
+ }
+ 
+-/*
+-	trim a str FROM RIGHT until s[i] != c, then return 0.
+-	if \0 is found, str is set to "", 1 is returned.
+-	if c is \0, 1 is returned.
+-
+-	c = ' '
+-	s = "ciao come" ---> "ciao "
+-*/
++/** 
++ * @brief find first occurence of \p `c` and trim until \p `c` position, starting from 'right'
++ * @param s string to trim
++ * @param c char to trim from s
++ */
+ bool	trim_diff_right(std::string &s, char c)
+ {
+ 	size_t	start;
+@@ -109,14 +104,19 @@ bool	trim_diff_right(std::string &s, char c)
+ 	return (0);
+ }
+ 
+-/// @brief trim from the first occurence of left to the next occurence of right.
+-/// @param str original string
+-/// @param left left substr
+-/// @param right right substr (the next after left)
+-/// @return 0 on success, 1 on error
+-///
+-///	Example:
+-///	ft_strtrim("LeftContenutoRight", "Left", "Right") ---> "Contenuto"
++/** 
++ * @brief trim \p `left`, create a substr and, from that, it trims \p `right` 
++ * 
++ * @param str original string
++ * @param left left substr
++ * @param right right substr (the next after left)
++ * @return 0 on success, 1 on error
++ * 
++ * Example:
++ * ```
++ * ft_strtrim("LeftContenutoRight", "Left", "Right") ---> "Contenuto"
++ * ```
++ */
+ bool	ft_strtrim(std::string &str, std::string left, std::string right)
+ {
+ 	size_t	i;
+@@ -133,6 +133,17 @@ bool	ft_strtrim(std::string &str, std::string left, std::string right)
+ 	return (0);
+ }
+ 
++/**
++ * @brief splits a \p string into a \p `vector<std::string>` splitting by a \p char
++ * 
++ * @note \p `vector<std::string>` is not created in this function, user has to create it out of function scope
++ * and pass it by reference
++ * 
++ * @param vect vector<std::string> passed by reference
++ * @param s string to split
++ * @param c char used for splitting \p `s`
++ * 
++ */
+ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
+ {
+ 	std::string	temp;
+@@ -154,11 +165,13 @@ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
+ }
+ 
+ /**
+- * @brief split a vector - ALLOCS MEMORY: every element !MUST! BE DELETED!!!
++ * @brief splits a \p string into a \p `vector<std::string>` splitting by a \p char
++ * 
++ * @note function allocs memory: every element MUST BE DELETED by user
+  * 
+  * @param vect vector of char * 
+  * @param s string to split
+- * @param c separator
++ * @param c char used for splitting \p `s`
+  */
+ void	vect_split_new(std::vector<char *> &vect, std::string s, char c)
+ {
+@@ -187,6 +200,12 @@ void	vect_split_new(std::vector<char *> &vect, std::string s, char c)
+ 	}
+ }
+ 
++/** 
++ * @brief free function for \p ```vect_split_new```
++ * 
++ * @param vect vector of char * allocated before
++ * @param size size of vector
++ */
+ void	vect_split_free(std::vector<char *> &vect, size_t size)
+ {
+ 	for (size_t i = 0; i < size; i++)
+@@ -194,3 +213,39 @@ void	vect_split_free(std::vector<char *> &vect, size_t size)
+ 		delete [] vect[i];
+ 	}
+ }
++
++/**
++ * @brief conversion from hexadecimal to char for string conversion in URL browser
++ * 
++ * @param input input string to modify
++ * @return string modified with hexadecimal chars converted to char
++ */
++std::string		hex_to_char(std::string& input)
++{
++    std::string result;
++
++    result.reserve(input.size());
++    for (std::size_t i = 0; i < input.size(); ++i) 
++	{
++        if (input[i] == '%' &&
++            i + 2 < input.size() &&
++            std::isxdigit(static_cast<unsigned char>(input[i + 1])) &&
++            std::isxdigit(static_cast<unsigned char>(input[i + 2]))) 
++		{
++
++            char hex[3];
++            hex[0] = input[i + 1];
++            hex[1] = input[i + 2];
++            hex[2] = '\0';
++
++            char* endptr = 0;
++            long value = std::strtol(hex, &endptr, 16);
++
++            result += static_cast<char>(value);
++            i += 2; 
++        } 
++		else
++        	result += input[i];
++    }
++	return (result);
++}
+diff --git a/srcs/utils/string/string.tpp b/srcs/utils/string/string.tpp
+index b738e2f..00af45c 100644
+--- a/srcs/utils/string/string.tpp
++++ b/srcs/utils/string/string.tpp
+@@ -9,7 +9,15 @@ std::string	ft_to_string(T data)
+ 	return (stream.str());
+ }
+ 
+-//returns true if replace succeed, else false
++/**
++ * @brief find \p `old_s` param and substitute with \p `new_s` in \p `str`
++ * 
++ * @param str string to find and replace
++ * @param to_replace content to replace
++ * @param content new content
++ * 
++ * @return \p `true` if it works, \p `false` instead
++ */
+ template <typename old_s, typename new_s>
+ bool	find_and_replace(std::string &str, old_s to_replace, new_s content)
+ {
+@@ -25,12 +33,20 @@ bool	find_and_replace(std::string &str, old_s to_replace, new_s content)
+ 	return (true);
+ }
+ 
++/**
++ * @brief find \p `old_s` param and erase it in \p `str`
++ * 
++ * @param str string to find and replace
++ * @param to_delete content to delete
++ * 
++ * @return \p `true` if it works, \p `false` instead
++ */
+ template <typename old_s>
+-bool	find_and_erase(std::string &str, old_s to_replace)
++bool	find_and_erase(std::string &str, old_s to_delete)
+ {
+ 	std::string	temp_replace;
+ 
+-	temp_replace = ft_to_string(to_replace);
++	temp_replace = ft_to_string(to_delete);
+ 	if (str.find(temp_replace) != std::string::npos)
+ 		str.erase(str.find(temp_replace), temp_replace.size());
+ 	else
+diff --git a/srcs/utils/url.cpp b/srcs/utils/url.cpp
+index f798569..00140a2 100644
+--- a/srcs/utils/url.cpp
++++ b/srcs/utils/url.cpp
+@@ -5,12 +5,13 @@
+ typedef struct s_conf_server	t_conf_server;
+ typedef struct s_conf_location	t_conf_location;
+ 
+-//SECTION - app root/alias to a file
+-
+-/// @brief append root to an url from t_conf_server
+-/// @param url the url received in requests
+-/// @param srv server configuration
+-/// @return resolved url
++/**
++ * @brief append root path to an url from \p `t_conf_server`
++ * 
++ * @param url the url of request
++ * @param srv server configuration
++ * @return new url with \p `root` appended
++ */
+ std::string	url_rooting(std::string url, t_conf_server &srv)
+ {
+ 	std::string		file;
+@@ -26,10 +27,13 @@ std::string	url_rooting(std::string url, t_conf_server &srv)
+ 	return (dir + file);
+ }
+ 
+-/// @brief append root or alias to an url from t_conf_location
+-/// @param url the url received in requests
+-/// @param srv server configuration
+-/// @return resolved url
++/**
++ * @brief append root path to an url from \p `t_conf_location`
++ * 
++ * @param url the url of request
++ * @param loc location configuration
++ * @return new url with \p `root` or \p `alias` correctly appended
++ */
+ std::string	url_rooting(std::string url, t_conf_location &loc)
+ {
+ 	std::string		file;
+diff --git a/srcs/utils/utils_page1.cpp b/srcs/utils/utils_page.cpp
+similarity index 65%
+rename from srcs/utils/utils_page1.cpp
+rename to srcs/utils/utils_page.cpp
+index 876713c..366f395 100644
+--- a/srcs/utils/utils_page1.cpp
++++ b/srcs/utils/utils_page.cpp
+@@ -44,7 +44,6 @@ bool	is_there_whitespaces(std::string line)
+ 	return(false);
+ }
+ 
+-
+ size_t	find_first_not_special_char(std::string line)
+ {
+ 	size_t i = 0;
+@@ -77,6 +76,13 @@ bool	is_there_special_char(std::string line)
+ }
+ 
+ //REVIEW - Verifica che la funzione sia verificata in tutta la stringa
++/**
++ * @brief check if a function is verified in all chars of a string
++ * 
++ * @param literal string to check
++ * @param check function to check every char of literal
++ * @return \p `true` if verified, \p `false` if not
++ */
+ bool charFinder(const std::string literal, int(*check)(int))
+ {
+ 	int index;
+@@ -94,7 +100,13 @@ bool charFinder(const std::string literal, int(*check)(int))
+ 	return (true);
+ }
+ 
+-int checkValidCode(int code)
++/**
++ * @brief check if \p `code` passed is valid, checking into a macro set \p `VALID_HTTP_CODES`
++ * 
++ * @param code code to check
++ * @return code checked if verified, \p `UNKNOWN` if not
++ */
++int checkValidHttpCode(int code)
+ {
+ 	int	valid_codes[] = VALID_HTTP_CODES;
+ 	int	size = sizeof(valid_codes) / sizeof(valid_codes[0]);
+@@ -131,9 +143,41 @@ bool	file_checker(std::string filename)
+ 	std::fstream file(filename.c_str());
+ 
+ 	if (file.fail())
++		return (false);
++	return (true);
++}
++
++/**
++ * @brief check if ip address passed is well formatted
++ * 
++ * @param addr string that contains ip address
++ * @return ip address len if verified, \p `false` if not
++ */
++int	valid_ip_address(std::string addr)
++{
++	size_t	dots;
++	int		len;
++	int		ip;
++
++	dots = 0;
++	for (len = 0; addr[len] && addr[len] != ':'; len++)
+ 	{
++		if (addr[len] != '.' && std::isdigit(addr[len]) == 0)
++			return (false);
++		dots += (addr[len] == '.');
++	}
++	if (dots != 3)
+ 		return (false);
++	for (int i = 4; i; i--)
++	{
++		ip = std::atoi(addr.c_str());
++		if (ip > UINT8_MAX || (ip != 0 && addr[0] == '0'))
++			return (false);
++		while (addr[0] != '.' && addr[0] != ':' && !addr.empty())
++			addr.erase(0, 1);
++		if (addr[0] && addr[1] && (addr[1] == '.' || addr[1] == ':'))
++			return (false);
++		addr.erase(0, 1);
+ 	}
+-	else
+-		return (true);
++	return (len);
+ }
+diff --git a/srcs/utils/value_checker.cpp b/srcs/utils/value_checker.cpp
+deleted file mode 100644
+index b6307fe..0000000
+--- a/srcs/utils/value_checker.cpp
++++ /dev/null
+@@ -1,57 +0,0 @@
+-#include "../../includes/ether.hpp"
+-
+-
+-//On success: 	returns the length of the ip address.
+-//On failure:	returns 0.
+-int	valid_ip_address(std::string addr)
+-{
+-	size_t	dots;
+-	int		len;
+-	int		ip;
+-	// size_t	separator_index;
+-
+-	dots = 0;
+-	for (len = 0; addr[len] && addr[len] != ':'; len++)
+-	{
+-		if (addr[len] != '.' && std::isdigit(addr[len]) == 0)
+-			return (false);
+-		dots += (addr[len] == '.');
+-	}
+-	if (dots != 3)
+-		return (false);
+-	for (int i = 4; i; i--)
+-	{
+-		ip = std::atoi(addr.c_str());
+-		// NOTE - da togliere commento sotto se vogliamo ascoltare solo su 127.x.x.x
+-		if (/* (i == 4 && ip != 127) || */ ip > UINT8_MAX || (ip != 0 && addr[0] == '0'))
+-			return (false);
+-		while (addr[0] != '.' && addr[0] != ':' && !addr.empty())
+-			addr.erase(0, 1);
+-		// separator_index = addr.find_first_of(".:", 1);
+-	//	if (addr[0] == '.' && separator_index > 3 && separator_index != addr.npos)
+-	//		return (false);
+-		if (addr[0] && addr[1] && (addr[1] == '.' || addr[1] == ':'))
+-			return (false);
+-		addr.erase(0, 1);
+-	}
+-	return (len);
+-}
+-
+-//if s is not a valid_ip, crash
+-int	atohex(std::string s)
+-{
+-	int	hex = 0;
+-
+-	for (size_t i = 0;;)
+-	{
+-		std::cout << s.substr(i) << std::endl;
+-		hex = hex * 16 * 16 + std::atoi(s.substr(i).c_str());
+-		i = s.find(".", i);
+-		if (i == s.npos)
+-			break ;
+-		i++;
+-	}
+-	return (hex);
+-}
+-
+-// listen 127.0..:9090
+\ No newline at end of file

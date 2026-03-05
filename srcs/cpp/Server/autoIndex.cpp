@@ -42,11 +42,14 @@ void	Server::createAutoindex(Client &client)
 	find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
 	find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
 	this->resp_body += line;
-	find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
-	find_and_replace(this->resp_body, "</div> -->", "</div>");
-	find_and_replace(this->resp_body, "login", client.getCookieData().login);
-	find_and_replace(this->resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
-	find_and_replace(this->resp_body, "</form>", "</form> -->");
+	if (client.getRequest().getCookieKey().empty() == false)
+	{
+		find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
+		find_and_replace(this->resp_body, "</div> -->", "</div>");
+		find_and_replace(this->resp_body, "login", client.getCookieData().login);
+		find_and_replace(this->resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
+		find_and_replace(this->resp_body, "</form>", "</form> -->");
+	}
 }
 
 // NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html

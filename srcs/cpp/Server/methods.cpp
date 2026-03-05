@@ -128,7 +128,7 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 		find_and_replace(body, "{MSG}", "file " + url + " deleted successfully!");
 		find_and_replace(body, "{CODE}", HTTP_OK_NO_CONTENT);
 		return ;
-	}//cancellazione fallita
+	}
 	if (valid_directory(url))
 	{
 		client.getRequest().fail(HTTP_CE_FORBIDDEN);

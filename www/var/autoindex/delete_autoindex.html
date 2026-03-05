@@ -173,6 +173,28 @@
                 position: relative;
             }
 
+            .card {
+                background: var(--surface);
+                padding: 15px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+            }
+
+            .actions-bar {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+            }
+
+            .actions-bar a {
+                display: inline-block;
+                padding: 13px 22px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #334155, #1e3a8a);
+                color: white;
+                font-weight: 600;
+                transition: all 0.2s ease;
+            }
 
             </style>
     </head>
@@ -183,9 +205,14 @@
 
             <header>
                 <h1>Index of <span>{PATH}</span></h1>
-                <div class="client-label">
+                <!-- <div class="client-label">
                     👤 login
-                </div>
+                </div> -->
+                <form method="GET" action="login/">
+                    <button class="client-label" action="login/">
+                        Accetta cookies
+                    </button>
+                </form>
             </header>
 
             <table>
@@ -201,6 +228,10 @@
                     <!-- righe generate dinamicamente -->
                 </tbody>
             </table>
+            <div class="card actions-bar">
+                    <a href="/upload/">Upload file</a>
+                    <a href="/">Home</a>
+            </div>
             <div class="footer">
                 Webserver autoindex • {SERVER_NAME}
             </div>

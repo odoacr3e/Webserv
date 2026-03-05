@@ -20,6 +20,7 @@ int	requestParsing(Client &client, char *input, int bytes)
 	std::istringstream	*stream = &request.getRequestStream();
 
 	request.setParsingData(client.getSockFd(), bytes, input);
+	request.setStatusCode(HTTP_OK);
 	while (lines == "\r")//NOTE - linee vuote iniziali accettate da RFC
 		std::getline(*stream, lines, '\n');
 	if (lineParsing(request, lines) != 0) // first line parsing
@@ -28,7 +29,6 @@ int	requestParsing(Client &client, char *input, int bytes)
 		return (request.getStatusCode());
 	if (bodyParsing(request) != 0)
 		return (request.getStatusCode());
-	request.setStatusCode(HTTP_OK);
 	return (0);
 }
 

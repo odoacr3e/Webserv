@@ -105,10 +105,12 @@ input {
 }
 
 button {
+    display: inline-block;
+    margin-top: 10px;
     padding: 13px 22px;
     border-radius: 12px;
     border: none;
-    background: var(--primary);
+    background: linear-gradient(135deg, #334155, #1e3a8a);
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -116,8 +118,31 @@ button {
 }
 
 button:hover {
-    background: var(--primary-hover);
+    /* background: var(--primary-hover); */
+    background: linear-gradient(135deg, #475569, #1e40af);
     transform: translateY(-2px);
+}
+
+.client-label {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+
+    padding: 14px;
+    background: linear-gradient(135deg, #334155, #1e3a8a);
+    color: white;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 999px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    letter-spacing: 0.5px;
+}
+
+.client-label:hover {
+    background: linear-gradient(135deg, #475569, #1e40af);
 }
 
 /* FOOTER */
@@ -137,13 +162,21 @@ footer {
 <header>
     <h1>Crypto Playground</h1>
     <p>Inserisci una stringa e scegli l’operazione</p>
+    <!-- <div class="client-label">
+        👤 login
+    </div> -->
+    <form method="GET" action="login/">
+        <button class="client-label" action="login/">
+            Accetta cookies
+        </button>
+    </form>
 </header>
 
 <main>
     <div class="card">
         <h2>Crypto Tool</h2>
 
-        <form method="POST" action="/script/crypter/run">
+        <form method="POST" action="/script/crypter/index.html">
             <input type="ciao" name="body" placeholder="Inserisci testo..." required>
 
             <div style="display:flex; gap:15px; margin-top:15px;">

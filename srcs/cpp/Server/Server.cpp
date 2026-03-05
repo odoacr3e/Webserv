@@ -97,7 +97,6 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 			{
 				char buffer[2048] = {0}; //NOTE - reserve vector
 				int bytes = recv(poll_data.fd, buffer, sizeof(buffer) - 1, MSG_DONTWAIT);
-				std::cout << "ciao 2\n\n";
 				if (bytes <= 0)
 					eraseClient(*client, this->_i--);
 				else

@@ -186,7 +186,6 @@ void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_fi
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
 		html.open((checkErrorPages(client.getRequest())).c_str());
 	}
-	// std::cout << "FAILE: " << file << std::endl;
 	body = file_opener(html);
 	find_and_replace(body, "{MSG}", request.getFailMsg());
 }
@@ -228,8 +227,11 @@ static void	trimBody(Request &request)
 		std::cout << h_len[1] << std::endl;
 	}//else: è un body normale senza immagine, niente headerBodyParsing
 	else
+	{
 		h_len[1] = h_len[0];
-	// std::cout << "TROVATO \r\n! adesso trimmo il body\n";
+		if (request.getBodyLen() != (request.getSockBytes() - h_len[0]))
+			request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "");
+	}
 	bodyHeaderContentLen = request.getSockBytes() - h_len[0];
 	bodyContentLen = request.getSockBytes() - h_len[1];
 	request.getBytesLeft() -= bodyHeaderContentLen;

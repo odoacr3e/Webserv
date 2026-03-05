@@ -119,7 +119,7 @@ int checkValidHttpCode(int code)
 	return (HTTP_UNKNOWN);
 }
 
-std::string	file_opener(std::fstream &file, std::string msg)
+std::string	open_and_read(std::fstream &file, std::string msg)
 {
 	std::string			ret;
 
@@ -133,12 +133,20 @@ std::string	file_opener(std::fstream &file, std::string msg)
 	return (ret);
 }
 
-std::string	file_opener(std::fstream &file)
+std::string	open_and_read(std::fstream &file)
 {
-	return (file_opener(file, "cannot open file"));
+	return (open_and_read(file, "cannot open file"));
 }
 
-bool	file_checker(std::string filename)
+/**
+ * @brief Opens an fstream using <filename>
+ * 
+ * @param filename 
+ * @return true => if open was successful 
+ * 
+ * false => if open failed
+ */
+bool	open_file(std::string filename)
 {
 	std::fstream file(filename.c_str());
 

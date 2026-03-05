@@ -5,80 +5,81 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file);
 int			headerParsing(Request &request, bool reset);
 void		fill_error_page(Client &client, std::string &html);
+std::string	get_filename(Client &client);
+void		write_on_ofile(Request &request, std::string file);
+void		choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html);
 
-/*NOTE - summary
-
-	-	GET
-	-	DELETE
-	-	POST
-*///helo
-
-void	Server::runMethod(Client &client, std::string &resp_body, std::fstream &file)
+/**
+ * @brief executes on of three valid methods POST GET DELETE
+ * 
+ * @param client > Client containing request
+ */
+void	Server::runMethod(Client &client)
 {
-	if (resp_body.empty() == false)
+	if (this->resp_body.empty() == false)
 		return ;
 	if (client.getRequest().getFailMsg().empty() == false)
 	{
-		resp_body = file_opener(file, "runMethod GET: Cannot open file");
-		fill_error_page(client, resp_body);
+		this->resp_body = open_and_read(this->file, "runMethod GET: Cannot open file");
+		fill_error_page(client, this->resp_body);
 		return ;
 	}
 	if (client.getRequest().getRunScriptBool() == true)
-		run_script(*this, client, resp_body);
+		run_script(*this, client, this->resp_body);
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			this->getMethod(client, resp_body, &file);
+			this->getMethod(client);
 			break ;
 		case DELETE:
-			this->deleteMethod(client, resp_body, &file);
+			this->deleteMethod(client);
 			break ;
 		case POST:
-			this->postMethod(client, resp_body, &file);
-			break ;
-		case HEAD:
-			;//funzione che gestisce HEAD
+			this->postMethod(client);
 			break ;
 		case METH_NUM:
 			break ;
 	}
 }
 
-void	Server::getMethod(Client &client, std::string &body, std::fstream *file)
+void	Server::getMethod(Client &client)
 {
-	(void)body;
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
 	std::cout << "runMethod(): reading file..\n";
 	if (client.getRequest().getBodyType() == "text/html")
 	{
 		std::cout << "Entro nell'override login\n";
-		std::getline(*file, body, '\0');
+		std::getline(this->file, this->resp_body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
 		{
-			find_and_replace(body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
-			find_and_replace(body, "</div> -->", "</div>");
-			find_and_replace(body, "login", client.getCookieData().login);
-			find_and_replace(body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
-			find_and_replace(body, "</form>", "</form> -->");
+			find_and_replace(this->resp_body, "<!-- <div class=\"client-label\">", "<div class=\"client-label\">");
+			find_and_replace(this->resp_body, "</div> -->", "</div>");
+			find_and_replace(this->resp_body, "login", client.getCookieData().login);
+			find_and_replace(this->resp_body, "<form method=\"GET\" action=\"login/\">", "<!-- <form method=\"GET\" action=\"login/\">");
+			find_and_replace(this->resp_body, "</form>", "</form> -->");
 		}
 		else
 			std::cout << "Cookie è vuoto!\n";
+		std::cout << body << "\n";
 		return ;
 	}
 	client.sendContentBool() = true;
 	client.getBuffer().clear();
-	read_file(*file, client.getBuffer());
+	read_file(this->file, client.getBuffer());
 	client.getBuffer().push_back('\n');
 	client.getBuffer().push_back('\n');
 }
 
-void	Server::deleteMethod(Client &client, std::string &body, std::fstream *file)
+void	Server::deleteMethod(Client &client)
 {
-	if (check_delete(client, body, *this, file) != 0)
+	if (check_delete(client, this->resp_body, *this, &this->file) != 0)
+	{
+		std::cout << "protected!" << std::endl;
 		return ;
-	(*file).close();
-	execute_delete(client, body, file);
+	}
+	this->file.close();
+	execute_delete(client, this->resp_body, &this->file);
 }
 
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file)
@@ -93,16 +94,18 @@ static int	check_delete(Client &client, std::string &body, Server &srv, std::fst
 	dns = client.getRequest().getDnsErrorBool();
 	autoindex = client.getRequest().getAutoIndexBool();
 	url = client.getRequest().getUrl();
+	hex_to_char(url);
+	std::cout << "FILE: " << url << std::endl;
 	if (status_code != 200 || dns == true || autoindex == true)
 	{
 		if (body.empty() == true)
-			body = file_opener(*file);
+			body = open_and_read(*file);
 	}
 	else if (protected_files.find(url) != std::string::npos)
 	{
 		file->close();
 		file->open("www/var/errors/403.html");
-		body = file_opener(*file);
+		body = open_and_read(*file);
 		client.getRequest().fail(HTTP_CE_FORBIDDEN);
 	}
 	else
@@ -120,7 +123,7 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 	if (std::remove(url.c_str()) == 0)//file cancellato
 	{
 		file->open("www/var/2xx.html");
-		body = file_opener(*file, "delete_method: cannot open file on success");
+		body = open_and_read(*file, "delete_method: cannot open file on success");
 		find_and_replace(body, "{MSG}", "file " + url + " deleted successfully!");
 		find_and_replace(body, "{CODE}", HTTP_OK_NO_CONTENT);
 		return ;
@@ -135,59 +138,38 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 		client.getRequest().fail(HTTP_SE_INTERNAL);
 		file->open("www/var/errors/special/500_CannotDeleteFile.html");
 	}
-	body = file_opener(*file, "delete_method: cannot open file on error");
+	body = open_and_read(*file, "delete_method: cannot open file on error");
 }
 
-
-//SECTION - POST
-
-void	Server::postMethod(Client &client, std::string &body, std::fstream *resp_file)
+/**
+ * @brief Post Method execution: Gets a filename from request <get_filename>, checks if it already exists
+ * 
+ * creates the file and writes on it time after time going through poll calls <write_on_ofile>
+ * 
+ * chooses an html page to display according to the operation success or not <choose_html>
+ * 
+ * @param client > client containing the request
+ */
+void	Server::postMethod(Client &client)
 {	
-	(void)resp_file;//FIXME - togliere da prototipo
-	Request	&request = client.getRequest();
+	Request				&request = client.getRequest();
 	std::fstream		html;
+	std::string 		file;
 
-	// return (TEST(request));
-	// NOTE - trova file e fa upload in base alla location
 	if (request.checkKey("Boundary") == false)
 		return ;
-	std::string file;
-	std::string val = request.getHeader()["Content-Disposition"];
-	// std::cout << "postMethod() Cont-Disp: " << val << "\n";
-	if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
-	{
-		file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
-		if (file.rbegin()[0] == '\"')
-			file.erase(file.length() - 1, 1);
-	}
-	else
-		request.fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");
-	if (client.getLocConf().post_storage.empty() == false)
-		file = client.getLocConf().post_storage + file;
-	else
-		file = client.getSrvConf().post_storage + file;
-	//file = url_arg_remove(client.getRequest().getUrl(), '/') + file;
+	
+	file = get_filename(client);
 	std::cout << "postMethod(): " << file << std::endl;
-	if (file_checker(file))
-		request.fail(HTTP_CE_CONFLICT, "File already exists!");
-	std::ofstream	ofile(file.c_str(), std::ios_base::binary);
-	if (ofile.fail())
-		std::cout << "Error opening file\n";
-	//- Aggiungiamo il numero di carattteri aggiunti dal protocollo al boundary (\r\n--boundary--\r\n)
-	size_t	bound_len = request.getHeaderVal("Boundary").length() + 8;
-	ofile.write(request.getBinBody().data(), request.getBinBody().size() - bound_len);
-	if (request.getStatusCode() == 200)
-		html.open("www/var/upload/success_upload.html");
-	else
-		html.open("www/var/errors/fail_upload.html");
-	if (resp_file->fail())
-	{
-		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
-		html.open((checkErrorPages(client.getRequest())).c_str());
-	}
+	if (open_file(file))
+		request.fail(HTTP_CE_CONFLICT, "File already exists!");\
+
+	write_on_ofile(request, file);
+
+	choose_html(*this, client, this->file, html);
 	// std::cout << "FAILE: " << file << std::endl;
-	body = file_opener(html);
-	find_and_replace(body, "{MSG}", request.getFailMsg());
+	this->resp_body = open_and_read(html);
+	find_and_replace(this->resp_body, "{MSG}", request.getFailMsg());
 }
 
 void	print_bin(std::string filename, char *bin_data, size_t len);
@@ -196,7 +178,7 @@ static void	trimBody(Request &request);
 
 int	bodyHeaderParsing(Request &request)
 {
-	if (request.getBodyHeaders() == true)// body gia parsato
+	if (request.getBodyHeadersBool())// body gia parsato
 		return (true);
 	trimBody(request);
 	return (false);
@@ -214,9 +196,6 @@ static void	trimBody(Request &request)
 	h_len[0] = file_cursor_pos(request.getRequestStream());
 	std::cout << h_len[0] << std::endl;
 	std::getline(request.getRequestStream(), temp, '\n');
-	// std::cout << "TrimBody()\n";
-	// std::cout << "temp: " << temp <<std::endl;
-	// std::cout << "bound " << request.getHeaderVal("Boundary") << std::endl;
 	if (temp == "")
 		return ;
 	else if ("--" + boundary + '\r' == temp)
@@ -225,7 +204,7 @@ static void	trimBody(Request &request)
 		//salva la posizione del cursore dopo headerParsing
 		h_len[1] = file_cursor_pos(request.getRequestStream());
 		std::cout << h_len[1] << std::endl;
-	}//else: è un body normale senza immagine, niente headerBodyParsing
+	}//else: è un body normale senza immagine, nienlete headerBodyParsing
 	else
 	{
 		h_len[1] = h_len[0];
@@ -238,5 +217,50 @@ static void	trimBody(Request &request)
 	for (size_t i = 0; i != bodyContentLen; i++)
 		request.getSockBuff()[i] = request.getSockBuff()[i + h_len[1]];
 	request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + bodyContentLen);
-	request.getBodyHeaders() = true;
+	request.getBodyHeadersBool() = true;
+}
+
+std::string	get_filename(Client &client)
+{
+	std::string file;
+	std::string val = client.getRequest().getHeader()["Content-Disposition"];
+	
+	if (val.find("filename=\"") != std::string::npos && val.rbegin()[0] == '"')
+	{
+		file = val.substr(val.find("filename=\"") + 10, val.find_last_of('\"'));
+		if (file.rbegin()[0] == '\"')
+			file.erase(file.length() - 1, 1);
+	}
+	else
+		client.getRequest().fail(HTTP_CE_BAD_REQUEST, "Bad \"Content-Disposition\" header format");\
+	if (client.getLocConf().post_storage.empty() == false)
+		file = client.getLocConf().post_storage + file;
+	else
+		file = client.getSrvConf().post_storage + file;
+	return (file);
+}
+
+void	write_on_ofile(Request &request, std::string file)
+{
+	std::ofstream	ofile(file.c_str(), std::ios_base::binary);
+	if (ofile.fail())
+		std::cout << "Error opening file\n";
+	//- Aggiungiamo il numero di caratteri aggiunti dal protocollo al boundary (\r\n--boundary--\r\n)
+	size_t	bound_len = request.getHeaderVal("Boundary").length() + 8;
+	ofile.write(request.getBinBody().data(), request.getBinBody().size() - bound_len);
+}
+
+void	choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html)
+{
+	Request &request = client.getRequest();
+
+	if (request.getStatusCode() == 200)
+		html.open("www/var/upload/success_upload.html");
+	else
+		html.open("www/var/errors/fail_upload.html");
+	if (file.fail())
+	{
+		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
+		html.open((srv.checkErrorPages(request)).c_str());
+	}
 }

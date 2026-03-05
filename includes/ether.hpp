@@ -51,9 +51,9 @@ size_t			find_first_not_whitespace(std::string line);
 size_t			find_first_whitespace(std::string line);
 bool			is_there_whitespaces(std::string line);
 bool			charFinder(const std::string literal, int(*check)(int));
-std::string		file_opener(std::fstream &file);
-std::string		file_opener(std::fstream &file, std::string msg);
-bool			file_checker(std::string filename);
+std::string		open_and_read(std::fstream &file);
+std::string		open_and_read(std::fstream &file, std::string msg);
+bool			open_file(std::string filename);
 void			close_fd(int *fd);
 int				read_file(std::ifstream &stream, std::vector<char> &vect);
 int				read_file(std::fstream &stream, std::vector<char> &vect);
@@ -95,5 +95,8 @@ void			run_script(Server &srv, Client &client, std::string &body);
 void			vect_split(std::vector<std::string> &vect, std::string s, char c);
 void			vect_split(std::vector<char *> &vect, std::string s, char c);
 void			vect_split_new(std::vector<char *> &vect, std::string s, char c);
+
+std::string		hex_to_char(std::string& input);
+void			checkRequestStausCode(Client &client);
 
 #endif

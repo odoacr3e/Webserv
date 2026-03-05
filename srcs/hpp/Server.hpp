@@ -7,7 +7,7 @@
 # include "Cgi.hpp"
 # include "Request.hpp"
 
-#define MSG_END_CONNECTION "[***********************************]\nchiudo connessione {INDEX}\n[***********************************]\n"
+#define MSG_END_CONNECTION "[***********************************]\n\tchiudo connessione {INDEX}\n[***********************************]\n"
 
 //	1024 perché lo fa anche nginx
 # define MAX_CONNECTION 1024
@@ -50,6 +50,11 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		const char						**_env;
 		int								_server_num;
 		int								_i;
+		// Create response varables
+		std::string						resp_body;
+		std::string						resp_url;
+		std::string						type;
+		std::fstream					file;
 		bool							_is_child_process;
 
 	public:
@@ -73,26 +78,29 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		int					&getPollIndex();
 		bool				&isChildProcessBool();
 
-		void				listDirectoriesAutoIndex(Client &client, std::string &body, std::string &url, dirent *cont);
+		void				listDirectoriesAutoIndex(Client &client, std::string &url, dirent *cont);
 		void				printServerConfiguration(SrvNameMap::iterator it) const;
-		void				choose_file(Client &client, std::fstream &file, std::string url);
-		void				createAutoindex(Client &client, std::string &body);
+		void				choose_file(Client &client);
+		void				createAutoindex(Client &client);
 		void				setupRequestEnvironment(Client &client);
 		std::string			createResponse(Client &client);
 		std::string			checkErrorPages(Request &request);
 
 		// NOTE - Methods functions
-		void				runMethod(Client &client, std::string &body, std::fstream &file);
-		void				getMethod(Client &client, std::string &body, std::fstream *file);
-		void				deleteMethod(Client &client, std::string &body, std::fstream *file);
-		void				postMethod(Client &client, std::string &body, std::fstream *resp_file);
+		void				runMethod(Client &client);
+		void				getMethod(Client &client);
+		void				deleteMethod(Client &client);
+		void				postMethod(Client &client);
 
 		// NOTE - close all sockets
 		void				suppressSocket();
 		void 				printPollInfo(std::string filename);
 
 		// NOTE - creation HTML
-		std::string	createHtml(Client &client, std::string &body);
+		std::string			createHtml(Client &client);
+		void				clearRespVariables();
+		void				assignFileType(Client &client);
+		bool				autoindex_do(Client &client);
 };
 
 /*SECTION - gestione concorrenza

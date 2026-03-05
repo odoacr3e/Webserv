@@ -8,7 +8,7 @@ std::string				fileToString(std::string filename);
 dirent					*findUrlDirectory(std::string url);
 
 // NOTE - aggiungiamo il socket del server al vector di server
-Server::Server(Conf &conf, const char **env):_env(env)
+Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
 {
 	pollfd		port_connection;
 	s_fd_data	fd_data;

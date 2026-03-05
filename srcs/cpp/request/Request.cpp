@@ -14,7 +14,6 @@ Request::Request()
 	this->_validmethods[POST] = "POST";
 	this->_validmethods[GET] = "GET";
 	this->_validmethods[DELETE] = "DELETE";
-	this->_validmethods[HEAD] = "HEAD";
 	this->_max_method_length = 0;
 	this->_first_read = true;
 	this->_bytes_left = 0;

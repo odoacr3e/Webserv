@@ -33,7 +33,6 @@ enum	e_methods
 	POST,
 	GET,
 	DELETE,
-	HEAD,
 	METH_NUM,
 };
 
@@ -43,7 +42,6 @@ enum	e_methods_mask
 	MASK_POST = 1 << POST,
 	MASK_GET = 1 << GET,
 	MASK_DELETE = 1 << DELETE,
-	MASK_HEAD = 1 << HEAD,
 	MASK_ALL_METHODS = (1 << 8) - 1,
 };
 
@@ -124,7 +122,7 @@ class Request
 		bool						getAutoIndexBool() const;
 		bool						getRunScriptBool() const;
 		bool						&getFirstRead();
-		bool						&getBodyHeaders();
+		bool						&getBodyHeadersBool();
 		char						*getSockBuff();
 		int							&getSockBytes();
 		int							&getSockFd();
@@ -133,17 +131,17 @@ class Request
 		std::vector<char>			&getBinBody();
 
 		//ANCHOR - setters.cpp
-		void			setMethod(std::string method);
-		void 			setUrl(std::string);
-		void 			setUrlOriginal(std::string);
-		void			setHttpVersion(std::string version);
-		bool			setHeaderVal(std::string key, std::string val);
-		void			setBody(std::string);
-		void			setBodyLen(size_t len);
-		void 			setBodyType(std::string type);
-		void			setStatusCode(e_http_codes status_code);
-		void			setRequestErrorBool(bool error);
-		void			setParsingData(int fd, int bytes, char *buf);
+		void						setMethod(std::string method);
+		void 						setUrl(std::string);
+		void 						setUrlOriginal(std::string);
+		void						setHttpVersion(std::string version);
+		bool						setHeaderVal(std::string key, std::string val);
+		void						setBody(std::string);
+		void						setBodyLen(size_t len);
+		void 						setBodyType(std::string type);
+		void						setStatusCode(e_http_codes status_code);
+		void						setRequestErrorBool(bool error);
+		void						setParsingData(int fd, int bytes, char *buf);
 
 		//ANCHOR - print.cpp
 		void			printHeader(void);

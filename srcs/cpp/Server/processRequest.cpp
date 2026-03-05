@@ -31,13 +31,10 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 			request.getBytesLeft() -= request.getBodyLen();
 		// std::cout << "PorcessRequest(): RUN_SCRIPT FLAG " << (client.getLocConf().run_script == false ? "false" : "true") << std::endl;
 	}
-	else
+	else if (bodyHeaderParsing(request) == true)
 	{
-		if (bodyHeaderParsing(request) == true)
-		{
-			request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
-			request.getBytesLeft() -= request.getSockBytes();
-		}
+		request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
+		request.getBytesLeft() -= request.getSockBytes();
 	}
 	if (request.getBytesLeft() == 0)
 	{

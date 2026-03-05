@@ -190,7 +190,7 @@ std::vector<char>	&Request::getBinBody()
 	return (this->_bin_body);
 }
 
-bool	&Request::getBodyHeaders()
+bool	&Request::getBodyHeadersBool()
 {
 	return (this->_body_headers_bool);
 }

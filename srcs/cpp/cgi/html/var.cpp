@@ -29,6 +29,6 @@ std::string createHtmlWeaksleep(t_cgi &cgi_data)
 	std::fstream file("www/cgi-bin/weaksleep/success.html");
 	std::string body;
 
-	body = file_opener(file, "");
+	body = open_and_read(file, "");
 	return (body);
 }

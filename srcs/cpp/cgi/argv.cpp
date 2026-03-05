@@ -1,9 +1,9 @@
 #include "../../hpp/Cgi.hpp"
 
-static int hex_value(char c);
-void convert_hexa(std::vector<char*> &input);
+static int 		hex_value(char c);
+void 			convert_hexa(std::vector<char*> &input);
 static void		createArgvCrypter(std::string &args, argvVector &argv_data);
-static void	createArgvWeaksleep(std::string &args, argvVector &argv_data);
+static void		createArgvWeaksleep(std::string &args, argvVector &argv_data);
 
 /// @brief process the argv that will be given to execve
 /// @param client 

@@ -47,7 +47,6 @@ void	Server::processResponse(Client &client)
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	std::fstream	file;
-	std::string		type("text/");
 
 	this->clearRespVariables();
 	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
@@ -58,16 +57,15 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	{
 		std::string url = this->resp_url.substr(last_dot);
 		if (url != ".html" && url != ".css")
-			type = "image/";
-		type += url.erase(0, 1);
+			this->type = "image/";
+		this->type += url.erase(0, 1);
 	}
 	else
-		type += "html";
+		this->type += "html";
 	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(this->resp_url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client);
 	else
 		choose_file(client, file);
-	client.getRequest().setBodyType(type);
 	runMethod(client, file);
 	if (client.getPollFd(*this)->events & POLLOUT)
 		return (createHtml(client));
@@ -140,7 +138,6 @@ std::string	Server::checkErrorPages(Request &request)
 		return ("www/var/errors/default.html");
 }
 
-//  cookie = seed|i
 std::string createSessionId()
 {
 	static int id;

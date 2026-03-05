@@ -9,7 +9,15 @@ std::string	ft_to_string(T data)
 	return (stream.str());
 }
 
-//returns true if replace succeed, else false
+/**
+ * @brief find \p `old_s` param and substitute with \p `new_s` in \p `str`
+ * 
+ * @param str string to find and replace
+ * @param to_replace content to replace
+ * @param content new content
+ * 
+ * @return \p `true` if it works, \p `false` instead
+ */
 template <typename old_s, typename new_s>
 bool	find_and_replace(std::string &str, old_s to_replace, new_s content)
 {
@@ -25,12 +33,20 @@ bool	find_and_replace(std::string &str, old_s to_replace, new_s content)
 	return (true);
 }
 
+/**
+ * @brief find \p `old_s` param and erase it in \p `str`
+ * 
+ * @param str string to find and replace
+ * @param to_delete content to delete
+ * 
+ * @return \p `true` if it works, \p `false` instead
+ */
 template <typename old_s>
-bool	find_and_erase(std::string &str, old_s to_replace)
+bool	find_and_erase(std::string &str, old_s to_delete)
 {
 	std::string	temp_replace;
 
-	temp_replace = ft_to_string(to_replace);
+	temp_replace = ft_to_string(to_delete);
 	if (str.find(temp_replace) != std::string::npos)
 		str.erase(str.find(temp_replace), temp_replace.size());
 	else

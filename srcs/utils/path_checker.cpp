@@ -1,6 +1,12 @@
 #include "../../includes/ether.hpp"
 
 //returns true if directory is valid, else false
+/**
+ * @brief check if \p `directory` exists
+ * 
+ * @param directory path of directory to check
+ * @return \p `true` if is valid, \p `false` if not
+ */
 bool	valid_directory(std::string directory)
 {
 	DIR		*dir_fd;
@@ -14,7 +20,12 @@ bool	valid_directory(std::string directory)
 	return (closedir(dir_fd), valid);
 }
 
-//returns true if directory is valid, else false
+/**
+ * @brief check if \p `file` exists
+ * 
+ * @param file path of file to check
+ * @return \p `true` if is valid, \p `false` if not
+ */
 bool	valid_file(std::string file)
 {
 	file = file.substr(file[0] == '/');

@@ -1,6 +1,13 @@
+
 #include "../../../includes/ether.hpp"
 #include "../../../includes/status_codes.hpp"
 
+/** 
+ * @brief trim a string from a specific position (included)
+ * 
+ * @param s string to trim
+ * @param from start position for trim, included in trim
+ */
 void	trim_from(std::string &s, size_t from)
 {
 	int	i;
@@ -13,14 +20,11 @@ void	trim_from(std::string &s, size_t from)
 	s.erase(from, i);
 }
 
-/*
-	trim a str until s[i] == c, then return 0.
-	if \0 is found, str is set to "", 1 is returned.
-	if c is \0, 1 is returned.
-
-	c = ' '
-	s = "   ciao" ---> "ciao"
-*/
+/** 
+ * @brief find first occurence different from \p `c` and trim until \p `c` position, starting from 'left'
+ * @param s string to trim
+ * @param c char to trim from s
+ */
 bool	trim_equal_left(std::string &s, char c)
 {
 	size_t	i;
@@ -34,14 +38,11 @@ bool	trim_equal_left(std::string &s, char c)
 	return (0);
 }
 
-/*
-	trim a str until s[i] != c, then return 0.
-	if \0 is found, str is set to "", 1 is returned.
-	if c is \0, 1 is returned.
-
-	c = ' '
-	s = "ciao come stai" ---> " come stai"
-*/
+/** 
+ * @brief find first occurence of \p `c` and trim until \p `c` position, starting from 'left'
+ * @param s string to trim
+ * @param c char to trim from s
+ */
 bool	trim_diff_left(std::string &s, char c)
 {
 	size_t	i;
@@ -55,14 +56,11 @@ bool	trim_diff_left(std::string &s, char c)
 	return (0);
 }
 
-/*
-	trim a str FROM RIGHT until s[i] == c, then return 0.
-	if \0 is found, str is set to "", 1 is returned.
-	if c is \0, 1 is returned.
-
-	c = ' '
-	s = "ciao     " ---> "ciao"
-*/
+/** 
+ * @brief find first occurence different from \p `c` and trim until \p `c` position, starting from 'right'
+ * @param s string to trim
+ * @param c char to trim from s
+ */
 bool	trim_equal_right(std::string &s, char c)
 {
 	size_t	start;
@@ -82,14 +80,11 @@ bool	trim_equal_right(std::string &s, char c)
 	return (0);
 }
 
-/*
-	trim a str FROM RIGHT until s[i] != c, then return 0.
-	if \0 is found, str is set to "", 1 is returned.
-	if c is \0, 1 is returned.
-
-	c = ' '
-	s = "ciao come" ---> "ciao "
-*/
+/** 
+ * @brief find first occurence of \p `c` and trim until \p `c` position, starting from 'right'
+ * @param s string to trim
+ * @param c char to trim from s
+ */
 bool	trim_diff_right(std::string &s, char c)
 {
 	size_t	start;
@@ -109,14 +104,19 @@ bool	trim_diff_right(std::string &s, char c)
 	return (0);
 }
 
-/// @brief trim from the first occurence of left to the next occurence of right.
-/// @param str original string
-/// @param left left substr
-/// @param right right substr (the next after left)
-/// @return 0 on success, 1 on error
-///
-///	Example:
-///	ft_strtrim("LeftContenutoRight", "Left", "Right") ---> "Contenuto"
+/** 
+ * @brief trim \p `left`, create a substr and, from that, it trims \p `right` 
+ * 
+ * @param str original string
+ * @param left left substr
+ * @param right right substr (the next after left)
+ * @return 0 on success, 1 on error
+ * 
+ * Example:
+ * ```
+ * ft_strtrim("LeftContenutoRight", "Left", "Right") ---> "Contenuto"
+ * ```
+ */
 bool	ft_strtrim(std::string &str, std::string left, std::string right)
 {
 	size_t	i;
@@ -133,6 +133,17 @@ bool	ft_strtrim(std::string &str, std::string left, std::string right)
 	return (0);
 }
 
+/**
+ * @brief splits a \p string into a \p `vector<std::string>` splitting by a \p char
+ * 
+ * @note \p `vector<std::string>` is not created in this function, user has to create it out of function scope
+ * and pass it by reference
+ * 
+ * @param vect vector<std::string> passed by reference
+ * @param s string to split
+ * @param c char used for splitting \p `s`
+ * 
+ */
 void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 {
 	std::string	temp;
@@ -154,11 +165,13 @@ void	vect_split(std::vector<std::string> &vect, std::string s, char c)
 }
 
 /**
- * @brief split a vector - ALLOCS MEMORY: every element !MUST! BE DELETED!!!
+ * @brief splits a \p string into a \p `vector<std::string>` splitting by a \p char
+ * 
+ * @note function allocs memory: every element MUST BE DELETED by user
  * 
  * @param vect vector of char * 
  * @param s string to split
- * @param c separator
+ * @param c char used for splitting \p `s`
  */
 void	vect_split_new(std::vector<char *> &vect, std::string s, char c)
 {
@@ -187,10 +200,52 @@ void	vect_split_new(std::vector<char *> &vect, std::string s, char c)
 	}
 }
 
+/** 
+ * @brief free function for \p ```vect_split_new```
+ * 
+ * @param vect vector of char * allocated before
+ * @param size size of vector
+ */
 void	vect_split_free(std::vector<char *> &vect, size_t size)
 {
 	for (size_t i = 0; i < size; i++)
 	{
 		delete [] vect[i];
 	}
+}
+
+/**
+ * @brief conversion from hexadecimal to char for string conversion in URL browser
+ * 
+ * @param input input string to modify
+ * @return string modified with hexadecimal chars converted to char
+ */
+std::string		hex_to_char(std::string& input)
+{
+    std::string result;
+
+    result.reserve(input.size());
+    for (std::size_t i = 0; i < input.size(); ++i) 
+	{
+        if (input[i] == '%' &&
+            i + 2 < input.size() &&
+            std::isxdigit(static_cast<unsigned char>(input[i + 1])) &&
+            std::isxdigit(static_cast<unsigned char>(input[i + 2]))) 
+		{
+
+            char hex[3];
+            hex[0] = input[i + 1];
+            hex[1] = input[i + 2];
+            hex[2] = '\0';
+
+            char* endptr = 0;
+            long value = std::strtol(hex, &endptr, 16);
+
+            result += static_cast<char>(value);
+            i += 2; 
+        } 
+		else
+        	result += input[i];
+    }
+	return (result);
 }

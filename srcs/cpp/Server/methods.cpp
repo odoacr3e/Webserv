@@ -230,7 +230,7 @@ static void	trimBody(Request &request)
 	{
 		h_len[1] = h_len[0];
 		if (request.getBodyLen() != (request.getSockBytes() - h_len[0]))
-			request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "");
+			request.fail(HTTP_CE_METHOD_NOT_ALLOWED);
 	}
 	bodyHeaderContentLen = request.getSockBytes() - h_len[0];
 	bodyContentLen = request.getSockBytes() - h_len[1];

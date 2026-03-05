@@ -12,7 +12,7 @@ void	Server::createAutoindex(Client &client)
 	std::string		url;
 
 	if (client.getAllowedMethods() & MASK_DELETE)
-		file.open("www/var/autoindex/TEST.html");
+		file.open("www/var/autoindex/delete_autoindex.html");
 	else
 		file.open("www/var/autoindex/autoindex.html");
 	url = client.getRequest().getUrl();
@@ -64,7 +64,7 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &url, dirent *
 	stat(path.c_str(), &info);
 	if (client.getAllowedMethods() & MASK_DELETE)
 	{
-		var.open("www/var/autoindex/TEST_VAR.html");
+		var.open("www/var/autoindex/delete_var.html");
 	}
 	else
 		var.open("www/var/autoindex/var.html");

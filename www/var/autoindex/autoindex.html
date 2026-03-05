@@ -43,6 +43,7 @@
         }
 
         header {
+            position: relative;
             padding: 24px 28px;
             border-bottom: 1px solid var(--border);
         }
@@ -100,6 +101,24 @@
             opacity: 0.85;
         }
 
+        .client-label {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+
+            padding: 14px;
+            background: linear-gradient(135deg, #334155, #1e3a8a);
+            color: white;
+
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 999px;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+            letter-spacing: 0.5px;
+        }
+
         .footer {
             padding: 16px;
             text-align: center;
@@ -122,6 +141,14 @@
 <div class="container">
     <header>
         <h1>Index of <span>{PATH}</span></h1>
+        <!-- <div class="client-label">
+            👤 login
+        </div> -->
+        <form method="GET" action="login/">
+            <button class="client-label" action="login/">
+                Accetta cookies
+            </button>
+        </form>
     </header>
 
     <table>

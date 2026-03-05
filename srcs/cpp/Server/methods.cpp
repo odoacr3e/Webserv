@@ -34,7 +34,7 @@ void	Server::runMethod(Client &client)
 			this->deleteMethod(client);
 			break ;
 		case POST:
-			this->postMethod(client, &(this->file));
+			this->postMethod(client);
 			break ;
 		case METH_NUM:
 			break ;
@@ -143,9 +143,8 @@ static void execute_delete(Client &client, std::string &body, std::fstream *file
 
 //SECTION - POST
 
-void	Server::postMethod(Client &client, std::fstream *resp_file)
+void	Server::postMethod(Client &client)
 {	
-	(void)resp_file;//FIXME - togliere da prototipo
 	Request	&request = client.getRequest();
 	std::fstream		html;
 
@@ -182,7 +181,7 @@ void	Server::postMethod(Client &client, std::fstream *resp_file)
 		html.open("www/var/upload/success_upload.html");
 	else
 		html.open("www/var/errors/fail_upload.html");
-	if (resp_file->fail())
+	if (this->file.fail())
 	{
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
 		html.open((checkErrorPages(client.getRequest())).c_str());

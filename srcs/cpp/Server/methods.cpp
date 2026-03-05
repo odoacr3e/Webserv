@@ -31,7 +31,7 @@ void	Server::runMethod(Client &client)
 			this->getMethod(client);
 			break ;
 		case DELETE:
-			this->deleteMethod(client, &(this->file));
+			this->deleteMethod(client);
 			break ;
 		case POST:
 			this->postMethod(client, &(this->file));
@@ -70,15 +70,15 @@ void	Server::getMethod(Client &client)
 	client.getBuffer().push_back('\n');
 }
 
-void	Server::deleteMethod(Client &client, std::fstream *file)
+void	Server::deleteMethod(Client &client)
 {
-	if (check_delete(client, this->resp_body, *this, file) != 0)
+	if (check_delete(client, this->resp_body, *this, &this->file) != 0)
 	{
 		std::cout << "protected!" << std::endl;
-	}
 		return ;
-	(*file).close();
-	execute_delete(client, this->resp_body, file);
+	}
+	this->file.close();
+	execute_delete(client, this->resp_body, &this->file);
 }
 
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file)

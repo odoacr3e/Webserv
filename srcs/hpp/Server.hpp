@@ -97,6 +97,8 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		// NOTE - creation HTML
 		std::string			createHtml(Client &client);
 		void				clearRespVariables();
+		void				assignFileType(Client &client);
+		bool				autoindex_do(Client &client);
 };
 
 /*SECTION - gestione concorrenza

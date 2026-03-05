@@ -1,7 +1,5 @@
 #include "../../hpp/Server.hpp"
 
-//void	manage_cookies();
-
 /**
  * @brief Creates the response to send to the receiving client according to the method chosen.
  * 
@@ -47,20 +45,9 @@ void	Server::processResponse(Client &client)
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
 	this->clearRespVariables();
-	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
-		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
-	this->resp_url = client.getRequest().getUrl();
-	size_t last_dot = this->resp_url.find_last_of('.');
-	if (last_dot != std::string::npos)
-	{
-		std::string url = this->resp_url.substr(last_dot);
-		if (url != ".html" && url != ".css")
-			this->type = "image/";
-		this->type += url.erase(0, 1);
-	}
-	else
-		this->type += "html";
-	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(this->resp_url) && client.getRequest().getMethodEnum() != POST)
+	checkRequestStausCode(client);
+	assignFileType(client);
+	if (autoindex_do(client))
 		createAutoindex(client);
 	else
 		choose_file(client);
@@ -68,6 +55,21 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	if (client.getPollFd(*this)->events & POLLOUT)
 		return (createHtml(client));
 	return ("");
+}
+
+void	Server::assignFileType(Client &client)
+{
+	this->resp_url = client.getRequest().getUrl();
+	size_t last_dot = this->resp_url.find_last_of('.');
+	std::string url;
+
+	if (last_dot != std::string::npos)
+	{
+		url = this->resp_url.substr(last_dot);
+		if (url != ".html" && url != ".css")
+			this->type = "image/";
+		this->type += url.erase(0, 1);
+	}
 }
 
 /**
@@ -202,7 +204,13 @@ void	fill_error_page(Client &client, std::string &html)
 /**
  * @brief utility function to clear the variables used to create an html response in server class
  * 
- * - resp_body
+ * - std::string	resp_body
+ * 
+ * - std::string	resp_url
+ * 
+ * - std::string	type
+ * 
+ * - fstream		file
  */
 void	Server::clearRespVariables()
 {
@@ -213,4 +221,26 @@ void	Server::clearRespVariables()
 	if (this->file.is_open())
 		this->file.close();
 	this->file.clear();
+}
+
+bool	Server::autoindex_do(Client &client)
+{
+	e_http_codes	status_code = client.getRequest().getStatusCode();
+	e_methods		method = client.getRequest().getMethodEnum();
+	bool			autoindex_bool = client.getRequest().getAutoIndexBool();
+
+	if (status_code == 200 && autoindex_bool && valid_directory(this->resp_url) && method != POST)
+		return (true);
+	else
+		return (false);
+}
+
+void	checkRequestStausCode(Client &client)
+{
+	std::string	ret_text = client.getLocConf().ret_text;
+	bool		loc_exists = client.getLocConf().exist;
+	int			ret_code = client.getLocConf().ret_code;
+
+	if ( loc_exists &&  ret_code != 0)
+		client.getRequest().fail(ret_code, ret_text);
 }

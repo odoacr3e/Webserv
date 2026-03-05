@@ -96,5 +96,6 @@ void			vect_split(std::vector<char *> &vect, std::string s, char c);
 void			vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
 std::string		hex_to_char(std::string& input);
+void			checkRequestStausCode(Client &client);
 
 #endif

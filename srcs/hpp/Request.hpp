@@ -122,7 +122,7 @@ class Request
 		bool						getAutoIndexBool() const;
 		bool						getRunScriptBool() const;
 		bool						&getFirstRead();
-		bool						&getBodyHeaders();
+		bool						&getBodyHeadersBool();
 		char						*getSockBuff();
 		int							&getSockBytes();
 		int							&getSockFd();

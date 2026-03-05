@@ -34,7 +34,7 @@
     </div>
 
     <div class="controls-right">
-        <button onmousedown="sendInput('W')" onmouseup="sendInput('w')">W (Avanti)</button>
+        <button onmousedown="sendInput('W')" onmouseup="sendInput('w')">W</button>
         <div style="display: flex; gap: 5px;">
             <button onmousedown="sendInput('J')" onmouseup="sendInput('j')">↺ J</button>
             <button onmousedown="sendInput('L')" onmouseup="sendInput('l')">L ↻</button>
@@ -45,6 +45,7 @@
             <button onmousedown="sendInput('D')" onmouseup="sendInput('d')">D</button>
         </div>
         <button onmousedown="sendInput('E')" onmouseup="sendInput('e')">E (Interact)</button>
+        <button onmousedown="sendInput('K')" onmouseup="sendInput('k')">K (run)</button>
     </div>
 
     <div class="controls-bottom">
@@ -73,12 +74,14 @@ let selectedButton = "";
 
 const activeKeys = {
     'W': false, 'A': false, 'S': false, 'D': false,
-    'J': false, 'L': false, 'E': false, 'X': false
+    'J': false, 'L': false, 'E': false, 'X': false,
+	'Q': false
 };
 
 const keyMap = {
     'w': 'W', 'a': 'A', 's': 'S', 'd': 'D',
-    'j': 'J', 'l': 'L', 'e': 'E', 'x': 'X'
+    'j': 'J', 'l': 'L', 'e': 'E', 'x': 'X',
+	'q': 'Q'
 };
 
 function addLog(msg, type = 'info') {

@@ -46,8 +46,6 @@ void	Server::processResponse(Client &client)
  */
 std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
 {
-	std::fstream	file;
-
 	this->clearRespVariables();
 	if (client.getLocConf().exist && client.getLocConf().ret_code != 0)
 		client.getRequest().fail(client.getLocConf().ret_code, client.getLocConf().ret_text);
@@ -65,8 +63,8 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 	if (client.getRequest().getStatusCode() == 200 && client.getRequest().getAutoIndexBool() && valid_directory(this->resp_url) && client.getRequest().getMethodEnum() != POST)
 		createAutoindex(client);
 	else
-		choose_file(client, file);
-	runMethod(client, file);
+		choose_file(client);
+	runMethod(client, this->file);
 	if (client.getPollFd(*this)->events & POLLOUT)
 		return (createHtml(client));
 	return ("");
@@ -80,25 +78,25 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
  * In case of fail, if a custom made error page was provided we use that
  * @param client > destination Client
  */
-void	Server::choose_file(Client &client, std::fstream &file)
+void	Server::choose_file(Client &client)
 {
 	std::string	fname;
 
 	if (client.getRequest().getDnsErrorBool())
-		file.open("www/var/errors/dns/index.html");
+		this->file.open("www/var/errors/dns/index.html");
 	else if (client.getRequest().getStatusCode() != 200)
 	{
 		fname = checkErrorPages(client.getRequest());
-		file.open((fname).c_str());
+		this->file.open((fname).c_str());
 	}
 	else if (client.getRequest().getRunScriptBool() == false)
 	{
-		file.open(this->resp_url.c_str());
-		if (file.fail())
+		this->file.open(this->resp_url.c_str());
+		if (this->file.fail())
 		{
 			client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
 			fname = checkErrorPages(client.getRequest());
-			file.open((fname).c_str());
+			this->file.open((fname).c_str());
 		}
 	}
 }
@@ -211,4 +209,9 @@ void	Server::clearRespVariables()
 {
 	this->resp_body.clear();
 	this->resp_url.clear();
+	this->type.clear();
+	this->type = "text/";
+	if (this->file.is_open())
+		this->file.close();
+	this->file.clear();
 }

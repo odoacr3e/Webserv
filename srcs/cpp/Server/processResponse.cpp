@@ -104,7 +104,6 @@ void	Server::choose_file(Client &client)
 //FIXME - da inserire append root/alias in config file
 std::string	Server::checkErrorPages(Request &request)
 {
-	std::ifstream	file;
 	s_conf_server 	*server = &(*this->_srvnamemap)[request.getHost()];
 	s_conf_location	*loc;
 	int				status_code = request.getStatusCode();
@@ -114,16 +113,16 @@ std::string	Server::checkErrorPages(Request &request)
 	{
 		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
 		{
-			file.open((server->root + server->err_pages[status_code]).c_str());
-			if (file.fail() == false)
+			this->file.open((server->root + server->err_pages[status_code]).c_str());
+			if (this->file.fail() == false)
 				return (server->root + server->err_pages[status_code]);
 		}
 	}
 	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
 		loc = &server->location[url];
-		file.open((loc->root + server->location[url].err_pages[status_code]).c_str());
-		if (file.fail() == false)
+		this->file.open((loc->root + server->location[url].err_pages[status_code]).c_str());
+		if (this->file.fail() == false)
 			return (loc->root + server->location[url].err_pages[status_code]);
 		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
 			return ("www/var/errors/default_3xx.html");

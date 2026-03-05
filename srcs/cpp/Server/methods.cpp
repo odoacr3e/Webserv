@@ -13,13 +13,13 @@ void		fill_error_page(Client &client, std::string &html);
 	-	POST
 *///helo
 
-void	Server::runMethod(Client &client, std::fstream &file)
+void	Server::runMethod(Client &client)
 {
 	if (this->resp_body.empty() == false)
 		return ;
 	if (client.getRequest().getFailMsg().empty() == false)
 	{
-		this->resp_body = file_opener(file, "runMethod GET: Cannot open file");
+		this->resp_body = file_opener(this->file, "runMethod GET: Cannot open file");
 		fill_error_page(client, this->resp_body);
 		return ;
 	}
@@ -28,13 +28,13 @@ void	Server::runMethod(Client &client, std::fstream &file)
 	switch (client.getRequest().getMethodEnum())
 	{
 		case GET:
-			this->getMethod(client, &file);
+			this->getMethod(client, &(this->file));
 			break ;
 		case DELETE:
-			this->deleteMethod(client, &file);
+			this->deleteMethod(client, &(this->file));
 			break ;
 		case POST:
-			this->postMethod(client, &file);
+			this->postMethod(client, &(this->file));
 			break ;
 		case HEAD:
 			;//funzione che gestisce HEAD ma dobbiamo gestirlo?

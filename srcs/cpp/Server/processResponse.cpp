@@ -51,25 +51,10 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 		createAutoindex(client);
 	else
 		choose_file(client);
-	runMethod(client, this->file);
+	runMethod(client);
 	if (client.getPollFd(*this)->events & POLLOUT)
 		return (createHtml(client));
 	return ("");
-}
-
-void	Server::assignFileType(Client &client)
-{
-	this->resp_url = client.getRequest().getUrl();
-	size_t last_dot = this->resp_url.find_last_of('.');
-	std::string url;
-
-	if (last_dot != std::string::npos)
-	{
-		url = this->resp_url.substr(last_dot);
-		if (url != ".html" && url != ".css")
-			this->type = "image/";
-		this->type += url.erase(0, 1);
-	}
 }
 
 /**
@@ -104,6 +89,12 @@ void	Server::choose_file(Client &client)
 }
 
 //FIXME - da inserire append root/alias in config file
+/**
+ * @brief Returns the request's error page if existing, else it returns the server one
+ * 
+ * @param request > Request to inspect
+ * @return std::string Html error page
+ */
 std::string	Server::checkErrorPages(Request &request)
 {
 	s_conf_server 	*server = &(*this->_srvnamemap)[request.getHost()];
@@ -137,6 +128,11 @@ std::string	Server::checkErrorPages(Request &request)
 		return ("www/var/errors/default.html");
 }
 
+/**
+ * @brief Create a Session Id as a cookie
+ * 
+ * @return std::string Session id number
+ */
 std::string createSessionId()
 {
 	static int id;
@@ -148,7 +144,12 @@ std::string createSessionId()
 	return (s_id.append(ft_to_string(++id)));
 }
 
-// NOTE - crea html come body per la risposta da inviare al client
+/**
+ * @brief Creates the html page according to request's data
+ * 
+ * @param client > Client containing the request
+ * @return std::string Html page filled with data
+ */
 std::string	Server::createHtml(Client &client)
 {
 	std::ostringstream	response;
@@ -183,6 +184,14 @@ std::string	Server::createHtml(Client &client)
 	return (response.str());
 }
 
+/**
+ * @brief This function fills the error page with the current request's informations
+ * 
+ * - Error codes, error messages ecc
+ * 
+ * @param client > Client containing the request
+ * @param html > Return page html
+ */
 void	fill_error_page(Client &client, std::string &html)
 {
 	e_http_codes	code;
@@ -199,6 +208,26 @@ void	fill_error_page(Client &client, std::string &html)
 	find_and_replace(html, "{SOUND_HOME}", "ET telefono casa");
 	find_and_replace(html, "{SOUND_RETRY}", "Ritenta, sfigato");
 	find_and_replace(html, "{URL}", client.getLocConf().ret_text);
+}
+
+/**
+ * @brief Reads the file type from te request and updates the file type in the server class variable type
+ * 
+ * @param client > Client containing the request
+ */
+void	Server::assignFileType(Client &client)
+{
+	this->resp_url = client.getRequest().getUrl();
+	size_t last_dot = this->resp_url.find_last_of('.');
+	std::string url;
+
+	if (last_dot != std::string::npos)
+	{
+		url = this->resp_url.substr(last_dot);
+		if (url != ".html" && url != ".css")
+			this->type = "image/";
+		this->type += url.erase(0, 1);
+	}
 }
 
 /**
@@ -223,6 +252,13 @@ void	Server::clearRespVariables()
 	this->file.clear();
 }
 
+/**
+ * @brief Helper function: reads request's status code, method, and autoindex bool from location
+ * 
+ * @param client 
+ * @return true if autoindex is to be done
+ * @return false if autoindex is not to be done
+ */
 bool	Server::autoindex_do(Client &client)
 {
 	e_http_codes	status_code = client.getRequest().getStatusCode();
@@ -235,12 +271,17 @@ bool	Server::autoindex_do(Client &client)
 		return (false);
 }
 
+/**
+ * @brief Helper function: reads request's status code and sets fail accordingly
+ * 
+ * @param client > Client containing the request
+ */
 void	checkRequestStausCode(Client &client)
 {
 	std::string	ret_text = client.getLocConf().ret_text;
 	bool		loc_exists = client.getLocConf().exist;
 	int			ret_code = client.getLocConf().ret_code;
 
-	if ( loc_exists &&  ret_code != 0)
+	if (loc_exists &&  ret_code != 0)
 		client.getRequest().fail(ret_code, ret_text);
 }

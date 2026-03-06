@@ -40,7 +40,20 @@
 // 	else if (request.getBytesLeft() < 0 || request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
 // 		client.getPollFd(*this)->events = POLLOUT;
 // }
-
+/**
+ * @brief Takes in the request and processes it:
+ * 
+ * Parses it using requestParsing(), converts the DNS using convertDnsToIp() in case servername is not an ip
+ * 
+ * receives the first part of the request in recvFirstReqPart() GET and DELETE
+ * 
+ * receives the rest of the request, in case its a POST (because of the binary file information) in recvRemainingReqParts()
+ * 
+ * then checks How many bites were ridden and what status code we have in  checkBytesAndScode()
+ * @param client 
+ * @param buffer 
+ * @param bytes 
+ */
 void	Server::processRequest(Client &client, char *buffer, int bytes)
 {
 	Request	&request = client.getRequest();

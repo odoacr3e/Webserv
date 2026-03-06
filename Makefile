@@ -19,14 +19,16 @@ CPP = $(addprefix cpp/, 		Client.cpp \
 		$(addprefix request/, 	getter.cpp setter.cpp print.cpp Request.cpp) \
 		$(addprefix cgi/, 		Cgi.cpp argv.cpp execute.cpp html/crypter.cpp html/cub.cpp html/pokedex.cpp html/var.cpp))
 
-UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp  \
+UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp \
 								string/string.cpp url.cpp env.cpp directory.cpp)
 
 HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
 			$(addprefix hpp/, Client.hpp Cgi.hpp Conf.hpp Request.hpp Server.hpp)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
-DEPS = $(OBJ:.o=.d)# deps: checks if a header file changed
+DEPS = $(OBJ:.o=.d)
+
+CGI_ARGS := $(filter-out cgi,$(MAKECMDGOALS))
 
 all: $(NAME)
 
@@ -74,13 +76,17 @@ giddibi: gdb
 r3: re
 
 cgi:
-	@for dir in www/cgi-bin/*/ ; do \
-		if [ -f "$$dir/Makefile" ]; then \
-			echo "Cleaning $$dir"; \
-			$(MAKE) -C "$$dir" clean; \
-			$(MAKE) -C "$$dir"; \
-		fi \
-	done
+	@if [ "$(CGI_ARGS)" = "all" ] || [ -z "$(CGI_ARGS)" ]; then \
+		for dir in www/cgi-bin/*/ ; do \
+			if [ -f "$$dir/Makefile" ]; then \
+				echo "Building $$dir"; \
+				$(MAKE) -C "$$dir"; \
+			fi; \
+		done; \
+	else \
+		echo "Building www/cgi-bin/$(CGI_ARGS)"; \
+		$(MAKE) -C www/cgi-bin/$(CGI_ARGS); \
+	fi
 
 cgi_clean:
 	@for dir in www/cgi-bin/*/ ; do \
@@ -105,4 +111,9 @@ val: $(NAME)
 
 -include $(DEPS)
 
-.PHONY: all clean fclean run val kill_ports
+.PHONY: all clean fclean run val kill_ports cgi
+
+%:
+	@:
+
+# .SILENT:

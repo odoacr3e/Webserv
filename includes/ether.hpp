@@ -97,6 +97,8 @@ void			vect_split(std::vector<char *> &vect, std::string s, char c);
 void			vect_split_new(std::vector<char *> &vect, std::string s, char c);
 
 std::string		hex_to_char(std::string& input);
-void			checkRequestStausCode(Client &client);
+void			checkRequestStatusCode(Client &client);
+bool			autoindex_do(Client &client, std::string url);
+
 
 #endif

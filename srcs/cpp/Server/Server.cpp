@@ -21,8 +21,7 @@ Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
 	if (conf.getSrvNameMap().size() == 0)
 		throw (std::runtime_error("\nSpecify at least one listen in conf file"));
 	this->_srvnamemap = &conf.getSrvNameMap();
-	for (SrvNameMap::iterator it = conf.getSrvNameMap().begin(); \
-		it != conf.getSrvNameMap().end(); it++)
+	for (SrvNameMap::iterator it = conf.getSrvNameMap().begin(); it != conf.getSrvNameMap().end(); it++)
 	{
 		port_connection = createServerSock((*it).first.second);
 		if (port_connection.fd != -1)
@@ -47,6 +46,11 @@ Server::~Server()
 	this->suppressSocket();
 }
 
+/**
+ * @brief Suppress every active and added socket in the SrvNameMap both for clients and cgi fds (Pipe read and write)
+ * 
+ * makes sure to call delete to avoid memory leaks 
+ */
 void Server::suppressSocket()
 {
 	s_cgi	*cgi;
@@ -58,7 +62,6 @@ void Server::suppressSocket()
 		{
 			delete this->_clients[(*it).fd];
 			this->_clients.erase((*it).fd);
-//			it = this->_addrs.erase(it) - 1;
 		}
 		else if (this->_fd_data[it->fd].type == FD_PIPE_RD)
 		{
@@ -75,8 +78,12 @@ void Server::suppressSocket()
 	//SECTION - socket buffer clearup
 
 }
-
-void	Server::checkForConnection() //checkare tutti i socket client per vedere se c'e stata una connessione
+/**
+ * @brief Checks every socket waiting for anu events change
+ * 
+ * if revents reports a change we process the request 
+ */
+void	Server::checkForConnection()
 {
 	pollfd	poll_data;
 	Client	*client;
@@ -88,7 +95,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 		poll_data = this->_addrs[this->_i];
 		client = this->getFdData()[poll_data.fd].client;		
 		cgi = this->getFdData()[poll_data.fd].cgi;
-		if (poll_data.revents & POLLIN) // revents & POLLIN -> pronto per leggere
+		if (poll_data.revents & POLLIN) // revents & POLLIN -> ready to read
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_RD)
 				client->readCgi(*this, *cgi);
@@ -102,7 +109,7 @@ void	Server::checkForConnection() //checkare tutti i socket client per vedere se
 					processRequest(*client, buffer, bytes);
 			}
 		}
-		if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per ricevere
+		if (poll_data.revents & POLLOUT) // revents & POLLOUT -> pronto per recv
 		{
 			if (this->getFdData()[poll_data.fd].type == FD_PIPE_WR)
 				client->writeCgi(*this, *cgi);

@@ -122,7 +122,6 @@ bool	Conf::checkIpPort(std::string ip, int port) const
 {
 	std::pair<std::string, int>	ipport(ip, port);
 
-	//FIXME - si può usare <algorithm> ???
 	if (std::find(this->_ipport.begin(), this->_ipport.end(), ipport) != this->_ipport.end())
 		return (1);
 	return (this->_srvnamemap.count(ipport) >= 1);

@@ -45,7 +45,6 @@ enum	e_methods_mask
 	MASK_ALL_METHODS = (1 << 8) - 1,
 };
 
-// FIXME - gestire transfer-encoding
 
 class Request
 {

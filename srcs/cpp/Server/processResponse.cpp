@@ -1,5 +1,7 @@
 #include "../../hpp/Server.hpp"
 
+bool	autoindex_do(Client &client);
+
 /**
  * @brief Creates the response to send to the receiving client according to the method chosen.
  * 
@@ -41,12 +43,12 @@ void	Server::processResponse(Client &client)
  * @param client > destination Client
  * @return std::string html page
  */
-std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
+std::string	Server::createResponse(Client &client)
 {
 	clearRespVariables();
-	checkRequestStausCode(client);
+	checkRequestStatusCode(client);
 	assignFileType(client);
-	if (autoindex_do(client))
+	if (autoindex_do(client, client.getRequest().getUrl()))
 		createAutoindex(client);
 	else
 		choose_file(client);
@@ -92,7 +94,6 @@ void	Server::choose_file(Client &client)
 	}
 }
 
-//FIXME - da inserire append root/alias in config file
 /**
  * @brief Returns the request's error page if existing, else it returns the server one
  * 
@@ -162,6 +163,8 @@ std::string	Server::createHtml(Client &client)
 	static std::string	http_codes_str[] = VALID_HTTP_STR;
 	std::string			url = client.getRequest().getUrl();
 	int 				status = client.getRequest().getStatusCode();
+	bool				gen_cookie = client.getLocConf().gen_cookie;
+	bool				cookie_empty = client.getRequest().getCookieKey().empty();
 
 	response << "HTTP/1.1 "
 	         << status << " "
@@ -171,8 +174,7 @@ std::string	Server::createHtml(Client &client)
 	response << "Pragma: no-cache" << "\r\n";
 	response << "Expires: 0" << "\r\n";
 	response << "Connection: close" << "\r\n";
-	if (client.getLocConf().exist && client.getLocConf().gen_cookie && \
-		client.getRequest().getCookieKey().empty() == true)
+	if (client.getLocConf().exist && gen_cookie && cookie_empty)
 	{
 		std::cout << "set-Cookie:\n";
 		client.getRequest().getCookieKey() = createSessionId();
@@ -265,13 +267,13 @@ void	Server::clearRespVariables()
  * @return true if autoindex is to be done
  * @return false if autoindex is not to be done
  */
-bool	Server::autoindex_do(Client &client)
+bool	autoindex_do(Client &client, std::string url)
 {
 	e_http_codes	status_code = client.getRequest().getStatusCode();
 	e_methods		method = client.getRequest().getMethodEnum();
 	bool			autoindex_bool = client.getRequest().getAutoIndexBool();
 
-	if (status_code == 200 && autoindex_bool && valid_directory(this->resp_url) && method != POST)
+	if (status_code == 200 && autoindex_bool && valid_directory(url) && method != POST)
 		return (true);
 	else
 		return (false);
@@ -282,7 +284,7 @@ bool	Server::autoindex_do(Client &client)
  * 
  * @param client > Client containing the request
  */
-void	checkRequestStausCode(Client &client)
+void	checkRequestStatusCode(Client &client)
 {
 	std::string	ret_text = client.getLocConf().ret_text;
 	bool		loc_exists = client.getLocConf().exist;

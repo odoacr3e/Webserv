@@ -70,6 +70,9 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				processRequest(Client &client, char *buffer, int bytes);
 		void				processResponse(Client &client);
 		void				checkForConnection();
+		bool				recvFirstReqPart(Client &client, char *buffer, int bytes);
+		void				recvRemainingReqParts(Client &client);
+		void				checkBytesAndScode(Client &client);
 		void				eraseClient(Client &client, int i);
 		int					getServerNum() const;
 		SrvNameMap			&getSrvNameMap() const;
@@ -100,7 +103,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		std::string			createHtml(Client &client);
 		void				clearRespVariables();
 		void				assignFileType(Client &client);
-		bool				autoindex_do(Client &client);
 };
 
 /*SECTION - gestione concorrenza

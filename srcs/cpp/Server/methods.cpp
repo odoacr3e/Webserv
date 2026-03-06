@@ -46,11 +46,8 @@ void	Server::getMethod(Client &client)
 {
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
 		return ;
-	std::cout << "funcking runMethod(): reading file..\n";
-	std::cout << "fucking body type " << client.getRequest().getBodyType() << "\n";
 	if (this->type == "text/html")
 	{
-		std::cout << "Entro nell'override login\n";
 		std::getline(this->file, this->resp_body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)
 		{
@@ -62,7 +59,6 @@ void	Server::getMethod(Client &client)
 		}
 		else
 			std::cout << "Cookie è vuoto!\n";
-		std::cout << this->resp_body << "\n";
 		return ;
 	}
 	client.sendContentBool() = true;

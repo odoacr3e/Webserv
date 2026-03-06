@@ -91,6 +91,8 @@ void	Server::setupRequestEnvironment(Client &client)
 	}
 	if (max_body_size < (int)client.getRequest().getBodyLen())
 		request.fail(HTTP_CE_CONTENT_UNPROCESSABLE, "Declared max body size exceeded in current request");
+	if (request.getUrl().rbegin()[0] == '?')
+		request.setUrl(request.getUrl().erase(request.getUrl().length() - 1, 1));
 	request.findRightUrl(&(*this->_srvnamemap)[request.getHost()], loc);
 	if (client.isAllowedMethod() == 0)
 		request.fail(HTTP_CE_METHOD_NOT_ALLOWED, "Ti puzzano i piedi (della zia del tuo ragazzo)");

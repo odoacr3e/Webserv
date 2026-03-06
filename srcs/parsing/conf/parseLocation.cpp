@@ -110,8 +110,8 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	int		code;
 	int		code_valid;
 
-	if (list.size() < 2)
-		instructionError(list, line, "return needs this syntax:	return code [text] |"\
+	if (list.size() < 2 || list.size() > 3)
+		instructionError(list, line, "return needs this syntax:	return code [url] |"\
 		"return code3XX URL | return code\n");
 	code_syntax = charFinder(list[1], std::isdigit);
 	code = std::atoi(list[1].c_str());
@@ -121,13 +121,16 @@ static void parseReturn(Conf &conf, std::vector<std::string> &list, int line)
 	if (code_valid == HTTP_UNKNOWN)
 		instructionError(list, line, "invalid status code\n");
 	conf.getLocationBlock().ret_code = code;
-	if (code >= 300 && code < 399)
+	if (code >= 300 && code < 399)//NOTE - redirection: third arg is new url
 	{
 		if (list.size() != 3 || list[2][0] != '/')
 			instructionError(list, line, "return code 3xx must have an uri\n");
 	}
-	for (size_t i = 2; i != list.size(); i++)
-		conf.getLocationBlock().ret_text += list[i] + ' ';
+	else if (list.size() != 3)//NOTE - redirection: third arg is html to use
+	{
+		return ;
+	}
+	conf.getLocationBlock().ret_text = list[2];
 }
 
 static void	parseAutoindex(Conf &conf, std::vector<std::string> &list, int line)

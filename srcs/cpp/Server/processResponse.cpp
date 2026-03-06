@@ -67,7 +67,10 @@ std::string	Server::createResponse(Client &client) // create html va messo anche
 void	Server::choose_file(Client &client)
 {
 	std::string	fname;
+	std::string	redirect_file;
 
+	if (client.getLocConf().exist && client.getLocConf().ret_text.empty() == false)
+		redirect_file = client.getLocConf().ret_text;
 	if (client.getRequest().getDnsErrorBool())
 		this->file.open("www/var/errors/dns/index.html");
 	else if (client.getRequest().getStatusCode() != 200)
@@ -75,6 +78,8 @@ void	Server::choose_file(Client &client)
 		fname = checkErrorPages(client.getRequest());
 		this->file.open((fname).c_str());
 	}
+	else if (redirect_file.empty() == false)
+		this->file.open("www/var/default_redirect.html");
 	else if (client.getRequest().getRunScriptBool() == false)
 	{
 		this->file.open(this->resp_url.c_str());
@@ -114,10 +119,12 @@ std::string	Server::checkErrorPages(Request &request)
 	{
 		loc = &server->location[url];
 		this->file.open((loc->root + server->location[url].err_pages[status_code]).c_str());
-		if (this->file.fail() == false)
-			return (loc->root + server->location[url].err_pages[status_code]);
 		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
 			return ("www/var/errors/default_3xx.html");
+		else if (this->file.fail() == false)
+			return (loc->root + server->location[url].err_pages[status_code]);
+		else if (loc->ret_text.empty() == false)
+			return ("www/var/default_redirect.html");
 		else
 			return ("www/var/errors/default.html");
 	}
@@ -281,6 +288,6 @@ void	checkRequestStausCode(Client &client)
 	bool		loc_exists = client.getLocConf().exist;
 	int			ret_code = client.getLocConf().ret_code;
 
-	if (loc_exists &&  ret_code != 0)
+	if (loc_exists && ret_code != 0 && ret_code != 200)
 		client.getRequest().fail(ret_code, ret_text);
 }

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Webserv Architecture Documentation</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#0f1117;
+    color:#e6edf3;
+    font-family:system-ui, monospace;
+    line-height:1.6;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:40px;
+}
+
+h1,h2,h3{
+    color:#79c0ff;
+}
+
+h1{
+    border-bottom:2px solid #30363d;
+    padding-bottom:10px;
+}
+
+h2{
+    margin-top:40px;
+    border-bottom:1px solid #30363d;
+    padding-bottom:6px;
+}
+
+h3{
+    margin-top:25px;
+}
+
+p{
+    color:#c9d1d9;
+}
+
+ul{
+    padding-left:25px;
+}
+
+li{
+    margin:6px 0;
+}
+
+code{
+    background:#161b22;
+    padding:3px 6px;
+    border-radius:4px;
+}
+
+pre{
+    background:#161b22;
+    padding:16px;
+    border-radius:8px;
+    overflow:auto;
+    border:1px solid #30363d;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #30363d;
+    padding:10px;
+}
+
+th{
+    background:#161b22;
+}
+
+.section{
+    margin-bottom:35px;
+}
+
+hr{
+    border:none;
+    border-top:1px solid #30363d;
+    margin:40px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Webserv Architecture Documentation</h1>
+
+<h2>Overview</h2>
+
+<p>
+Questo progetto implementa un <b>HTTP Web Server event-driven in C++</b>, ispirato al comportamento di <b>nginx</b>.
+</p>
+
+<h3>Caratteristiche principali</h3>
+
+<ul>
+<li>gestione <b>multi server (ip:porta)</b></li>
+<li>architettura <b>non-blocking</b></li>
+<li>I/O multiplexing tramite <code>poll()</code></li>
+<li>supporto <b>CGI / FastCGI</b></li>
+<li>parsing completo <b>HTTP/1.1</b></li>
+<li>gestione <b>cookies</b></li>
+<li>configurazione stile <b>nginx</b></li>
+</ul>
+
+<p>
+Il server utilizza una struttura centrale (<code>Server</code>) che coordina:
+</p>
+
+<ul>
+<li>connessioni</li>
+<li>client</li>
+<li>parsing request</li>
+<li>generazione response</li>
+<li>esecuzione CGI</li>
+</ul>
+
+<hr>
+
+<h2>Core Components</h2>
+
+<pre>
+Server
+├── Client
+│   └── Request
+│
+├── CGI
+│
+└── Conf
+    ├── s_conf_server
+    └── s_conf_location
+</pre>
+
+<hr>
+
+<h2>Server</h2>
+
+<p>Classe principale che gestisce l'intero webserver.</p>
+
+<h3>Responsabilità principali</h3>
+
+<ul>
+<li>gestione socket server</li>
+<li>gestione client connessi</li>
+<li>gestione <code>poll()</code></li>
+<li>dispatch delle request</li>
+<li>gestione CGI</li>
+<li>generazione delle response</li>
+</ul>
+
+<h2>Strutture principali</h2>
+
+<h3>Server::pollfd array</h3>
+
+<pre>
+std::vector&lt;pollfd&gt; _addrs;
+</pre>
+
+<p>Contiene tutti i file descriptor monitorati da <code>poll()</code>.</p>
+
+<h3>Tipi possibili</h3>
+
+<ul>
+<li>server socket</li>
+<li>client socket</li>
+<li>pipe CGI read</li>
+<li>pipe CGI write</li>
+</ul>
+
+<h3>Esempio</h3>
+
+<pre>
+[0] server_fd_1
+[1] server_fd_2
+[2] client_fd_1
+[3] client_fd_2
+[4] pipe_fd
+</pre>
+
+<h3>FD metadata</h3>
+
+<pre>
+std::vector&lt;s_fd_data&gt; _fd_data;
+</pre>
+
+<pre>
+struct s_fd_data
+{
+    s_cgi*      cgi;
+    Client*     client;
+    e_fd_type   type;
+    bool        cgi_ready;
+};
+</pre>
+
+<h3>Client map</h3>
+
+<pre>
+std::map&lt;int, Client*&gt; _clients;
+</pre>
+
+<p>Associazione:</p>
+
+<pre>
+socket_fd -> Client object
+</pre>
+
+<h3>Server configuration map</h3>
+
+<pre>
+std::map&lt;int, t_conf_server*&gt; _server_data;
+</pre>
+
+<h3>Cookie storage</h3>
+
+<pre>
+cookieMap _cookie_map;
+</pre>
+
+<hr>
+
+<h2>Client</h2>
+
+<p>Rappresenta una connessione HTTP con un client.</p>
+
+<h3>Responsabilità</h3>
+
+<ul>
+<li>mantenere lo stato della connessione</li>
+<li>contenere la request corrente</li>
+<li>buffer dati ricevuti</li>
+<li>configurazione server/location attiva</li>
+</ul>
+
+<h3>Variabili principali</h3>
+
+<h4>Socket client</h4>
+
+<pre>
+int _sockfd;
+</pre>
+
+<h4>Socket server</h4>
+
+<pre>
+int _srvfd;
+</pre>
+
+<h4>Request HTTP</h4>
+
+<pre>
+Request _request;
+</pre>
+
+<h4>Buffer dati</h4>
+
+<pre>
+std::vector&lt;char&gt; _buffer;
+</pre>
+
+<hr>
+
+<h2>Request</h2>
+
+<p>Classe responsabile del <b>parsing della request HTTP</b>.</p>
+
+<ul>
+<li>method</li>
+<li>URL</li>
+<li>headers</li>
+<li>body</li>
+<li>error handling</li>
+</ul>
+
+<h3>Struttura request</h3>
+
+<pre>
+METHOD URI HTTP_VERSION
+Headers
+Body
+</pre>
+
+<h3>Esempio</h3>
+
+<pre>
+GET /index.html HTTP/1.1
+Host: localhost
+Content-Length: 10
+
+body data
+</pre>
+
+<h3>Variabili principali</h3>
+
+<h4>Metodo HTTP</h4>
+
+<pre>
+std::string _method;
+</pre>
+
+<h4>URL</h4>
+
+<pre>
+std::string _url;
+</pre>
+
+<h4>Headers</h4>
+
+<pre>
+headermap _header;
+</pre>
+
+<h4>Body</h4>
+
+<pre>
+std::string _body;
+</pre>
+
+<h4>Status code</h4>
+
+<pre>
+e_http_codes _status_code;
+</pre>
+
+<hr>
+
+<h2>CGI</h2>
+
+<p>Gestisce l'esecuzione di script esterni.</p>
+
+<pre>
+struct s_cgi
+{
+    std::string input;
+    char* output;
+
+    int pipe[2];
+    int poll_index[2];
+
+    int pid;
+
+    bool isFastCgiBool;
+};
+</pre>
+
+<h3>Flusso CGI</h3>
+
+<pre>
+Client Request
+      │
+Server detects CGI
+      │
+fork()
+      │
+exec script
+      │
+pipe output
+      │
+Server reads pipe
+      │
+Response to client
+</pre>
+
+<hr>
+
+<h2>Configuration System</h2>
+
+<p>Configurazione stile nginx tramite classe <code>Conf</code>.</p>
+
+<h3>Esempio config</h3>
+
+<pre>
+server {
+
+listen 127.0.0.1:8080;
+
+root /var/www;
+
+location /images {
+root /var/www/img;
+}
+
+}
+</pre>
+
+<hr>
+
+<h2>Poll Event System</h2>
+
+<pre>
+FD_SERVER
+FD_CLIENT
+FD_PIPE_RD
+FD_PIPE_WR
+</pre>
+
+<h3>Event Loop</h3>
+
+<pre>
+while (true)
+{
+    poll();
+
+    for each fd
+    {
+        if SERVER
+            accept();
+
+        if CLIENT
+            read request;
+
+        if PIPE
+            read CGI output;
+    }
+}
+</pre>
+
+<hr>
+
+<h2>Cookie System</h2>
+
+<pre>
+struct s_cookieData
+{
+    std::string login;
+    std::string id;
+    s_cgi* cgi;
+    bool exist;
+};
+</pre>
+
+<hr>
+
+<h2>HTTP Methods</h2>
+
+<table>
+
+<tr>
+<th>Method</th>
+<th>Descrizione</th>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>recupera risorsa</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>invia dati</td>
+</tr>
+
+<tr>
+<td>DELETE</td>
+<td>elimina risorsa</td>
+</tr>
+
+</table>
+
+<hr>
+
+<h2>Response Generation</h2>
+
+<pre>
+Server::createResponse()
+</pre>
+
+<pre>
+HTTP/1.1 STATUS_CODE
+Headers
+
+Body
+</pre>
+
+<hr>
+
+<h2>Autoindex</h2>
+
+<pre>
+createAutoindex()
+</pre>
+
+<hr>
+
+<h2>Maximum Connections</h2>
+
+<pre>
+MAX_CONNECTION = 1024
+</pre>
+
+<hr>
+
+<h2>Concurrency Model</h2>
+
+<pre>
+Single Thread
+Event Driven
+Non Blocking I/O
+poll()
+</pre>
+
+<hr>
+
+<h2>Summary</h2>
+
+<table>
+
+<tr>
+<th>Component</th>
+<th>Responsabilità</th>
+</tr>
+
+<tr>
+<td>Server</td>
+<td>gestione connessioni</td>
+</tr>
+
+<tr>
+<td>Client</td>
+<td>stato connessione</td>
+</tr>
+
+<tr>
+<td>Request</td>
+<td>parsing HTTP</td>
+</tr>
+
+<tr>
+<td>CGI</td>
+<td>esecuzione script</td>
+</tr>
+
+<tr>
+<td>Conf</td>
+<td>configurazione server</td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

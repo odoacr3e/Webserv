@@ -1,5 +1,5 @@
 
-#include "../../includes/ether.hpp"
+#include "../../includes/include.hpp"
 #include "../../srcs/hpp/Server.hpp"
 #include "../../srcs/hpp/Client.hpp"
 
@@ -68,4 +68,11 @@ int read_file(std::string name, std::vector<char> &vect, int bytes)
 	stream.read(vect.data(), bytes);
 	vect.resize(stream.gcount());
 	return (0);
+}
+
+std::ofstream	&print_dev_null()
+{
+	static std::ofstream null_stream("/dev/null");
+
+	return (null_stream);
 }

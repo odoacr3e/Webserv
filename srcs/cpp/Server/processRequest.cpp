@@ -1,58 +1,18 @@
 #include "../../hpp/Server.hpp"
 
-// void	Server::processRequest(Client &client, char *buffer, int bytes)
-// {
-// 	Request	&request = client.getRequest();
-// 	request.getRequestStream().str(buffer);
-// 	request.getRequestStream().clear();
-// 	request.getSockBytes() = bytes;
-
-// 	LOG_REQUEST(buffer, bytes);
-// 	if (request.getFirstRead() == true) // legge la prima volta
-// 	{
-// 		request.getFirstRead() = false;
-// 		if (requestParsing(client, buffer, bytes) != 0)//request
-// 		{
-// 			client.getPollFd(*this)->events = POLLOUT;
-// 			return ;
-// 		}
-// 		convertDnsToIp(request, request.getHost(), *this->_srvnamemap);// serverFinder
-// 		if ((*this->_srvnamemap).count(request.getHost()) == 0)
-// 		{
-// 			client.getPollFd(*this)->events = POLLOUT;
-// 			request.setRequestErrorBool(true);
-// 			return ;
-// 		}
-// 		this->setupRequestEnvironment(client);
-// 		if (client.getRequest().getMethodEnum() == GET)
-// 			request.getBytesLeft() -= request.getBodyLen();
-// 	}
-// 	else if (bodyHeaderParsing(request) == true)
-// 	{
-// 		request.getBinBody().insert(request.getBinBody().end(), request.getSockBuff(), request.getSockBuff() + request.getSockBytes());
-// 		request.getBytesLeft() -= request.getSockBytes();
-// 	}
-// 	if (request.getBytesLeft() == 0)
-// 	{
-// 		client.getPollFd(*this)->events = POLLOUT;
-// 		request.getFirstRead() = true;
-// 	}
-// 	else if (request.getBytesLeft() < 0 || request.getStatusCode() == HTTP_CE_METHOD_NOT_ALLOWED)
-// 		client.getPollFd(*this)->events = POLLOUT;
-// }
 /**
  * @brief Takes in the request and processes it:
  * 
- * Parses it using requestParsing(), converts the DNS using convertDnsToIp() in case servername is not an ip
+ * Parses it using requestParsing(), converts the DNS using convertDnsToIp() in case servername isnt an ip
  * 
- * receives the first part of the request in recvFirstReqPart() GET and DELETE
+ * - receives the first part of the request in recvFirstReqPart() GET and DELETE
  * 
- * receives the rest of the request, in case its a POST (because of the binary file information) in recvRemainingReqParts()
+ * - receives the rest of the request, in case its a POST (because of the binary file information) in recvRemainingReqParts()
  * 
- * then checks How many bites were ridden and what status code we have in  checkBytesAndScode()
- * @param client 
- * @param buffer 
- * @param bytes 
+ * - then checks How many bites were ridden and what status code we have in  checkBytesAndScode()
+ * @param client > Client containing the request
+ * @param buffer > Buffer used on recv, contains all the data sent by the request
+ * @param bytes > Number of byutes read
  */
 void	Server::processRequest(Client &client, char *buffer, int bytes)
 {
@@ -72,6 +32,18 @@ void	Server::processRequest(Client &client, char *buffer, int bytes)
 	checkBytesAndScode(client);
 }
 
+/**
+ * @brief Handles the first part of the request, usually containing the header and body
+ *
+ * - For \p `POST` it handles the first part of the request, containing the header and part of the body
+ *
+ * - For \p `GET` it handles the whole request, header and body
+ * 
+ * @param client > Client containing the request
+ * @param buffer > Buffer used on recv, contains all the data sent by the request
+ * @param bytes > Number of byutes read
+ * @return \p `true` if ok, \p `false` if an error occured 
+ */
 bool	Server::recvFirstReqPart(Client &client, char *buffer, int bytes)
 {
 	Request &request = client.getRequest();
@@ -95,6 +67,11 @@ bool	Server::recvFirstReqPart(Client &client, char *buffer, int bytes)
 	return (true);
 }
 
+/**
+ * @brief In case of POST, fills the std::vector<Char> we use for storing binary files
+ *
+ * @param client > Client containing the request 
+ */
 void	Server::recvRemainingReqParts(Client &client)
 {
 	Request 			&request = client.getRequest();
@@ -109,6 +86,13 @@ void	Server::recvRemainingReqParts(Client &client)
 	}
 }
 
+/**
+ * @brief this function checks how many bytes were ridden and updates the class variables
+ *
+ * then checks the requets's status code
+ * 
+ * @param client > Client containing the request
+ */
 void	Server::checkBytesAndScode(Client &client)
 {
 	Request			&request = client.getRequest();
@@ -124,6 +108,13 @@ void	Server::checkBytesAndScode(Client &client)
 		client.getPollFd(*this)->events = POLLOUT;
 }
 
+/**
+ * @brief Converts the dominion name in a numeric ip address
+ * 
+ * @param request > Request containing the dominion
+ * @param ipport > Pair ip - port
+ * @param srvmap > Program's SrvNameMap
+ */
 void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)
 {
 	if (std::isdigit(ipport.first[0]) != 0)
@@ -149,7 +140,11 @@ void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)
 	}
 	request.setRequestErrorBool(true);
 }
-
+/**
+ * @brief checks location params
+ * 
+ * @param client > Client containing request
+ */
 void	Server::setupRequestEnvironment(Client &client)
 {
 	Request			&request = client.getRequest();

@@ -238,9 +238,12 @@ static void	trimBody(Request &request)
 	request.getBodyHeadersBool() = true;
 }
 
-/// @brief finds post file name from body header
-/// @param client 
-/// @return filename
+/**
+ * @brief Get the request file filename
+ * 
+ * @param client > Client containing the request
+ * @return std::string 
+ */
 std::string	get_filename(Client &client)
 {
 	std::string file;
@@ -261,6 +264,12 @@ std::string	get_filename(Client &client)
 	return (file);
 }
 
+/**
+ * @brief Writes 
+ * 
+ * @param request 
+ * @param file 
+ */
 void	write_on_ofile(Request &request, std::string file)
 {
 	std::ofstream	ofile(file.c_str(), std::ios_base::binary);

@@ -7,7 +7,12 @@ struct pollfd			setupPollFd(int client);
 std::string				fileToString(std::string filename);
 dirent					*findUrlDirectory(std::string url);
 
-// NOTE - aggiungiamo il socket del server al vector di server
+/**
+ * @brief Construct a new Server:: Server object
+ * 
+ * @param conf > Configuration file path
+ * @param env > Environment
+ */
 Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
 {
 	pollfd		port_connection;

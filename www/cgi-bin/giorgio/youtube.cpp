@@ -1,4 +1,4 @@
-#include "../../../includes/ether.hpp"
+#include "../../../includes/include.hpp"
 
 void	vect_split(std::vector<std::string> &vect, std::string s, char c);
 char    *ft_itoa(int num);

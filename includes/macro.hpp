@@ -39,6 +39,7 @@
 #  define LOG_ALL(str)			print_file("logs/request.md", str);\
 								print_file("logs/response.html", str);\
 								print_file("logs/history.md", str);
+# define LOG_TERM				std::cout
 # else
 #  define LOG_REQUEST(str, ...)	(void)0
 #  define LOG_RESPONSE(str)		(void)0
@@ -46,6 +47,7 @@
 #  define LOG_HISTORY()			(void)0	
 #  define LOG_RESET() 			eraseDirectory("logs/")
 #  define LOG_ALL()				(void)0
+#  define LOG_TERM				print_dev_null()
 # endif
 
 #endif

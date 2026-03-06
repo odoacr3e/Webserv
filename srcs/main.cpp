@@ -1,13 +1,13 @@
 #include "hpp/Server.hpp"
 #include "hpp/Conf.hpp"
-#include "../includes/ether.hpp"
+#include "../includes/include.hpp"
 #include <signal.h>
 
 bool	server_run = true;
 
 void	stopServer(int sig)
 {
-	std::cout << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
+	LOG_TERM << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
 	(void)sig, server_run = false;
 }
 

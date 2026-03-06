@@ -1,7 +1,11 @@
 
-#include "../../includes/ether.hpp"
+#include "../../includes/include.hpp"
 #include "../../includes/status_codes.hpp"
 
+/**
+ * @brief remove spaces from a string
+ * @ingroup utils
+*/
 std::string	removeWhitespaces(std::string line)
 {
 	size_t 		i = 0;
@@ -75,7 +79,6 @@ bool	is_there_special_char(std::string line)
 	return(false);
 }
 
-//REVIEW - Verifica che la funzione sia verificata in tutta la stringa
 /**
  * @brief check if a function is verified in all chars of a string
  * 

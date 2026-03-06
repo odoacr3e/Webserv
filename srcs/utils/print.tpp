@@ -13,7 +13,7 @@
 #ifndef PRINT_TPP
 # define PRINT_TPP
 
-#include "../../includes/ether.hpp"
+#include "../../includes/include.hpp"
 
 template <typename F, typename S>
 std::ostream	&operator<<(std::ostream &stream, const std::pair<F, S> &pair);

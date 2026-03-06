@@ -178,6 +178,19 @@
         transform: translateY(-2px);
     }
 
+    #copy-button {
+        position: relative;
+        background: linear-gradient(135deg, #334155, #1e3a8a);;
+        margin-left: auto; 
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    
+    #copy-button:hover {
+        background: linear-gradient(135deg, #475569, #1e40af);
+        transform: translateY(-2px);
+    }
+
     </style>
 </head>
 
@@ -211,6 +224,10 @@
                     Decripta stringa
                 </button>
 
+                <button id="copy-button">
+                    Copia
+                </button>
+
             </div>
         </form>
         <div class="output">
@@ -223,6 +240,23 @@
 <footer>
     <p>My Web Server • Powered by <a href='https://thumbs.dreamstime.com/b/gamba-e-piedi-di-un-uomo-62624014.jpg'>I PIEDI DELLA ZIA DEL TUO RAGAZZO</a></p>
 </footer>
-
+<script>
+    (function()
+    {
+        if (copyBtn && outputDiv) {
+            copyBtn.addEventListener("click", function() {
+                var textToCopy = outputDiv.textContent || outputDiv.innerText;
+                if (!navigator.clipboard) {
+                    alert("Clipboard non supportata");
+                    return;
+                }
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    // copyBtn.textContent = "Copiato!";
+                    setTimeout(function(){ copyBtn.textContent = "Copia"; }, 1500);
+                });
+        });
+    }
+    })();
+</script>
 </body>
 </html>:

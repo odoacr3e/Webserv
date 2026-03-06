@@ -1,5 +1,5 @@
-#ifndef ETHER_HPP
-# define ETHER_HPP
+#ifndef INCLUDE_HPP
+# define INCLUDE_HPP
 
 # include <iostream>
 # include <fstream>
@@ -45,7 +45,11 @@ typedef std::map<IpPortPair, t_conf_server> SrvNameMap;
 int				requestParsing(Client &client, char *input, int bytes);
 int				bodyHeaderParsing(Request &request);
 
-//SEXTION - utils
+/**
+ * @defgroup utils function utilities
+ * funzioni utils
+ */
+
 std::string		removeWhitespaces(std::string line);
 size_t			find_first_not_whitespace(std::string line);
 size_t			find_first_whitespace(std::string line);
@@ -58,6 +62,7 @@ void			close_fd(int *fd);
 int				read_file(std::ifstream &stream, std::vector<char> &vect);
 int				read_file(std::fstream &stream, std::vector<char> &vect);
 int				read_file(std::string name, std::vector<char> &vect);
+std::ofstream	&print_dev_null();
 int				read_chunk(int fd, std::vector<char> &vect, int *bytes_read);
 
 size_t			find_first_special_char(std::string line);

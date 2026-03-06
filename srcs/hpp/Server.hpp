@@ -1,7 +1,7 @@
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-# include "../../includes/ether.hpp"
+# include "../../includes/include.hpp"
 # include "Client.hpp"
 # include "Conf.hpp"
 # include "Cgi.hpp"

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Webserv Poll Simulator - Config & Swap Logic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body{background:#0c0c0e;color:#e4e4e7;font-family:monospace}
+        .fd{cursor:pointer;transition:.2s; position: relative;}
+        .fd:hover{transform:scale(1.05)}
+        .bit{font-size:10px;padding:2px 4px;border-radius:3px;margin-right:2px}
+        .on{background:#10b981;color:black}
+        .off{background:#27272a;color:#555}
+        .selected{outline:2px solid #8b5cf6; background: #18181b !important;}
+       
+        .index-label {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: #8b5cf6;
+            color: white;
+            font-size: 10px;
+            padding: 0 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        button{padding:8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 11px; transition: opacity 0.2s;}
+        button:hover:not(:disabled){opacity: 0.8;}
+        button:disabled{opacity: 0.3; cursor: not-allowed;}
+        input{background: #18181b; border: 1px solid #3f3f46; padding: 6px; border-radius: 4px; color: white; font-size: 12px; width: 100%;}
+    </style>
+</head>
+<body class="flex h-screen">
+
+    <aside class="w-72 bg-zinc-900 border-r border-zinc-800 p-4 flex flex-col">
+        <h1 class="text-indigo-400 font-bold mb-4 text-center tracking-widest">WEBSERV DEBUG</h1>
+       
+        <div id="config-ui" class="space-y-4 mb-6">
+            <div class="bg-zinc-800/50 p-3 rounded border border-zinc-700 space-y-2">
+                <h2 class="text-[10px] text-zinc-400 uppercase font-black">Nuovo Server</h2>
+                <input type="text" id="name-in" placeholder="Nome (default: pippo)">
+                <input type="number" id="port-in" placeholder="Porta (default: 8080)">
+                <button onclick="sim.addServerConfig()" class="w-full bg-indigo-600 text-white">Aggiungi Server</button>
+            </div>
+            <div id="config-list" class="space-y-1 max-h-32 overflow-y-auto border-b border-zinc-800 pb-2"></div>
+            <button id="start-btn" onclick="sim.startEngine()" disabled class="w-full bg-emerald-600 text-white py-3 shadow-lg disabled:opacity-20">Avvia WebServer</button>
+        </div>
+
+        <div id="actions-container" class="hidden">
+            <div id="actions"></div>
+        </div>
+
+        <div class="mt-auto">
+            <div class="text-[10px] text-zinc-500 mb-2 uppercase font-bold tracking-tighter">Log Eventi</div>
+            <div id="log" class="text-xs h-48 overflow-y-auto space-y-1 bg-black p-2 rounded border border-zinc-800 shadow-inner"></div>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-8 overflow-auto">
+        <div id="engine-view" class="hidden">
+            <div class="mb-8">
+                <h2 class="text-xs text-zinc-500 mb-4 uppercase font-bold tracking-widest text-indigo-300">vector&lt;pollfd&gt; _addrs</h2>
+                <div id="addrs" class="flex gap-6 flex-wrap mb-10"></div>
+            </div>
+            <div class="mb-8 border-t border-zinc-800 pt-6">
+                <h2 class="text-xs text-zinc-500 mb-4 uppercase font-bold tracking-widest text-emerald-400">map&lt;int, t_fd_data&gt; _fd_data</h2>
+                <div id="data" class="flex gap-4 flex-wrap mb-10"></div>
+            </div>
+            <div class="border-t border-zinc-800 pt-6">
+                <h2 class="text-xs text-zinc-500 mb-4 uppercase font-bold tracking-widest text-zinc-400">Internal Clients State</h2>
+                <div id="clients" class="grid grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </div>
+       
+        <div id="empty-state" class="h-full flex items-center justify-center text-zinc-700 italic">
+            Configura i server e premi Avvia per iniziare la simulazione...
+        </div>
+    </main>
+
+<script>
+const sim = {
+    configs: [],
+    state: {
+        addrs: [],
+        fd_data: {},
+        clients: {},
+        nextFd: 3,
+        selected: null
+    },
+
+    log(m) {
+        const l = document.getElementById("log");
+        l.innerHTML += `<div class="border-b border-zinc-900 pb-1 text-zinc-400 font-light">> ${m}</div>`;
+        l.scrollTop = l.scrollHeight;
+    },
+
+    addServerConfig() {
+        const nameIn = document.getElementById("name-in");
+        const portIn = document.getElementById("port-in");
+        const name = nameIn.value.trim() || "pippo";
+        const port = portIn.value.trim() || "8080";
+        this.configs.push({ name, port });
+        this.renderConfigList();
+        document.getElementById("start-btn").disabled = false;
+        nameIn.value = "";
+        portIn.value = "";
+    },
+
+    renderConfigList() {
+        const el = document.getElementById("config-list");
+        el.innerHTML = this.configs.map(c => `
+            <div class="text-[10px] bg-black p-1 px-2 rounded border border-zinc-800 flex justify-between">
+                <span class="text-indigo-400">${c.name}</span>
+                <span class="text-zinc-500">:${c.port}</span>
+            </div>
+        `).join("");
+    },
+
+    startEngine() {
+        document.getElementById("config-ui").classList.add("hidden");
+        document.getElementById("actions-container").classList.remove("hidden");
+        document.getElementById("empty-state").classList.add("hidden");
+        document.getElementById("engine-view").classList.remove("hidden");
+        this.configs.forEach(conf => {
+            const fd = this.state.nextFd++;
+            this.addFd(fd, "SERVER");
+            this.log(`Server [${conf.name}] listening on port ${conf.port} (FD ${fd})`);
+        });
+        this.render();
+    },
+
+    addFd(fd, type, clientId = null) {
+        const index = this.state.addrs.length;
+        this.state.addrs.push({
+            fd,
+            events: { IN: true, OUT: false, HUP: false }
+        });
+        this.state.fd_data[fd] = { type, clientId, poll_index: index };
+    },
+
+    select(fd) {
+        this.state.selected = fd;
+        this.render();
+    },
+
+    getPoll(fd) {
+        return this.state.addrs.find(a => a.fd === fd);
+    },
+
+    accept() {
+        const fd = this.state.nextFd++;
+        const id = "0x" + Math.random().toString(16).slice(2, 6).toUpperCase();
+        this.addFd(fd, "CLIENT", id);
+        this.state.clients[id] = {
+            fd,
+            requestParsed: false,
+            cgi: null,
+            hadCgi: false
+        };
+        this.state.selected = fd;
+        this.log(`Accept: New FD ${fd} at index [${this.state.addrs.length-1}]`);
+        this.render();
+    },
+
+    removeFd(fd) {
+        const dataToRemove = this.state.fd_data[fd];
+        if (!dataToRemove) return;
+        const indexToRemove = dataToRemove.poll_index;
+        const lastIndex = this.state.addrs.length - 1;
+        const lastElement = this.state.addrs[lastIndex];
+
+        if (indexToRemove !== lastIndex) {
+            this.log(`Swap: Moving FD ${lastElement.fd} from [${lastIndex}] to [${indexToRemove}]`);
+            this.state.addrs[indexToRemove] = lastElement;
+            this.state.fd_data[lastElement.fd].poll_index = indexToRemove;
+        }
+        this.state.addrs.pop();
+
+        if (dataToRemove.clientId && dataToRemove.type === "CLIENT") {
+             delete this.state.clients[dataToRemove.clientId];
+        }
+        delete this.state.fd_data[fd];
+        this.state.selected = null;
+        this.render();
+    },
+
+    parseRequest() {
+        const fd = this.state.selected;
+        const data = this.state.fd_data[fd];
+        const poll = this.getPoll(fd);
+        const c = this.state.clients[data.clientId];
+        poll.events.IN = false;
+        poll.events.OUT = true;
+        c.requestParsed = true;
+        this.log(`FD ${fd}: Request parsed.`);
+        this.render();
+    },
+
+    bindCgi(type, reuseFd = null) {
+        const fd = this.state.selected;
+        const data = this.state.fd_data[fd];
+        const c = this.state.clients[data.clientId];
+        const clientPoll = this.getPoll(fd);
+        let pipeFd;
+
+        if (reuseFd) {
+            pipeFd = parseInt(reuseFd);
+            const pipePoll = this.getPoll(pipeFd);
+            pipePoll.events.IN = true;
+            pipePoll.events.HUP = false;
+            this.state.fd_data[pipeFd].clientId = data.clientId;
+            this.log(`Reuse FastCGI: FD ${pipeFd}`);
+        } else {
+            pipeFd = this.state.nextFd++;
+            this.addFd(pipeFd, type === "fastcgi" ? "FASTCGI" : "CGI", data.clientId);
+            this.log(`Created ${type}: FD ${pipeFd}`);
+        }
+
+        c.cgi = { fd: pipeFd, type: type, header: false };
+        c.hadCgi = true;
+        clientPoll.events.OUT = false;
+        clientPoll.events.HUP = true;
+        this.state.selected = pipeFd;
+        this.render();
+    },
+
+    parseHeader() {
+        const fd = this.state.selected;
+        const data = this.state.fd_data[fd];
+        const c = this.state.clients[data.clientId];
+        if (!c || !c.cgi) return;
+        c.cgi.header = true;
+        this.log(`CGI FD ${fd}: Header parsed`);
+        this.render();
+    },
+
+    readCgi() {
+        const fd = this.state.selected;
+        const data = this.state.fd_data[fd];
+        const c = this.state.clients[data.clientId];
+        const pipePoll = this.getPoll(fd);
+        const clientPoll = this.getPoll(c.fd);
+
+        if (data.type === "FASTCGI") {
+            pipePoll.events.IN = false;
+            pipePoll.events.HUP = true;
+            clientPoll.events.HUP = false;
+            clientPoll.events.OUT = true;
+            this.log(`FastCGI Ready. Task for Client ${c.fd} finished.`);
+            this.state.selected = c.fd;
+        } else {
+            this.log(`CGI Finished: Removing Pipe ${fd}`);
+            this.removeFd(fd);
+            clientPoll.events.HUP = false;
+            clientPoll.events.OUT = true;
+            this.state.selected = c.fd;
+        }
+        this.render();
+    },
+
+    sendResponse() {
+        const fd = this.state.selected;
+        this.log(`Response sent. Closing Client FD ${fd}`);
+        this.removeFd(fd);
+    },
+
+    render() {
+        this.renderAddrs();
+        this.renderData();
+        this.renderClients();
+        this.renderActions();
+    },
+
+    renderAddrs() {
+        const el = document.getElementById("addrs");
+        el.innerHTML = this.state.addrs.map((a, i) => `
+            <div onclick="sim.select(${a.fd})" class="fd p-3 border ${this.state.selected === a.fd ? "selected" : "border-zinc-800"} bg-zinc-900 shadow-lg min-w-[90px]">
+                <div class="index-label">[${i}]</div>
+                <div class="font-bold text-indigo-300">FD ${a.fd}</div>
+                <div class="mt-2 flex">
+                    <span class="bit ${a.events.IN ? "on" : "off"}">IN</span>
+                    <span class="bit ${a.events.OUT ? "on" : "off"}">OUT</span>
+                    <span class="bit ${a.events.HUP ? "on" : "off"}">HUP</span>
+                </div>
+            </div>
+        `).join("");
+    },
+
+    renderData() {
+        const el = document.getElementById("data");
+        el.innerHTML = Object.entries(this.state.fd_data).map(([fd, d]) => `
+            <div class="p-2 border ${this.state.selected === parseInt(fd) ? "selected" : "border-zinc-800"} bg-zinc-900 text-[10px] min-w-[100px] rounded shadow transition-all">
+                <div class="text-zinc-500 mb-1">DATA FD: <b class="text-zinc-300">${fd}</b></div>
+                <div class="mb-1"><b class="${d.type.includes('CGI') ? 'text-amber-400' : 'text-indigo-400'}">${d.type}</b></div>
+                <div class="text-emerald-500 font-bold border-t border-zinc-800 pt-1 mt-1">IDX: [${d.poll_index}]</div>
+            </div>
+        `).join("");
+    },
+
+    renderClients() {
+        const el = document.getElementById("clients");
+        el.innerHTML = Object.entries(this.state.clients).map(([id, c]) => `
+            <div class="border border-zinc-800 p-4 bg-zinc-900 rounded shadow-inner relative">
+                <div class="text-[9px] absolute top-1 right-1 text-zinc-700">${id}</div>
+                <div class="text-sm">CLIENT: <b class="text-white">${c.fd}</b></div>
+                <div class="text-[10px] mt-1">CGI: ${c.cgi ? c.cgi.type + ' (FD ' + c.cgi.fd + ')' : 'none'}</div>
+                <div class="text-[10px] mt-1 ${c.requestParsed ? 'text-green-500' : 'text-amber-500'}">Parsed: ${c.requestParsed}</div>
+            </div>
+        `).join("");
+    },
+
+    renderActions() {
+        const el = document.getElementById("actions");
+        if (!this.state.selected) {
+            el.innerHTML = "<div class='text-zinc-600 italic text-sm p-2 bg-black rounded border border-zinc-800'>Seleziona un FD nell'array</div>";
+            return;
+        }
+        const fd = this.state.selected;
+        const data = this.state.fd_data[fd];
+        const type = data.type;
+        const poll = this.getPoll(fd);
+        let html = `<div class="text-[10px] mb-4 text-indigo-300 font-bold uppercase tracking-widest bg-indigo-900/20 p-1 rounded text-center border border-indigo-900/30">FD ${fd} (${type})</div>`;
+        if (type === "SERVER") html += `<button onclick="sim.accept()" class="bg-green-700 w-full mb-2 text-white">accept client</button>`;
+        if (type === "CLIENT") {
+            const client = this.state.clients[data.clientId];
+            if (!client.requestParsed) html += `<button onclick="sim.parseRequest()" class="w-full mb-2 bg-zinc-700 text-white">parse request</button>`;
+            else if (poll.events.OUT) {
+                html += `<button onclick="sim.sendResponse()" class="w-full mb-2 bg-indigo-700 text-white font-black">send response (REMOVE)</button>`;
+                if (!client.hadCgi) {
+                    html += `<button onclick="sim.bindCgi('cgi')" class="w-full mb-2 bg-amber-700 text-white">bind cgi</button>`;
+                    const existingFCGI = Object.entries(this.state.fd_data).find(([f, d]) => d.type === "FASTCGI" && this.getPoll(parseInt(f)).events.HUP);
+                    if (existingFCGI) {
+                        html += `<div class="mt-4 p-2 border border-blue-900 rounded bg-blue-950/20">
+                            <button onclick="sim.bindCgi('fastcgi', ${existingFCGI[0]})" class="w-full mb-1 bg-blue-600 text-[10px]">REUSE FASTCGI ${existingFCGI[0]}</button>
+                            <button onclick="sim.bindCgi('fastcgi')" class="w-full bg-blue-900 text-[10px]">NEW FASTCGI</button>
+                        </div>`;
+                    } else html += `<button onclick="sim.bindCgi('fastcgi')" class="w-full mb-2 bg-blue-700 text-white">bind fastcgi</button>`;
+                }
+            } else html += `<div class="text-[10px] text-zinc-500 italic p-2 border border-zinc-800 rounded bg-black/50 text-center">In attesa di CGI...</div>`;
+        }
+        if (type === "CGI" || type === "FASTCGI") {
+            const c = this.state.clients[data.clientId];
+            const headerBtnDisabled = (c && c.cgi && c.cgi.header) ? "disabled" : "";
+            html += `<button onclick="sim.parseHeader()" ${headerBtnDisabled} class="w-full mb-2 bg-zinc-700 text-white">1. parse header</button>`;
+            const canRead = poll.events.IN && c && c.cgi && c.cgi.header;
+            html += `<button onclick="sim.readCgi()" ${!canRead ? "disabled" : ""} class="w-full mb-2 bg-emerald-700 text-white font-bold">2. read output</button>`;
+        }
+        el.innerHTML = html;
+    }
+};
+</script>
+</body>
+</html>

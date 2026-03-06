@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notion reference</title>
+	<style>
+		:root {
+			--bg: #0f172a;
+			--surface: #1e293b;
+			--border: #334155;
+			--text: #e2e8f0;
+			--muted: #94a3b8;
+			--primary: #3b82f6;
+			--primary-hover: #2563eb;
+			--success: #22c55e;
+		}
+
+		/* RESET */
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		/* BASE */
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			background: radial-gradient(circle at top, #111827, var(--bg));
+			color: var(--text);
+			line-height: 1.6;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		/* HEADER */
+
+		header {
+			text-align: center;
+			padding: 70px 20px 50px;
+			border-bottom: 1px solid var(--border);
+		}
+
+		header h1 {
+			font-size: 2.6rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+			letter-spacing: -0.5px;
+		}
+
+		header p {
+			color: var(--muted);
+			font-size: 1.05rem;
+		}
+
+		/* MAIN LAYOUT */
+
+		main {
+			width: 100%;
+			max-width: 900px;
+			margin: 80px auto;
+			padding: 0 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+			flex: 1;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.client-label {
+			position: absolute;
+			top: 20px;
+			right: 30px;
+
+			padding: 14px;
+			background: linear-gradient(135deg, #334155, #1e3a8a);
+			color: white;
+
+			font-size: 0.9rem;
+			font-weight: 600;
+			border-radius: 999px;
+
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+			letter-spacing: 0.5px;
+		}
+
+		.client-label:hover {
+			background: linear-gradient(135deg, #475569, #1e40af);
+		}
+
+		.card {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 35px;
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+			transition: transform 0.25s ease, box-shadow 0.25s ease;
+		}
+
+		.card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+		}
+
+		.card h2 {
+			margin-bottom: 18px;
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+
+		.card p {
+			margin-bottom: 12px;
+			color: var(--muted);
+		}
+
+		.card ul {
+			list-style: none;
+			margin-top: 12px;
+		}
+
+		.card ul li {
+			margin-bottom: 10px;
+			color: var(--muted);
+		}
+
+		header {
+			position: relative;
+		}
+
+		.btn {
+			display: inline-block;
+			margin-top: 10px;
+			padding: 13px 22px;
+			border-radius: 12px;
+			border: none;
+			background: linear-gradient(135deg, #334155, #1e3a8a);
+			color: white;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.btn:hover {
+			/* background: var(--primary-hover); */
+			background: linear-gradient(135deg, #475569, #1e40af);
+			transform: translateY(-2px);
+		}
+
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Notion reference</h1>
+		<p>Riferimento alla nostra documentazione Notion</p>
+		<!-- <div class="client-label">
+			👤 login
+		</div> -->
+		<form method="GET" action="login/">
+			<button class="client-label" action="login/">
+				Accetta cookies
+			</button>
+		</form>
+	</header>
+	<main>
+		<section class="card">
+			<h2>Link Notion</h2>
+			<p class="ok">
+				<a class="btn" target="_blank" href="https://www.notion.so/odoacr3e/Webserv-2b7e699f982b80479f80d2c9e1570d31">
+					Webserv
+				</a>
+			</p>
+		</section>
+	</main>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-#include "../../includes/ether.hpp"
+#include "../../includes/include.hpp"
 
 //returns true if directory is valid, else false
 /**

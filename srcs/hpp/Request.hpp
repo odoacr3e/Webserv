@@ -1,7 +1,7 @@
 #ifndef REQUEST_HPP
 # define REQUEST_HPP
 
-# include "../../includes/ether.hpp"
+# include "../../includes/include.hpp"
 # include "../../includes/status_codes.hpp"
 
 # define UNDEFINED ""//method undefined

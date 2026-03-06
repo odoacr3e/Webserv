@@ -22,7 +22,7 @@ CPP = $(addprefix cpp/, 		Client.cpp \
 UTILS = $(addprefix utils/, 	file.cpp utils_page.cpp path_checker.cpp \
 								string/string.cpp url.cpp env.cpp directory.cpp)
 
-HEADER =	$(addprefix includes/, ether.hpp macro.hpp status_codes.hpp) \
+HEADER =	$(addprefix includes/, include.hpp macro.hpp status_codes.hpp) \
 			$(addprefix hpp/, Client.hpp Cgi.hpp Conf.hpp Request.hpp Server.hpp)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))

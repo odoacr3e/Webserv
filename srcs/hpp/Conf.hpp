@@ -1,7 +1,7 @@
 #ifndef CONF_HPP
 # define CONF_HPP
 
-# include "../../includes/ether.hpp"
+# include "../../includes/include.hpp"
 # include "../../includes/status_codes.hpp"
 # include "Request.hpp"
 

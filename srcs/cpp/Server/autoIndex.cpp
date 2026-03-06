@@ -3,7 +3,11 @@
 
 static std::string	calculateSize(size_t s);
 
-// NOTE - crea un body per autoindex delle cartelle, utilizza dirent * e findUrlDirectory()
+/**
+ * @brief Creates the autoindex page
+ * 
+ * @param client > Client containing the request
+ */
 void	Server::createAutoindex(Client &client)
 {
 	std::ifstream	file;
@@ -36,8 +40,8 @@ void	Server::createAutoindex(Client &client)
 		if (line.find("</tbody>") != std::string::npos)
 			break ;
 	this->resp_body += line;
-	std::cout << "createAutoindex()\n";
-	std::cout << client.getRequest().getUrlOriginal() << "\n";
+	LOG_TERM << "createAutoindex()\n";
+	LOG_TERM << client.getRequest().getUrlOriginal() << "\n";
 	std::getline(file, line, '\0');
 	find_and_replace(line, "/{URL}/", client.getRequest().getUrlOriginal());
 	find_and_replace(line, "{SERVER_NAME}", "3 UOMINI E 1 WEBSERVER");
@@ -52,7 +56,14 @@ void	Server::createAutoindex(Client &client)
 	}
 }
 
-// NOTE - prende da un file statico l'html e cambia parametri variabili che servono per il body html
+
+/**
+ * @brief Fills the html prefab with directories data aout the autoindexed folder
+ * 
+ * @param client > Client containing the request
+ * @param url > Url of the current folder
+ * @param cont > Variable needed by the stat function
+ */
 void Server::listDirectoriesAutoIndex(Client &client, std::string &url, dirent *cont)
 {
 	std::ifstream var;
@@ -73,7 +84,7 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &url, dirent *
 		var.open("www/var/autoindex/var.html");
 	if (var.fail())
 	{
-		std::cout << "Could not open html file!\n";
+		LOG_TERM << "Could not open html file!\n";
 		return ;
 	}
 	while(std::getline(var, line))
@@ -87,6 +98,12 @@ void Server::listDirectoriesAutoIndex(Client &client, std::string &url, dirent *
 	}
 }
 
+/**
+ * @brief this function calculates the size of the autoindexed folder
+ * 
+ * @param s size returned by stat
+ * @return std::string 
+ */
 static std::string	calculateSize(size_t s)
 {
 	int 	len = 0;

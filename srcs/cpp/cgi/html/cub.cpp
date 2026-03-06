@@ -16,7 +16,7 @@ std::string		createHtmlCub(t_cgi &cgi_data, Client &client)
 	if (output.compare(3, 6, "MUSIC-") == 0)
 	{
 		sep_index = output.find_first_of('-', 3) + 1;
-		std::cout << "new song " << output.substr(sep_index) << "\n";
+		LOG_TERM << "new song " << output.substr(sep_index) << "\n";
 	}
 	client.sendContentBool() true;
 	client.getBuffer().erase(client.getBuffer().begin(), client.getBuffer().begin() + 64);

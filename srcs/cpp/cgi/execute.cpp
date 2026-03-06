@@ -29,12 +29,12 @@ void	s_cgi::exec(Server &srv, Client &client)
 void		exec_cgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &argv)
 {
 	if (pipe(cgi_data.pipe) != 0)
-		return (std::cout << "run_script fatal error: pipe\n", (void)0);
+		return (LOG_TERM << "run_script fatal error: pipe\n", (void)0);
 	fcntl(cgi_data.pipe[0], FD_CLOEXEC);
 	fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 	cgi_data.pid = fork();
 	if (cgi_data.pid == -1)
-		return (std::cout << "run_script fatal error: pid\n", (void)0);
+		return (LOG_TERM << "run_script fatal error: pid\n", (void)0);
 	else if (cgi_data.pid == 0)
 	{
 		dup2(cgi_data.pipe[1], STDOUT_FILENO);
@@ -69,7 +69,7 @@ void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &arg
 		if (srv.getAddrs()[cgi_ptr->poll_index[0]].events & POLLIN)
 		{
 			vect_split_free(argv, argv.size() - 1);
-			std::cout << "goodbye\n";
+			LOG_TERM << "goodbye\n";
 				return ;
 		}
 		write(cgi_ptr->pipe[1], argv[1], std::strlen(argv[1]));
@@ -79,14 +79,14 @@ void		exec_fastcgi(Server &srv, Client &client, t_cgi &cgi_data, argvVector &arg
 		int		pipes[2][2];
 
 		if (pipe(pipes[0]) != 0 || pipe(pipes[1]) != 0)
-			return (std::cout << "run_script fatal error: pipe\n", (void)0);
+			return (LOG_TERM << "run_script fatal error: pipe\n", (void)0);
 		cgi_data.pipe[0] = pipes[0][0];
 		cgi_data.pipe[1] = pipes[1][1];
 		fcntl(cgi_data.pipe[0], FD_CLOEXEC);
 		fcntl(cgi_data.pipe[1], FD_CLOEXEC);
 		cgi_data.pid = fork();
 		if (cgi_data.pid == -1)
-			return (std::cout << "run_script fatal error: fork\n", (void)0);
+			return (LOG_TERM << "run_script fatal error: fork\n", (void)0);
 		else if (cgi_data.pid == 0)
 		{
 			dup2(pipes[0][1], STDOUT_FILENO);

@@ -101,7 +101,7 @@ static void	openBlock(Conf &conf, std::vector<std::string> &list, int line)
 {
 	if (list.size() == 0)
 		blockError("unnamed block", line, CONF_BLOCK_EMPTY);
-	// std::cout << "list.size(): " << list.size() << ", list[0]: " << list[0] << ", line: " << line << std::endl;
+	// LOG_TERM << "list.size(): " << list.size() << ", list[0]: " << list[0] << ", line: " << line << std::endl;
 	if (list.size() > 1UL + (list[0] == "location"))
 		blockError(list[0], line, CONF_BLOCK_FORMAT);
 	switch (conf.checkBlockType(list[0]))
@@ -188,7 +188,7 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	for (size_t i = 0; i < list.size(); i++)
 		error += list[i] + " ";
 	error += "\033[31m\b:\n" + s + COLOR_RESET;
-	std::cout << error << std::endl;
+	LOG_TERM << error << std::endl;
 }
 
 static std::string	rightBlock(std::string block)
@@ -208,7 +208,7 @@ static void	blockError(std::string block, int line, int flag)
 
 	error = "ConfException in line \033[33m" + ft_to_string(line);
 	error2 = "ConfException:\033[33m";
-	std::cout << "flag: " << flag << ", line: " << line << ", block: " << block << std::endl;
+	LOG_TERM << "flag: " << flag << ", line: " << line << ", block: " << block << std::endl;
 	switch (flag)
 	{
 	case CONF_BLOCK_CLOSE: 

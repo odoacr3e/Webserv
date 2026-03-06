@@ -17,16 +17,17 @@ void	Server::processResponse(Client &client)
 
 	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
+	std::cout << "Url request: " << client.getRequest().getUrl() << std::endl;
+	std::cout << WHITE"Status code response: " <<GREEN << client.getRequest().getStatusCode() <<RESET << std::endl << std::endl;
 	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
 		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
-	perror("processResponse(): ");
 	client.sendContentBool() = false;
-	std::cout << "processResponse() " << client.getRequest().getStatusCode() << " ";
-	std::cout <<client.getRequest().getMethod() << "\n";
+	LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
+	LOG_TERM <<client.getRequest().getMethod() << "\n";
 	client.getRequest().setUrl("");
 	client.getRequest().setUrlOriginal("");
 	client.getPollFd(*this)->events = POLLIN;
@@ -176,7 +177,7 @@ std::string	Server::createHtml(Client &client)
 	response << "Connection: close" << "\r\n";
 	if (client.getLocConf().exist && gen_cookie && cookie_empty)
 	{
-		std::cout << "set-Cookie:\n";
+		LOG_TERM << "set-Cookie:\n";
 		client.getRequest().getCookieKey() = createSessionId();
 		response << "Set-Cookie: session_id=" << client.getRequest().getCookieKey() << "; Path=/; HttpOnly\r\n";
 		this->_cookie_map[client.getRequest().getCookieKey()].login = "client " + client.getRequest().getCookieKey();
@@ -188,7 +189,7 @@ std::string	Server::createHtml(Client &client)
 		response << "Content-Length: " << this->resp_body.size() << "\r\n\r\n";
 		response << this->resp_body << "\n\n";
 	}
-	std::cout << "createHtml() URL: " << url << std::endl;
+	LOG_TERM << "createHtml() URL: " << url << std::endl;
 	return (response.str());
 }
 

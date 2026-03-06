@@ -55,7 +55,7 @@ void	Request::setHttpVersion(std::string version)
 
 bool	Request::setHeaderVal(std::string key, std::string val)
 {
-	// std::cout << "\033[33mNEW:" COLOR_RESET << key << " " << val << "\n";
+	// LOG_TERM << "\033[33mNEW:" COLOR_RESET << key << " " << val << "\n";
 	if (key == "Content-Length" && !charFinder(val, std::isdigit))
 		return (true);
 	if (checkKey(key) == true)

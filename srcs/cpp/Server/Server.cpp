@@ -38,7 +38,7 @@ Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
 			this->_server_num++;
 		}
 		else
-			std::cout << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
+			LOG_TERM << std::endl << "\033[1;31mCan't bind ip:port -> " << (*it).first.first << ":" << (*it).first.second << std::endl;
 	}
 	if (this->_server_num == 0)
 		throw (std::runtime_error("\nNo server could be binded."));
@@ -47,7 +47,7 @@ Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
 
 Server::~Server()
 {
-	std::cout << "\033[32mserver destructor!\033[0m" << std::endl;
+	LOG_TERM << "\033[32mserver destructor!\033[0m" << std::endl;
 	this->suppressSocket();
 }
 
@@ -136,7 +136,7 @@ void		Server::eraseClient(Client &client, int i)
 	std::string msgEndCon(MSG_END_CONNECTION);
 
 	find_and_replace(msgEndCon, "{INDEX}", n++);
-	std::cout << msgEndCon << "\033[2J\033[H";
+	LOG_TERM << msgEndCon << "\033[2J\033[H";
 	LOG_ALL(msgEndCon);
 	fd = client.getSockFd();
 	if (this->_clients[fd])
@@ -185,6 +185,7 @@ int	Server::addSocket(int index, e_fd_type type)
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
 		this->_fd_data[polldata.fd].client = this->_clients[socket];
+		std::cout << WHITE "\nnew client " YELLOW  << polldata.fd << WHITE " accepted\n" RESET;
 	}
 	else if (type == FD_PIPE_WR)
 		this->_addrs.back().events = POLLOUT;

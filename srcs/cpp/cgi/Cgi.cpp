@@ -7,7 +7,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 	t_cgi				*cgi_ptr = NULL;
 	std::vector<char *> argv;
 
-	std::cout << "RUN_SCRIPT: " << client.getRequest().getUrl() << "\n";
+	LOG_TERM << "RUN_SCRIPT: " << client.getRequest().getUrl() << "\n";
 	if (srv.getFdData()[client.getSockFd()].cgi_ready == false)//prima volta
 	{
 		cgi_data.exec(srv, client);
@@ -119,8 +119,8 @@ int		s_cgi::readChunk(Client &client)
 		return (-1);
 	this->bytes_read += bytes;
 	client.getBuffer().resize(this->bytes_read);
-	//std::cout << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
-	//std::cout << this->output_len << "\n";
+	//LOG_TERM << "s_cgi::readChunk(): bytes read: " << this->bytes_read << "/";
+	//LOG_TERM << this->output_len << "\n";
 	return (bytes);
 }
 
@@ -146,7 +146,7 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	if ((size_t)poll_index < srv.getAddrSize())
 		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
 	srv.getAddrsVector().pop_back();
-	std::cout << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
+	LOG_TERM << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
 	close_fd(&this->pipe[is_pipe_out]);
 }
 
@@ -170,7 +170,7 @@ void	s_cgi::processOutput(Client &client, std::string &body)
 	{
 		body = this->output;
 		client.getRequest().setBodyType("text/plain");
-		std::cout << "script_type undefined. no html created." << std::endl;
+		LOG_TERM << "script_type undefined. no html created." << std::endl;
 	}
 }
 

@@ -8,10 +8,10 @@ void	run_cmd(char *const argv[], std::string &output, bool kill_bool)
 	pid_t	pid;
 
 	if (pipe(pipe_fd) != 0)
-		return (std::cout << "run_script fatal error\n", (void)0);
+		return (LOG_TERM << "run_script fatal error\n", (void)0);
 	pid = fork();
 	if (pid == -1)
-		return (std::cout << "run_script fatal error\n", (void)0);
+		return (LOG_TERM << "run_script fatal error\n", (void)0);
 	else if (pid == 0)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
@@ -73,7 +73,7 @@ int		compare_result(std::string filename, std::string &output)
 	erase_space(output);
 	if (output == file_output)
 		return (0);
-	std::cout << ft_diff(temp[0], temp[1]);
+	LOG_TERM << ft_diff(temp[0], temp[1]);
 	return (2);
 }
 
@@ -108,7 +108,7 @@ static int	get_file_input(std::string filename, std::string &input)
 
 	if (fd.fail())
 	{
-		std::cout << getcwd(NULL, 0) << "\0";
+		LOG_TERM << getcwd(NULL, 0) << "\0";
 		std::cerr << "fail to open " << filename << std::endl;
 		return (1);
 	}

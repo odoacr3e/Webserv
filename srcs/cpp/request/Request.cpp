@@ -76,14 +76,14 @@ int	Request::checkHeader(void)
 	{
 		ft_strtrim(this->_header["Cookie"], "session_id=", "");
 		this->_cookie_key = this->_header["Cookie"];
-		std::cout << "cookie key: " << this->_cookie_key << "\n";
+		LOG_TERM << "cookie key: " << this->_cookie_key << "\n";
 	}
 	if (this->_method == "POST")
 		return (this->_checkPost());
 	else if (this->_method == "DELETE")
 		return (this->_checkDelete());
-	std::cout << "METHOD ==> |"<< this->_method << "|\n";
-	// std::cout << "\033[31m HAS NO PARSING!!" COLOR_RESET << std::endl << std::endl;
+	LOG_TERM << "METHOD ==> |"<< this->_method << "|\n";
+	// LOG_TERM << "\033[31m HAS NO PARSING!!" COLOR_RESET << std::endl << std::endl;
 	return (0);
 }
 
@@ -125,11 +125,11 @@ bool	Request::checkKey(std::string key)
 */
 bool	Request::checkVal(std::string key)
 {
-	// std::cout << "\033[33mChecking key:\t" << "\033[0m" << key << "\n";
+	// LOG_TERM << "\033[33mChecking key:\t" << "\033[0m" << key << "\n";
 	if (checkKey(key) == false)
 		return (false);
 	return (this->_header[key].empty() == false ? true : false);
-	// std::cout << key << "\033[32m è stata riempita!\n\033[0m";
+	// LOG_TERM << key << "\033[32m è stata riempita!\n\033[0m";
 }
 
 //SECTION - fail (status code print + set)

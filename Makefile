@@ -75,27 +75,6 @@ giddibi: gdb
 
 r3: re
 
-cgi:
-	@if [ "$(CGI_ARGS)" = "all" ] || [ -z "$(CGI_ARGS)" ]; then \
-		for dir in www/cgi-bin/*/ ; do \
-			if [ -f "$$dir/Makefile" ]; then \
-				echo "Building $$dir"; \
-				$(MAKE) -C "$$dir"; \
-			fi; \
-		done; \
-	else \
-		echo "Building www/cgi-bin/$(CGI_ARGS)"; \
-		$(MAKE) -C www/cgi-bin/$(CGI_ARGS); \
-	fi
-
-cgi_clean:
-	@for dir in www/cgi-bin/*/ ; do \
-		if [ -f "$$dir/Makefile" ]; then \
-			echo "Cleaning $$dir"; \
-			$(MAKE) -C "$$dir" clean; \
-		fi \
-	done
-
 kill_ports:
 	@echo "Sgomberiamo le porte 90xx..."
 	@PID=$$(ss -ltnp | grep ":90" | awk -F'pid=' '{print $$2}' | cut -d',' -f1 | sort -u); \

@@ -132,7 +132,7 @@ std::string	open_and_read(std::fstream &file, std::string msg)
 		file.close();
 	}
 	else
-		std::cout << msg << "!\n";
+		LOG_TERM << msg << "!\n";
 	return (ret);
 }
 

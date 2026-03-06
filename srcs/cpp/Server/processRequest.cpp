@@ -133,7 +133,7 @@ void	convertDnsToIp(Request &request, IpPortPair &ipport, SrvNameMap &srvmap)
 			if (ipport.first == *vit && ipport.second == (*it).first.second)
 			{
 				ipport.first = (*it).first.first;
-				std::cout << " ----> " << ipport.first << "\n";
+				LOG_TERM << " ----> " << ipport.first << "\n";
 				return ;
 			}
 		}

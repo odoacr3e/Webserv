@@ -32,7 +32,7 @@ void		get_argv(Client &client, argvVector &argv)
 	}
 	else
 		args = url.substr(url.find_last_of(separator) + 1, url.length());
-	std::cout << "get_argv(): args --->" << args << "\n";
+	LOG_TERM << "get_argv(): args --->" << args << "\n";
 	temp = new char[cmd.length() + 1];
 	temp[cmd.length()] = 0;
 	std::memcpy(temp, cmd.c_str(), cmd.length());
@@ -47,10 +47,10 @@ void		get_argv(Client &client, argvVector &argv)
 		vect_split_new(argv, args, separator);
 	}
 	argv.push_back(NULL);
-	std::cout << "cmd: " << argv[0] << std::endl;
+	LOG_TERM << "cmd: " << argv[0] << std::endl;
 	convert_hexa(argv);
 	for (size_t i = 1; i < argv.size() - 1; i++)
-		std::cout << "arg " << i << ": " << argv[i] << std::endl;
+		LOG_TERM << "arg " << i << ": " << argv[i] << std::endl;
 }
 
 static int hex_value(char c)
@@ -122,7 +122,7 @@ static void		createArgvCrypter(std::string &args, argvVector &argv_data)
 			find_and_erase(args, "=end");
 		else
 			std::cerr << "Bad crypter format: missing endpart\n";
-		std::cout << "get_argv(): Post processing BODY: |" << args << "|\n";
+		LOG_TERM << "get_argv(): Post processing BODY: |" << args << "|\n";
 	}
 	else
 		std::cerr << "Bad crypter format missing beginpart\n";

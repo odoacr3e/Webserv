@@ -60,7 +60,7 @@ void	Server::getMethod(Client &client)
 			find_and_replace(this->resp_body, "</form>", "</form> -->");
 		}
 		else
-			std::cout << "Cookie è vuoto!\n";
+			LOG_TERM << "Cookie è vuoto!\n";
 		return ;
 	}
 	client.sendContentBool() = true;
@@ -76,7 +76,7 @@ void	Server::deleteMethod(Client &client)
 {
 	if (check_delete(client, this->resp_body, *this, &this->file) != 0)
 	{
-		std::cout << "protected!" << std::endl;
+		LOG_TERM << "protected!" << std::endl;
 		return ;
 	}
 	this->file.close();
@@ -103,7 +103,7 @@ static int	check_delete(Client &client, std::string &body, Server &srv, std::fst
 	autoindex = client.getRequest().getAutoIndexBool();
 	url = client.getRequest().getUrl();
 	hex_to_char(url);
-	std::cout << "FILE: " << url << std::endl;
+	LOG_TERM << "FILE: " << url << std::endl;
 	if (status_code != 200 || dns == true || autoindex == true)
 	{
 		if (body.empty() == true)
@@ -172,14 +172,14 @@ void	Server::postMethod(Client &client)
 		return ;
 	
 	file = get_filename(client);
-	std::cout << "postMethod(): " << file << std::endl;
+	LOG_TERM << "postMethod(): " << file << std::endl;
 	if (open_file(file))
 		request.fail(HTTP_CE_CONFLICT, "File already exists!");\
 
 	write_on_ofile(request, file);
 
 	choose_html(*this, client, this->file, html);
-	// std::cout << "FAILE: " << file << std::endl;
+	// LOG_TERM << "FAILE: " << file << std::endl;
 	this->resp_body = open_and_read(html);
 	find_and_replace(this->resp_body, "{MSG}", request.getFailMsg());
 }
@@ -212,7 +212,7 @@ static void	trimBody(Request &request)
 
 	boundary = request.getHeaderVal("Boundary");
 	h_len[0] = file_cursor_pos(request.getRequestStream());
-	std::cout << h_len[0] << std::endl;
+	LOG_TERM << h_len[0] << std::endl;
 	std::getline(request.getRequestStream(), temp, '\n');
 	if (temp == "")
 		return ;
@@ -221,7 +221,7 @@ static void	trimBody(Request &request)
 		headerParsing(request, false);
 		//salva la posizione del cursore dopo headerParsing
 		h_len[1] = file_cursor_pos(request.getRequestStream());
-		std::cout << h_len[1] << std::endl;
+		LOG_TERM << h_len[1] << std::endl;
 	}//else: è un body normale senza immagine, nienlete headerBodyParsing
 	else
 	{
@@ -265,21 +265,29 @@ std::string	get_filename(Client &client)
 }
 
 /**
- * @brief Writes 
+ * @brief Writes the binary chars fron the std::vector<Char> to the created output file
  * 
- * @param request 
- * @param file 
+ * @param request > Request containing HeaderVal map
+ * @param file > Name of the file
  */
 void	write_on_ofile(Request &request, std::string file)
 {
 	std::ofstream	ofile(file.c_str(), std::ios_base::binary);
 	if (ofile.fail())
-		std::cout << "Error opening file\n";
+		LOG_TERM << "Error opening file\n";
 	//- Aggiungiamo il numero di caratteri aggiunti dal protocollo al boundary (\r\n--boundary--\r\n)
 	size_t	bound_len = request.getHeaderVal("Boundary").length() + 8;
 	ofile.write(request.getBinBody().data(), request.getBinBody().size() - bound_len);
 }
 
+/**
+ * @brief Opens the html prefab file according to the status code
+ * 
+ * @param srv > Main server object
+ * @param client > Client containing the processed request
+ * @param file > Fstream of the opened file
+ * @param html > Fstream of the opened html file
+ */
 void	choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html)
 {
 	Request &request = client.getRequest();

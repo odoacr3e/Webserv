@@ -2,12 +2,15 @@
 # define MACRO_HPP
 
 # define CHUNK_READ 2048
+# define DIV_DISCONNECT "[****************************]\n"
 
 # define COLOR_RESET "\033[0m"
-# define DEBUG true
+# define DEBUG false
 # define CONF false
 # define SERVER true
 # define RED     "\033[1;91m"
+# define GREEN   "\033[1;92m"
+# define YELLOW  "\033[1;93m"
 # define BLUE    "\033[1;94m"
 # define WHITE   "\033[1;97m"
 # define RESET   "\033[0m"
@@ -46,7 +49,7 @@
 #  define LOG_CGI(str, bytes)	(void)0
 #  define LOG_HISTORY()			(void)0	
 #  define LOG_RESET() 			eraseDirectory("logs/")
-#  define LOG_ALL()				(void)0
+#  define LOG_ALL(str)			(void)0
 #  define LOG_TERM				print_dev_null()
 # endif
 

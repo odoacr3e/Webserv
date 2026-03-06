@@ -5,7 +5,7 @@
 
 bool	server_run = true;
 
-void	stopServer(int sig)
+void	spread_democracy(int sig)
 {
 	LOG_TERM << std::endl << std::endl << "\033[1;31mRequested closing server...\n\033[0m" << std::endl;
 	(void)sig, server_run = false;
@@ -27,13 +27,14 @@ int main(int ac, char **av, const char **env)
 	std::srand(time(0));
 	std::string	conf_path;
 
-	signal(SIGINT, stopServer);
-	DBG_SRV("\033[32mStarting web server ...");
+	signal(SIGINT, spread_democracy);
+	DBG_SRV("\033[32mStarting web server ...\n");
+	DBG_SRV(RESET"==========================================");
 	try
 	{
 		get_conf_path(ac, av, conf_path);
 		Conf config(conf_path);
-		std::cout << config << std::endl;
+		LOG_TERM << config << std::endl;
 		Server server(config, env);
 		while (server_run)
 		{
@@ -50,7 +51,7 @@ int main(int ac, char **av, const char **env)
 	}
 	catch(const std::exception& e)
 	{
-		std::cout << e.what() << '\n';
+		LOG_TERM << e.what() << '\n';
 	}
 	return (0);
 }

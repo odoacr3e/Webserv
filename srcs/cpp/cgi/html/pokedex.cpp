@@ -118,7 +118,7 @@ static std::string	get_img(std::string &output)
 		return (img_url_array[CGI_ID_UNKNOWN]);
 	find_and_replace(img_url, "{ID}", output.substr(0, i));
 	output.erase(0, i + 1);//				output:		"..."
-	std::cout << "get_img: " << img_url << "\n";	
+	LOG_TERM << "get_img: " << img_url << "\n";	
 	return (img_url);
 }
 

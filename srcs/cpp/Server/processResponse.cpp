@@ -1,5 +1,7 @@
 #include "../../hpp/Server.hpp"
 
+bool	autoindex_do(Client &client);
+
 /**
  * @brief Creates the response to send to the receiving client according to the method chosen.
  * 
@@ -41,12 +43,12 @@ void	Server::processResponse(Client &client)
  * @param client > destination Client
  * @return std::string html page
  */
-std::string	Server::createResponse(Client &client) // create html va messo anche percorso per il file
+std::string	Server::createResponse(Client &client)
 {
 	clearRespVariables();
-	checkRequestStausCode(client);
+	checkRequestStatusCode(client);
 	assignFileType(client);
-	if (autoindex_do(client))
+	if (autoindex_do(client, client.getRequest().getUrl()))
 		createAutoindex(client);
 	else
 		choose_file(client);
@@ -87,7 +89,6 @@ void	Server::choose_file(Client &client)
 	}
 }
 
-//FIXME - da inserire append root/alias in config file
 /**
  * @brief Returns the request's error page if existing, else it returns the server one
  * 
@@ -276,7 +277,7 @@ bool	autoindex_do(Client &client, std::string url)
  * 
  * @param client > Client containing the request
  */
-void	checkRequestStausCode(Client &client)
+void	checkRequestStatusCode(Client &client)
 {
 	std::string	ret_text = client.getLocConf().ret_text;
 	bool		loc_exists = client.getLocConf().exist;

@@ -59,7 +59,7 @@ Request::Request(const Request &other)
 
 //SECTION - checks
 
-// FIXME Quetsa funzione controlla che se uno dei membri richiesti è assente 
+// Quetsa funzione controlla che se uno dei membri richiesti è assente 
 // restituisce l'errore di corrispondenza
 int	Request::checkHeader(void)
 {

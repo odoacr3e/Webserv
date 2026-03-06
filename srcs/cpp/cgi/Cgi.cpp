@@ -17,7 +17,7 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
 	cgi_ptr->processOutput(client, body);
 	if (client.getLocConf().fastcgi_bool == false)
-		delete cgi_ptr;//FIXME - se le cgi crashano, dare occhio qui
+		delete cgi_ptr;
 	else
 		cgi_ptr->reset();
 	srv.getFdData()[client.getSockFd()].cgi = NULL;

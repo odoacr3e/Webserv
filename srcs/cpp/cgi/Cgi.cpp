@@ -174,6 +174,10 @@ void	s_cgi::processOutput(Client &client, std::string &body)
 	}
 }
 
+/// @brief	close fds, kill pid process if some conditions are fulfilled
+///			remove data from poll array
+/// @param srv 
+/// @param client 
 void	s_cgi::clear(Server &srv, Client &client)
 {
 	bool	isChildProcess;
@@ -191,6 +195,8 @@ void	s_cgi::clear(Server &srv, Client &client)
 	client.getCookieData().cgi = NULL;
 }
 
+/// @brief close fds, kill pid process if some conditions are fulfilled
+/// @param isChildProcess is current process the main process?
 void	s_cgi::clear(bool isChildProcess)
 {
 	if (this->pid != 0 && this->isFastCgiBool == true && isChildProcess == false)
@@ -200,6 +206,7 @@ void	s_cgi::clear(bool isChildProcess)
 	close_fd(&this->pipe[1]);
 }
 
+/// @brief used for fastcgi. Set cgi data to default values
 void	s_cgi::reset()
 {
 	this->bytes_read = 0;

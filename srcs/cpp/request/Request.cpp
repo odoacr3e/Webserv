@@ -223,7 +223,9 @@ int	Request::fail(int code, std::string info)
 	return (this->fail(conv_code, info));
 }
 
-
+/// @brief find longest location for request url
+/// @param srv 
+/// @return NULL if no match is found, else longest location
 t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 {
 	typedef std::map<std::string, t_conf_location> maplocation;
@@ -246,7 +248,9 @@ t_conf_location	*Request::findRightLocation(t_conf_server *srv)
 	return (&(*srv).location[url_longest]);
 }
 
-// std::map<std::string, t_conf_location>
+/// @brief root an url following the location rules if exist, else following srv
+/// @param srv 
+/// @param loc 
 void	Request::findRightUrl(t_conf_server *srv, t_conf_location *loc)
 {
 	this->_url_orig = this->_url;

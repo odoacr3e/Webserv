@@ -42,6 +42,8 @@ void	Server::runMethod(Client &client)
 	}
 }
 
+/// @brief get resource from server. If it's a html, expands variables from html
+/// @param client 
 void	Server::getMethod(Client &client)
 {
 	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
@@ -68,6 +70,8 @@ void	Server::getMethod(Client &client)
 	client.getBuffer().push_back('\n');
 }
 
+/// @brief delete resource from server, if client is allowed
+/// @param client 
 void	Server::deleteMethod(Client &client)
 {
 	if (check_delete(client, this->resp_body, *this, &this->file) != 0)
@@ -79,6 +83,13 @@ void	Server::deleteMethod(Client &client)
 	execute_delete(client, this->resp_body, &this->file);
 }
 
+
+/// @brief checks if a file can be deleted
+/// @param client 
+/// @param body reference to response body
+/// @param srv 
+/// @param file the file to read
+/// @return 0 if resource can be deleted, else 1
 static int	check_delete(Client &client, std::string &body, Server &srv, std::fstream *file)
 {
 	int					status_code;
@@ -110,6 +121,10 @@ static int	check_delete(Client &client, std::string &body, Server &srv, std::fst
 	return (1);
 }
 
+/// @brief deletes a resource
+/// @param client 
+/// @param body reference to response body
+/// @param file the file to read
 static void execute_delete(Client &client, std::string &body, std::fstream *file)
 {
 	std::string url;
@@ -173,6 +188,10 @@ void	print_bin(std::string filename, char *bin_data, size_t len);
 
 static void	trimBody(Request &request);
 
+/// @brief	resource post from browser have addictional headers for body.
+///			this function parse it
+/// @param request reference to client request
+/// @return true if is parsed, else false
 int	bodyHeaderParsing(Request &request)
 {
 	if (request.getBodyHeadersBool())// body gia parsato
@@ -181,6 +200,8 @@ int	bodyHeaderParsing(Request &request)
 	return (false);
 }
 
+/// @brief trim the real body from the body header
+/// @param request reference to client request
 static void	trimBody(Request &request)
 {//cursore 
 	size_t		h_len[2];
@@ -217,6 +238,9 @@ static void	trimBody(Request &request)
 	request.getBodyHeadersBool() = true;
 }
 
+/// @brief finds post file name from body header
+/// @param client 
+/// @return filename
 std::string	get_filename(Client &client)
 {
 	std::string file;

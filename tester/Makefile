@@ -43,9 +43,8 @@ CPP = $(addprefix cpp/, 		Client.o \
 		$(addprefix request/, 	getter.o setter.o print.o Request.o) \
 		$(addprefix cgi/, 		Cgi.o argv.o execute.o html/crypter.o html/cub.o html/pokedex.o html/var.o))
 
-UTILS = $(addprefix utils/, 	file.o utils_page1.o path_checker.o value_checker.o \
-								string/string.o string/buffer.o url.o env.o directory.o)
-
+UTILS = $(addprefix utils/, 	file.o utils_page.o path_checker.o \
+								string/string.o url.o env.o directory.o)
 
 WEB_OBJ = $(addprefix $(PROJ_OBJ_DIR)/, $(CPP) $(PARSING) $(UTILS))
 

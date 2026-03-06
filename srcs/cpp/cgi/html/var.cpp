@@ -11,6 +11,9 @@
     </body>\n\
 </html>"
 
+/// @brief parse giorgio output
+/// @param cgi_ptr reference to cgi data
+/// @return new html
 std::string	createHtmlYouTube(t_cgi &cgi_data)
 {
 	std::string body(GIANLUIGI_BUFFON);
@@ -23,6 +26,9 @@ std::string	createHtmlYouTube(t_cgi &cgi_data)
 
 typedef std::vector<char *>	argvVector;
 
+/// @brief parse weaksleep output
+/// @param cgi_ptr reference to cgi data
+/// @return new html
 std::string createHtmlWeaksleep(t_cgi &cgi_data)
 {
 	(void)cgi_data;

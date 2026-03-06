@@ -101,6 +101,9 @@ void convert_hexa(std::vector<char*> &input)
     }
 }
 
+/// @brief split the string to crypt received in the body, preparing argv
+/// @param args reference to the body
+/// @param argv_data reference to the std::vector<char *> given to execve
 static void		createArgvCrypter(std::string &args, argvVector &argv_data)
 {
 	size_t		first_to_delete;
@@ -126,6 +129,9 @@ static void		createArgvCrypter(std::string &args, argvVector &argv_data)
 	vect_split_new(argv_data, args, '&');
 }
 
+/// @brief split the time to sleep received in the body, preparing argv
+/// @param args reference to the body
+/// @param argv_data reference to the std::vector<char *> given to execve
 static void	createArgvWeaksleep(std::string &args, argvVector &argv_data)
 {
 	
@@ -133,4 +139,3 @@ static void	createArgvWeaksleep(std::string &args, argvVector &argv_data)
 	args = "www/cgi-bin/weaksleep/weaksleep.py&" + args;
 	vect_split_new(argv_data, args, '&');
 }
-

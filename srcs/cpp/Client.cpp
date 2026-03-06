@@ -65,6 +65,8 @@ char				*Client::getBufferChar()
 	return (this->_buffer.data());
 }
 
+/// @brief takes mask methods from location if exist, else from server
+/// @return mask
 int		Client::getAllowedMethods() const
 {
 	if (this->_loc_config.exist)
@@ -78,6 +80,8 @@ s_cookieData		&Client::getCookieData()
 	return (this->_cookie_data);
 }
 
+/// @brief set cookie data for client, if sent in request
+/// @param srv 
 void	Client::setCookieData(Server &srv)
 {
 	this->_cookie_data.exist = true;
@@ -101,6 +105,14 @@ bool	&Client::sendContentBool()
 	return (this->_send_content);
 }
 
+/// @brief	binds a cgi and a client sockets. In detail:
+///			1)		updates the poll array, according to cgi type;
+///			1.1)		cgi: adds the socket of the cgi;
+///			1.2)		fastcgi: set socket to POLLIN;
+///			2)		set client to POLLHUP (waiting to cgi);
+///			3)		updates poll metadata (Server::_fd_data)
+/// @param srv 
+/// @param cgi 
 void	Client::bindCgiSocket(Server &srv, s_cgi &cgi)
 {
 	if (cgi.isFastCgiBool == false)
@@ -115,6 +127,9 @@ void	Client::bindCgiSocket(Server &srv, s_cgi &cgi)
 	srv.getFdData()[this->getSockFd()].cgi = &cgi;
 }
 
+/// @brief parse cgi header, reads cgi output
+/// @param srv 
+/// @param cgi reference to binded cgi
 void	Client::readCgi(Server &srv, s_cgi &cgi)
 {
 	int	error;
@@ -148,6 +163,9 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 	}
 }
 
+/// @brief client writes to cgi pipe[1]
+/// @param srv 
+/// @param cgi reference to binded cgi
 void	Client::writeCgi(Server &srv, s_cgi &cgi)
 {
 	write(cgi.pipe[1], cgi.input.c_str(), cgi.input.length());

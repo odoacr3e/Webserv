@@ -2,6 +2,9 @@
 
 typedef std::vector<char *>	argvVector;
 
+/// @brief parse crypt output, creates the final html
+/// @param cgi_ptr reference to cgi data
+/// @return new html
 std::string createHtmlCrypter(t_cgi &cgi_ptr)
 {
 	std::fstream file("www/cgi-bin/crypter/index.html");

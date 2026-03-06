@@ -3,6 +3,8 @@
 #include "../../srcs/hpp/Server.hpp"
 #include "../../srcs/hpp/Client.hpp"
 
+/// @brief close fd is > 0, set fd to zero
+/// @param fd ptr to the fd
 void	close_fd(int *fd)
 {
 	if (*fd > 0)

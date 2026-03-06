@@ -21,11 +21,6 @@ void	get_conf_path(int ac, char **av, std::string &path)
 		throw std::runtime_error("\033[1;31mToo many configuration files\nPlease pass only one!\033[0m");
 }
 
-/*
-Cookie: session_id=abc123
-Set-Cookie: session_id=abc123; Path=/; HttpOnly; Secure
-*/
-
 int main(int ac, char **av, const char **env)
 {
 	LOG_RESET();
@@ -59,59 +54,3 @@ int main(int ac, char **av, const char **env)
 	}
 	return (0);
 }
-
-/*
-	[X]	upload con autorizzazioni, html bellino
-	[X]	cgi non bloccanti
-	[X]	crypter
-	[]	cub3D
-	[]	cookie
-	[X]	return
-	[]	refactoring
-	[]	GESTIRE IL TEAPOT PERCHE SIAMO VERI UOMINI CAZZO
-	[]	tester
-	[]	test
-*/
-/*
-X 	Your server must remain non-blocking at all times 
-	and properly handle client disconnections when 
-	necessary.
-X	Clients must be able to upload files.
-	Page with delete and post.
-X	You need at least the GET, POST, and DELETE methods
--	Stress test your server to ensure 
-	it remains available at all times.
-X	Uploading files from the clients to the server is 
-	authorized, and storage location is provided
--	Just remember that, for chunked requests,
-	your server needs to un-chunk them, 
-	the CGI will expect EOF as the end of the body.
-- 	The same applies to the output of the CGI. 
-	If no content_length is returned from the CGI, 
-	EOF will mark the end of the returned data.
-X	You must provide configuration files and default 
-	files to test and demonstrate that every feature 
-	works during the evaluation.
--	We have provided a small tester. 
-	Using it is not mandatory if everything works fine 
-	with your browser and tests, but it can help
-	you find and fix bugs.
-BONUS:
--	Support cookies and session management 
-	(provide simple examples).
-X	Handle multiple CGI types.
-OTHER:
--	game cgi
-X	crypter
-*/
-
-// int	main(int ac, char **av)
-// {
-// 	std::string str;
-
-// 	if (ac == 1)
-// 		ft_ls("www/", str);
-// 	else
-// 		ft_ls(av[1], str);
-// 	std::cout << str << std::endl;
-// }

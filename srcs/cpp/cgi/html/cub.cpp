@@ -26,6 +26,3 @@ std::string		createHtmlCub(t_cgi &cgi_data, Client &client)
 	client.sendContentBool() = true;
 	return ("");
 }
-
-// nw+R1b=QBhc3AR%OR4?5+4.474C454;5b475!4&
-// 

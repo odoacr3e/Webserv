@@ -65,15 +65,8 @@ rum: $(NAME)
 	@sleep 1
 	@clear; ./$(NAME)
 
-spaghetti: re
-	clear ; ./$(NAME)
-
 gdb: $(NAME)
 	clear ; gdb ./$(NAME)
-
-giddibi: gdb
-
-r3: re
 
 kill_ports:
 	@echo "Sgomberiamo le porte 90xx..."

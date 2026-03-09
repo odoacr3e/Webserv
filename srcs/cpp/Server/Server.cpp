@@ -185,7 +185,7 @@ int	Server::addSocket(int index, e_fd_type type)
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
 		this->_fd_data[polldata.fd].client = this->_clients[socket];
-		std::cout << WHITE "\nnew client " YELLOW  << polldata.fd << WHITE " accepted\n" RESET;
+		//std::cout << WHITE "\nnew client " YELLOW  << polldata.fd << WHITE " accepted\n" RESET;
 	}
 	else if (type == FD_PIPE_WR)
 		this->_addrs.back().events = POLLOUT;

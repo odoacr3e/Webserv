@@ -74,5 +74,6 @@ std::ofstream	&print_dev_null()
 {
 	static std::ofstream null_stream("/dev/null");
 
+	null_stream.clear();
 	return (null_stream);
 }

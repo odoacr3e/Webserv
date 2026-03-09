@@ -17,8 +17,8 @@ void	Server::processResponse(Client &client)
 
 	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
-	std::cout << "Url request: " << client.getRequest().getUrl() << std::endl;
-	std::cout << WHITE"Status code response: " <<GREEN << client.getRequest().getStatusCode() <<RESET << std::endl << std::endl;
+	std::cout << WHITE "Url request:\t\t" YELLOW << client.getRequest().getUrl() << std::endl;
+	std::cout << WHITE "Status code response:\t" GREEN << client.getRequest().getStatusCode() <<RESET << std::endl << std::endl;
 	/**
 	 * @todo check su questa funzione
 	 */

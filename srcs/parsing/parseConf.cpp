@@ -188,7 +188,7 @@ void	instructionWarning(std::vector<std::string> &list, int line, std::string s)
 	for (size_t i = 0; i < list.size(); i++)
 		error += list[i] + " ";
 	error += "\033[31m\b:\n" + s + COLOR_RESET;
-	LOG_TERM << error << std::endl;
+	std::cerr << error << std::endl;
 }
 
 static std::string	rightBlock(std::string block)

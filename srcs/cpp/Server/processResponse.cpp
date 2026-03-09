@@ -14,6 +14,7 @@ void	Server::processResponse(Client &client)
 	std::string msgEndCon(MSG_END_CONNECTION);
 	std::vector<char>	&contentData = client.getBuffer();
 	std::string	html = createResponse(client);
+	int bytes;
 
 	if ((client.getPollFd(*this)->events & POLLOUT) == 0)
 		return ;
@@ -22,22 +23,30 @@ void	Server::processResponse(Client &client)
 	/**
 	 * @todo check su questa funzione
 	 */
-	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
-	LOG_RESPONSE(html);
-	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
-	LOG_RESPONSE(msgEndCon);
-	if (client.sendContentBool() == true)
+	// close(client.getSockFd()); // TEST per send fallito
+	bytes = send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
+	if (bytes <= 0)
+		eraseClient(client, this->_i--);
+	else
 	{
-		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
-		client.sendContentBool() = false;
+		LOG_RESPONSE(html);
+		find_and_replace(msgEndCon, "{INDEX}", n_resp++);
+		LOG_RESPONSE(msgEndCon);
+		if (client.sendContentBool() == true)
+		{
+			bytes = send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
+			client.sendContentBool() = false;
+			if (bytes <= 0)
+				return(eraseClient(client, this->_i--));
+		}
+		LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
+		LOG_TERM <<client.getRequest().getMethod() << "\n";
+		client.getRequest().setUrl("");
+		client.getRequest().setUrlOriginal("");
+		this->_fd_data[client.getSockFd()].cgi_ready = false;
+		this->_fd_data[client.getSockFd()].cgi = NULL;
+		client.getPollFd(*this)->events = POLLIN;
 	}
-	LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
-	LOG_TERM <<client.getRequest().getMethod() << "\n";
-	client.getRequest().setUrl("");
-	client.getRequest().setUrlOriginal("");
-	this->_fd_data[client.getSockFd()].cgi_ready = false;
-	this->_fd_data[client.getSockFd()].cgi = NULL;
-	client.getPollFd(*this)->events = POLLIN;
 }
 
 /**
@@ -78,7 +87,6 @@ void	Server::choose_file(Client &client)
 {
 	std::string	fname;
 
-	std::cout << "sei un pazzo choose file\n\n\n";
 	if (client.getRequest().getDnsErrorBool())
 		fname = "www/var/errors/dns/index.html";
 	else if (client.getRequest().getStatusCode() != 200)
@@ -88,7 +96,6 @@ void	Server::choose_file(Client &client)
 	else if (client.getRequest().getRunScriptBool() == false)
 		fname = this->resp_url.c_str();
 	this->file.open(fname.c_str());
-	std::cout << "file name opening: " << fname << std::endl;
 	if (this->file.fail())
 	{
 		this->file.clear();
@@ -97,13 +104,9 @@ void	Server::choose_file(Client &client)
 		fname = checkErrorPages(client.getRequest());
 		client.setBodyType("text/html");
 		std::cout << "cannot open file!\n";
-		std::cout << "try opening " << fname << " instead...\n";
 		this->file.open(fname.c_str());
 		if (this->file.fail())
-		{
-			std::cout << "senti vaffanculo allora\n";
 			this->file.open("www/var/errors/default.html");
-		}
 	}
 }
 
@@ -142,10 +145,7 @@ std::string	Server::checkErrorPages(Request &request)
 			return ("www/var/errors/default.html");
 	}
 	else
-	{
-		std::cout << "pagine di default\n";	
 		return ("www/var/errors/default.html");
-	}
 }
 
 /**

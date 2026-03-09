@@ -15,6 +15,7 @@ void	Server::createAutoindex(Client &client)
 	dirent			*content;
 	std::string		url;
 
+	client.setBodyType("text/html");
 	if (client.getAllowedMethods() & MASK_DELETE)
 		file.open("www/var/autoindex/delete_autoindex.html");
 	else

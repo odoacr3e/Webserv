@@ -35,6 +35,8 @@ void	Server::processResponse(Client &client)
 	LOG_TERM <<client.getRequest().getMethod() << "\n";
 	client.getRequest().setUrl("");
 	client.getRequest().setUrlOriginal("");
+	this->_fd_data[client.getSockFd()].cgi_ready = false;
+	this->_fd_data[client.getSockFd()].cgi = NULL;
 	client.getPollFd(*this)->events = POLLIN;
 }
 

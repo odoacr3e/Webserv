@@ -1,0 +1,910 @@
+==441323== Memcheck, a memory error detector
+==441323== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==441323== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==441323== Command: ./webserv
+==441323== 
+==441488== Memcheck, a memory error detector
+==441488== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==441488== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==441488== Command: www/cgi-bin/cub3D/cub3D.cgi wasdjlexq&t=1773046733933
+==441488== 
+xpm 1/79
+xpm 2/79
+xpm 3/79
+xpm 4/79
+xpm 5/79
+xpm 6/79
+xpm 7/79
+xpm 8/79
+xpm 9/79
+xpm 10/79
+xpm 11/79
+xpm 12/79
+xpm 13/79
+xpm 14/79
+xpm 15/79
+xpm 16/79
+xpm 17/79
+xpm 18/79
+xpm 19/79
+xpm 20/79
+xpm 21/79
+xpm 22/79
+xpm 23/79
+xpm 24/79
+xpm 25/79
+xpm 26/79
+xpm 27/79
+xpm 28/79
+xpm 29/79
+xpm 30/79
+xpm 31/79
+xpm 32/79
+xpm 33/79
+xpm 34/79
+xpm 35/79
+xpm 36/79
+xpm 37/79
+==441711== Memcheck, a memory error detector
+==441711== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==441711== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==441711== Command: /usr/bin/python3 www/cgi-bin/weaksleep/weaksleep.py 50
+==441711== 
+xpm 38/79
+xpm 39/79
+xpm 40/79
+xpm 41/79
+==441796== Memcheck, a memory error detector
+==441796== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==441796== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==441796== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==441796== 
+xpm 42/79
+==441796== 
+==441796== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==441796== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==441796==    <inherited from parent>
+==441796== 
+==441796== 
+==441796== HEAP SUMMARY:
+==441796==     in use at exit: 0 bytes in 0 blocks
+==441796==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==441796== 
+==441796== All heap blocks were freed -- no leaks are possible
+==441796== 
+==441796== For lists of detected and suppressed errors, rerun with: -s
+==441796== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 43/79
+xpm 44/79
+xpm 45/79
+xpm 46/79
+xpm 47/79
+==441845== Memcheck, a memory error detector
+==441845== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==441845== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==441845== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==441845== 
+xpm 48/79
+==441845== 
+==441845== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==441845== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==441845==    <inherited from parent>
+==441845== 
+==441845== 
+==441845== HEAP SUMMARY:
+==441845==     in use at exit: 0 bytes in 0 blocks
+==441845==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==441845== 
+==441845== All heap blocks were freed -- no leaks are possible
+==441845== 
+==441845== For lists of detected and suppressed errors, rerun with: -s
+==441845== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 49/79
+xpm 50/79
+xpm 51/79
+xpm 52/79
+xpm 53/79
+xpm 54/79
+xpm 55/79
+xpm 56/79
+xpm 57/79
+xpm 58/79
+xpm 59/79
+xpm 60/79
+==442082== Memcheck, a memory error detector
+==442082== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442082== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442082== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442082== 
+==442082== 
+==442082== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442082== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442082==    <inherited from parent>
+==442082== 
+==442082== 
+==442082== HEAP SUMMARY:
+==442082==     in use at exit: 0 bytes in 0 blocks
+==442082==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442082== 
+==442082== All heap blocks were freed -- no leaks are possible
+==442082== 
+==442082== For lists of detected and suppressed errors, rerun with: -s
+==442082== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442109== Memcheck, a memory error detector
+==442109== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442109== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442109== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442109== 
+xpm 61/79
+==442126== Memcheck, a memory error detector
+==442126== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442126== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442126== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442126== 
+==442109== 
+==442109== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442109== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442109==    <inherited from parent>
+==442109== 
+==442109== 
+==442109== HEAP SUMMARY:
+==442109==     in use at exit: 0 bytes in 0 blocks
+==442109==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442109== 
+==442109== All heap blocks were freed -- no leaks are possible
+==442109== 
+==442109== For lists of detected and suppressed errors, rerun with: -s
+==442109== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 62/79
+==442126== 
+==442126== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442126== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442126==    <inherited from parent>
+==442126== 
+==442126== 
+==442126== HEAP SUMMARY:
+==442126==     in use at exit: 0 bytes in 0 blocks
+==442126==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442126== 
+==442126== All heap blocks were freed -- no leaks are possible
+==442126== 
+==442126== For lists of detected and suppressed errors, rerun with: -s
+==442126== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442155== Memcheck, a memory error detector
+==442155== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442155== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442155== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442155== 
+==442155== 
+==442155== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442155== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442155==    <inherited from parent>
+==442155== 
+==442155== 
+==442155== HEAP SUMMARY:
+==442155==     in use at exit: 0 bytes in 0 blocks
+==442155==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442155== 
+==442155== All heap blocks were freed -- no leaks are possible
+==442155== 
+==442155== For lists of detected and suppressed errors, rerun with: -s
+==442155== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442177== Memcheck, a memory error detector
+==442177== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442177== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442177== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442177== 
+==442177== 
+==442177== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442177== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442177==    <inherited from parent>
+==442177== 
+==442177== 
+==442177== HEAP SUMMARY:
+==442177==     in use at exit: 0 bytes in 0 blocks
+==442177==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442177== 
+==442177== All heap blocks were freed -- no leaks are possible
+==442177== 
+==442177== For lists of detected and suppressed errors, rerun with: -s
+==442177== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442215== Memcheck, a memory error detector
+==442215== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442215== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442215== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442215== 
+==442244== Memcheck, a memory error detector
+==442244== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442244== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442244== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442244== 
+==442215== 
+==442215== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442215== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442215==    <inherited from parent>
+==442215== 
+==442215== 
+==442215== HEAP SUMMARY:
+==442215==     in use at exit: 0 bytes in 0 blocks
+==442215==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442215== 
+==442215== All heap blocks were freed -- no leaks are possible
+==442215== 
+==442215== For lists of detected and suppressed errors, rerun with: -s
+==442215== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442244== 
+==442244== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442244== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442244==    <inherited from parent>
+==442244== 
+==442244== 
+==442244== HEAP SUMMARY:
+==442244==     in use at exit: 0 bytes in 0 blocks
+==442244==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442244== 
+==442244== All heap blocks were freed -- no leaks are possible
+==442244== 
+==442244== For lists of detected and suppressed errors, rerun with: -s
+==442244== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442248== Memcheck, a memory error detector
+==442248== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442248== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442248== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442248== 
+==442248== 
+==442248== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442248== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442248==    <inherited from parent>
+==442248== 
+==442248== 
+==442248== HEAP SUMMARY:
+==442248==     in use at exit: 0 bytes in 0 blocks
+==442248==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442248== 
+==442248== All heap blocks were freed -- no leaks are possible
+==442248== 
+==442248== For lists of detected and suppressed errors, rerun with: -s
+==442248== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442263== Memcheck, a memory error detector
+==442263== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442263== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442263== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442263== 
+==442263== 
+==442263== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442263== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442263==    <inherited from parent>
+==442263== 
+==442263== 
+==442263== HEAP SUMMARY:
+==442263==     in use at exit: 0 bytes in 0 blocks
+==442263==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442263== 
+==442263== All heap blocks were freed -- no leaks are possible
+==442263== 
+==442263== For lists of detected and suppressed errors, rerun with: -s
+==442263== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442291== Memcheck, a memory error detector
+==442291== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442291== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442291== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442291== 
+==442291== 
+==442291== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442291== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442291==    <inherited from parent>
+==442291== 
+==442291== 
+==442291== HEAP SUMMARY:
+==442291==     in use at exit: 0 bytes in 0 blocks
+==442291==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442291== 
+==442291== All heap blocks were freed -- no leaks are possible
+==442291== 
+==442291== For lists of detected and suppressed errors, rerun with: -s
+==442291== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442312== Memcheck, a memory error detector
+==442312== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442312== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442312== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442312== 
+==442312== 
+==442312== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442312== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442312==    <inherited from parent>
+==442312== 
+==442312== 
+==442312== HEAP SUMMARY:
+==442312==     in use at exit: 0 bytes in 0 blocks
+==442312==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442312== 
+==442312== All heap blocks were freed -- no leaks are possible
+==442312== 
+==442312== For lists of detected and suppressed errors, rerun with: -s
+==442312== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442336== Memcheck, a memory error detector
+==442336== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442336== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442336== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442336== 
+xpm 63/79
+==442396== Memcheck, a memory error detector
+==442396== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442396== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442396== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442396== 
+==442336== 
+==442336== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442336== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442336==    <inherited from parent>
+==442336== 
+==442336== 
+==442336== HEAP SUMMARY:
+==442336==     in use at exit: 0 bytes in 0 blocks
+==442336==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442336== 
+==442336== All heap blocks were freed -- no leaks are possible
+==442336== 
+==442336== For lists of detected and suppressed errors, rerun with: -s
+==442336== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 64/79
+xpm 65/79
+==442396== 
+==442396== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442396== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442396==    <inherited from parent>
+==442396== 
+==442396== 
+==442396== HEAP SUMMARY:
+==442396==     in use at exit: 0 bytes in 0 blocks
+==442396==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442396== 
+==442396== All heap blocks were freed -- no leaks are possible
+==442396== 
+==442396== For lists of detected and suppressed errors, rerun with: -s
+==442396== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==442461== Memcheck, a memory error detector
+==442461== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442461== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442461== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442461== 
+==442461== 
+==442461== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442461== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442461==    <inherited from parent>
+==442461== 
+==442461== 
+==442461== HEAP SUMMARY:
+==442461==     in use at exit: 0 bytes in 0 blocks
+==442461==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442461== 
+==442461== All heap blocks were freed -- no leaks are possible
+==442461== 
+==442461== For lists of detected and suppressed errors, rerun with: -s
+==442461== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 66/79
+xpm 67/79
+xpm 68/79
+xpm 69/79
+==442824== Memcheck, a memory error detector
+==442824== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442824== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442824== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442824== 
+==442824== 
+==442824== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442824== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442824==    <inherited from parent>
+==442824== 
+==442824== 
+==442824== HEAP SUMMARY:
+==442824==     in use at exit: 0 bytes in 0 blocks
+==442824==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442824== 
+==442824== All heap blocks were freed -- no leaks are possible
+==442824== 
+==442824== For lists of detected and suppressed errors, rerun with: -s
+==442824== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 70/79
+==442985== Memcheck, a memory error detector
+==442985== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==442985== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==442985== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==442985== 
+==442985== 
+==442985== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==442985== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==442985==    <inherited from parent>
+==442985== 
+==442985== 
+==442985== HEAP SUMMARY:
+==442985==     in use at exit: 0 bytes in 0 blocks
+==442985==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==442985== 
+==442985== All heap blocks were freed -- no leaks are possible
+==442985== 
+==442985== For lists of detected and suppressed errors, rerun with: -s
+==442985== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443059== Memcheck, a memory error detector
+==443059== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443059== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443059== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443059== 
+==443059== 
+==443059== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443059== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443059==    <inherited from parent>
+==443059== 
+==443059== 
+==443059== HEAP SUMMARY:
+==443059==     in use at exit: 0 bytes in 0 blocks
+==443059==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443059== 
+==443059== All heap blocks were freed -- no leaks are possible
+==443059== 
+==443059== For lists of detected and suppressed errors, rerun with: -s
+==443059== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443141== Memcheck, a memory error detector
+==443141== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443141== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443141== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443141== 
+==443141== 
+==443141== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443141== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443141==    <inherited from parent>
+==443141== 
+==443141== 
+==443141== HEAP SUMMARY:
+==443141==     in use at exit: 0 bytes in 0 blocks
+==443141==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443141== 
+==443141== All heap blocks were freed -- no leaks are possible
+==443141== 
+==443141== For lists of detected and suppressed errors, rerun with: -s
+==443141== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443144== Memcheck, a memory error detector
+==443144== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443144== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443144== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443144== 
+==443144== 
+==443144== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443144== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443144==    <inherited from parent>
+==443144== 
+==443144== 
+==443144== HEAP SUMMARY:
+==443144==     in use at exit: 0 bytes in 0 blocks
+==443144==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443144== 
+==443144== All heap blocks were freed -- no leaks are possible
+==443144== 
+==443144== For lists of detected and suppressed errors, rerun with: -s
+==443144== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443161== Memcheck, a memory error detector
+==443161== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443161== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443161== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443161== 
+xpm 71/79
+==443161== 
+==443161== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443161== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443161==    <inherited from parent>
+==443161== 
+==443161== 
+==443161== HEAP SUMMARY:
+==443161==     in use at exit: 0 bytes in 0 blocks
+==443161==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443161== 
+==443161== All heap blocks were freed -- no leaks are possible
+==443161== 
+==443161== For lists of detected and suppressed errors, rerun with: -s
+==443161== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443187== Memcheck, a memory error detector
+==443187== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443187== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443187== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443187== 
+==443187== 
+==443187== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443187== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443187==    <inherited from parent>
+==443187== 
+==443187== 
+==443187== HEAP SUMMARY:
+==443187==     in use at exit: 0 bytes in 0 blocks
+==443187==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443187== 
+==443187== All heap blocks were freed -- no leaks are possible
+==443187== 
+==443187== For lists of detected and suppressed errors, rerun with: -s
+==443187== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443204== Memcheck, a memory error detector
+==443204== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443204== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443204== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443204== 
+==443204== 
+==443204== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443204== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443204==    <inherited from parent>
+==443204== 
+==443204== 
+==443204== HEAP SUMMARY:
+==443204==     in use at exit: 0 bytes in 0 blocks
+==443204==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443204== 
+==443204== All heap blocks were freed -- no leaks are possible
+==443204== 
+==443204== For lists of detected and suppressed errors, rerun with: -s
+==443204== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443209== Memcheck, a memory error detector
+==443209== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443209== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443209== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443209== 
+==443209== 
+==443209== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443209== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443209==    <inherited from parent>
+==443209== 
+==443209== 
+==443209== HEAP SUMMARY:
+==443209==     in use at exit: 0 bytes in 0 blocks
+==443209==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443209== 
+==443209== All heap blocks were freed -- no leaks are possible
+==443209== 
+==443209== For lists of detected and suppressed errors, rerun with: -s
+==443209== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443274== Memcheck, a memory error detector
+==443274== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443274== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443274== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443274== 
+==443274== 
+==443274== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443274== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443274==    <inherited from parent>
+==443274== 
+==443274== 
+==443274== HEAP SUMMARY:
+==443274==     in use at exit: 0 bytes in 0 blocks
+==443274==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443274== 
+==443274== All heap blocks were freed -- no leaks are possible
+==443274== 
+==443274== For lists of detected and suppressed errors, rerun with: -s
+==443274== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443351== Memcheck, a memory error detector
+==443351== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443351== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443351== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443351== 
+==443351== 
+==443351== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443351== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443351==    <inherited from parent>
+==443351== 
+==443351== 
+==443351== HEAP SUMMARY:
+==443351==     in use at exit: 0 bytes in 0 blocks
+==443351==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443351== 
+==443351== All heap blocks were freed -- no leaks are possible
+==443351== 
+==443351== For lists of detected and suppressed errors, rerun with: -s
+==443351== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443378== Memcheck, a memory error detector
+==443378== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443378== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443378== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443378== 
+==443378== 
+==443378== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443378== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443378==    <inherited from parent>
+==443378== 
+==443378== 
+==443378== HEAP SUMMARY:
+==443378==     in use at exit: 0 bytes in 0 blocks
+==443378==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443378== 
+==443378== All heap blocks were freed -- no leaks are possible
+==443378== 
+==443378== For lists of detected and suppressed errors, rerun with: -s
+==443378== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443384== Memcheck, a memory error detector
+==443384== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443384== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443384== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443384== 
+==443384== 
+==443384== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443384== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443384==    <inherited from parent>
+==443384== 
+==443384== 
+==443384== HEAP SUMMARY:
+==443384==     in use at exit: 0 bytes in 0 blocks
+==443384==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443384== 
+==443384== All heap blocks were freed -- no leaks are possible
+==443384== 
+==443384== For lists of detected and suppressed errors, rerun with: -s
+==443384== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443399== Memcheck, a memory error detector
+==443399== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443399== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443399== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443399== 
+==443425== Memcheck, a memory error detector
+==443425== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443425== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443425== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443425== 
+==443399== 
+==443399== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443399== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443399==    <inherited from parent>
+==443399== 
+==443399== 
+==443399== HEAP SUMMARY:
+==443399==     in use at exit: 0 bytes in 0 blocks
+==443399==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443399== 
+==443399== All heap blocks were freed -- no leaks are possible
+==443399== 
+==443399== For lists of detected and suppressed errors, rerun with: -s
+==443399== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 72/79
+==443425== 
+==443425== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443425== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443425==    <inherited from parent>
+==443425== 
+==443425== 
+==443425== HEAP SUMMARY:
+==443425==     in use at exit: 0 bytes in 0 blocks
+==443425==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443425== 
+==443425== All heap blocks were freed -- no leaks are possible
+==443425== 
+==443425== For lists of detected and suppressed errors, rerun with: -s
+==443425== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443486== Memcheck, a memory error detector
+==443486== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443486== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443486== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443486== 
+==443486== 
+==443486== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443486== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443486==    <inherited from parent>
+==443486== 
+==443486== 
+==443486== HEAP SUMMARY:
+==443486==     in use at exit: 0 bytes in 0 blocks
+==443486==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443486== 
+==443486== All heap blocks were freed -- no leaks are possible
+==443486== 
+==443486== For lists of detected and suppressed errors, rerun with: -s
+==443486== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443491== Memcheck, a memory error detector
+==443491== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443491== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443491== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443491== 
+==443491== 
+==443491== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443491== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443491==    <inherited from parent>
+==443491== 
+==443491== 
+==443491== HEAP SUMMARY:
+==443491==     in use at exit: 0 bytes in 0 blocks
+==443491==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443491== 
+==443491== All heap blocks were freed -- no leaks are possible
+==443491== 
+==443491== For lists of detected and suppressed errors, rerun with: -s
+==443491== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443591== Memcheck, a memory error detector
+==443591== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443591== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443591== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443591== 
+readCgiErrorFormat: seconds passed
+cgi error
+==443591== 
+==443591== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443591== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443591==    <inherited from parent>
+==443591== 
+==443591== 
+==443591== HEAP SUMMARY:
+==443591==     in use at exit: 0 bytes in 0 blocks
+==443591==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443591== 
+==443591== All heap blocks were freed -- no leaks are possible
+==443591== 
+==443591== For lists of detected and suppressed errors, rerun with: -s
+==443591== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443606== Memcheck, a memory error detector
+==443606== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443606== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443606== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443606== 
+==443611== Memcheck, a memory error detector
+==443611== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443611== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443611== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443611== 
+==443606== 
+==443606== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443606== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443606==    <inherited from parent>
+==443606== 
+==443606== 
+==443606== HEAP SUMMARY:
+==443606==     in use at exit: 0 bytes in 0 blocks
+==443606==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443606== 
+==443606== All heap blocks were freed -- no leaks are possible
+==443606== 
+==443606== For lists of detected and suppressed errors, rerun with: -s
+==443606== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443611== 
+==443611== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443611== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443611==    <inherited from parent>
+==443611== 
+==443611== 
+==443611== HEAP SUMMARY:
+==443611==     in use at exit: 0 bytes in 0 blocks
+==443611==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443611== 
+==443611== All heap blocks were freed -- no leaks are possible
+==443611== 
+==443611== For lists of detected and suppressed errors, rerun with: -s
+==443611== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443639== Memcheck, a memory error detector
+==443639== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443639== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443639== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443639== 
+==443639== 
+==443639== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443639== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443639==    <inherited from parent>
+==443639== 
+==443639== 
+==443639== HEAP SUMMARY:
+==443639==     in use at exit: 0 bytes in 0 blocks
+==443639==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443639== 
+==443639== All heap blocks were freed -- no leaks are possible
+==443639== 
+==443639== For lists of detected and suppressed errors, rerun with: -s
+==443639== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443655== Memcheck, a memory error detector
+==443655== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443655== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443655== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443655== 
+==443655== 
+==443655== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443655== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443655==    <inherited from parent>
+==443655== 
+==443655== 
+==443655== HEAP SUMMARY:
+==443655==     in use at exit: 0 bytes in 0 blocks
+==443655==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443655== 
+==443655== All heap blocks were freed -- no leaks are possible
+==443655== 
+==443655== For lists of detected and suppressed errors, rerun with: -s
+==443655== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443732== Memcheck, a memory error detector
+==443732== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443732== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443732== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443732== 
+==443732== 
+==443732== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443732== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443732==    <inherited from parent>
+==443732== 
+==443732== 
+==443732== HEAP SUMMARY:
+==443732==     in use at exit: 0 bytes in 0 blocks
+==443732==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443732== 
+==443732== All heap blocks were freed -- no leaks are possible
+==443732== 
+==443732== For lists of detected and suppressed errors, rerun with: -s
+==443732== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443836== Memcheck, a memory error detector
+==443836== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443836== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443836== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443836== 
+xpm 73/79
+==443836== 
+==443836== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443836== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443836==    <inherited from parent>
+==443836== 
+==443836== 
+==443836== HEAP SUMMARY:
+==443836==     in use at exit: 0 bytes in 0 blocks
+==443836==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443836== 
+==443836== All heap blocks were freed -- no leaks are possible
+==443836== 
+==443836== For lists of detected and suppressed errors, rerun with: -s
+==443836== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443853== Memcheck, a memory error detector
+==443853== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443853== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443853== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443853== 
+==443868== Memcheck, a memory error detector
+==443868== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==443868== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==443868== Command: www/cgi-bin/pokedex/output/pokemon.cgi vaporeon
+==443868== 
+==443853== 
+==443853== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443853== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443853==    <inherited from parent>
+==443853== 
+==443853== 
+==443853== HEAP SUMMARY:
+==443853==     in use at exit: 0 bytes in 0 blocks
+==443853==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443853== 
+==443853== All heap blocks were freed -- no leaks are possible
+==443853== 
+==443853== For lists of detected and suppressed errors, rerun with: -s
+==443853== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==443868== 
+==443868== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==443868== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==443868==    <inherited from parent>
+==443868== 
+==443868== 
+==443868== HEAP SUMMARY:
+==443868==     in use at exit: 0 bytes in 0 blocks
+==443868==   total heap usage: 3,471 allocs, 3,471 frees, 608,934 bytes allocated
+==443868== 
+==443868== All heap blocks were freed -- no leaks are possible
+==443868== 
+==443868== For lists of detected and suppressed errors, rerun with: -s
+==443868== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xpm 74/79
+xpm 75/79
+xpm 76/79
+xpm 77/79
+xpm 78/79
+xpm 79/79
+Cub3D: spread democracy
+==441323== 
+==441323== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==441323== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==441323==    <inherited from parent>
+==441323== 
+==441323== 
+==441323== HEAP SUMMARY:
+==441323==     in use at exit: 0 bytes in 0 blocks
+==441323==   total heap usage: 74,449 allocs, 74,449 frees, 5,792,085,973 bytes allocated
+==441323== 
+==441323== All heap blocks were freed -- no leaks are possible
+==441323== 
+==441323== For lists of detected and suppressed errors, rerun with: -s
+==441323== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+make: *** [Makefile:103: val] Interrupt

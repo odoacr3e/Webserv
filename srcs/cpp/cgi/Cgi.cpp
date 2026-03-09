@@ -17,7 +17,15 @@ void	run_script(Server &srv, Client &client, std::string &body)
 		cgi_ptr = srv.getFdData()[client.getSockFd()].cgi;
 	cgi_ptr->processOutput(client, body);
 	if (client.getLocConf().fastcgi_bool == false)
+	{
+		if (!cgi_ptr)
+			throw (std::runtime_error("vaffanculo"));
+		std::fstream cacca("logs/history.md");
+		cacca << "cgi_ptr deleted. Info:\n";
+		cacca << cgi_ptr->pipe[0] << " " << cgi_ptr->pipe[1] << "\n";
+		cacca.close();
 		delete cgi_ptr;
+	}
 	else
 		cgi_ptr->reset();
 	srv.getFdData()[client.getSockFd()].cgi = NULL;

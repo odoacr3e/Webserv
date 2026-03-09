@@ -42,6 +42,7 @@ class Client
 		Request				&getRequest();
 		t_conf_server		&getSrvConf();
 		t_conf_location		&getLocConf();
+		std::string			getBodyType() const;
 		std::vector<char>	&getBuffer();
 		struct pollfd		*getPollFd(Server &srv);
 		char				*getBufferChar();
@@ -52,6 +53,8 @@ class Client
 		bool				&sendContentBool();
 		void				bindCgiSocket(Server &srv, s_cgi &cgi);
 
+		//SECTION - setters
+		void				setBodyType(std::string type);
 		//SECTION - cgi
 		void				readCgi(Server &srv, s_cgi &cgi);
 		void				writeCgi(Server &srv, s_cgi &cgi);

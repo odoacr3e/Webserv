@@ -13,7 +13,7 @@ dirent					*findUrlDirectory(std::string url);
  * @param conf > Configuration file path
  * @param env > Environment
  */
-Server::Server(Conf &conf, const char **env) : _env(env), type("text/")
+Server::Server(Conf &conf, const char **env) : _env(env)
 {
 	pollfd		port_connection;
 	s_fd_data	fd_data;

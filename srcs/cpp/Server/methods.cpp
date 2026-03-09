@@ -46,9 +46,9 @@ void	Server::runMethod(Client &client)
 /// @param client 
 void	Server::getMethod(Client &client)
 {
-	if (client.getRequest().getRunScriptBool() == true)//FIXME - forzo per debug
+	if (client.getRequest().getRunScriptBool() == true)
 		return ;
-	if (this->type == "text/html")
+	if (client.getBodyType() == "text/html")
 	{
 		std::getline(this->file, this->resp_body, '\0');
 		if (client.getRequest().getCookieKey().empty() == false)

@@ -53,7 +53,6 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		// Create response varables
 		std::string						resp_body;
 		std::string						resp_url;
-		std::string						type;
 		std::fstream					file;
 		bool							_is_child_process;
 

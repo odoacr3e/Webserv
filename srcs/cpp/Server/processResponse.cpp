@@ -235,12 +235,13 @@ void	Server::assignFileType(Client &client)
 	size_t last_dot = this->resp_url.find_last_of('.');
 	std::string url;
 
+	client.setBodyType("text/");
 	if (last_dot != std::string::npos)
 	{
 		url = this->resp_url.substr(last_dot);
 		if (url != ".html" && url != ".css")
-			this->type = "image/";
-		this->type += url.erase(0, 1);
+			client.setBodyType("image/");
+		client.setBodyType(client.getBodyType() + url.erase(0, 1));
 	}
 }
 
@@ -251,16 +252,12 @@ void	Server::assignFileType(Client &client)
  * 
  * - std::string	resp_url
  * 
- * - std::string	type
- * 
  * - fstream		file
  */
 void	Server::clearRespVariables()
 {
 	this->resp_body.clear();
 	this->resp_url.clear();
-	this->type.clear();
-	this->type = "text/";
 	if (this->file.is_open())
 		this->file.close();
 	this->file.clear();

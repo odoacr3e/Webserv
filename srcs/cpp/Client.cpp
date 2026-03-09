@@ -45,6 +45,16 @@ t_conf_location	&Client::getLocConf()
 	return (this->_loc_config);
 }
 
+std::string			Client::getBodyType() const
+{
+	return (this->_request.getBodyType());
+}
+
+void	Client::setBodyType(std::string type)
+{
+	return (this->_request.setBodyType(type));
+}
+
 std::vector<char>	&Client::getBuffer()
 {
 	return (this->_buffer);

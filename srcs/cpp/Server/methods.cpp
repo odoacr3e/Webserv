@@ -7,7 +7,7 @@ int			headerParsing(Request &request, bool reset);
 void		fill_error_page(Client &client, std::string &html);
 std::string	get_filename(Client &client);
 void		write_on_ofile(Request &request, std::string file);
-void		choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html);
+void		choose_post_html(Server &srv, Client &client, std::fstream &file, std::fstream &html);
 
 /**
  * @brief executes on of three valid methods POST GET DELETE
@@ -178,7 +178,7 @@ void	Server::postMethod(Client &client)
 
 	write_on_ofile(request, file);
 
-	choose_html(*this, client, this->file, html);
+	choose_post_html(*this, client, this->file, html);
 	// LOG_TERM << "FAILE: " << file << std::endl;
 	this->resp_body = open_and_read(html);
 	find_and_replace(this->resp_body, "{MSG}", request.getFailMsg());
@@ -288,9 +288,10 @@ void	write_on_ofile(Request &request, std::string file)
  * @param file > Fstream of the opened file
  * @param html > Fstream of the opened html file
  */
-void	choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &html)
+void	choose_post_html(Server &srv, Client &client, std::fstream &file, std::fstream &html)
 {
 	Request &request = client.getRequest();
+	std::string			TEST;
 
 	if (request.getStatusCode() == 200)
 		html.open("www/var/upload/success_upload.html");
@@ -299,6 +300,8 @@ void	choose_html(Server &srv, Client &client, std::fstream &file, std::fstream &
 	if (file.fail())
 	{
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
-		html.open((srv.checkErrorPages(request)).c_str());
+		TEST = srv.checkErrorPages(request);
+		html.open(srv.checkErrorPages(request).c_str());
+		std::cout << "error page open: " << TEST << std::endl;
 	}
 }

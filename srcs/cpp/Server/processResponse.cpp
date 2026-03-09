@@ -77,27 +77,32 @@ std::string	Server::createResponse(Client &client)
 void	Server::choose_file(Client &client)
 {
 	std::string	fname;
-	std::string	redirect_file;
 
-	if (client.getLocConf().exist && client.getLocConf().ret_text.empty() == false)
-		redirect_file = client.getLocConf().ret_text;
+	std::cout << "sei un pazzo choose file\n\n\n";
 	if (client.getRequest().getDnsErrorBool())
-		this->file.open("www/var/errors/dns/index.html");
+		fname = "www/var/errors/dns/index.html";
 	else if (client.getRequest().getStatusCode() != 200)
-	{
 		fname = checkErrorPages(client.getRequest());
-		this->file.open((fname).c_str());
-	}
-	else if (redirect_file.empty() == false)
-		this->file.open("www/var/default_redirect.html");
+	else if (client.getLocConf().ret_text.empty() == false)
+		fname = "www/var/default_redirect.html";
 	else if (client.getRequest().getRunScriptBool() == false)
+		fname = this->resp_url.c_str();
+	this->file.open(fname.c_str());
+	std::cout << "file name opening: " << fname << std::endl;
+	if (this->file.fail())
 	{
-		this->file.open(this->resp_url.c_str());
+		this->file.clear();
+		this->file.close();
+		client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
+		fname = checkErrorPages(client.getRequest());
+		client.setBodyType("text/html");
+		std::cout << "cannot open file!\n";
+		std::cout << "try opening " << fname << " instead...\n";
+		this->file.open(fname.c_str());
 		if (this->file.fail())
 		{
-			client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
-			fname = checkErrorPages(client.getRequest());
-			this->file.open((fname).c_str());
+			std::cout << "senti vaffanculo allora\n";
+			this->file.open("www/var/errors/default.html");
 		}
 	}
 }
@@ -119,28 +124,35 @@ std::string	Server::checkErrorPages(Request &request)
 	{
 		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
 		{
-			this->file.open((server->root + server->err_pages[status_code]).c_str());
-			if (this->file.fail() == false)
-				return (server->root + server->err_pages[status_code]);
+			if (valid_file(server->root + server->err_pages[status_code]))
+				return (server->root.substr(0, server->root.length() - 1) + server->err_pages[status_code]);
+			else
+				return ("www/var/errors/default.html");
+			
 		}
 	}
 	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
 		loc = &server->location[url];
-		this->file.open((loc->root + server->location[url].err_pages[status_code]).c_str());
 		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
 			return ("www/var/errors/default_3xx.html");
-		else if (this->file.fail() == false)
+		else if (valid_file(loc->root + server->location[url].err_pages[status_code]))
 			return (loc->root + server->location[url].err_pages[status_code]);
 		else if (loc->ret_text.empty() == false)
 			return ("www/var/default_redirect.html");
 		else
+		{
+			std::cout << "Non trovo in location\n";
 			return ("www/var/errors/default.html");
+		}
 	}
 	if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
 		return ("www/var/errors/default_3xx.html");
 	else
+	{
+		std::cout << "pagine di default\n";	
 		return ("www/var/errors/default.html");
+	}
 }
 
 /**

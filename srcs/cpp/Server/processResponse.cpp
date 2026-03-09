@@ -118,20 +118,9 @@ std::string	Server::checkErrorPages(Request &request)
 	s_conf_server 	*server = &(*this->_srvnamemap)[request.getHost()];
 	s_conf_location	*loc;
 	int				status_code = request.getStatusCode();
-	std::string 	url = request.getUrl();
+	std::string 	url = url_arg_remove(request.getUrlOriginal(), '/');
 
-	if (server->location.count(url) == 0) // check se non ci sono location
-	{
-		if (server->err_pages.count(status_code) > 0) // check su server se ci sono error pages adeguate
-		{
-			if (valid_file(server->root + server->err_pages[status_code]))
-				return (server->root.substr(0, server->root.length() - 1) + server->err_pages[status_code]);
-			else
-				return ("www/var/errors/default.html");
-			
-		}
-	}
-	else if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
+	if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
 		loc = &server->location[url];
 		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
@@ -141,13 +130,17 @@ std::string	Server::checkErrorPages(Request &request)
 		else if (loc->ret_text.empty() == false)
 			return ("www/var/default_redirect.html");
 		else
-		{
-			std::cout << "Non trovo in location\n";
 			return ("www/var/errors/default.html");
-		}
 	}
-	if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
-		return ("www/var/errors/default_3xx.html");
+	else if (server->err_pages.count(status_code) > 0) // check se non ci sono location
+	{
+		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
+			return ("www/var/errors/default_3xx.html");
+		else if (valid_file(server->root + server->err_pages[status_code]))
+			return (server->root.substr(0, server->root.length() - 1) + server->err_pages[status_code]);
+		else
+			return ("www/var/errors/default.html");
+	}
 	else
 	{
 		std::cout << "pagine di default\n";	

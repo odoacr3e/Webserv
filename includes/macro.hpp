@@ -5,7 +5,7 @@
 # define DIV_DISCONNECT "[****************************]\n"
 
 # define COLOR_RESET "\033[0m"
-# define DEBUG false
+# define DEBUG true
 # define CONF false
 # define SERVER true
 # define RED     "\033[1;91m"

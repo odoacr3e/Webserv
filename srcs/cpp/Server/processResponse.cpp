@@ -11,7 +11,6 @@ bool	autoindex_do(Client &client);
 void	Server::processResponse(Client &client)
 {
 	static int	n_resp;
-	int 		bytes = 0;
 	std::string msgEndCon(MSG_END_CONNECTION);
 	std::vector<char>	&contentData = client.getBuffer();
 	std::string	html = createResponse(client);
@@ -23,29 +22,20 @@ void	Server::processResponse(Client &client)
 	/**
 	 * @todo check su questa funzione
 	 */
-	bytes = send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
-	if (bytes <= 0)
-	{
-		;
-	}
+	send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	LOG_RESPONSE(html);
 	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
 	LOG_RESPONSE(msgEndCon);
 	if (client.sendContentBool() == true)
 	{
-		bytes = send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
-		if (bytes <= 0)
-			;
-		else
-		{
-			client.sendContentBool() = false;
-			LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
-			LOG_TERM <<client.getRequest().getMethod() << "\n";
-			client.getRequest().setUrl("");
-			client.getRequest().setUrlOriginal("");
-		}
-		client.getPollFd(*this)->events = POLLIN;
+		send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
+		client.sendContentBool() = false;
 	}
+	LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
+	LOG_TERM <<client.getRequest().getMethod() << "\n";
+	client.getRequest().setUrl("");
+	client.getRequest().setUrlOriginal("");
+	client.getPollFd(*this)->events = POLLIN;
 }
 
 /**

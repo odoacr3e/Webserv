@@ -205,6 +205,8 @@ int	Request::fail(e_http_codes code, std::string info)
 			SWITCH_LOG(info, "ClientError: request cannot be processed");
 		case HTTP_SE_NOT_IMPLEMENTED:
 			SWITCH_LOG(info, "ServerError: Not implemented");
+		case HTTP_SE_SERVICE_UNAVAILABLE:
+			SWITCH_LOG(info, "ServerError: Service unavailable");
 		default :
 			SWITCH_LOG(info, "ClientError: Wtf");	
 	}

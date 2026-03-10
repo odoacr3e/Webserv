@@ -62,6 +62,8 @@ bool	Server::recvFirstReqPart(Client &client, char *buffer, int bytes)
 		return (false);
 	}
 	this->setupRequestEnvironment(client);
+	if (request.getUrl().find("🍵") != std::string::npos)
+		return (request.fail(HTTP_CE_IM_TEAPOT));
 	if (client.getRequest().getMethodEnum() == GET)
 		request.getBytesLeft() -= request.getBodyLen();
 	return (true);

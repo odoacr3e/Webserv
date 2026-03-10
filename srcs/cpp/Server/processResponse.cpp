@@ -20,33 +20,26 @@ void	Server::processResponse(Client &client)
 		return ;
 	std::cout << WHITE "Url request:\t\t" YELLOW << client.getRequest().getUrl() << std::endl;
 	std::cout << WHITE "Status code response:\t" GREEN << client.getRequest().getStatusCode() <<RESET << std::endl << std::endl;
-	/**
-	 * @todo check su questa funzione
-	 */
-	// close(client.getSockFd()); // TEST per send fallito
 	bytes = send(client.getSockFd(), html.c_str(), html.length(), MSG_NOSIGNAL);
 	if (bytes <= 0)
-		eraseClient(client, this->_i--);
-	else
+		return (eraseClient(client, this->_i--));
+	LOG_RESPONSE(html);
+	find_and_replace(msgEndCon, "{INDEX}", n_resp++);
+	LOG_RESPONSE(msgEndCon);
+	if (client.sendContentBool() == true)
 	{
-		LOG_RESPONSE(html);
-		find_and_replace(msgEndCon, "{INDEX}", n_resp++);
-		LOG_RESPONSE(msgEndCon);
-		if (client.sendContentBool() == true)
-		{
-			bytes = send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
-			client.sendContentBool() = false;
-			if (bytes <= 0)
-				return(eraseClient(client, this->_i--));
-		}
-		LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
-		LOG_TERM <<client.getRequest().getMethod() << "\n";
-		client.getRequest().setUrl("");
-		client.getRequest().setUrlOriginal("");
-		this->_fd_data[client.getSockFd()].cgi_ready = false;
-		this->_fd_data[client.getSockFd()].cgi = NULL;
-		client.getPollFd(*this)->events = POLLIN;
+		bytes = send(client.getSockFd(), contentData.data(), contentData.size(), MSG_NOSIGNAL);
+		client.sendContentBool() = false;
+		if (bytes <= 0)
+			return(eraseClient(client, this->_i--));
 	}
+	LOG_TERM << "processResponse() " << client.getRequest().getStatusCode() << " ";
+	LOG_TERM <<client.getRequest().getMethod() << "\n";
+	client.getRequest().setUrl("");
+	client.getRequest().setUrlOriginal("");
+	this->_fd_data[client.getSockFd()].cgi_ready = false;
+	this->_fd_data[client.getSockFd()].cgi = NULL;
+	client.getPollFd(*this)->events = POLLIN;
 }
 
 /**
@@ -90,7 +83,7 @@ void	Server::choose_file(Client &client)
 	if (client.getRequest().getDnsErrorBool())
 		fname = "www/var/errors/dns/index.html";
 	else if (client.getRequest().getStatusCode() != 200)
-		fname = checkErrorPages(client.getRequest());
+		fname = checkErrorPages(client);
 	else if (client.getLocConf().ret_text.empty() == false)
 		fname = "www/var/default_redirect.html";
 	else
@@ -101,7 +94,7 @@ void	Server::choose_file(Client &client)
 		this->file.clear();
 		this->file.close();
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
-		fname = checkErrorPages(client.getRequest());
+		fname = checkErrorPages(client);
 		client.setBodyType("text/html");
 		LOG_TERM << "cannot open file!\n";
 		this->file.open(fname.c_str());
@@ -116,36 +109,32 @@ void	Server::choose_file(Client &client)
  * @param request > Request to inspect
  * @return std::string Html error page
  */
-std::string	Server::checkErrorPages(Request &request)
+std::string	Server::checkErrorPages(Client &client)
 {
-	s_conf_server 	*server = &(*this->_srvnamemap)[request.getHost()];
-	s_conf_location	*loc;
-	int				status_code = request.getStatusCode();
-	std::string 	url = url_arg_remove(request.getUrlOriginal(), '/');
+	s_conf_server 	*server = &client.getSrvConf();
+	s_conf_location	*loc = &client.getLocConf();
+	int				status_code = client.getRequest().getStatusCode();
+	std::string 	url = url_arg_remove(client.getRequest().getUrlOriginal(), '/');
 
-	if (server->location[url].err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
+	if (loc->err_pages.count(status_code) > 0) // controllo se location ha l'error page richiesta
 	{
-		loc = &server->location[url];
-		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
+		if (status_code >= 300 && status_code < 400)
 			return ("www/var/errors/default_3xx.html");
-		else if (valid_file(loc->root + server->location[url].err_pages[status_code]))
-			return (loc->root + server->location[url].err_pages[status_code]);
+		else if (valid_file(loc->root + loc->err_pages[status_code]))
+			return (loc->root + loc->err_pages[status_code]);
 		else if (loc->ret_text.empty() == false)
 			return ("www/var/default_redirect.html");
-		else
-			return ("www/var/errors/default.html");
 	}
-	else if (server->err_pages.count(status_code) > 0) // check se non ci sono location
+	if (server->err_pages.count(status_code) > 0) // check se non ci sono location
 	{
-		if (request.getStatusCode() >= 300 && request.getStatusCode() < 400)
+		if (status_code >= 300 && status_code < 400)
 			return ("www/var/errors/default_3xx.html");
 		else if (valid_file(server->root + server->err_pages[status_code]))
 			return (server->root.substr(0, server->root.length() - 1) + server->err_pages[status_code]);
 		else
 			return ("www/var/errors/default.html");
 	}
-	else
-		return ("www/var/errors/default.html");
+	return ("www/var/errors/default.html");
 }
 
 /**

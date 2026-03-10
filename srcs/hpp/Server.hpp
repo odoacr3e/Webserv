@@ -86,7 +86,7 @@ class Server //classe Server(HTTP) -> gestisce piu ip:porta in contemporanea
 		void				createAutoindex(Client &client);
 		void				setupRequestEnvironment(Client &client);
 		std::string			createResponse(Client &client);
-		std::string			checkErrorPages(Request &request);
+		std::string			checkErrorPages(Client &client);
 
 		// NOTE - Methods functions
 		void				runMethod(Client &client);

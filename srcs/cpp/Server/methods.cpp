@@ -291,7 +291,6 @@ void	write_on_ofile(Request &request, std::string file)
 void	choose_post_html(Server &srv, Client &client, std::fstream &file, std::fstream &html)
 {
 	Request &request = client.getRequest();
-	std::string			TEST;
 
 	if (request.getStatusCode() == 200)
 		html.open("www/var/upload/success_upload.html");
@@ -300,8 +299,6 @@ void	choose_post_html(Server &srv, Client &client, std::fstream &file, std::fstr
 	if (file.fail())
 	{
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
-		TEST = srv.checkErrorPages(request);
-		html.open(srv.checkErrorPages(request).c_str());
-		LOG_TERM << "error page open: " << TEST << std::endl;
+		html.open(srv.checkErrorPages(client).c_str());
 	}
 }

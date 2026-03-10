@@ -155,6 +155,7 @@ void	Client::readCgi(Server &srv, s_cgi &cgi)
 		std::cerr << "cgi error\n";
 		if (cgi.pid)
 			{kill(cgi.pid, SIGKILL); cgi.pid = 0;}
+		this->getRequest().fail(HTTP_SE_SERVICE_UNAVAILABLE, "cgi error");
 	}
 	else if (cgi.bytes_read != cgi.output_len)
 		return ;

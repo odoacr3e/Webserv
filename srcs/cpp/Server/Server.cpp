@@ -175,8 +175,11 @@ int	Server::addSocket(int index, e_fd_type type)
 		socket = accept(this->_addrs.data()[index].fd, NULL, NULL);
 	else
 		socket = index;
-	if (socket == -1)
+	if (socket == -1 || socket > MAX_CONNECTION)
+	{
+		close_fd(&socket);
 		throw std::runtime_error("\033[31mconnessione non accettata.\n\033[0m");
+	}
 	polldata = setupPollFd(socket);
 	this->_addrs.push_back(polldata);
 	this->_fd_data[polldata.fd] = fd_data;
@@ -185,7 +188,6 @@ int	Server::addSocket(int index, e_fd_type type)
 		this->_clients[socket] = new Client(socket, this->_addrs.data()[index].fd);
 		this->_clients[socket]->getPollIndex() = (int)this->_addrs.size() - 1;
 		this->_fd_data[polldata.fd].client = this->_clients[socket];
-		//std::cout << WHITE "\nnew client " YELLOW  << polldata.fd << WHITE " accepted\n" RESET;
 	}
 	else if (type == FD_PIPE_WR)
 		this->_addrs.back().events = POLLOUT;

@@ -156,7 +156,7 @@ static void	parseErrorPages(Conf &conf, std::vector<std::string> &list, int line
 		instructionError(list, line, "Uri must start with /");
 	if (conf.getServerBlock().err_pages.count(code) > 0)
 		instructionError(list, line, "error page for this status code already set");
-	conf.getServerBlock().err_pages[code] = url_normalize(list[2]);
+	conf.getServerBlock().err_pages[code] = list[2];
 }
 
 static void	parseMethodsList(Conf &conf, std::vector<std::string> &list, int line)

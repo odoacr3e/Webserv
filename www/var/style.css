@@ -289,8 +289,8 @@ header {
     left: 30px;   /* Distanza dal bordo sinistro */
     
     margin: 0;    /* Rimuove margini di default che potrebbero spostarlo */
-    padding: 12px 20px;
-    font-size: 0.85rem;
+    padding: 14px;
+    font-size: 0.9rem;
     
     /* Stile coerente con il tuo design */
     background: linear-gradient(135deg, #1e3a8a, #334155);

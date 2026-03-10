@@ -141,13 +141,14 @@ void	s_cgi::removeFromPoll(bool is_pipe_out, Server &srv)
 	if (!poll_index)
 		return ;
 	fd_last = srv.getAddrsVector().back().fd;
-	if (srv.getFdData()[fd_last].cgi)
-	{
-		srv.getFdData()[fd_last].cgi->poll_index[0] = this->poll_index[0];
-		srv.getFdData()[fd_last].cgi->poll_index[1] = this->poll_index[1];
-	}
 	if ((size_t)poll_index < srv.getAddrSize())
 		std::swap(srv.getAddrsVector()[poll_index], srv.getAddrsVector().back());
+	if (srv.getFdData()[fd_last].type == FD_CLIENT)
+		srv.getFdData()[fd_last].client->getPollIndex() = poll_index;
+	else if (srv.getFdData()[fd_last].type == FD_PIPE_RD)
+		srv.getFdData()[fd_last].cgi->poll_index[0] = poll_index;
+	else if (srv.getFdData()[fd_last].type == FD_PIPE_WR)
+		srv.getFdData()[fd_last].cgi->poll_index[1] = poll_index;
 	srv.getAddrsVector().pop_back();
 	LOG_TERM << "s_cgi::removeFromPoll() pipe fd: " << this->pipe[0] << "\n";
 	close_fd(&this->pipe[is_pipe_out]);

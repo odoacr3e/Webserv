@@ -168,6 +168,7 @@ std::string	Server::createHtml(Client &client)
 	bool				gen_cookie = client.getLocConf().gen_cookie;
 	bool				cookie_empty = client.getRequest().getCookieKey().empty();
 
+	std::cerr << "error " << status << "\n";
 	response << "HTTP/1.1 "
 	         << status << " "
 	         << http_codes_str[checkValidHttpCode(status)] << "\r\n";

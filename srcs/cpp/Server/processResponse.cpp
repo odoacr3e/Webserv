@@ -103,7 +103,7 @@ void	Server::choose_file(Client &client)
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, this->resp_url + ": File not found!");
 		fname = checkErrorPages(client.getRequest());
 		client.setBodyType("text/html");
-		std::cout << "cannot open file!\n";
+		LOG_TERM << "cannot open file!\n";
 		this->file.open(fname.c_str());
 		if (this->file.fail())
 			this->file.open("www/var/errors/default.html");
@@ -242,6 +242,8 @@ void	Server::assignFileType(Client &client)
 	size_t last_dot = this->resp_url.find_last_of('.');
 	std::string url;
 
+	if (client.getRequest().getStatusCode() != 200)
+		return ;
 	client.setBodyType("text/");
 	if (last_dot != std::string::npos)
 	{

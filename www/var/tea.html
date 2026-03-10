@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waifu Tea Service 🍵</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --primary: #3b82f6;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #f472b6; /* Rosa per il tocco anime */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #334155;
+        }
+
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        p { color: var(--muted); margin-bottom: 2rem; }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #334155, #1e3a8a);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            filter: brightness(1.2);
+        }
+
+        /* Overlay per la Waifu */
+        #tea-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .waifu-card {
+            position: relative;
+            text-align: center;
+        }
+
+        .waifu-card img {
+            max-width: 80vw;
+            max-height: 60vh;
+            border-radius: 20px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        .steam {
+            position: absolute;
+            top: -30px;
+            right: 20%;
+            font-size: 3rem;
+            animation: steamAnim 2s infinite ease-out;
+        }
+
+        .quote {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(244, 114, 182, 0.5);
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            background: transparent;
+            border: 2px solid var(--text);
+            padding: 10px 25px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        @keyframes steamAnim {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Benvenuto al Tea Shop 🍵</h1>
+        <p>Chi vorresti che ti servisse il tè oggi?</p>
+        
+        <div class="btn-group">
+            <button onclick="showWaifu('Rem', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rem', 'Ti ho preparato questo tè con tutto il mio cuore, Subaru-kun... ah no, volevo dire, ospite-kun!')">Rem (Re:Zero)</button>
+            <button onclick="showWaifu('Saber', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Saber', 'Il tè è pronto. Berlo ti darà le forze per la prossima battaglia, Master.')">Saber (Fate)</button>
+            <button onclick="showWaifu('Shinobu', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shinobu', 'Kaka! Un tè delizioso per accompagnare le mie ciambelle. Gradisci?')">Shinobu (Monogatari)</button>
+        </div>
+    </div>
+
+    <div id="tea-overlay">
+        <div class="waifu-card">
+            <div class="steam">♨️</div>
+            <img id="waifu-img" src="" alt="Waifu">
+            <div id="waifu-quote" class="quote"></div>
+        </div>
+        <button class="back-btn" onclick="closeOverlay()">Grazie mille! 🍵</button>
+    </div>
+
+    <script>
+        function showWaifu(name, imgUrl, quote) {
+            document.getElementById('waifu-img').src = imgUrl;
+            document.getElementById('waifu-quote').innerText = quote;
+            document.getElementById('tea-overlay').style.display = 'flex';
+        }
+
+        function closeOverlay() {
+            document.getElementById('tea-overlay').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

@@ -302,6 +302,6 @@ void	choose_post_html(Server &srv, Client &client, std::fstream &file, std::fstr
 		client.getRequest().fail(HTTP_CE_NOT_FOUND, ": html not found!");
 		TEST = srv.checkErrorPages(request);
 		html.open(srv.checkErrorPages(request).c_str());
-		std::cout << "error page open: " << TEST << std::endl;
+		LOG_TERM << "error page open: " << TEST << std::endl;
 	}
 }

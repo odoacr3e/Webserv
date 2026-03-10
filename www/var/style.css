@@ -282,3 +282,35 @@ footer a:hover {
 header {
     position: relative;
 }
+
+.tea-button {
+    position: absolute;
+    top: 20px;    /* Distanza dal bordo superiore */
+    left: 30px;   /* Distanza dal bordo sinistro */
+    
+    margin: 0;    /* Rimuove margini di default che potrebbero spostarlo */
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    
+    /* Stile coerente con il tuo design */
+    background: linear-gradient(135deg, #1e3a8a, #334155);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 10; /* Assicura che stia sopra altri elementi */
+}
+
+/* Effetto hover */
+.tea-button:hover {
+    background: linear-gradient(135deg, #1e40af, #475569);
+    transform: translateY(-2px);
+}
+
+/* Mobile: su schermi piccoli potrebbe sovrapporsi al titolo, 
+   quindi meglio centrarlo o ridurlo */
+@media (max-width: 768px) {
+    .tea-button {
+        position: static; /* Torna nel flusso normale del testo */
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+}

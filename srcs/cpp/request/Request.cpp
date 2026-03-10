@@ -212,6 +212,7 @@ int	Request::fail(e_http_codes code, std::string info)
 	if (this->_fail_msg.empty() == true)
 		this->_fail_msg = "Err";
 	this->setStatusCode(code);
+	this->setBodyType("text/html");
 	return (1);
 }
 

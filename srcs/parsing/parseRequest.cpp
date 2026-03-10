@@ -61,6 +61,8 @@ static int	lineParsing(Request &request, std::string line)
 	request.setUrl(hex_to_char(field));
 	if (request.getUrl().empty() == true)
 		return (request.fail(HTTP_CE_BAD_REQUEST, "URI"));
+	if (request.getUrl().find("🍵") != std::string::npos)
+		return (request.fail(HTTP_CE_IM_TEAPOT));
 	if (getNextFirstLineField(line, field) == 1)
 		return (request.fail(HTTP_CE_BAD_REQUEST, "HTTP version Format"));
 //SECTION - version

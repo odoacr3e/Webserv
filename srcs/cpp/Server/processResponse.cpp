@@ -93,10 +93,10 @@ void	Server::choose_file(Client &client)
 		fname = checkErrorPages(client.getRequest());
 	else if (client.getLocConf().ret_text.empty() == false)
 		fname = "www/var/default_redirect.html";
-	else if (client.getRequest().getRunScriptBool() == false)
+	else
 		fname = this->resp_url.c_str();
 	this->file.open(fname.c_str());
-	if (this->file.fail())
+	if (this->file.fail() && client.getRequest().getRunScriptBool() == false)
 	{
 		this->file.clear();
 		this->file.close();

@@ -105,6 +105,7 @@ int		s_cgi::headerParsing(Client &client)
 	if (bytes <= 0)
 		return (std::cerr << "readCgiErrorSize: " << output << "\n", -1);
 	this->output_len = bytes;
+	client.getBuffer().reserve(this->output_len);
 	this->isParsed = true;
 	return (0);
 }

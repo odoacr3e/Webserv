@@ -1,7 +1,7 @@
 NAME = webserv
 
 CC = c++
-FLAGS = -Wall -Wextra -Werror -g #-D_GLIBCXX_DEBUG
+FLAGS = -Wall -Wextra -Werror -g # -pg -D_GLIBCXX_DEBUG 
 CPPFLAGS = -std=c++98
 DEPFLAGS = -MMD -MP
 
@@ -98,11 +98,6 @@ kill_ports:
 	else \
 		echo "Tutto libero, se po' gioca'."; \
 	fi
-
-comp_prof: FLAGS += -pg
-comp_prof: re
-	@echo "\n[PROFILING MODE] Esegui il server, terminalo con Ctrl+C per generare gmon.out\n"
-	@./$(NAME)
 
 prof:
 	gprof ./$(NAME) gmon.out | c++filt > report.txt;
